@@ -30,10 +30,12 @@ class Slide(Model):
 		slide_data = { "sortingOrder": self.sorting_order, "points": [] }
 
 		for p in Point.gql("WHERE slide = :1 ORDER BY sorting_order ASC", self):
-			slide_data["points"].append(p.to_data())
+			point_data = p.to_data()
+			point_data["URL"] = PointJSONView.url(p)
+			slide_data["points"].append(point_data)
 			
 		slide_data["presentation"] = PresentationJSONView.url(self.presentation)
-			
+		
 		return slide_data
 	
 class Point(Model):
@@ -87,7 +89,7 @@ class AllPresentationsJSONView(w.RequestHandler):
 		json.dump(presentations, self.response.out)
 
 class PresentationJSONView(w.RequestHandler):
-	url_scheme = '/presentations/(at|content_of)/(.*)'
+	url_scheme = '/presentations/(at|content_of)/([^/])*'
 
 	@classmethod
 	def url(self, pres, include_contents_of_slides = False):
@@ -149,8 +151,40 @@ class PresentationLoader(w.RequestHandler):
 		else:
 			self.error(400)
 			self.response.headers['X-IL-ErrorReason'] = "cannot parse JSON into a presentation"
+
+class PointJSONView(w.RequestHandler):
+	url_scheme = '/presentations/at/(.*)/slides/(.*)/points/(.*)'
+	
+	@classmethod
+	def url(self, point):
+		return "/presentations/at/%s/slides/%s/points/%s" % (str(point.slide.presentation.key().id()), str(point.slide.sorting_order), str(point.sorting_order))
+		
+	def get(self, pres, slide_index, point_index):
+		pres = Presentation.key_for_id(long(pres))
+		slide_index = long(slide_index)
+		point_index = long(point_index)
+		
+		s = Slide.gql("WHERE presentation = :1 AND sorting_order = :2", pres, slide_index).get()
+		if s is None:
+			self.response.headers['X-IL-ErrorReason'] = "slide not found"
+			self.response.headers['Content-Type'] = 'text/plain'
+			self.response.out.write("Not found")
+			self.error(404)
+			return
+
+		p = Point.gql("WHERE slide = :1 AND sorting_order = :2", s, point_index).get()
+		if p is None:
+			self.response.headers['X-IL-ErrorReason'] = "point not found in slide"
+			self.response.headers['Content-Type'] = 'text/plain'
+			self.response.out.write("Not found")
+			self.error(404)
+			return
+		
+		self.response.headers['Content-Type'] = 'application/json'
+		json.dump(p.to_data(), self.response.out)
 	
 def append_handlers(list):
+	list.append((PointJSONView.url_scheme, PointJSONView))
 	list.append((SlideJSONView.url_scheme, SlideJSONView))
 	list.append((AllPresentationsJSONView.url_scheme, AllPresentationsJSONView))
 	list.append((PresentationJSONView.url_scheme, PresentationJSONView))
