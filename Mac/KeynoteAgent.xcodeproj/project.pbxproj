@@ -22,7 +22,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 15BC4F811274226E00550BF6 /* Client.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* Client (Mac Framework) */;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = "Client (Mac Framework)";
 		};
 		15BC4FBA127423F600550BF6 /* PBXContainerItemProxy */ = {

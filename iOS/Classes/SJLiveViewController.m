@@ -21,7 +21,9 @@
 - (void) setUpObserving;
 - (void) endObserving;
 
-
+- (NSString *) displayStringForPoint:(SJPoint *)p;
+- (CGFloat) heightForDisplayStringForPoint:(SJPoint *)p;
+- (UIFont *) fontForDisplayStringForPoint:(SJPoint *)p;
 
 @end
 
@@ -177,9 +179,54 @@
 	if (!cell)
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kSJLiveViewCell] autorelease];
 	
-	cell.textLabel.text = (p.indentationValue == 0)? p.text : [NSString stringWithFormat:@"%C %@", 0x2022, p.text];
+	CGRect frame = CGRectMake(10, 0, 300, 0);
+	frame.size.height = [self heightForDisplayStringForPoint:p];
+
+	for (UIView* c in cell.contentView.subviews)
+		[c removeFromSuperview];
+	
+	UILabel* textLabel = [[[UILabel alloc] initWithFrame:frame] autorelease];
+	textLabel.text = [self displayStringForPoint:p];
+	textLabel.numberOfLines = 0;
+	textLabel.contentMode = UIViewContentModeTop;
+	textLabel.highlightedTextColor = [UIColor whiteColor];
+	textLabel.font = [self fontForDisplayStringForPoint:p];
+	
+	[cell.contentView addSubview:textLabel];
 	
 	return cell;
+}
+
+- (UIFont*) fontForDisplayStringForPoint:(SJPoint*) p;
+{
+	return (p.indentationValue == 0)? [UIFont boldSystemFontOfSize:[UIFont systemFontSize]] : [UIFont systemFontOfSize:[UIFont systemFontSize]];
+}
+
+- (NSString*) displayStringForPoint:(SJPoint*) p;
+{
+	return (p.indentationValue == 0)? p.text : [NSString stringWithFormat:@"%C %@", 0x2022, p.text];
+}
+
+- (CGFloat) heightForDisplayStringForPoint:(SJPoint*) p;
+{
+	return [[self displayStringForPoint:p] sizeWithFont:[self fontForDisplayStringForPoint:p] constrainedToSize:CGSizeMake(tableView.bounds.size.width - 20, CGFLOAT_MAX)].height + 40;
+}
+
+- (CGFloat) tableView:(UITableView *)tv heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+	SJPoint* p = [self.currentSlide pointAtIndex:[indexPath row]];
+	return [self heightForDisplayStringForPoint:p];
+}
+
+- (void) tableView:(UITableView *)tv didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	// <#TODO#>
+	UIAlertView* av = [[UIAlertView new] autorelease];
+	av.title = @"DA FARE: UI domande.";
+	[av addButtonWithTitle:@"Chiudi"];
+	[av show];
 }
 
 @end
