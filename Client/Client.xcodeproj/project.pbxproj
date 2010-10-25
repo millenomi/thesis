@@ -1,0 +1,359 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		15BC4F461274216D00550BF6 /* SJSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F3C1274216D00550BF6 /* SJSchema.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		15BC4F471274216D00550BF6 /* SJSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F3D1274216D00550BF6 /* SJSchema.m */; };
+		15BC4F481274216D00550BF6 /* SJLiveSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F3E1274216D00550BF6 /* SJLiveSchema.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		15BC4F491274216D00550BF6 /* SJLiveSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F3F1274216D00550BF6 /* SJLiveSchema.m */; };
+		15BC4F4A1274216D00550BF6 /* SJSlideSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F401274216D00550BF6 /* SJSlideSchema.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		15BC4F4B1274216D00550BF6 /* SJSlideSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F411274216D00550BF6 /* SJSlideSchema.m */; };
+		15BC4F4C1274216D00550BF6 /* SJPointSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F421274216D00550BF6 /* SJPointSchema.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		15BC4F4D1274216D00550BF6 /* SJPointSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F431274216D00550BF6 /* SJPointSchema.m */; };
+		15BC4F4E1274216D00550BF6 /* SJPresentationSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F441274216D00550BF6 /* SJPresentationSchema.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		15BC4F4F1274216D00550BF6 /* SJPresentationSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F451274216D00550BF6 /* SJPresentationSchema.m */; };
+		15BC4F521274217300550BF6 /* SJEndpoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F501274217300550BF6 /* SJEndpoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		15BC4F531274217300550BF6 /* SJEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F511274217300550BF6 /* SJEndpoint.m */; };
+		15BC4F61127421D500550BF6 /* SJClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F60127421D500550BF6 /* SJClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		15BC4F741274222400550BF6 /* ILSensorSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F701274222400550BF6 /* ILSensorSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		15BC4F751274222400550BF6 /* ILSensorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F711274222400550BF6 /* ILSensorSession.m */; };
+		15BC4F761274222400550BF6 /* ILSensorSink.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F721274222400550BF6 /* ILSensorSink.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		15BC4F771274222400550BF6 /* ILSensorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F731274222400550BF6 /* ILSensorSink.m */; };
+		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		15BC4F3C1274216D00550BF6 /* SJSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSchema.h; sourceTree = "<group>"; };
+		15BC4F3D1274216D00550BF6 /* SJSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSchema.m; sourceTree = "<group>"; };
+		15BC4F3E1274216D00550BF6 /* SJLiveSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLiveSchema.h; sourceTree = "<group>"; };
+		15BC4F3F1274216D00550BF6 /* SJLiveSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLiveSchema.m; sourceTree = "<group>"; };
+		15BC4F401274216D00550BF6 /* SJSlideSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSlideSchema.h; sourceTree = "<group>"; };
+		15BC4F411274216D00550BF6 /* SJSlideSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSlideSchema.m; sourceTree = "<group>"; };
+		15BC4F421274216D00550BF6 /* SJPointSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPointSchema.h; sourceTree = "<group>"; };
+		15BC4F431274216D00550BF6 /* SJPointSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPointSchema.m; sourceTree = "<group>"; };
+		15BC4F441274216D00550BF6 /* SJPresentationSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentationSchema.h; sourceTree = "<group>"; };
+		15BC4F451274216D00550BF6 /* SJPresentationSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPresentationSchema.m; sourceTree = "<group>"; };
+		15BC4F501274217300550BF6 /* SJEndpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SJEndpoint.h; path = ../iOS/Classes/SJEndpoint.h; sourceTree = SOURCE_ROOT; };
+		15BC4F511274217300550BF6 /* SJEndpoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SJEndpoint.m; path = ../iOS/Classes/SJEndpoint.m; sourceTree = SOURCE_ROOT; };
+		15BC4F60127421D500550BF6 /* SJClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SJClient.h; path = Classes/SJClient.h; sourceTree = "<group>"; };
+		15BC4F701274222400550BF6 /* ILSensorSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILSensorSession.h; sourceTree = "<group>"; };
+		15BC4F711274222400550BF6 /* ILSensorSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILSensorSession.m; sourceTree = "<group>"; };
+		15BC4F721274222400550BF6 /* ILSensorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILSensorSink.h; sourceTree = "<group>"; };
+		15BC4F731274222400550BF6 /* ILSensorSink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILSensorSink.m; sourceTree = "<group>"; };
+		32DBCF5E0370ADEE00C91783 /* Client_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client_Prefix.pch; sourceTree = "<group>"; };
+		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DC2EF5B0486A6940098B216 /* SJClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SJClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DC2EF560486A6940098B216 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5B0486A6940098B216 /* SJClient.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				15BC4F60127421D500550BF6 /* SJClient.h */,
+				15BC4F3B1274215D00550BF6 /* Classes */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
+				089C1665FE841158C02AAC07 /* Resources */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DFFF38A50411DB9C8B /* Products */,
+			);
+			name = Client;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */,
+				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C1665FE841158C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5A0486A6940098B216 /* Info.plist */,
+				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
+				D2F7E79907B2D74100F64583 /* CoreData.framework */,
+				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		15BC4F3B1274215D00550BF6 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				15BC4F701274222400550BF6 /* ILSensorSession.h */,
+				15BC4F711274222400550BF6 /* ILSensorSession.m */,
+				15BC4F721274222400550BF6 /* ILSensorSink.h */,
+				15BC4F731274222400550BF6 /* ILSensorSink.m */,
+				15BC4F501274217300550BF6 /* SJEndpoint.h */,
+				15BC4F511274217300550BF6 /* SJEndpoint.m */,
+				15BC4F3C1274216D00550BF6 /* SJSchema.h */,
+				15BC4F3D1274216D00550BF6 /* SJSchema.m */,
+				15BC4F3E1274216D00550BF6 /* SJLiveSchema.h */,
+				15BC4F3F1274216D00550BF6 /* SJLiveSchema.m */,
+				15BC4F401274216D00550BF6 /* SJSlideSchema.h */,
+				15BC4F411274216D00550BF6 /* SJSlideSchema.m */,
+				15BC4F421274216D00550BF6 /* SJPointSchema.h */,
+				15BC4F431274216D00550BF6 /* SJPointSchema.m */,
+				15BC4F441274216D00550BF6 /* SJPresentationSchema.h */,
+				15BC4F451274216D00550BF6 /* SJPresentationSchema.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32DBCF5E0370ADEE00C91783 /* Client_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8DC2EF500486A6940098B216 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15BC4F461274216D00550BF6 /* SJSchema.h in Headers */,
+				15BC4F481274216D00550BF6 /* SJLiveSchema.h in Headers */,
+				15BC4F4A1274216D00550BF6 /* SJSlideSchema.h in Headers */,
+				15BC4F4C1274216D00550BF6 /* SJPointSchema.h in Headers */,
+				15BC4F4E1274216D00550BF6 /* SJPresentationSchema.h in Headers */,
+				15BC4F521274217300550BF6 /* SJEndpoint.h in Headers */,
+				15BC4F61127421D500550BF6 /* SJClient.h in Headers */,
+				15BC4F741274222400550BF6 /* ILSensorSession.h in Headers */,
+				15BC4F761274222400550BF6 /* ILSensorSink.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8DC2EF4F0486A6940098B216 /* Client (Mac Framework) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "Client (Mac Framework)" */;
+			buildPhases = (
+				8DC2EF500486A6940098B216 /* Headers */,
+				8DC2EF520486A6940098B216 /* Resources */,
+				8DC2EF540486A6940098B216 /* Sources */,
+				8DC2EF560486A6940098B216 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Client (Mac Framework)";
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = Client;
+			productReference = 8DC2EF5B0486A6940098B216 /* SJClient.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Client" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* Client */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DC2EF4F0486A6940098B216 /* Client (Mac Framework) */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8DC2EF520486A6940098B216 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DC2EF540486A6940098B216 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15BC4F471274216D00550BF6 /* SJSchema.m in Sources */,
+				15BC4F491274216D00550BF6 /* SJLiveSchema.m in Sources */,
+				15BC4F4B1274216D00550BF6 /* SJSlideSchema.m in Sources */,
+				15BC4F4D1274216D00550BF6 /* SJPointSchema.m in Sources */,
+				15BC4F4F1274216D00550BF6 /* SJPresentationSchema.m in Sources */,
+				15BC4F531274217300550BF6 /* SJEndpoint.m in Sources */,
+				15BC4F751274222400550BF6 /* ILSensorSession.m in Sources */,
+				15BC4F771274222400550BF6 /* ILSensorSink.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1667FE841158C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91AE08733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Client_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "@loader_path/../Frameworks";
+				PRODUCT_NAME = SJClient;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		1DEB91AF08733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Client_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "@loader_path/../Frameworks";
+				PRODUCT_NAME = SJClient;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		1DEB91B208733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		1DEB91B308733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "Client (Mac Framework)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91AE08733DA50010E9CD /* Debug */,
+				1DEB91AF08733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Client" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91B208733DA50010E9CD /* Debug */,
+				1DEB91B308733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}
