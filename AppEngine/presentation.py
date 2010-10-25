@@ -21,6 +21,13 @@ class Presentation(Model):
 	@classmethod
 	def key_for_id(self, id):
 		return Key.from_path('Presentation', long(id))
+		
+	@classmethod
+	def get_by_url_id(self, url_id):
+		return self.get(self.key_for_id(url_id))
+		
+	def slide_at_index(self, i):
+		return Slide.gql("WHERE presentation = :1 AND sorting_order = :2", self, long(i)).get()
 	
 class Slide(Model):
 	presentation = ReferenceProperty(Presentation)
@@ -38,11 +45,15 @@ class Slide(Model):
 		
 		return slide_data
 	
+	def point_at_index(self, i):
+		return Point.gql("WHERE slide = :1 AND sorting_order = :2", self, long(i)).get()
+		
 class Point(Model):
 	slide = ReferenceProperty(Slide)
 	text = TextProperty()
 	indentation = IntegerProperty()
 	sorting_order = IntegerProperty()
+	# questions_set = a set of question.Question
 	
 	def to_data(self):
 		return { "text": self.text, "indentation": self.indentation }
@@ -181,7 +192,8 @@ class PointJSONView(w.RequestHandler):
 			return
 		
 		self.response.headers['Content-Type'] = 'application/json'
-		json.dump(p.to_data(), self.response.out)
+		x = p.to_data(); x["slideURL"] = SlideJSONView.url(p.slide)
+		json.dump(x, self.response.out)
 	
 def append_handlers(list):
 	list.append((PointJSONView.url_scheme, PointJSONView))

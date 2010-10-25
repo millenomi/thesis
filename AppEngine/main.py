@@ -16,7 +16,7 @@
 #
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
-import presentation, live
+import presentation, live, question
 import sitewide_settings
 
 class MainHandler(webapp.RequestHandler):
@@ -26,6 +26,7 @@ class MainHandler(webapp.RequestHandler):
 
 def main():
 	handlers = [('/', MainHandler)]
+	question.append_handlers(handlers)
 	presentation.append_handlers(handlers)
 	live.append_handlers(handlers)
 	
