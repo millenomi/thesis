@@ -11,14 +11,23 @@
 
 @implementation SJPointSchema
 
-@dynamic text, indentation;
-
+@dynamic text;
 - validClassForTextKey { return [NSString class]; }
+
+@dynamic indentation;
 - validClassForIndentationKey { return [NSNumber class]; }
 
 - (NSInteger) indentationValue;
 {
 	return self.indentation? [self.indentation integerValue] : 0;
 }
+
+@dynamic URLString;
+- validClassForURLStringKey { return [NSString class]; }
+- (BOOL) isValueOptionalForURLStringKey { return YES; }
+
+@dynamic slideURLString;
+- validClassForSlideURLStringKey { return [NSString class]; }
+- (BOOL) isValueOptionalForSlideURLStringKey { return YES; }
 
 @end

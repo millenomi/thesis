@@ -11,8 +11,6 @@
 		156F244A12734EA9000BC614 /* SJLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F244912734EA9000BC614 /* SJLiveViewController.m */; };
 		156F244C12734FC7000BC614 /* SJLiveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156F244B12734FC7000BC614 /* SJLiveViewController.xib */; };
 		156F246B12735605000BC614 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156F246A12735605000BC614 /* QuartzCore.framework */; };
-		156F24F812735A05000BC614 /* ILSensorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F24F512735A05000BC614 /* ILSensorSession.m */; };
-		156F24F912735A05000BC614 /* ILSensorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F24F712735A05000BC614 /* ILSensorSink.m */; };
 		156F27D612703486005C6F71 /* SJLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F27D512703486005C6F71 /* SJLive.m */; };
 		156F28CA1270DF2B005C6F71 /* ILManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F28C91270DF2B005C6F71 /* ILManagedObject.m */; };
 		15FD03D4126DB15900353B83 /* SJPresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD03D3126DB15900353B83 /* SJPresentation.m */; };
@@ -58,10 +56,6 @@
 		156F244912734EA9000BC614 /* SJLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLiveViewController.m; sourceTree = "<group>"; };
 		156F244B12734FC7000BC614 /* SJLiveViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJLiveViewController.xib; sourceTree = "<group>"; };
 		156F246A12735605000BC614 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		156F24F412735A05000BC614 /* ILSensorSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILSensorSession.h; sourceTree = "<group>"; };
-		156F24F512735A05000BC614 /* ILSensorSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILSensorSession.m; sourceTree = "<group>"; };
-		156F24F612735A05000BC614 /* ILSensorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILSensorSink.h; sourceTree = "<group>"; };
-		156F24F712735A05000BC614 /* ILSensorSink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILSensorSink.m; sourceTree = "<group>"; };
 		156F27D412703486005C6F71 /* SJLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLive.h; sourceTree = "<group>"; };
 		156F27D512703486005C6F71 /* SJLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLive.m; sourceTree = "<group>"; };
 		156F28C81270DF2B005C6F71 /* ILManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILManagedObject.h; sourceTree = "<group>"; };
@@ -106,7 +100,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				156F24FA12735A07000BC614 /* Telemetry */,
 				156F244712734E24000BC614 /* Views */,
 				15FD03D1126DB14900353B83 /* Model */,
 				1D3623240D0F684500981E51 /* SJAppDelegate.h */,
@@ -132,17 +125,6 @@
 				156F244B12734FC7000BC614 /* SJLiveViewController.xib */,
 			);
 			name = Views;
-			sourceTree = "<group>";
-		};
-		156F24FA12735A07000BC614 /* Telemetry */ = {
-			isa = PBXGroup;
-			children = (
-				156F24F412735A05000BC614 /* ILSensorSession.h */,
-				156F24F512735A05000BC614 /* ILSensorSession.m */,
-				156F24F612735A05000BC614 /* ILSensorSink.h */,
-				156F24F712735A05000BC614 /* ILSensorSink.m */,
-			);
-			name = Telemetry;
 			sourceTree = "<group>";
 		};
 		15FD03D1126DB14900353B83 /* Model */ = {
@@ -311,8 +293,6 @@
 				156F27D612703486005C6F71 /* SJLive.m in Sources */,
 				156F28CA1270DF2B005C6F71 /* ILManagedObject.m in Sources */,
 				156F244A12734EA9000BC614 /* SJLiveViewController.m in Sources */,
-				156F24F812735A05000BC614 /* ILSensorSession.m in Sources */,
-				156F24F912735A05000BC614 /* ILSensorSink.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +321,10 @@
 					"$(INFINITELABS_TOOLS)",
 				);
 				INFOPLIST_FILE = "Subject-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = Subject;
 			};
 			name = Debug;
@@ -357,6 +341,10 @@
 					"$(INFINITELABS_TOOLS)",
 				);
 				INFOPLIST_FILE = "Subject-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = Subject;
 				VALIDATE_PRODUCT = YES;
 			};

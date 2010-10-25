@@ -16,4 +16,7 @@
 
 @property(readonly) NSInteger indentationValue;
 
+@property(readonly, getter=URL) NSString* URLString;
+@property(readonly, getter=slideURL) NSString* slideURLString;
+
 @end
