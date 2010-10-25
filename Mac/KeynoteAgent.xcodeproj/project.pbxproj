@@ -25,6 +25,13 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = "Client (Mac Framework)";
 		};
+		1544377812759CB5003197B3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15BC4F811274226E00550BF6 /* Client.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1544377412759CB4003197B3 /* libClient (iOS library).a */;
+			remoteInfo = "Client (iOS library)";
+		};
 		15BC4FBA127423F600550BF6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15BC4F811274226E00550BF6 /* Client.xcodeproj */;
@@ -111,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				15BC4FBB127423F600550BF6 /* SJClient.framework */,
+				1544377912759CB5003197B3 /* libClient (iOS library).a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -220,6 +228,14 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		1544377912759CB5003197B3 /* libClient (iOS library).a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			name = "libClient (iOS library).a";
+			path = "build/Debug/libClient (iOS library).a";
+			remoteRef = 1544377812759CB5003197B3 /* PBXContainerItemProxy */;
+			sourceTree = "<group>";
+		};
 		15BC4FBB127423F600550BF6 /* SJClient.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;

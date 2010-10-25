@@ -13,6 +13,8 @@
 #import "SJSlide.h"
 #import "SJPoint.h"
 
+#import "SJClient.h"
+
 @protocol SJLiveDelegate;
 
 

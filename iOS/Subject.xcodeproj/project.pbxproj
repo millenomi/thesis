@@ -7,22 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		156F23D0127343A6000BC614 /* SJPresentationSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F23CF127343A6000BC614 /* SJPresentationSchema.m */; };
+		154437B112759D88003197B3 /* libClient-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 154437B012759D80003197B3 /* libClient-iOS.a */; };
 		156F244A12734EA9000BC614 /* SJLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F244912734EA9000BC614 /* SJLiveViewController.m */; };
 		156F244C12734FC7000BC614 /* SJLiveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156F244B12734FC7000BC614 /* SJLiveViewController.xib */; };
 		156F246B12735605000BC614 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156F246A12735605000BC614 /* QuartzCore.framework */; };
 		156F24F812735A05000BC614 /* ILSensorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F24F512735A05000BC614 /* ILSensorSession.m */; };
 		156F24F912735A05000BC614 /* ILSensorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F24F712735A05000BC614 /* ILSensorSink.m */; };
 		156F27D612703486005C6F71 /* SJLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F27D512703486005C6F71 /* SJLive.m */; };
-		156F27D9127034C5005C6F71 /* SJEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F27D8127034C5005C6F71 /* SJEndpoint.m */; };
-		156F283312703EC4005C6F71 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F282E12703EC4005C6F71 /* NSObject+SBJSON.m */; };
-		156F283412703EC4005C6F71 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F283012703EC4005C6F71 /* NSString+SBJSON.m */; };
-		156F283512703EC4005C6F71 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F283212703EC4005C6F71 /* SBJSON.m */; };
 		156F28CA1270DF2B005C6F71 /* ILManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F28C91270DF2B005C6F71 /* ILManagedObject.m */; };
-		15A3A6D7127172930064E3A6 /* SJSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A3A6D6127172930064E3A6 /* SJSchema.m */; };
-		15A3A82F127195490064E3A6 /* SJLiveSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A3A82E127195490064E3A6 /* SJLiveSchema.m */; };
-		15A3A832127195700064E3A6 /* SJSlideSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A3A831127195700064E3A6 /* SJSlideSchema.m */; };
-		15A3A8FB1271B41E0064E3A6 /* SJPointSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A3A8FA1271B41E0064E3A6 /* SJPointSchema.m */; };
 		15FD03D4126DB15900353B83 /* SJPresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD03D3126DB15900353B83 /* SJPresentation.m */; };
 		15FD03DC126DB29D00353B83 /* SJSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD03DB126DB29D00353B83 /* SJSlide.m */; };
 		15FD03DF126DB2DA00353B83 /* SJPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD03DE126DB2DA00353B83 /* SJPoint.m */; };
@@ -36,9 +28,32 @@
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		154437AD12759D80003197B3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 154437A812759D80003197B3 /* Client.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* SJClient */;
+			remoteInfo = "Client (Mac Framework)";
+		};
+		154437AF12759D80003197B3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 154437A812759D80003197B3 /* Client.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1544377412759CB4003197B3 /* libClient-iOS.a */;
+			remoteInfo = "Client (iOS Library)";
+		};
+		154437B612759DD2003197B3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 154437A812759D80003197B3 /* Client.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1544377312759CB4003197B3 /* Client (iOS Library) */;
+			remoteInfo = "Client (iOS Library)";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		156F23CE127343A6000BC614 /* SJPresentationSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentationSchema.h; sourceTree = "<group>"; };
-		156F23CF127343A6000BC614 /* SJPresentationSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPresentationSchema.m; sourceTree = "<group>"; };
+		154437A812759D80003197B3 /* Client.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Client.xcodeproj; path = ../Client/Client.xcodeproj; sourceTree = SOURCE_ROOT; };
 		156F244812734EA9000BC614 /* SJLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLiveViewController.h; sourceTree = "<group>"; };
 		156F244912734EA9000BC614 /* SJLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLiveViewController.m; sourceTree = "<group>"; };
 		156F244B12734FC7000BC614 /* SJLiveViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJLiveViewController.xib; sourceTree = "<group>"; };
@@ -49,25 +64,8 @@
 		156F24F712735A05000BC614 /* ILSensorSink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILSensorSink.m; sourceTree = "<group>"; };
 		156F27D412703486005C6F71 /* SJLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLive.h; sourceTree = "<group>"; };
 		156F27D512703486005C6F71 /* SJLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLive.m; sourceTree = "<group>"; };
-		156F27D7127034C5005C6F71 /* SJEndpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJEndpoint.h; sourceTree = "<group>"; };
-		156F27D8127034C5005C6F71 /* SJEndpoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJEndpoint.m; sourceTree = "<group>"; };
-		156F282C12703EC4005C6F71 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
-		156F282D12703EC4005C6F71 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
-		156F282E12703EC4005C6F71 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
-		156F282F12703EC4005C6F71 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
-		156F283012703EC4005C6F71 /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
-		156F283112703EC4005C6F71 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
-		156F283212703EC4005C6F71 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
 		156F28C81270DF2B005C6F71 /* ILManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILManagedObject.h; sourceTree = "<group>"; };
 		156F28C91270DF2B005C6F71 /* ILManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILManagedObject.m; sourceTree = "<group>"; };
-		15A3A6D5127172930064E3A6 /* SJSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSchema.h; sourceTree = "<group>"; };
-		15A3A6D6127172930064E3A6 /* SJSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSchema.m; sourceTree = "<group>"; };
-		15A3A82D127195490064E3A6 /* SJLiveSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLiveSchema.h; sourceTree = "<group>"; };
-		15A3A82E127195490064E3A6 /* SJLiveSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLiveSchema.m; sourceTree = "<group>"; };
-		15A3A830127195700064E3A6 /* SJSlideSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSlideSchema.h; sourceTree = "<group>"; };
-		15A3A831127195700064E3A6 /* SJSlideSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSlideSchema.m; sourceTree = "<group>"; };
-		15A3A8F91271B41E0064E3A6 /* SJPointSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPointSchema.h; sourceTree = "<group>"; };
-		15A3A8FA1271B41E0064E3A6 /* SJPointSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPointSchema.m; sourceTree = "<group>"; };
 		15FD03D2126DB15900353B83 /* SJPresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentation.h; sourceTree = "<group>"; };
 		15FD03D3126DB15900353B83 /* SJPresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPresentation.m; sourceTree = "<group>"; };
 		15FD03DA126DB29D00353B83 /* SJSlide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSlide.h; sourceTree = "<group>"; };
@@ -93,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				154437B112759D88003197B3 /* libClient-iOS.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -109,12 +108,20 @@
 			children = (
 				156F24FA12735A07000BC614 /* Telemetry */,
 				156F244712734E24000BC614 /* Views */,
-				156F282B12703EC4005C6F71 /* SBJSON */,
 				15FD03D1126DB14900353B83 /* Model */,
 				1D3623240D0F684500981E51 /* SJAppDelegate.h */,
 				1D3623250D0F684500981E51 /* SJAppDelegate.m */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		154437A912759D80003197B3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				154437AE12759D80003197B3 /* SJClient */,
+				154437B012759D80003197B3 /* libClient-iOS.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		156F244712734E24000BC614 /* Views */ = {
@@ -138,41 +145,9 @@
 			name = Telemetry;
 			sourceTree = "<group>";
 		};
-		156F282B12703EC4005C6F71 /* SBJSON */ = {
-			isa = PBXGroup;
-			children = (
-				156F282C12703EC4005C6F71 /* JSON.h */,
-				156F282D12703EC4005C6F71 /* NSObject+SBJSON.h */,
-				156F282E12703EC4005C6F71 /* NSObject+SBJSON.m */,
-				156F282F12703EC4005C6F71 /* NSString+SBJSON.h */,
-				156F283012703EC4005C6F71 /* NSString+SBJSON.m */,
-				156F283112703EC4005C6F71 /* SBJSON.h */,
-				156F283212703EC4005C6F71 /* SBJSON.m */,
-			);
-			path = SBJSON;
-			sourceTree = "<group>";
-		};
-		15A3A6D4127172890064E3A6 /* JSON Schemas */ = {
-			isa = PBXGroup;
-			children = (
-				15A3A6D5127172930064E3A6 /* SJSchema.h */,
-				15A3A6D6127172930064E3A6 /* SJSchema.m */,
-				15A3A82D127195490064E3A6 /* SJLiveSchema.h */,
-				15A3A82E127195490064E3A6 /* SJLiveSchema.m */,
-				15A3A830127195700064E3A6 /* SJSlideSchema.h */,
-				15A3A831127195700064E3A6 /* SJSlideSchema.m */,
-				15A3A8F91271B41E0064E3A6 /* SJPointSchema.h */,
-				15A3A8FA1271B41E0064E3A6 /* SJPointSchema.m */,
-				156F23CE127343A6000BC614 /* SJPresentationSchema.h */,
-				156F23CF127343A6000BC614 /* SJPresentationSchema.m */,
-			);
-			name = "JSON Schemas";
-			sourceTree = "<group>";
-		};
 		15FD03D1126DB14900353B83 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				15A3A6D4127172890064E3A6 /* JSON Schemas */,
 				15FD03D2126DB15900353B83 /* SJPresentation.h */,
 				15FD03D3126DB15900353B83 /* SJPresentation.m */,
 				15FD03DA126DB29D00353B83 /* SJSlide.h */,
@@ -181,8 +156,6 @@
 				15FD03DE126DB2DA00353B83 /* SJPoint.m */,
 				156F27D412703486005C6F71 /* SJLive.h */,
 				156F27D512703486005C6F71 /* SJLive.m */,
-				156F27D7127034C5005C6F71 /* SJEndpoint.h */,
-				156F27D8127034C5005C6F71 /* SJEndpoint.m */,
 				156F28C81270DF2B005C6F71 /* ILManagedObject.h */,
 				156F28C91270DF2B005C6F71 /* ILManagedObject.m */,
 			);
@@ -200,6 +173,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				154437A812759D80003197B3 /* Client.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -254,6 +228,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				154437B712759DD2003197B3 /* PBXTargetDependency */,
 			);
 			name = Subject;
 			productName = Subject;
@@ -280,12 +255,35 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 154437A912759D80003197B3 /* Products */;
+					ProjectRef = 154437A812759D80003197B3 /* Client.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* Subject */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		154437AE12759D80003197B3 /* SJClient */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SJClient;
+			remoteRef = 154437AD12759D80003197B3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		154437B012759D80003197B3 /* libClient-iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libClient-iOS.a";
+			remoteRef = 154437AF12759D80003197B3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1D60588D0D05DD3D006BFB54 /* Resources */ = {
@@ -311,16 +309,7 @@
 				15FD03DC126DB29D00353B83 /* SJSlide.m in Sources */,
 				15FD03DF126DB2DA00353B83 /* SJPoint.m in Sources */,
 				156F27D612703486005C6F71 /* SJLive.m in Sources */,
-				156F27D9127034C5005C6F71 /* SJEndpoint.m in Sources */,
-				156F283312703EC4005C6F71 /* NSObject+SBJSON.m in Sources */,
-				156F283412703EC4005C6F71 /* NSString+SBJSON.m in Sources */,
-				156F283512703EC4005C6F71 /* SBJSON.m in Sources */,
 				156F28CA1270DF2B005C6F71 /* ILManagedObject.m in Sources */,
-				15A3A6D7127172930064E3A6 /* SJSchema.m in Sources */,
-				15A3A82F127195490064E3A6 /* SJLiveSchema.m in Sources */,
-				15A3A832127195700064E3A6 /* SJSlideSchema.m in Sources */,
-				15A3A8FB1271B41E0064E3A6 /* SJPointSchema.m in Sources */,
-				156F23D0127343A6000BC614 /* SJPresentationSchema.m in Sources */,
 				156F244A12734EA9000BC614 /* SJLiveViewController.m in Sources */,
 				156F24F812735A05000BC614 /* ILSensorSession.m in Sources */,
 				156F24F912735A05000BC614 /* ILSensorSink.m in Sources */,
@@ -328,6 +317,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		154437B712759DD2003197B3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Client (iOS Library)";
+			targetProxy = 154437B612759DD2003197B3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
@@ -339,7 +336,10 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Subject_Prefix.pch;
-				HEADER_SEARCH_PATHS = "$(INFINITELABS_TOOLS)";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../Client/Classes",
+					"$(INFINITELABS_TOOLS)",
+				);
 				INFOPLIST_FILE = "Subject-Info.plist";
 				PRODUCT_NAME = Subject;
 			};
@@ -352,7 +352,10 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Subject_Prefix.pch;
-				HEADER_SEARCH_PATHS = "$(INFINITELABS_TOOLS)";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../Client/Classes",
+					"$(INFINITELABS_TOOLS)",
+				);
 				INFOPLIST_FILE = "Subject-Info.plist";
 				PRODUCT_NAME = Subject;
 				VALIDATE_PRODUCT = YES;
