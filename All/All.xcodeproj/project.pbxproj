@@ -1,0 +1,278 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		15D7A7B612772C49002B3842 /* All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 15D7A7C112772C51002B3842 /* Build configuration list for PBXAggregateTarget "All" */;
+			buildPhases = (
+			);
+			dependencies = (
+				15D7A7BA12772C4E002B3842 /* PBXTargetDependency */,
+				15D7A7BC12772C4E002B3842 /* PBXTargetDependency */,
+				15D7A7BE12772C4E002B3842 /* PBXTargetDependency */,
+				15D7A7C012772C4E002B3842 /* PBXTargetDependency */,
+			);
+			name = All;
+			productName = All;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		15D7A7A012772C18002B3842 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15D7A79412772C17002B3842 /* Subject.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1D6058910D05DD3D006BFB54 /* Subject.app */;
+			remoteInfo = Subject;
+		};
+		15D7A7AA12772C1E002B3842 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15D7A7A212772C1E002B3842 /* KeynoteAgent.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D1107320486CEB800E47090 /* KeynoteAgent.app */;
+			remoteInfo = KeynoteAgent;
+		};
+		15D7A7B112772C25002B3842 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15D7A7AC12772C25002B3842 /* Client.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* SJClient.framework */;
+			remoteInfo = "Client (Mac Framework)";
+		};
+		15D7A7B312772C25002B3842 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15D7A7AC12772C25002B3842 /* Client.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1544377412759CB4003197B3 /* libClient-iOS.a */;
+			remoteInfo = "Client (iOS Library)";
+		};
+		15D7A7B912772C4E002B3842 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15D7A7AC12772C25002B3842 /* Client.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* Client (Mac Framework) */;
+			remoteInfo = "Client (Mac Framework)";
+		};
+		15D7A7BB12772C4E002B3842 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15D7A7AC12772C25002B3842 /* Client.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1544377312759CB4003197B3 /* Client (iOS Library) */;
+			remoteInfo = "Client (iOS Library)";
+		};
+		15D7A7BD12772C4E002B3842 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15D7A79412772C17002B3842 /* Subject.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1D6058900D05DD3D006BFB54 /* Subject */;
+			remoteInfo = Subject;
+		};
+		15D7A7BF12772C4E002B3842 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15D7A7A212772C1E002B3842 /* KeynoteAgent.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D1107260486CEB800E47090 /* KeynoteAgent */;
+			remoteInfo = KeynoteAgent;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		15D7A79412772C17002B3842 /* Subject.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Subject.xcodeproj; path = ../iOS/Subject.xcodeproj; sourceTree = SOURCE_ROOT; };
+		15D7A7A212772C1E002B3842 /* KeynoteAgent.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KeynoteAgent.xcodeproj; path = ../Mac/KeynoteAgent.xcodeproj; sourceTree = SOURCE_ROOT; };
+		15D7A7AC12772C25002B3842 /* Client.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Client.xcodeproj; path = ../Client/Client.xcodeproj; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		15D7A78612772C00002B3842 = {
+			isa = PBXGroup;
+			children = (
+				15D7A7AC12772C25002B3842 /* Client.xcodeproj */,
+				15D7A7A212772C1E002B3842 /* KeynoteAgent.xcodeproj */,
+				15D7A79412772C17002B3842 /* Subject.xcodeproj */,
+			);
+			sourceTree = "<group>";
+		};
+		15D7A79512772C17002B3842 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				15D7A7A112772C18002B3842 /* Subject.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		15D7A7A312772C1E002B3842 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				15D7A7AB12772C1E002B3842 /* KeynoteAgent.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		15D7A7AD12772C25002B3842 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				15D7A7B212772C25002B3842 /* SJClient.framework */,
+				15D7A7B412772C25002B3842 /* libClient-iOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		15D7A78812772C00002B3842 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 15D7A78B12772C00002B3842 /* Build configuration list for PBXProject "All" */;
+			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 15D7A78612772C00002B3842;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 15D7A7AD12772C25002B3842 /* Products */;
+					ProjectRef = 15D7A7AC12772C25002B3842 /* Client.xcodeproj */;
+				},
+				{
+					ProductGroup = 15D7A7A312772C1E002B3842 /* Products */;
+					ProjectRef = 15D7A7A212772C1E002B3842 /* KeynoteAgent.xcodeproj */;
+				},
+				{
+					ProductGroup = 15D7A79512772C17002B3842 /* Products */;
+					ProjectRef = 15D7A79412772C17002B3842 /* Subject.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				15D7A7B612772C49002B3842 /* All */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		15D7A7A112772C18002B3842 /* Subject.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Subject.app;
+			remoteRef = 15D7A7A012772C18002B3842 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		15D7A7AB12772C1E002B3842 /* KeynoteAgent.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = KeynoteAgent.app;
+			remoteRef = 15D7A7AA12772C1E002B3842 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		15D7A7B212772C25002B3842 /* SJClient.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SJClient.framework;
+			remoteRef = 15D7A7B112772C25002B3842 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		15D7A7B412772C25002B3842 /* libClient-iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libClient-iOS.a";
+			remoteRef = 15D7A7B312772C25002B3842 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXTargetDependency section */
+		15D7A7BA12772C4E002B3842 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Client (Mac Framework)";
+			targetProxy = 15D7A7B912772C4E002B3842 /* PBXContainerItemProxy */;
+		};
+		15D7A7BC12772C4E002B3842 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Client (iOS Library)";
+			targetProxy = 15D7A7BB12772C4E002B3842 /* PBXContainerItemProxy */;
+		};
+		15D7A7BE12772C4E002B3842 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Subject;
+			targetProxy = 15D7A7BD12772C4E002B3842 /* PBXContainerItemProxy */;
+		};
+		15D7A7C012772C4E002B3842 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KeynoteAgent;
+			targetProxy = 15D7A7BF12772C4E002B3842 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		15D7A78912772C00002B3842 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		15D7A78A12772C00002B3842 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+			};
+			name = Release;
+		};
+		15D7A7B712772C4A002B3842 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = All;
+			};
+			name = Debug;
+		};
+		15D7A7B812772C4A002B3842 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = All;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		15D7A78B12772C00002B3842 /* Build configuration list for PBXProject "All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15D7A78912772C00002B3842 /* Debug */,
+				15D7A78A12772C00002B3842 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		15D7A7C112772C51002B3842 /* Build configuration list for PBXAggregateTarget "All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15D7A7B712772C4A002B3842 /* Debug */,
+				15D7A7B812772C4A002B3842 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 15D7A78812772C00002B3842 /* Project object */;
+}
