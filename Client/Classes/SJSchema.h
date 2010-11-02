@@ -68,3 +68,10 @@ enum {
 // - (BOOL) isValueOptionalForXYZKey { return YES; }
 
 @end
+
+@class SJEndpoint;
+@interface SJSchema (SJLiveLoading)
+
++ (void) contentsOfURL:(id) stringOrURL ofEndpoint:(SJEndpoint*) endpoint completionHandler:(void (^)(id s)) completion failureHandler:(void (^)(NSError* e)) failure;
+
+@end

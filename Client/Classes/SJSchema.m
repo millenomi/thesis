@@ -8,6 +8,7 @@
 
 #import "SJSchema.h"
 #import <objc/runtime.h>
+#import "SJEndpoint.h"
 
 CF_INLINE NSString* SJStringByUppercasingFirstLetter(NSString* x) {
 	return [[[x substringToIndex:1] uppercaseString] stringByAppendingString:[x substringFromIndex:1]];
@@ -293,6 +294,36 @@ CF_INLINE NSString* SJStringByUppercasingFirstLetter(NSString* x) {
 - (NSString *) description;
 {
 	return [NSString stringWithFormat:@"%@ (missing = %@, values = %@)", [super description], unspecifiedOptionalValues, values];
+}
+
+@end
+
+
+@implementation SJSchema (SJLiveLoading)
+
++ (void) contentsOfURL:(id) stringOrURL ofEndpoint:(SJEndpoint*) endpoint completionHandler:(void (^)(id s)) completion failureHandler:(void (^)(NSError* e)) failure;
+{
+	[endpoint beginDownloadingFromURL:stringOrURL completionHandler:^(id <SJRequest> req) {
+		
+		if (req.error) {
+			if (failure)
+				failure(req.error);
+			return;
+		}
+		
+		if (!req.JSONValue) {
+			if (failure)
+				failure(nil); // TODO appropriate error
+			return;
+		}
+		
+		NSError* e;
+		id x = [[[self alloc] initWithJSONDictionaryValue:req.JSONValue error:&e] autorelease];
+		if (x && completion)
+			completion(x);
+		else if (!x && failure)
+			failure(e);
+	}];
 }
 
 @end
