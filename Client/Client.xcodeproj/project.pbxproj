@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		150044151280702400E4BF1D /* SJQuestionSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 150044131280702400E4BF1D /* SJQuestionSchema.h */; };
+		150044161280702400E4BF1D /* SJQuestionSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 150044141280702400E4BF1D /* SJQuestionSchema.m */; };
+		150044171280702400E4BF1D /* SJQuestionSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 150044131280702400E4BF1D /* SJQuestionSchema.h */; };
+		150044181280702400E4BF1D /* SJQuestionSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 150044141280702400E4BF1D /* SJQuestionSchema.m */; };
 		1544376412759C90003197B3 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544375D12759C90003197B3 /* JSON.h */; };
 		1544376512759C90003197B3 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544375E12759C90003197B3 /* NSObject+SBJSON.h */; };
 		1544376612759C90003197B3 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1544375F12759C90003197B3 /* NSObject+SBJSON.m */; };
@@ -65,6 +69,8 @@
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		150044131280702400E4BF1D /* SJQuestionSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJQuestionSchema.h; sourceTree = "<group>"; };
+		150044141280702400E4BF1D /* SJQuestionSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJQuestionSchema.m; sourceTree = "<group>"; };
 		1544375D12759C90003197B3 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		1544375E12759C90003197B3 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		1544375F12759C90003197B3 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -210,6 +216,8 @@
 				15BC4F431274216D00550BF6 /* SJPointSchema.m */,
 				15BC4F441274216D00550BF6 /* SJPresentationSchema.h */,
 				15BC4F451274216D00550BF6 /* SJPresentationSchema.m */,
+				150044131280702400E4BF1D /* SJQuestionSchema.h */,
+				150044141280702400E4BF1D /* SJQuestionSchema.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -242,6 +250,7 @@
 				1544379412759CF6003197B3 /* NSObject+SBJSON.h in Headers */,
 				1544379512759CF6003197B3 /* NSString+SBJSON.h in Headers */,
 				1544379612759CF6003197B3 /* SBJSON.h in Headers */,
+				150044171280702400E4BF1D /* SJQuestionSchema.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +271,7 @@
 				1544376512759C90003197B3 /* NSObject+SBJSON.h in Headers */,
 				1544376712759C90003197B3 /* NSString+SBJSON.h in Headers */,
 				1544376912759C90003197B3 /* SBJSON.h in Headers */,
+				150044151280702400E4BF1D /* SJQuestionSchema.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +367,7 @@
 				1544378412759CC2003197B3 /* NSObject+SBJSON.m in Sources */,
 				1544378512759CC2003197B3 /* NSString+SBJSON.m in Sources */,
 				1544378612759CC2003197B3 /* SBJSON.m in Sources */,
+				150044181280702400E4BF1D /* SJQuestionSchema.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +386,7 @@
 				1544376612759C90003197B3 /* NSObject+SBJSON.m in Sources */,
 				1544376812759C90003197B3 /* NSString+SBJSON.m in Sources */,
 				1544376A12759C90003197B3 /* SBJSON.m in Sources */,
+				150044161280702400E4BF1D /* SJQuestionSchema.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

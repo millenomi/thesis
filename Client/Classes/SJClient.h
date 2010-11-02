@@ -7,5 +7,6 @@
 	#import "SJSlideSchema.h"
 	#import "SJPointSchema.h"
 	#import "SJPresentationSchema.h"
+	#import "SJQuestionSchema.h"
 
 #endif
