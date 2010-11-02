@@ -31,26 +31,27 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 154437A812759D80003197B3 /* Client.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* SJClient */;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = "Client (Mac Framework)";
 		};
 		154437AF12759D80003197B3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 154437A812759D80003197B3 /* Client.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 1544377412759CB4003197B3 /* libClient-iOS.a */;
+			remoteGlobalIDString = 1544377412759CB4003197B3;
 			remoteInfo = "Client (iOS Library)";
 		};
 		154437B612759DD2003197B3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 154437A812759D80003197B3 /* Client.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 1544377312759CB4003197B3 /* Client (iOS Library) */;
+			remoteGlobalIDString = 1544377312759CB4003197B3;
 			remoteInfo = "Client (iOS Library)";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		150044241280711400E4BF1D /* libClient-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libClient-iOS.a"; path = "build/Debug/libClient-iOS.a"; sourceTree = "<group>"; };
 		154437A812759D80003197B3 /* Client.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Client.xcodeproj; path = ../Client/Client.xcodeproj; sourceTree = SOURCE_ROOT; };
 		156F244812734EA9000BC614 /* SJLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLiveViewController.h; sourceTree = "<group>"; };
 		156F244912734EA9000BC614 /* SJLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLiveViewController.m; sourceTree = "<group>"; };
@@ -148,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* Subject.app */,
+				150044241280711400E4BF1D /* libClient-iOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -359,7 +361,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -373,7 +375,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};

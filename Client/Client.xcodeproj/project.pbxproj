@@ -6,8 +6,23 @@
 	objectVersion = 45;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		15004438128071E400E4BF1D /* Client (All) */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 1500445C1280724F00E4BF1D /* Build configuration list for PBXAggregateTarget "Client (All)" */;
+			buildPhases = (
+			);
+			dependencies = (
+				1500443D128071E900E4BF1D /* PBXTargetDependency */,
+				1500443F128071E900E4BF1D /* PBXTargetDependency */,
+			);
+			name = "Client (All)";
+			productName = "Client (All)";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
-		150044151280702400E4BF1D /* SJQuestionSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 150044131280702400E4BF1D /* SJQuestionSchema.h */; };
+		150044151280702400E4BF1D /* SJQuestionSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 150044131280702400E4BF1D /* SJQuestionSchema.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		150044161280702400E4BF1D /* SJQuestionSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 150044141280702400E4BF1D /* SJQuestionSchema.m */; };
 		150044171280702400E4BF1D /* SJQuestionSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 150044131280702400E4BF1D /* SJQuestionSchema.h */; };
 		150044181280702400E4BF1D /* SJQuestionSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 150044141280702400E4BF1D /* SJQuestionSchema.m */; };
@@ -64,6 +79,23 @@
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		1500443C128071E900E4BF1D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* Client (Mac Framework) */;
+			remoteInfo = "Client (Mac Framework)";
+		};
+		1500443E128071E900E4BF1D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1544377312759CB4003197B3 /* Client (iOS Library) */;
+			remoteInfo = "Client (iOS Library)";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -99,7 +131,7 @@
 		15BC4F731274222400550BF6 /* ILSensorSink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILSensorSink.m; sourceTree = "<group>"; };
 		32DBCF5E0370ADEE00C91783 /* Client_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client_Prefix.pch; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8DC2EF5B0486A6940098B216 /* SJClient */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.framework; path = SJClient; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DC2EF5B0486A6940098B216 /* SJClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SJClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -126,7 +158,7 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8DC2EF5B0486A6940098B216 /* SJClient */,
+				8DC2EF5B0486A6940098B216 /* SJClient.framework */,
 				1544377412759CB4003197B3 /* libClient-iOS.a */,
 			);
 			name = Products;
@@ -311,7 +343,7 @@
 			name = "Client (Mac Framework)";
 			productInstallPath = "$(HOME)/Library/Frameworks";
 			productName = Client;
-			productReference = 8DC2EF5B0486A6940098B216 /* SJClient */;
+			productReference = 8DC2EF5B0486A6940098B216 /* SJClient.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -336,6 +368,7 @@
 			targets = (
 				8DC2EF4F0486A6940098B216 /* Client (Mac Framework) */,
 				1544377312759CB4003197B3 /* Client (iOS Library) */,
+				15004438128071E400E4BF1D /* Client (All) */,
 			);
 		};
 /* End PBXProject section */
@@ -392,6 +425,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		1500443D128071E900E4BF1D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* Client (Mac Framework) */;
+			targetProxy = 1500443C128071E900E4BF1D /* PBXContainerItemProxy */;
+		};
+		1500443F128071E900E4BF1D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1544377312759CB4003197B3 /* Client (iOS Library) */;
+			targetProxy = 1500443E128071E900E4BF1D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -404,6 +450,27 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1500443A128071E400E4BF1D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Client (All)";
+			};
+			name = Debug;
+		};
+		1500443B128071E400E4BF1D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Client (All)";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		1544377512759CB5003197B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -412,9 +479,11 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
 				PRODUCT_NAME = "Client-iOS";
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -426,9 +495,11 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
 				PRODUCT_NAME = "Client-iOS";
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -437,7 +508,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -449,9 +520,12 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Client_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@loader_path/../Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = SJClient;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -460,7 +534,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -469,9 +543,12 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Client_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@loader_path/../Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = SJClient;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -505,6 +582,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1500445C1280724F00E4BF1D /* Build configuration list for PBXAggregateTarget "Client (All)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1500443A128071E400E4BF1D /* Debug */,
+				1500443B128071E400E4BF1D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1544378912759CEB003197B3 /* Build configuration list for PBXNativeTarget "Client (iOS Library)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

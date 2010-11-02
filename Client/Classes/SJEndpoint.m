@@ -31,24 +31,24 @@
 - (void) addCompletionHandler:(SJRequestCompletionHandler) h;
 - (void) addDependencyHandler:(SJRequestCompletionHandler) h;
 
-@property(copy) NSURLRequest* HTTPRequest;
-@property(copy) NSHTTPURLResponse* HTTPResponse;
+@property(nonatomic, copy) NSURLRequest* HTTPRequest;
+@property(nonatomic, copy) NSHTTPURLResponse* HTTPResponse;
 
-@property(copy) SJRequestCompletionHandler beforeCompletionHandler;
-@property(retain) NSMutableSet* completionHandlers;
-@property(retain) NSMutableSet* dependencyHandlers;
+@property(nonatomic, copy) SJRequestCompletionHandler beforeCompletionHandler;
+@property(nonatomic, retain) NSMutableSet* completionHandlers;
+@property(nonatomic, retain) NSMutableSet* dependencyHandlers;
 
-@property(retain) NSURLConnection* connection;
+@property(nonatomic, retain) NSURLConnection* connection;
 
-@property(retain) id JSONValue;
-@property(copy) NSError* error;
-@property(retain) NSMutableData* downloadedData;
+@property(nonatomic, retain) id JSONValue;
+@property(nonatomic, copy) NSError* error;
+@property(nonatomic, retain) NSMutableData* downloadedData;
 
-@property(retain) NSMutableSet* unfinishedDependencies;
+@property(nonatomic, retain) NSMutableSet* unfinishedDependencies;
 
 - (void) endInvokingCompletionHandlers;
 
-@property(retain) ILSensorSession* session;
+@property(nonatomic, retain) ILSensorSession* session;
 
 @end
 

@@ -29,7 +29,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 15BC4F811274226E00550BF6 /* Client.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 1544377412759CB4003197B3 /* libClient (iOS library).a */;
+			remoteGlobalIDString = 1544377412759CB4003197B3;
 			remoteInfo = "Client (iOS library)";
 		};
 		15BC4FBA127423F600550BF6 /* PBXContainerItemProxy */ = {
@@ -118,7 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				15BC4FBB127423F600550BF6 /* SJClient.framework */,
-				1544377912759CB5003197B3 /* libClient (iOS library).a */,
+				1544377912759CB5003197B3 /* libClient-iOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -228,13 +228,12 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		1544377912759CB5003197B3 /* libClient (iOS library).a */ = {
+		1544377912759CB5003197B3 /* libClient-iOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			name = "libClient (iOS library).a";
-			path = "build/Debug/libClient (iOS library).a";
+			path = "libClient-iOS.a";
 			remoteRef = 1544377812759CB5003197B3 /* PBXContainerItemProxy */;
-			sourceTree = "<group>";
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		15BC4FBB127423F600550BF6 /* SJClient.framework */ = {
 			isa = PBXReferenceProxy;
@@ -312,6 +311,7 @@
 				INFOPLIST_FILE = "KeynoteAgent-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = KeynoteAgent;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -327,6 +327,7 @@
 				INFOPLIST_FILE = "KeynoteAgent-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = KeynoteAgent;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
