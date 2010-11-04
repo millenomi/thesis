@@ -45,4 +45,6 @@
 - (void) live:(SJLive*) live willBeginMovingToSlideAtURL:(NSURL*) slideURL;
 - (void) live:(SJLive*) live didMoveToSlide:(SJSlide*) slide;
 
+- (void) live:(SJLive*) live didUpdateCurrentSlide:(SJSlide*) slide;
+
 @end

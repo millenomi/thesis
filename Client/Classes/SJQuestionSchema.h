@@ -9,8 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "SJSchema.h"
 
+#define kSJQuestionFreeformKind @"freeform"
+#define kSJQuestionDidNotUnderstandKind @"didNotUnderstand"
+#define kSJQuestionGoInDepthKind @"goInDepth"
+
 @interface SJQuestionSchema : SJSchema
 
+@property(readonly) NSString* kind;
 @property(readonly) NSString* text;
 @property(readonly, getter=pointURL) NSString* pointURLString;
 

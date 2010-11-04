@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd "`dirname "$0"`"
+curl -D- -d "`cat sample-presentation.json`" -H "Content-Type: application/json" http://localhost:8083/presentations/new

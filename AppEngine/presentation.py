@@ -53,10 +53,16 @@ class Point(Model):
 	text = TextProperty()
 	indentation = IntegerProperty()
 	sorting_order = IntegerProperty()
-	# questions_set = a set of question.Question
+	# question_set = a set of question.Question
 	
 	def to_data(self):
-		return { "text": self.text, "indentation": self.indentation }
+		import question
+		point_data = { "text": self.text, "indentation": self.indentation, "questionURLs": [] }
+		
+		for q in self.question_set:
+			point_data["questionURLs"].append(question.QuestionView.url(q))
+			
+		return point_data
 
 def presentation_from_data(pres_data):
 	def tx():

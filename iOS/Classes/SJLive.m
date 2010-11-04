@@ -37,6 +37,9 @@
 - (SJSlide *) storeSlideDownloadedByRequest:(id <SJRequest>)req;
 - (SJPresentation *) storePresentationDownloadedByRequest:(id <SJRequest>)req;
 
+@property(retain) SJLiveSchema* schema;
+- (void) checkForUpdateWithNewSchema:(SJLiveSchema *)s;
+
 @end
 
 
@@ -122,6 +125,8 @@
 				[self moveToSlideWithURL:newSlideURL];
 				
 			}
+			
+			[self checkForUpdateWithNewSchema:live];
 			
 		} else
 			[self endPresentation];
@@ -260,6 +265,7 @@
 	
 	self.presentationURL = nil;
 	self.slideURL = nil;
+	self.schema = nil;
 	
 	if ([unassignedSlides count] > 0) {
 		for (SJSlide* s in unassignedSlides)
@@ -288,7 +294,26 @@
 		if (slide)
 			[self.delegate live:self didMoveToSlide:slide];
 		
-	}];
+	}];	
 }
+
+- (void) checkForUpdateWithNewSchema:(SJLiveSchema*) s;
+{
+	if (!self.schema) {
+		self.schema = s;
+		return;
+	}
+	
+	if (![self.schema isEqual:s] && self.slideURL) {
+		SJSlide* slide = [SJSlide slideWithURL:self.slideURL fromContext:self.managedObjectContext];
+		
+		if (slide)
+			[self.delegate live:self didUpdateCurrentSlide:slide];
+	}
+	
+	self.schema = s;
+}
+
+@synthesize schema;
 
 @end

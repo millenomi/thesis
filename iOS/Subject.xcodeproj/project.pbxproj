@@ -13,6 +13,11 @@
 		156F246B12735605000BC614 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156F246A12735605000BC614 /* QuartzCore.framework */; };
 		156F27D612703486005C6F71 /* SJLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F27D512703486005C6F71 /* SJLive.m */; };
 		156F28CA1270DF2B005C6F71 /* ILManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F28C91270DF2B005C6F71 /* ILManagedObject.m */; };
+		15FBF1B812817510005D68B6 /* Balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FBF1B71281750F005D68B6 /* Balloon.png */; };
+		15FBF1BA12817513005D68B6 /* Balloon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FBF1B912817512005D68B6 /* Balloon@2x.png */; };
+		15FBF1BF12817582005D68B6 /* SJPoseAQuestionPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FBF1BD12817582005D68B6 /* SJPoseAQuestionPane.m */; };
+		15FBF1C012817582005D68B6 /* SJPoseAQuestionPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FBF1BE12817582005D68B6 /* SJPoseAQuestionPane.xib */; };
+		15FBF1EA12817FBB005D68B6 /* libViewControllers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FBF1E512817F93005D68B6 /* libViewControllers.a */; };
 		15FD03D4126DB15900353B83 /* SJPresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD03D3126DB15900353B83 /* SJPresentation.m */; };
 		15FD03DC126DB29D00353B83 /* SJSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD03DB126DB29D00353B83 /* SJSlide.m */; };
 		15FD03DF126DB2DA00353B83 /* SJPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD03DE126DB2DA00353B83 /* SJPoint.m */; };
@@ -48,10 +53,24 @@
 			remoteGlobalIDString = 1544377312759CB4003197B3;
 			remoteInfo = "Client (iOS Library)";
 		};
+		15FBF1E412817F93005D68B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15FBF1DD12817F93005D68B6 /* ViewControllers.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = ViewControllers;
+		};
+		15FBF1E612817F9C005D68B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15FBF1DD12817F93005D68B6 /* ViewControllers.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = ViewControllers;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		150044241280711400E4BF1D /* libClient-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libClient-iOS.a"; path = "build/Debug/libClient-iOS.a"; sourceTree = "<group>"; };
+		150044241280711400E4BF1D /* libClient-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libClient-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		154437A812759D80003197B3 /* Client.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Client.xcodeproj; path = ../Client/Client.xcodeproj; sourceTree = SOURCE_ROOT; };
 		156F244812734EA9000BC614 /* SJLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLiveViewController.h; sourceTree = "<group>"; };
 		156F244912734EA9000BC614 /* SJLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLiveViewController.m; sourceTree = "<group>"; };
@@ -61,6 +80,12 @@
 		156F27D512703486005C6F71 /* SJLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLive.m; sourceTree = "<group>"; };
 		156F28C81270DF2B005C6F71 /* ILManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILManagedObject.h; sourceTree = "<group>"; };
 		156F28C91270DF2B005C6F71 /* ILManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILManagedObject.m; sourceTree = "<group>"; };
+		15FBF1B71281750F005D68B6 /* Balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Balloon.png; sourceTree = "<group>"; };
+		15FBF1B912817512005D68B6 /* Balloon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Balloon@2x.png"; sourceTree = "<group>"; };
+		15FBF1BC12817582005D68B6 /* SJPoseAQuestionPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPoseAQuestionPane.h; sourceTree = "<group>"; };
+		15FBF1BD12817582005D68B6 /* SJPoseAQuestionPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPoseAQuestionPane.m; sourceTree = "<group>"; };
+		15FBF1BE12817582005D68B6 /* SJPoseAQuestionPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJPoseAQuestionPane.xib; sourceTree = "<group>"; };
+		15FBF1DD12817F93005D68B6 /* ViewControllers.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ViewControllers.xcodeproj; path = ../LabsFoundation.line/iOS/ViewControllers/ViewControllers.xcodeproj; sourceTree = SOURCE_ROOT; };
 		15FD03D2126DB15900353B83 /* SJPresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentation.h; sourceTree = "<group>"; };
 		15FD03D3126DB15900353B83 /* SJPresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPresentation.m; sourceTree = "<group>"; };
 		15FD03DA126DB29D00353B83 /* SJSlide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSlide.h; sourceTree = "<group>"; };
@@ -86,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15FBF1EA12817FBB005D68B6 /* libViewControllers.a in Frameworks */,
 				154437B112759D88003197B3 /* libClient-iOS.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
@@ -112,7 +138,7 @@
 		154437A912759D80003197B3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				154437AE12759D80003197B3 /* SJClient */,
+				154437AE12759D80003197B3 /* SJClient.framework */,
 				154437B012759D80003197B3 /* libClient-iOS.a */,
 			);
 			name = Products;
@@ -124,8 +150,19 @@
 				156F244812734EA9000BC614 /* SJLiveViewController.h */,
 				156F244912734EA9000BC614 /* SJLiveViewController.m */,
 				156F244B12734FC7000BC614 /* SJLiveViewController.xib */,
+				15FBF1BC12817582005D68B6 /* SJPoseAQuestionPane.h */,
+				15FBF1BD12817582005D68B6 /* SJPoseAQuestionPane.m */,
+				15FBF1BE12817582005D68B6 /* SJPoseAQuestionPane.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		15FBF1DE12817F93005D68B6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				15FBF1E512817F93005D68B6 /* libViewControllers.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		15FD03D1126DB14900353B83 /* Model */ = {
@@ -157,6 +194,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				15FBF1DD12817F93005D68B6 /* ViewControllers.xcodeproj */,
 				154437A812759D80003197B3 /* Client.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -183,6 +221,8 @@
 				2819305F112F816700ECF9B4 /* Subject.xcdatamodeld */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Subject-Info.plist */,
+				15FBF1B71281750F005D68B6 /* Balloon.png */,
+				15FBF1B912817512005D68B6 /* Balloon@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -213,6 +253,7 @@
 			);
 			dependencies = (
 				154437B712759DD2003197B3 /* PBXTargetDependency */,
+				15FBF1E712817F9C005D68B6 /* PBXTargetDependency */,
 			);
 			name = Subject;
 			productName = Subject;
@@ -244,6 +285,10 @@
 					ProductGroup = 154437A912759D80003197B3 /* Products */;
 					ProjectRef = 154437A812759D80003197B3 /* Client.xcodeproj */;
 				},
+				{
+					ProductGroup = 15FBF1DE12817F93005D68B6 /* Products */;
+					ProjectRef = 15FBF1DD12817F93005D68B6 /* ViewControllers.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -253,10 +298,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		154437AE12759D80003197B3 /* SJClient */ = {
+		154437AE12759D80003197B3 /* SJClient.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = SJClient;
+			path = SJClient.framework;
 			remoteRef = 154437AD12759D80003197B3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -265,6 +310,13 @@
 			fileType = archive.ar;
 			path = "libClient-iOS.a";
 			remoteRef = 154437AF12759D80003197B3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		15FBF1E512817F93005D68B6 /* libViewControllers.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libViewControllers.a;
+			remoteRef = 15FBF1E412817F93005D68B6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -276,6 +328,9 @@
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				156F244C12734FC7000BC614 /* SJLiveViewController.xib in Resources */,
+				15FBF1B812817510005D68B6 /* Balloon.png in Resources */,
+				15FBF1BA12817513005D68B6 /* Balloon@2x.png in Resources */,
+				15FBF1C012817582005D68B6 /* SJPoseAQuestionPane.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +350,7 @@
 				156F27D612703486005C6F71 /* SJLive.m in Sources */,
 				156F28CA1270DF2B005C6F71 /* ILManagedObject.m in Sources */,
 				156F244A12734EA9000BC614 /* SJLiveViewController.m in Sources */,
+				15FBF1BF12817582005D68B6 /* SJPoseAQuestionPane.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +361,11 @@
 			isa = PBXTargetDependency;
 			name = "Client (iOS Library)";
 			targetProxy = 154437B612759DD2003197B3 /* PBXContainerItemProxy */;
+		};
+		15FBF1E712817F9C005D68B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ViewControllers;
+			targetProxy = 15FBF1E612817F9C005D68B6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -319,6 +380,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Subject_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../LabsFoundation.line/iOS/ViewControllers",
 					"$(SRCROOT)/../Client/Classes",
 					"$(INFINITELABS_TOOLS)",
 				);
@@ -339,6 +401,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Subject_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../LabsFoundation.line/iOS/ViewControllers",
 					"$(SRCROOT)/../Client/Classes",
 					"$(INFINITELABS_TOOLS)",
 				);

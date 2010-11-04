@@ -6,6 +6,19 @@ from google.appengine.ext import webapp as w
 class Question(Model):
 	point = ReferenceProperty(p.Point)
 	text = TextProperty()
+	question_kind = StringProperty()
+	
+	FREEFORM = 'freeform'
+	DID_NOT_UNDERSTAND = 'didNotUnderstand'
+	GO_IN_DEPTH = 'goInDepth'
+	
+	def to_data(self):
+		data = {"kind": self.question_kind}
+		if self.question_kind == Question.FREEFORM:
+			data['text'] = self.text
+			
+		return data
+		
 	
 class QuestionView(w.RequestHandler):
 	url_scheme = '/questions/(.*)'
@@ -20,7 +33,9 @@ class QuestionView(w.RequestHandler):
 			self.error(404)
 			return
 		
-		json.dump({"text": q.text, "pointURL": p.PointJSONView.url(q.point)}, self.response.out)
+		data = q.to_data()
+		data["pointURL"] = p.PointJSONView.url(q.point)
+		json.dump(data, self.response.out)
 		
 	
 class PoseAQuestion(w.RequestHandler):
@@ -40,13 +55,20 @@ class PoseAQuestion(w.RequestHandler):
 		if x is None:
 			self.error(404)
 			return
-			
-		text = self.request.get("text", default_value = None)
-		if text is None:
+		
+		kind = self.request.get("kind", default_value = None)
+		if kind not in (Question.FREEFORM, Question.DID_NOT_UNDERSTAND, Question.GO_IN_DEPTH):
 			self.error(400)
 			return
+		
+		text = None
+		if kind == Question.FREEFORM:
+			text = self.request.get("text", default_value = None)
+			if text is None:
+				self.error(400)
+				return
 			
-		q = Question(point = x, parent = x, text = text)
+		q = Question(point = x, parent = x, text = text, question_kind = kind)
 		q.put()
 		
 		self.redirect(QuestionView.url(q))

@@ -3,6 +3,7 @@ from django.utils import simplejson as json
 from google.appengine.ext import webapp as w
 
 import presentation as p
+import question as qa
 
 class Live(Model):
 	slide = ReferenceProperty(p.Slide)
@@ -53,7 +54,13 @@ class LiveControl(w.RequestHandler):
 			# 				"URL": p.SlideJSONView.url(s)
 			# 			}
 			response["slide"]["URL"] = p.SlideJSONView.url(s)
+			questions = []
 			
+			for pt in s.point_set:
+				for q in pt.question_set:
+					questions.append(qa.QuestionView.url(q))
+			
+			response["slide"]["questionURLs"] = questions
 		
 		self.response.headers['Content-Type'] = 'application/json'
 		json.dump(response, self.response.out)

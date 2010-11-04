@@ -165,6 +165,11 @@ CF_INLINE NSString* SJStringByUppercasingFirstLetter(NSString* x) {
 			
 		}
 		
+		if (![self validateAndReturnError:e]) {
+			[self release];
+			return nil;
+		}
+		
 		values = [finalValues copy];
 		unspecifiedOptionalValues = [unspecifieds copy];
 	}
@@ -294,6 +299,31 @@ CF_INLINE NSString* SJStringByUppercasingFirstLetter(NSString* x) {
 - (NSString *) description;
 {
 	return [NSString stringWithFormat:@"%@ (missing = %@, values = %@)", [super description], unspecifiedOptionalValues, values];
+}
+
+- (NSUInteger) hash;
+{
+	return [values hash] ^ [unspecifiedOptionalValues hash] ^ [[self class] hash];
+}
+
+- (BOOL) isEqual:(id)object;
+{
+	return object == self || ([object isKindOfClass:[self class]] && [[object underlyingSpecifiedSchemaValues] isEqual:values] && [[object underlyingMissingOptionalValueKeys] isEqual:unspecifiedOptionalValues]);
+}
+
+- (NSDictionary *) underlyingSpecifiedSchemaValues;
+{
+	return values;
+}
+
+- (NSSet *) underlyingMissingOptionalValueKeys;
+{
+	return unspecifiedOptionalValues;
+}
+
+- (BOOL) validateAndReturnError:(NSError**) e;
+{
+	return YES;
 }
 
 @end

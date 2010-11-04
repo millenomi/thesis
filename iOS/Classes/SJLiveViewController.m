@@ -11,6 +11,8 @@
 #import "SJPoint.h"
 #import "SJPresentation.h"
 
+#import "SJPoseAQuestionPane.h"
+
 #import <QuartzCore/QuartzCore.h>
 
 @interface SJLiveViewController ()
@@ -223,10 +225,18 @@
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	// <#TODO#>
-	UIAlertView* av = [[UIAlertView new] autorelease];
-	av.title = @"DA FARE: UI domande.";
-	[av addButtonWithTitle:@"Chiudi"];
-	[av show];
+	SJPoint* p = [self.currentSlide pointAtIndex:[indexPath row]];
+
+	SJPoseAQuestionPane* pane;
+	UIViewController* modal	= [SJPoseAQuestionPane modalPaneForViewController:&pane];
+	pane.context = p.text;
+	[self presentModalViewController:modal animated:YES];
+}
+
+- (void) live:(SJLive *)live didUpdateCurrentSlide:(SJSlide *)slide;
+{
+	if (slide == self.currentSlide)
+		[tableView reloadData];
 }
 
 @end

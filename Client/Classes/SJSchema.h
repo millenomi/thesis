@@ -67,6 +67,9 @@ enum {
 // OPTIONAL VALUES:
 // - (BOOL) isValueOptionalForXYZKey { return YES; }
 
+@property(readonly) NSDictionary* underlyingSpecifiedSchemaValues;
+@property(readonly) NSSet* underlyingMissingOptionalValueKeys;
+
 @end
 
 @class SJEndpoint;
