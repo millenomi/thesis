@@ -193,12 +193,27 @@
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	// <#TODO#>
-	SJPoint* p = [self.currentSlide pointAtIndex:[indexPath row]];
+//	SJPoint* p = [self.currentSlide pointAtIndex:[indexPath row]];
 
-	SJPoseAQuestionPane* pane;
-	UIViewController* modal	= [SJPoseAQuestionPane modalPaneForViewController:&pane];
-	pane.context = p.text;
-	[self presentModalViewController:modal animated:YES];
+//	SJPoseAQuestionPane* pane;
+//	UIViewController* modal	= [SJPoseAQuestionPane modalPaneForViewController:&pane];
+//	pane.context = p.text;
+//	[self presentModalViewController:modal animated:YES];
+
+	SJPointTableViewCell* selectedCell = (SJPointTableViewCell*) [tableView cellForRowAtIndexPath:indexPath];
+	
+	for (SJPointTableViewCell* cell in [tableView visibleCells]) {
+		if (cell != selectedCell)
+			[cell setShowingActionView:NO];
+	}
+	
+	[selectedCell setShowingActionView:YES];
+}
+
+- (void) scrollViewDidScroll:(UIScrollView *)scrollView;
+{
+	for (SJPointTableViewCell* cell in [tableView visibleCells])
+		[cell setShowingActionView:NO];
 }
 
 - (void) live:(SJLive *)live didUpdateCurrentSlide:(SJSlide *)slide;

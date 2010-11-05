@@ -62,14 +62,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 15D43658128450DC005DBAE3 /* NIBTableViewCells.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D /* libNIBTableViewCells.a */;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
 			remoteInfo = NIBTableViewCells;
 		};
 		15D4367A12845175005DBAE3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15D43658128450DC005DBAE3 /* NIBTableViewCells.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D /* NIBTableViewCells */;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = NIBTableViewCells;
 		};
 		15FBF1E412817F93005D68B6 /* PBXContainerItemProxy */ = {

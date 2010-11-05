@@ -19,6 +19,14 @@
 
 @implementation SJPointTableViewCell
 
+- (void) dealloc
+{
+	[pointTextLabel release];
+	[actionView release];
+	[super dealloc];
+}
+
+
 @synthesize point;
 - (void) setPoint:(SJPoint *) p;
 {
@@ -63,6 +71,70 @@
 + (NSString*) displayTextForPoint:(SJPoint*) p;
 {
 	return (p.indentationValue == 0)? p.text : [NSString stringWithFormat:@"%C %@", 0x2022, p.text];
+}
+
+- (void) prepareForReuse;
+{
+	[self setShowingActionView:NO animated:NO];
+}
+
+@synthesize showingActionView;
+- (void) setShowingActionView:(BOOL) s;
+{
+	[self setShowingActionView:s animated:YES];
+}
+
+- (void) setShowingActionView:(BOOL) s animated:(BOOL) animated;
+{
+	if (s != showingActionView) {
+		showingActionView = s;
+		
+		BOOL wereEnabled = [UIView areAnimationsEnabled];
+
+		if (s) {
+			[UIView setAnimationsEnabled:NO];
+			
+			self.selectionStyle = UITableViewCellSelectionStyleNone;
+			
+			if (!actionView.superview)
+				[self.contentView insertSubview:actionView belowSubview:self.cellContentView];
+			actionView.frame = self.contentView.bounds;
+			
+			self.cellContentView.backgroundColor = [UIColor whiteColor];
+			self.cellContentView.opaque = YES;
+			
+			[UIView setAnimationsEnabled:wereEnabled];
+
+			
+			self.contentView.clipsToBounds = YES;
+			
+			[UIView setAnimationsEnabled:animated];
+			[UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut
+							 animations:^{
+								 CGRect f = self.cellContentView.frame;
+								 f.origin.y -= f.size.height;
+								 self.cellContentView.frame = f;
+								 self.cellContentView.alpha = 0.0;
+							 }
+							 completion:NULL];
+			[UIView setAnimationsEnabled:wereEnabled];
+			
+		} else {
+			[UIView setAnimationsEnabled:animated];
+			[UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionAllowUserInteraction
+							 animations:^{
+								 self.cellContentView.frame = self.contentView.bounds;
+								 self.cellContentView.alpha = 1.0;
+							 }
+							 completion:^(BOOL done) {
+								 [actionView removeFromSuperview];
+								 self.cellContentView.backgroundColor = [UIColor whiteColor];
+								 self.selectionStyle = UITableViewCellSelectionStyleBlue;
+							 }];
+			[UIView setAnimationsEnabled:wereEnabled];
+		}
+		
+	}
 }
 
 @end

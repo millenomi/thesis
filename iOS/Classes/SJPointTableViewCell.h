@@ -13,10 +13,16 @@
 @interface SJPointTableViewCell : ILNIBTableViewCell {
 	SJPoint* point;
 	IBOutlet UILabel* pointTextLabel;
+	IBOutlet UIView* actionView;
+	
+	BOOL showingActionView;
 }
 
 @property(nonatomic, retain) SJPoint* point;
 
 + (CGFloat) cellHeightForPoint:(SJPoint*) p width:(CGFloat) width;
+
+@property BOOL showingActionView;
+- (void) setShowingActionView:(BOOL) s animated:(BOOL) animated;
 
 @end
