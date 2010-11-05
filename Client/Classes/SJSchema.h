@@ -70,6 +70,9 @@ enum {
 @property(readonly) NSDictionary* underlyingSpecifiedSchemaValues;
 @property(readonly) NSSet* underlyingMissingOptionalValueKeys;
 
+// Can be used to check for more complex stuff than the above. It's called at the end of -init after everything has been decoded (assuming it has passed all the above validity check stuff).
+- (BOOL) validateAndReturnError:(NSError**) e;
+
 @end
 
 @class SJEndpoint;
