@@ -8,16 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		154437B112759D88003197B3 /* libClient-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 154437B012759D80003197B3 /* libClient-iOS.a */; };
-		156F244A12734EA9000BC614 /* SJLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F244912734EA9000BC614 /* SJLiveViewController.m */; };
-		156F244C12734FC7000BC614 /* SJLiveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156F244B12734FC7000BC614 /* SJLiveViewController.xib */; };
+		156F244A12734EA9000BC614 /* SJLivePresentationPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F244912734EA9000BC614 /* SJLivePresentationPane.m */; };
+		156F244C12734FC7000BC614 /* SJLivePresentationPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156F244B12734FC7000BC614 /* SJLivePresentationPane.xib */; };
 		156F246B12735605000BC614 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156F246A12735605000BC614 /* QuartzCore.framework */; };
 		156F27D612703486005C6F71 /* SJLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F27D512703486005C6F71 /* SJLive.m */; };
 		156F28CA1270DF2B005C6F71 /* ILManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F28C91270DF2B005C6F71 /* ILManagedObject.m */; };
+		15D4366512845104005DBAE3 /* SJPointTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D4366412845104005DBAE3 /* SJPointTableViewCell.m */; };
+		15D4367412845160005DBAE3 /* libNIBTableViewCells.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15D4365D128450DC005DBAE3 /* libNIBTableViewCells.a */; };
+		15D4368012845185005DBAE3 /* libViewControllers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FBF1E512817F93005D68B6 /* libViewControllers.a */; };
+		15D43684128451C3005DBAE3 /* SJPointTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D43683128451C3005DBAE3 /* SJPointTableViewCell.xib */; };
+		15D436DB12845D74005DBAE3 /* TopShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 15D436DA12845D74005DBAE3 /* TopShadow.png */; };
+		15D436DD12845ECF005DBAE3 /* BottomShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 15D436DC12845ECF005DBAE3 /* BottomShadow.png */; };
 		15FBF1B812817510005D68B6 /* Balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FBF1B71281750F005D68B6 /* Balloon.png */; };
 		15FBF1BA12817513005D68B6 /* Balloon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FBF1B912817512005D68B6 /* Balloon@2x.png */; };
 		15FBF1BF12817582005D68B6 /* SJPoseAQuestionPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FBF1BD12817582005D68B6 /* SJPoseAQuestionPane.m */; };
 		15FBF1C012817582005D68B6 /* SJPoseAQuestionPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FBF1BE12817582005D68B6 /* SJPoseAQuestionPane.xib */; };
-		15FBF1EA12817FBB005D68B6 /* libViewControllers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FBF1E512817F93005D68B6 /* libViewControllers.a */; };
 		15FD03D4126DB15900353B83 /* SJPresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD03D3126DB15900353B83 /* SJPresentation.m */; };
 		15FD03DC126DB29D00353B83 /* SJSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD03DB126DB29D00353B83 /* SJSlide.m */; };
 		15FD03DF126DB2DA00353B83 /* SJPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD03DE126DB2DA00353B83 /* SJPoint.m */; };
@@ -53,6 +58,20 @@
 			remoteGlobalIDString = 1544377312759CB4003197B3;
 			remoteInfo = "Client (iOS Library)";
 		};
+		15D4365C128450DC005DBAE3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15D43658128450DC005DBAE3 /* NIBTableViewCells.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D /* libNIBTableViewCells.a */;
+			remoteInfo = NIBTableViewCells;
+		};
+		15D4367A12845175005DBAE3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15D43658128450DC005DBAE3 /* NIBTableViewCells.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D /* NIBTableViewCells */;
+			remoteInfo = NIBTableViewCells;
+		};
 		15FBF1E412817F93005D68B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15FBF1DD12817F93005D68B6 /* ViewControllers.xcodeproj */;
@@ -72,14 +91,20 @@
 /* Begin PBXFileReference section */
 		150044241280711400E4BF1D /* libClient-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libClient-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		154437A812759D80003197B3 /* Client.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Client.xcodeproj; path = ../Client/Client.xcodeproj; sourceTree = SOURCE_ROOT; };
-		156F244812734EA9000BC614 /* SJLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLiveViewController.h; sourceTree = "<group>"; };
-		156F244912734EA9000BC614 /* SJLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLiveViewController.m; sourceTree = "<group>"; };
-		156F244B12734FC7000BC614 /* SJLiveViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJLiveViewController.xib; sourceTree = "<group>"; };
+		156F244812734EA9000BC614 /* SJLivePresentationPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLivePresentationPane.h; sourceTree = "<group>"; };
+		156F244912734EA9000BC614 /* SJLivePresentationPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLivePresentationPane.m; sourceTree = "<group>"; };
+		156F244B12734FC7000BC614 /* SJLivePresentationPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJLivePresentationPane.xib; sourceTree = "<group>"; };
 		156F246A12735605000BC614 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		156F27D412703486005C6F71 /* SJLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLive.h; sourceTree = "<group>"; };
 		156F27D512703486005C6F71 /* SJLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLive.m; sourceTree = "<group>"; };
 		156F28C81270DF2B005C6F71 /* ILManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILManagedObject.h; sourceTree = "<group>"; };
 		156F28C91270DF2B005C6F71 /* ILManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILManagedObject.m; sourceTree = "<group>"; };
+		15D43658128450DC005DBAE3 /* NIBTableViewCells.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NIBTableViewCells.xcodeproj; path = ../LabsFoundation.line/iOS/NIBTableViewCells/NIBTableViewCells.xcodeproj; sourceTree = SOURCE_ROOT; };
+		15D4366312845104005DBAE3 /* SJPointTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPointTableViewCell.h; sourceTree = "<group>"; };
+		15D4366412845104005DBAE3 /* SJPointTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPointTableViewCell.m; sourceTree = "<group>"; };
+		15D43683128451C3005DBAE3 /* SJPointTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJPointTableViewCell.xib; sourceTree = "<group>"; };
+		15D436DA12845D74005DBAE3 /* TopShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TopShadow.png; sourceTree = "<group>"; };
+		15D436DC12845ECF005DBAE3 /* BottomShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BottomShadow.png; sourceTree = "<group>"; };
 		15FBF1B71281750F005D68B6 /* Balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Balloon.png; sourceTree = "<group>"; };
 		15FBF1B912817512005D68B6 /* Balloon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Balloon@2x.png"; sourceTree = "<group>"; };
 		15FBF1BC12817582005D68B6 /* SJPoseAQuestionPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPoseAQuestionPane.h; sourceTree = "<group>"; };
@@ -111,7 +136,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15FBF1EA12817FBB005D68B6 /* libViewControllers.a in Frameworks */,
+				15D4368012845185005DBAE3 /* libViewControllers.a in Frameworks */,
+				15D4367412845160005DBAE3 /* libNIBTableViewCells.a in Frameworks */,
 				154437B112759D88003197B3 /* libClient-iOS.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
@@ -147,14 +173,36 @@
 		156F244712734E24000BC614 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				156F244812734EA9000BC614 /* SJLiveViewController.h */,
-				156F244912734EA9000BC614 /* SJLiveViewController.m */,
-				156F244B12734FC7000BC614 /* SJLiveViewController.xib */,
+				156F244812734EA9000BC614 /* SJLivePresentationPane.h */,
+				156F244912734EA9000BC614 /* SJLivePresentationPane.m */,
+				156F244B12734FC7000BC614 /* SJLivePresentationPane.xib */,
 				15FBF1BC12817582005D68B6 /* SJPoseAQuestionPane.h */,
 				15FBF1BD12817582005D68B6 /* SJPoseAQuestionPane.m */,
 				15FBF1BE12817582005D68B6 /* SJPoseAQuestionPane.xib */,
+				15D4366312845104005DBAE3 /* SJPointTableViewCell.h */,
+				15D4366412845104005DBAE3 /* SJPointTableViewCell.m */,
+				15D43683128451C3005DBAE3 /* SJPointTableViewCell.xib */,
+				15D436DA12845D74005DBAE3 /* TopShadow.png */,
+				15D436DC12845ECF005DBAE3 /* BottomShadow.png */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		15D43659128450DC005DBAE3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				15D4365D128450DC005DBAE3 /* libNIBTableViewCells.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		15D4365E128450DF005DBAE3 /* Labs Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				15D43658128450DC005DBAE3 /* NIBTableViewCells.xcodeproj */,
+				15FBF1DD12817F93005D68B6 /* ViewControllers.xcodeproj */,
+			);
+			name = "Labs Foundation";
 			sourceTree = "<group>";
 		};
 		15FBF1DE12817F93005D68B6 /* Products */ = {
@@ -194,7 +242,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				15FBF1DD12817F93005D68B6 /* ViewControllers.xcodeproj */,
+				15D4365E128450DF005DBAE3 /* Labs Foundation */,
 				154437A812759D80003197B3 /* Client.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -254,6 +302,7 @@
 			dependencies = (
 				154437B712759DD2003197B3 /* PBXTargetDependency */,
 				15FBF1E712817F9C005D68B6 /* PBXTargetDependency */,
+				15D4367B12845175005DBAE3 /* PBXTargetDependency */,
 			);
 			name = Subject;
 			productName = Subject;
@@ -286,6 +335,10 @@
 					ProjectRef = 154437A812759D80003197B3 /* Client.xcodeproj */;
 				},
 				{
+					ProductGroup = 15D43659128450DC005DBAE3 /* Products */;
+					ProjectRef = 15D43658128450DC005DBAE3 /* NIBTableViewCells.xcodeproj */;
+				},
+				{
 					ProductGroup = 15FBF1DE12817F93005D68B6 /* Products */;
 					ProjectRef = 15FBF1DD12817F93005D68B6 /* ViewControllers.xcodeproj */;
 				},
@@ -312,6 +365,13 @@
 			remoteRef = 154437AF12759D80003197B3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		15D4365D128450DC005DBAE3 /* libNIBTableViewCells.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libNIBTableViewCells.a;
+			remoteRef = 15D4365C128450DC005DBAE3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		15FBF1E512817F93005D68B6 /* libViewControllers.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -327,10 +387,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				156F244C12734FC7000BC614 /* SJLiveViewController.xib in Resources */,
+				156F244C12734FC7000BC614 /* SJLivePresentationPane.xib in Resources */,
 				15FBF1B812817510005D68B6 /* Balloon.png in Resources */,
 				15FBF1BA12817513005D68B6 /* Balloon@2x.png in Resources */,
 				15FBF1C012817582005D68B6 /* SJPoseAQuestionPane.xib in Resources */,
+				15D43684128451C3005DBAE3 /* SJPointTableViewCell.xib in Resources */,
+				15D436DB12845D74005DBAE3 /* TopShadow.png in Resources */,
+				15D436DD12845ECF005DBAE3 /* BottomShadow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,8 +412,9 @@
 				15FD03DF126DB2DA00353B83 /* SJPoint.m in Sources */,
 				156F27D612703486005C6F71 /* SJLive.m in Sources */,
 				156F28CA1270DF2B005C6F71 /* ILManagedObject.m in Sources */,
-				156F244A12734EA9000BC614 /* SJLiveViewController.m in Sources */,
+				156F244A12734EA9000BC614 /* SJLivePresentationPane.m in Sources */,
 				15FBF1BF12817582005D68B6 /* SJPoseAQuestionPane.m in Sources */,
+				15D4366512845104005DBAE3 /* SJPointTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +425,11 @@
 			isa = PBXTargetDependency;
 			name = "Client (iOS Library)";
 			targetProxy = 154437B612759DD2003197B3 /* PBXContainerItemProxy */;
+		};
+		15D4367B12845175005DBAE3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = NIBTableViewCells;
+			targetProxy = 15D4367A12845175005DBAE3 /* PBXContainerItemProxy */;
 		};
 		15FBF1E712817F9C005D68B6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -383,6 +452,7 @@
 					"$(SRCROOT)/../LabsFoundation.line/iOS/ViewControllers",
 					"$(SRCROOT)/../Client/Classes",
 					"$(INFINITELABS_TOOLS)",
+					"$(SRCROOT)/../LabsFoundation.line/iOS/NIBTableViewCells",
 				);
 				INFOPLIST_FILE = "Subject-Info.plist";
 				OTHER_LDFLAGS = (
@@ -404,6 +474,7 @@
 					"$(SRCROOT)/../LabsFoundation.line/iOS/ViewControllers",
 					"$(SRCROOT)/../Client/Classes",
 					"$(INFINITELABS_TOOLS)",
+					"$(SRCROOT)/../LabsFoundation.line/iOS/NIBTableViewCells",
 				);
 				INFOPLIST_FILE = "Subject-Info.plist";
 				OTHER_LDFLAGS = (

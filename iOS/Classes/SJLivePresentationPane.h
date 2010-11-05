@@ -10,7 +10,7 @@
 #import "SJEndpoint.h"
 #import "SJLive.h"
 
-@interface SJLiveViewController : UIViewController <SJLiveDelegate, UITableViewDelegate, UITableViewDataSource> {
+@interface SJLivePresentationPane : UIViewController <SJLiveDelegate, UITableViewDelegate, UITableViewDataSource> {
 	IBOutlet UIActivityIndicatorView* spinner;
 	IBOutlet UITableView* tableView;
 	IBOutlet UIView* tableHostView;
