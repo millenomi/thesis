@@ -8,6 +8,8 @@
 
 #import "SJPointTableViewCell.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 @interface SJPointTableViewCell ()
 
 + (UIEdgeInsets) defaultCellEdgeInsets;
@@ -19,10 +21,23 @@
 
 @implementation SJPointTableViewCell
 
+- (id) initWithNibName:(NSString *)name bundle:(NSBundle *)bundle reuseIdentifier:(NSString *)reuseIdent;
+{
+	if ((self = [super initWithNibName:name bundle:bundle reuseIdentifier:reuseIdent])) {
+		self.clipsToBounds = YES;
+		self.contentView.clipsToBounds = YES;
+	}
+	
+	return self;
+}
+
 - (void) dealloc
 {
 	[pointTextLabel release];
 	[actionView release];
+	
+	self.questionsView = nil;
+	
 	[super dealloc];
 }
 
@@ -32,13 +47,78 @@
 {
 	if (p != point) {
 		[point release];
-		point = [p retain];
+		point = [p retain];	
 		
-		// we don't need to set label height since the label has autoresize masks set that do that for us.
-		pointTextLabel.font = [[self class] textFontForPoint:p];
-		pointTextLabel.text = [[self class] displayTextForPoint:p];
+		[self update];
 	}
 }
+
+- (void) updateWithAddedQuestion:(SJQuestion*) q;
+{
+	if (q.point == self.point)
+		[self update];
+}
+
+- (void) update;
+{
+	// we don't need to set label height since the label has autoresize masks set that do that for us.
+	pointTextLabel.font = [[self class] textFontForPoint:self.point];
+	pointTextLabel.text = [[self class] displayTextForPoint:self.point];
+	
+	if ([self.point.questions count] == 0)
+		self.accessoryView = nil;
+	else {
+		// TODO grossly inefficient!
+		int dNU = 0, gID = 0, fF = 0;
+		
+		for (SJQuestion* q in self.point.questions) {
+			if ([q.kind isEqual:kSJQuestionDidNotUnderstandKind])
+				dNU++;
+			else if ([q.kind isEqual:kSJQuestionGoInDepthKind])
+				gID++;
+			else if ([q.kind isEqual:kSJQuestionFreeformKind] && q.text)
+				fF++;
+			
+			UIView* v = self.questionsView;
+			CGRect f = v.bounds;
+			CGRect firstColLabelFrame = self.didNotUnderstandCountLabel.frame;
+			f.size.width = firstColLabelFrame.origin.x + firstColLabelFrame.size.width + 8;
+			v.bounds = f;
+			
+			if (dNU > 0 || gID > 0 || fF > 0) {
+				if (!self.accessoryView) {
+					self.didNotUnderstandIconographyLabel.hidden = YES;
+					self.goInDepthIconographyLabel.hidden = YES;
+					self.freeformIconographyLabel.hidden = YES;
+					self.didNotUnderstandCountLabel.hidden = YES;
+					self.goInDepthCountLabel.hidden = YES;
+					self.freeformCountLabel.hidden = YES;
+					
+					self.accessoryView = self.questionsView;
+				}
+				
+				CATransition* slide = [CATransition animation];
+				slide.type = kCATransitionFade;
+				[self.questionsView.layer addAnimation:slide forKey:@"SJPointTableViewCellQuestionsUpdateTransition"];
+				
+				[UIView animateWithDuration:0.2 animations:^{
+					self.didNotUnderstandIconographyLabel.hidden = (dNU == 0);
+					self.didNotUnderstandCountLabel.hidden = (dNU == 0);
+					self.didNotUnderstandCountLabel.text = [NSString stringWithFormat:@"%d", dNU];
+
+					self.goInDepthIconographyLabel.hidden = (gID == 0);
+					self.goInDepthCountLabel.hidden = (gID == 0);
+					self.goInDepthCountLabel.text = [NSString stringWithFormat:@"%d", gID];
+
+					self.freeformIconographyLabel.hidden = (fF == 0);
+					self.freeformCountLabel.hidden = (fF == 0);
+					self.freeformCountLabel.text = [NSString stringWithFormat:@"%d", fF];
+				}];
+			} else
+				self.accessoryView = nil;
+		}
+	}
+}	
 
 + (UIEdgeInsets) defaultCellEdgeInsets;
 {
@@ -138,5 +218,15 @@
 }
 
 #endif
+
+@synthesize questionsView;
+
+@synthesize didNotUnderstandIconographyLabel;
+@synthesize goInDepthIconographyLabel;
+@synthesize freeformIconographyLabel;
+
+@synthesize didNotUnderstandCountLabel;
+@synthesize goInDepthCountLabel;
+@synthesize freeformCountLabel;
 
 @end

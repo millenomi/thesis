@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ILManagedObject.h"
 
-@class SJSlide;
+@class SJSlide, SJQuestion;
 
 @interface SJPoint : ILManagedObject {
 
@@ -21,5 +21,16 @@
 @property (nonatomic, retain) SJSlide * slide;
 
 @property(nonatomic, assign) NSUInteger indentationValue, sortingOrderValue;
+
+@property (nonatomic, retain) NSSet* questions;
+
+@end
+
+@interface SJPoint (CoreDataGeneratedAccessors)
+
+- (void)addQuestionsObject:(SJQuestion *)value;
+- (void)removeQuestionsObject:(SJQuestion *)value;
+- (void)addQuestions:(NSSet *)value;
+- (void)removeQuestions:(NSSet *)value;
 
 @end

@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "ILNIBTableViewCell.h"
+
 #import "SJPoint.h"
+#import "SJQuestion.h"
 
 @interface SJPointTableViewCell : ILNIBTableViewCell {
 	SJPoint* point;
@@ -21,5 +23,18 @@
 @property(nonatomic, retain) SJPoint* point;
 
 + (CGFloat) cellHeightForPoint:(SJPoint*) p width:(CGFloat) width;
+
+@property(retain) IBOutlet UIView* questionsView;
+
+@property(assign) IBOutlet UILabel* didNotUnderstandIconographyLabel;
+@property(assign) IBOutlet UILabel* goInDepthIconographyLabel;
+@property(assign) IBOutlet UILabel* freeformIconographyLabel;
+
+@property(assign) IBOutlet UILabel* didNotUnderstandCountLabel;
+@property(assign) IBOutlet UILabel* goInDepthCountLabel;
+@property(assign) IBOutlet UILabel* freeformCountLabel;
+
+- (void) updateWithAddedQuestion:(SJQuestion*) q;
+- (void) update;
 
 @end

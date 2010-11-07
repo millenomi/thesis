@@ -28,6 +28,7 @@
 		15E648031286B76B005975D2 /* GenericButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E648021286B76B005975D2 /* GenericButton@2x.png */; };
 		15E648201286B88E005975D2 /* libControls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E6481F1286B887005975D2 /* libControls.a */; };
 		15E6495F1286C8EB005975D2 /* libNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E6495E1286C8E8005975D2 /* libNetworking.a */; };
+		15E64AB51286EB85005975D2 /* SJQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E64AB41286EB85005975D2 /* SJQuestion.m */; };
 		15FBF1B812817510005D68B6 /* Balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FBF1B71281750F005D68B6 /* Balloon.png */; };
 		15FBF1BA12817513005D68B6 /* Balloon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FBF1B912817512005D68B6 /* Balloon@2x.png */; };
 		15FBF1BF12817582005D68B6 /* SJPoseAQuestionPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FBF1BD12817582005D68B6 /* SJPoseAQuestionPane.m */; };
@@ -137,6 +138,8 @@
 		15E648021286B76B005975D2 /* GenericButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GenericButton@2x.png"; sourceTree = "<group>"; };
 		15E6481A1286B887005975D2 /* Controls.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Controls.xcodeproj; path = ../LabsFoundation.line/iOS/Controls/Controls.xcodeproj; sourceTree = SOURCE_ROOT; };
 		15E649591286C8E7005975D2 /* Networking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Networking.xcodeproj; path = ../LabsFoundation.line/iOS/Networking/Networking.xcodeproj; sourceTree = SOURCE_ROOT; };
+		15E64AB31286EB85005975D2 /* SJQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJQuestion.h; sourceTree = "<group>"; };
+		15E64AB41286EB85005975D2 /* SJQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJQuestion.m; sourceTree = "<group>"; };
 		15FBF1B71281750F005D68B6 /* Balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Balloon.png; sourceTree = "<group>"; };
 		15FBF1B912817512005D68B6 /* Balloon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Balloon@2x.png"; sourceTree = "<group>"; };
 		15FBF1BC12817582005D68B6 /* SJPoseAQuestionPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPoseAQuestionPane.h; sourceTree = "<group>"; };
@@ -268,6 +271,8 @@
 				156F27D512703486005C6F71 /* SJLive.m */,
 				156F28C81270DF2B005C6F71 /* ILManagedObject.h */,
 				156F28C91270DF2B005C6F71 /* ILManagedObject.m */,
+				15E64AB31286EB85005975D2 /* SJQuestion.h */,
+				15E64AB41286EB85005975D2 /* SJQuestion.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -485,6 +490,7 @@
 				156F244A12734EA9000BC614 /* SJLivePresentationPane.m in Sources */,
 				15FBF1BF12817582005D68B6 /* SJPoseAQuestionPane.m in Sources */,
 				15D4366512845104005DBAE3 /* SJPointTableViewCell.m in Sources */,
+				15E64AB51286EB85005975D2 /* SJQuestion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

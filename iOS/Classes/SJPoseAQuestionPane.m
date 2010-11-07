@@ -54,6 +54,7 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 	self.didAskQuestionHandler = nil;
+	self.didCancelHandler = nil;
 	
 	[context release];
 	[super dealloc];

@@ -165,13 +165,14 @@ CF_INLINE NSString* SJStringByUppercasingFirstLetter(NSString* x) {
 			
 		}
 		
+		values = [finalValues copy];
+		unspecifiedOptionalValues = [unspecifieds copy];
+
 		if (![self validateAndReturnError:e]) {
 			[self release];
 			return nil;
 		}
 		
-		values = [finalValues copy];
-		unspecifiedOptionalValues = [unspecifieds copy];
 	}
 	
 	return self;

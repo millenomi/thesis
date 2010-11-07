@@ -276,5 +276,10 @@
 	self.askQuestionSheetPoint = nil;
 }
 
+- (void) live:(SJLive *)live didDownloadQuestion:(SJQuestion *)q;
+{
+	[[tableView visibleCells] makeObjectsPerformSelector:@selector(updateWithAddedQuestion:) withObject:q];
+}
+
 @end
 

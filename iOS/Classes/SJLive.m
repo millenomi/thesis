@@ -9,11 +9,13 @@
 #import "SJLive.h"
 #import "SJPresentation.h"
 #import "SJSlide.h"
+#import "SJQuestion.h"
 
 #import "SJLiveSchema.h"
 #import "SJPresentationSchema.h"
 #import "SJSlideSchema.h"
 #import "SJPointSchema.h"
+#import "SJQuestionSchema.h"
 
 #import "ILSensorSink.h"
 
@@ -123,7 +125,7 @@
 				
 			} else if (newSlideURL && ![newSlideURL isEqual:self.slideURL]) {
 				
-				// same presentation, slide change
+				// same presentation, new slide
 				[self moveToSlideWithURL:newSlideURL];
 				
 			}
@@ -212,10 +214,10 @@
 
 - (SJSlide*) storeSlideDownloadedByRequest:(id <SJRequest>) req;
 {
-	SJSlideSchema* slide = [req JSONValueWithSchema:[SJSlideSchema class] error:NULL];
-	NSURL* url = [self.endpoint URL:slide.presentationURLString];
+	SJSlideSchema* slideSchema = [req JSONValueWithSchema:[SJSlideSchema class] error:NULL];
+	NSURL* url = [self.endpoint URL:slideSchema.presentationURLString];
 	
-	if (!slide)
+	if (!slideSchema)
 		return nil;
 	
 	SJSlide* s = [SJSlide slideWithURL:req.URL fromContext:self.managedObjectContext];
@@ -224,14 +226,15 @@
 	if (!s)
 		s = [SJSlide insertedInto:self.managedObjectContext];
 	
-	s.URL = req.URL;
+	NSURL* newSlideURL = req.URL;
+	s.URL = newSlideURL;
 	
 	if (p)
 		s.presentation = p;
 	else
 		[unassignedSlides addObject:s];
 	
-	s.sortingOrder = slide.sortingOrder;
+	s.sortingOrder = slideSchema.sortingOrder;
 	
 	NSSet* oldPoints = [[s.points copy] autorelease];
 	for (SJPoint* pt in oldPoints)
@@ -240,14 +243,46 @@
 	NSMutableSet* newPoints = [NSMutableSet set];
 	
 	NSInteger i = 0;
-	for (SJPointSchema* point in slide.points) {
+	for (SJPointSchema* pointSchema in slideSchema.points) {
 		SJPoint* pt = [SJPoint insertedInto:self.managedObjectContext];
 		pt.sortingOrderValue = i;
-		pt.text = point.text;
-		pt.indentation = point.indentation;
+		pt.text = pointSchema.text;
+		pt.indentation = pointSchema.indentation;
 
-		
 		[newPoints addObject:pt];
+		
+		for (NSString* questionURLString in pointSchema.questionURLStrings) {
+			SJQuestion* q = [SJQuestion oneWithPredicate:[NSPredicate predicateWithFormat:@"URLString == %@", questionURLString] fromContext:self.managedObjectContext];
+
+			if (!q) {
+				[self.endpoint beginDownloadingFromURL:questionURLString completionHandler:^(id <SJRequest> r) {
+					// TODO give a URL to points?
+					SJSlide* newlyFetchedSlide = [SJSlide slideWithURL:newSlideURL fromContext:self.managedObjectContext];
+					SJPoint* newlyFetchedPoint = [newlyFetchedSlide pointAtIndex:i];
+					
+					if (!newlyFetchedPoint)
+						return;
+					
+					SJQuestionSchema* questionSchema = [r JSONValueWithSchema:[SJQuestionSchema class] error:NULL];
+					
+					if (questionSchema) {
+						SJQuestion* newQ = [SJQuestion insertedInto:self.managedObjectContext];
+						newQ.URLString = questionURLString;
+						newQ.kind = questionSchema.kind;
+						newQ.text = questionSchema.text;
+						
+						[newlyFetchedPoint addQuestionsObject:newQ];
+						
+						if (![self.managedObjectContext save:NULL])
+							[self.managedObjectContext rollback];
+						else
+							[self.delegate live:self didDownloadQuestion:newQ];
+					}
+					
+				}];
+			}
+		}
+		
 		i++;
 	}
 	
@@ -307,10 +342,20 @@
 	}
 	
 	if (![self.schema isEqual:s] && self.slideURL) {
-		SJSlide* slide = [SJSlide slideWithURL:self.slideURL fromContext:self.managedObjectContext];
+		// the slide schema was updated (eg new questions)! redownload!
 		
-		if (slide)
-			[self.delegate live:self didUpdateCurrentSlide:slide];
+		[self.endpoint beginDownloadingFromURL:self.slideURL completionHandler:^(id <SJRequest> req) {
+			
+			if (req.error || !req.JSONValue)
+				return; // <#TODO#>
+			
+			SJSlide* slide = [self storeSlideDownloadedByRequest:req];
+			
+			if (slide)
+				[self.delegate live:self didUpdateCurrentSlide:slide];
+						
+		}];
+		
 	}
 	
 	self.schema = s;

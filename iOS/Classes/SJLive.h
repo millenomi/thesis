@@ -48,4 +48,6 @@
 
 - (void) live:(SJLive*) live didUpdateCurrentSlide:(SJSlide*) slide;
 
+- (void) live:(SJLive*) live didDownloadQuestion:(SJQuestion*) q;
+
 @end
