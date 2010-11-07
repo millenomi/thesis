@@ -59,6 +59,7 @@ class PoseAQuestion(w.RequestHandler):
 		kind = self.request.get("kind", default_value = None)
 		if kind not in (Question.FREEFORM, Question.DID_NOT_UNDERSTAND, Question.GO_IN_DEPTH):
 			self.error(400)
+			self.response.headers['X-IL-Error-Reason'] = 'unknown question kind'
 			return
 		
 		text = None
@@ -66,6 +67,7 @@ class PoseAQuestion(w.RequestHandler):
 			text = self.request.get("text", default_value = None)
 			if text is None:
 				self.error(400)
+				self.response.headers['X-IL-Error-Reason'] = 'freeform questions need text'
 				return
 			
 		q = Question(point = x, parent = x, text = text, question_kind = kind)

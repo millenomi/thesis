@@ -159,7 +159,7 @@ class PresentationLoader(w.RequestHandler):
 		if self.request.headers['Content-Type'] != 'application/json' and \
 		 self.request.headers['Content-Type'] != 'text/json':
 			self.error(400)
-			self.response.headers['X-IL-ErrorReason'] = "content type unacceptable"
+			self.response.headers['X-IL-Error-Reason'] = "content type unacceptable"
 			return
 		
 		p = presentation_from_data(json.loads(self.request.body))
@@ -167,7 +167,7 @@ class PresentationLoader(w.RequestHandler):
 			self.redirect(PresentationJSONView.url(p))
 		else:
 			self.error(400)
-			self.response.headers['X-IL-ErrorReason'] = "cannot parse JSON into a presentation"
+			self.response.headers['X-IL-Error-Reason'] = "cannot parse JSON into a presentation"
 
 class PointJSONView(w.RequestHandler):
 	url_scheme = '/presentations/at/(.*)/slides/(.*)/points/(.*)'
