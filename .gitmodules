@@ -1,3 +1,4 @@
 [submodule "LabsFoundation.line"]
 	path = LabsFoundation.line
-	url = /Users/millenomi/Developer/Lines/LabsFoundation.line/
+	url = git://github.com/millenomi/labs-foundation.git
+	
