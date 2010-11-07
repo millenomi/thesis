@@ -114,7 +114,6 @@
 								 CGRect f = self.cellContentView.frame;
 								 f.origin.y -= f.size.height;
 								 self.cellContentView.frame = f;
-								 self.cellContentView.alpha = 0.0;
 							 }
 							 completion:NULL];
 			[UIView setAnimationsEnabled:wereEnabled];
@@ -124,7 +123,6 @@
 			[UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionAllowUserInteraction
 							 animations:^{
 								 self.cellContentView.frame = self.contentView.bounds;
-								 self.cellContentView.alpha = 1.0;
 							 }
 							 completion:^(BOOL done) {
 								 [actionView removeFromSuperview];
