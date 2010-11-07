@@ -17,6 +17,8 @@
 
 #import "ILSensorSink.h"
 
+#import "NSURL+ILURLParsing.h"
+
 #define kSJLiveRelativeURLString @"/live"
 
 @interface SJLive ()
@@ -315,5 +317,52 @@
 }
 
 @synthesize schema;
+
+#pragma mark Asking questions
+
+- (void) askQuestionOfKind:(NSString*) kind forPoint:(SJPoint*) point;
+{
+	// TODO URL generation does not belong here methinks.
+	NSString* URLString = [NSString stringWithFormat:@"%@/points/%@/new_question", point.slide.URLString, point.sortingOrder];
+	
+	NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:[self.endpoint URL:URLString]];
+	[req setValue:@"application/x-www-form-urlencoded;encoding=utf-8" forHTTPHeaderField:@"Content-Type"];
+	
+	NSDictionary* formData = [NSDictionary dictionaryWithObject:kind forKey:@"kind"];
+	[req setHTTPBody:[[formData queryString] dataUsingEncoding:NSUTF8StringEncoding]];
+	
+	[req setHTTPMethod:@"POST"];
+	
+	[[self.endpoint requestFromURLRequest:req completionHandler:^(id <SJRequest> req) {
+		
+		ILLog(@"Did finish URL request for asking question of kind %@", kind);
+		
+	}] start];
+}
+
+- (void) askFreeformQuestion:(NSString*) question forPoint:(SJPoint*) point;
+{
+	// TODO URL generation does not belong here methinks.
+	NSString* URLString = [NSString stringWithFormat:@"%@/points/%@/new_question", point.slide.URLString, point.sortingOrder];
+	
+	NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:[self.endpoint URL:URLString]];
+	
+	[req setValue:@"application/x-www-form-urlencoded;encoding=utf-8" forHTTPHeaderField:@"Content-Type"];
+	
+	NSDictionary* formData = [NSDictionary dictionaryWithObjectsAndKeys:
+							  kSJQuestionFreeformKind, @"kind",
+							  question, @"text",
+							  nil];
+	
+	[req setHTTPBody:[[formData queryString] dataUsingEncoding:NSUTF8StringEncoding]];
+
+	[req setHTTPMethod:@"POST"];
+	
+	[[self.endpoint requestFromURLRequest:req completionHandler:^(id <SJRequest> req) {
+		
+		ILLog(@"Did finish URL request for asking freeform question: %@", question);
+		
+	}] start];	
+}
 
 @end

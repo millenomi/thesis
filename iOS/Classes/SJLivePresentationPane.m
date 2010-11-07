@@ -241,21 +241,25 @@
 - (IBAction) askDidNotUnderstandQuestion;
 {
 	[self.live askQuestionOfKind:kSJQuestionDidNotUnderstandKind forPoint:self.askQuestionSheetPoint];
+	[fauxActionSheet dismissAnimated:YES];
 }
 
 - (IBAction) askGoInDepthQuestion;
 {
-	[self.live askQuestionOfKind:kSJQuestionGoInDepthKind forPoint:self.askQuestionSheetPoint];	
+	[self.live askQuestionOfKind:kSJQuestionGoInDepthKind forPoint:self.askQuestionSheetPoint];
+	[fauxActionSheet dismissAnimated:YES];
 }
 
 - (IBAction) askFreeformQuestion;
 {
+	SJPoint* p = self.askQuestionSheetPoint;
+	
 	SJPoseAQuestionPane* pane;
 	UIViewController* modal = [SJPoseAQuestionPane modalPaneForViewController:&pane];
-	pane.context = self.askQuestionSheetPoint.text;
+	pane.context = p.text;
 	
 	pane.didAskQuestionHandler = ^(NSString* questionText) {
-		[self.live askFreeformQuestion:questionText forPoint:self.askQuestionSheetPoint];
+		[self.live askFreeformQuestion:questionText forPoint:p];
 		[pane dismissModalViewControllerAnimated:YES];
 	};
 	
@@ -264,6 +268,7 @@
 	};
 	
 	[self presentModalViewController:modal animated:YES];
+	[fauxActionSheet dismissAnimated:YES];
 }
 
 - (void) fauxActionSheetWindowDidDismiss:(ILFauxActionSheetWindow *)window;

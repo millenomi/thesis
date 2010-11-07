@@ -30,4 +30,7 @@
 - validClassForSlideURLStringKey { return [NSString class]; }
 - (BOOL) isValueOptionalForSlideURLStringKey { return YES; }
 
+@dynamic questionURLStrings;
+- validClassForValuesOfQuestionURLStringsArrayKey { return [NSString class]; }
+
 @end

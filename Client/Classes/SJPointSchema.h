@@ -19,4 +19,6 @@
 @property(readonly, getter=URL) NSString* URLString;
 @property(readonly, getter=slideURL) NSString* slideURLString;
 
+@property(readonly, getter=questionURLs) NSArray* questionURLStrings;
+
 @end

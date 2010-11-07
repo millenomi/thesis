@@ -27,6 +27,7 @@
 		15E648011286B769005975D2 /* GenericButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E648001286B769005975D2 /* GenericButton.png */; };
 		15E648031286B76B005975D2 /* GenericButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E648021286B76B005975D2 /* GenericButton@2x.png */; };
 		15E648201286B88E005975D2 /* libControls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E6481F1286B887005975D2 /* libControls.a */; };
+		15E6495F1286C8EB005975D2 /* libNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E6495E1286C8E8005975D2 /* libNetworking.a */; };
 		15FBF1B812817510005D68B6 /* Balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FBF1B71281750F005D68B6 /* Balloon.png */; };
 		15FBF1BA12817513005D68B6 /* Balloon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FBF1B912817512005D68B6 /* Balloon@2x.png */; };
 		15FBF1BF12817582005D68B6 /* SJPoseAQuestionPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FBF1BD12817582005D68B6 /* SJPoseAQuestionPane.m */; };
@@ -80,6 +81,20 @@
 			remoteGlobalIDString = D2AAC07D0554694100DB518D /* Controls */;
 			remoteInfo = Controls;
 		};
+		15E6495D1286C8E8005975D2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15E649591286C8E7005975D2 /* Networking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D /* libNetworking.a */;
+			remoteInfo = Networking;
+		};
+		15E649601286C8F1005975D2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15E649591286C8E7005975D2 /* Networking.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D /* Networking */;
+			remoteInfo = Networking;
+		};
 		15FBF1E412817F93005D68B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15FBF1DD12817F93005D68B6 /* ViewControllers.xcodeproj */;
@@ -121,6 +136,7 @@
 		15E648001286B769005975D2 /* GenericButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GenericButton.png; sourceTree = "<group>"; };
 		15E648021286B76B005975D2 /* GenericButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GenericButton@2x.png"; sourceTree = "<group>"; };
 		15E6481A1286B887005975D2 /* Controls.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Controls.xcodeproj; path = ../LabsFoundation.line/iOS/Controls/Controls.xcodeproj; sourceTree = SOURCE_ROOT; };
+		15E649591286C8E7005975D2 /* Networking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Networking.xcodeproj; path = ../LabsFoundation.line/iOS/Networking/Networking.xcodeproj; sourceTree = SOURCE_ROOT; };
 		15FBF1B71281750F005D68B6 /* Balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Balloon.png; sourceTree = "<group>"; };
 		15FBF1B912817512005D68B6 /* Balloon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Balloon@2x.png"; sourceTree = "<group>"; };
 		15FBF1BC12817582005D68B6 /* SJPoseAQuestionPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPoseAQuestionPane.h; sourceTree = "<group>"; };
@@ -152,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15E6495F1286C8EB005975D2 /* libNetworking.a in Frameworks */,
 				15E648201286B88E005975D2 /* libControls.a in Frameworks */,
 				15D4368012845185005DBAE3 /* libViewControllers.a in Frameworks */,
 				154437B112759D88003197B3 /* libClient-iOS.a in Frameworks */,
@@ -207,6 +224,7 @@
 		15D4365E128450DF005DBAE3 /* Labs Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				15E649591286C8E7005975D2 /* Networking.xcodeproj */,
 				15E6481A1286B887005975D2 /* Controls.xcodeproj */,
 				15FBF1DD12817F93005D68B6 /* ViewControllers.xcodeproj */,
 			);
@@ -217,6 +235,14 @@
 			isa = PBXGroup;
 			children = (
 				15E6481F1286B887005975D2 /* libControls.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		15E6495A1286C8E7005975D2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				15E6495E1286C8E8005975D2 /* libNetworking.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -327,6 +353,7 @@
 				154437B712759DD2003197B3 /* PBXTargetDependency */,
 				15FBF1E712817F9C005D68B6 /* PBXTargetDependency */,
 				15E648221286B893005975D2 /* PBXTargetDependency */,
+				15E649611286C8F1005975D2 /* PBXTargetDependency */,
 			);
 			name = Subject;
 			productName = Subject;
@@ -363,6 +390,10 @@
 					ProjectRef = 15E6481A1286B887005975D2 /* Controls.xcodeproj */;
 				},
 				{
+					ProductGroup = 15E6495A1286C8E7005975D2 /* Products */;
+					ProjectRef = 15E649591286C8E7005975D2 /* Networking.xcodeproj */;
+				},
+				{
 					ProductGroup = 15FBF1DE12817F93005D68B6 /* Products */;
 					ProjectRef = 15FBF1DD12817F93005D68B6 /* ViewControllers.xcodeproj */;
 				},
@@ -394,6 +425,13 @@
 			fileType = archive.ar;
 			path = libControls.a;
 			remoteRef = 15E6481E1286B887005975D2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		15E6495E1286C8E8005975D2 /* libNetworking.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libNetworking.a;
+			remoteRef = 15E6495D1286C8E8005975D2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		15FBF1E512817F93005D68B6 /* libViewControllers.a */ = {
@@ -463,6 +501,11 @@
 			name = Controls;
 			targetProxy = 15E648211286B893005975D2 /* PBXContainerItemProxy */;
 		};
+		15E649611286C8F1005975D2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Networking;
+			targetProxy = 15E649601286C8F1005975D2 /* PBXContainerItemProxy */;
+		};
 		15FBF1E712817F9C005D68B6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ViewControllers;
@@ -485,6 +528,7 @@
 					"$(SRCROOT)/../Client/Classes",
 					"$(INFINITELABS_TOOLS)",
 					"$(SRCROOT)/../LabsFoundation.line/iOS/Controls",
+					"$(SRCROOT)/../LabsFoundation.line/iOS/Networking",
 				);
 				IBC_NOTICES = NO;
 				IBC_WARNINGS = NO;
@@ -509,6 +553,7 @@
 					"$(SRCROOT)/../Client/Classes",
 					"$(INFINITELABS_TOOLS)",
 					"$(SRCROOT)/../LabsFoundation.line/iOS/Controls",
+					"$(SRCROOT)/../LabsFoundation.line/iOS/Networking",
 				);
 				IBC_NOTICES = NO;
 				IBC_WARNINGS = NO;

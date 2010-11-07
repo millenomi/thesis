@@ -30,7 +30,8 @@
 
 - (void) stop;
 
-// - (void) askQuestion:(NSString*) question onPoint:(SJPoint*) point;
+- (void) askQuestionOfKind:(NSString*) kind forPoint:(SJPoint*) point; // completionHandler:(void(^)(BOOL ok)) handler;
+- (void) askFreeformQuestion:(NSString*) question forPoint:(SJPoint*) point;
 
 @end
 
