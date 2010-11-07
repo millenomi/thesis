@@ -15,7 +15,6 @@
 @end
 
 
-
 @implementation SJPoseAQuestionPane
 
 - (id) init;
@@ -23,10 +22,21 @@
 	if ((self = [super init])) {
 		
 		self.title = NSLocalizedString(@"Question", @"Pose a question pane title");
+		
+		// Cancel button
 		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss)] autorelease];
+		
+		// Ask button
+		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Ask", @"'Ask' modal dismiss button on the pose-a-question pane") style:UIBarButtonItemStyleDone target:self action:@selector(ask)] autorelease];
+
+		self.navigationItem.rightBarButtonItem.enabled = NO;
+		
+		// Keyboard stuff
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willShowKeyboard:) name:UIKeyboardWillShowNotification object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willHideKeyboard:) name:UIKeyboardWillHideNotification object:nil];
+		
+		// Outlets
 		
 		[self addManagedOutletKeys:
 		 @"balloonBackdrop",
@@ -42,6 +52,8 @@
 - (void) dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	self.didAskQuestionHandler = nil;
 	
 	[context release];
 	[super dealloc];
@@ -66,6 +78,8 @@
 {	
 	balloonBackdrop.image = [[UIImage imageNamed:@"Balloon.png"] stretchableImageWithLeftCapWidth:25 topCapHeight:16];
 	keyboardRaiserView.frame = self.view.bounds;
+	
+	questionTextView.delegate = self;
 }
 
 - (void) viewWillAppear:(BOOL)animated;
@@ -73,6 +87,14 @@
 	keyboardRaiserView.frame = self.view.bounds;
 	[questionTextView becomeFirstResponder];
 }
+
+- (void) clearOutlets;
+{
+	questionTextView.delegate = nil;
+	[super clearOutlets];
+}
+
+#pragma mark Keyboard stuff
 
 - (void) willShowKeyboard:(NSNotification*) n;
 {
@@ -135,6 +157,38 @@
 						 keyboardRaiserView.frame = frame;
 					 }
 					 completion:NULL];
+}
+
+#pragma mark Actually asking
+
+@synthesize didAskQuestionHandler, didCancelHandler;
+
+- (void) ask;
+{
+	if (self.didAskQuestionHandler)
+		(self.didAskQuestionHandler)(questionTextView.text);
+}
+
+- (void) dismiss;
+{
+	// we rely on our client to dismiss ourselves.
+	if (self.didCancelHandler)
+		(self.didCancelHandler)();
+}
+
+- (void) textViewDidChange:(UITextView*) tv;
+{
+	self.navigationItem.rightBarButtonItem.enabled = [questionTextView hasText];
+}
+
+- (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
+{
+	if (range.length == 0 && [text isEqual:@"\n"]) {
+		[self ask];
+		return NO;
+	}
+	
+	return YES;
 }
 
 @end

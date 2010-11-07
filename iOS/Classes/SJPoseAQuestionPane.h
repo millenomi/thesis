@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "ILViewController.h"
 
-@interface SJPoseAQuestionPane : ILViewController {
+typedef void (^SJPoseAQuestionDidAskHandler)(NSString* questionText);
+
+@interface SJPoseAQuestionPane : ILViewController <UITextViewDelegate> {
 	IBOutlet UIImageView* balloonBackdrop;
 	IBOutlet UIView* keyboardRaiserView;
 	IBOutlet UITextView* questionTextView;
@@ -18,5 +20,7 @@
 }
 
 @property(copy) NSString* context;
+@property(copy) void (^didAskQuestionHandler)(NSString* questionText);
+@property(copy) void (^didCancelHandler)();
 
 @end

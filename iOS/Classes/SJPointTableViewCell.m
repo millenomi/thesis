@@ -73,6 +73,8 @@
 	return (p.indentationValue == 0)? p.text : [NSString stringWithFormat:@"%C %@", 0x2022, p.text];
 }
 
+#if 0
+
 - (void) prepareForReuse;
 {
 	[self setShowingActionView:NO animated:NO];
@@ -134,5 +136,7 @@
 		
 	}
 }
+
+#endif
 
 @end

@@ -24,6 +24,8 @@
 - (void) setUpObserving;
 - (void) endObserving;
 
+@property(retain) SJPoint* askQuestionSheetPoint;
+
 @end
 
 
@@ -82,20 +84,33 @@
 
 - (void) viewDidLoad;
 {
+	[super viewDidLoad];
+	
 	if (!self.live && self.managedObjectContext && self.endpoint)
 		self.live = [[[SJLive alloc] initWithEndpoint:self.endpoint delegate:self managedObjectContext:self.managedObjectContext] autorelease];
 	
 	tableView.dataSource = self;
 	tableView.delegate = self;
+	
+	actionViewCancelButton.backgroundImageCaps = CGSizeMake(16, 0);
 }
 
 - (void) viewDidUnload;
 {
+	[super viewDidUnload];
+	
 	tableView.delegate = nil;
 	tableView.dataSource = nil;
 	[tableView release]; tableView = nil;
 	
 	[spinner release]; spinner = nil;
+	
+	[actionViewCancelButton release]; actionViewCancelButton = nil;
+	[questionActionView release]; questionActionView = nil;
+	
+	[fauxActionSheet dismissAnimated:NO];
+	fauxActionSheet.fauxActionSheetDelegate = nil;
+	[fauxActionSheet release]; fauxActionSheet = nil;
 	
 	[self.live stop];
 	self.live.delegate = nil;
@@ -191,35 +206,69 @@
 - (void) tableView:(UITableView *)tv didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	self.askQuestionSheetPoint = [self.currentSlide pointAtIndex:[indexPath row]];
+	if (!self.askQuestionSheetPoint)
+		return;
 	
-	// <#TODO#>
-//	SJPoint* p = [self.currentSlide pointAtIndex:[indexPath row]];
-
-//	SJPoseAQuestionPane* pane;
-//	UIViewController* modal	= [SJPoseAQuestionPane modalPaneForViewController:&pane];
-//	pane.context = p.text;
-//	[self presentModalViewController:modal animated:YES];
-
-	SJPointTableViewCell* selectedCell = (SJPointTableViewCell*) [tableView cellForRowAtIndexPath:indexPath];
-	
-	for (SJPointTableViewCell* cell in [tableView visibleCells]) {
-		if (cell != selectedCell)
-			[cell setShowingActionView:NO];
+	if (!fauxActionSheet) {
+		fauxActionSheet = [[ILFauxActionSheetWindow alloc] initWithContentView:questionActionView];
+		fauxActionSheet.fauxActionSheetDelegate = self;
 	}
 	
-	[selectedCell setShowingActionView:YES];
+	[fauxActionSheet showAnimated:YES];
 }
 
-- (void) scrollViewDidScroll:(UIScrollView *)scrollView;
+- (void) viewWillDisappear:(BOOL)animated;
 {
-	for (SJPointTableViewCell* cell in [tableView visibleCells])
-		[cell setShowingActionView:NO];
+	[fauxActionSheet dismissAnimated:animated];
 }
 
 - (void) live:(SJLive *)live didUpdateCurrentSlide:(SJSlide *)slide;
 {
 	if (slide == self.currentSlide)
 		[tableView reloadData];
+}
+
+#pragma mark Question sheet
+
+@synthesize askQuestionSheetPoint;
+
+- (IBAction) cancelQuestionSheet;
+{
+	[fauxActionSheet dismissAnimated:YES];
+}
+
+- (IBAction) askDidNotUnderstandQuestion;
+{
+	[self.live askQuestionOfKind:kSJQuestionDidNotUnderstandKind forPoint:self.askQuestionSheetPoint];
+}
+
+- (IBAction) askGoInDepthQuestion;
+{
+	[self.live askQuestionOfKind:kSJQuestionGoInDepthKind forPoint:self.askQuestionSheetPoint];	
+}
+
+- (IBAction) askFreeformQuestion;
+{
+	SJPoseAQuestionPane* pane;
+	UIViewController* modal = [SJPoseAQuestionPane modalPaneForViewController:&pane];
+	pane.context = self.askQuestionSheetPoint.text;
+	
+	pane.didAskQuestionHandler = ^(NSString* questionText) {
+		[self.live askFreeformQuestion:questionText forPoint:self.askQuestionSheetPoint];
+		[pane dismissModalViewControllerAnimated:YES];
+	};
+	
+	pane.didCancelHandler = ^() {
+		[pane dismissModalViewControllerAnimated:YES];		
+	};
+	
+	[self presentModalViewController:modal animated:YES];
+}
+
+- (void) fauxActionSheetWindowDidDismiss:(ILFauxActionSheetWindow *)window;
+{
+	self.askQuestionSheetPoint = nil;
 }
 
 @end

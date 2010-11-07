@@ -22,7 +22,4 @@
 
 + (CGFloat) cellHeightForPoint:(SJPoint*) p width:(CGFloat) width;
 
-@property BOOL showingActionView;
-- (void) setShowingActionView:(BOOL) s animated:(BOOL) animated;
-
 @end

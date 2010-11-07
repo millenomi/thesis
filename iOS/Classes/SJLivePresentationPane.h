@@ -10,13 +10,27 @@
 #import "SJEndpoint.h"
 #import "SJLive.h"
 
-@interface SJLivePresentationPane : UIViewController <SJLiveDelegate, UITableViewDelegate, UITableViewDataSource> {
+#import "ILViewController.h"
+#import "ILStretchableImageButton.h"
+#import "ILFauxActionSheetWindow.h"
+
+@interface SJLivePresentationPane : ILViewController <SJLiveDelegate, UITableViewDelegate, UITableViewDataSource, ILFauxActionSheetDelegate> {
 	IBOutlet UIActivityIndicatorView* spinner;
 	IBOutlet UITableView* tableView;
 	IBOutlet UIView* tableHostView;
+	
+	IBOutlet UIView* questionActionView;
+	IBOutlet ILStretchableImageButton* actionViewCancelButton;
+	
+	IBOutlet ILFauxActionSheetWindow* fauxActionSheet;
 }
 
 @property(retain) NSManagedObjectContext* managedObjectContext;
 @property(retain) SJEndpoint* endpoint;
+
+- (IBAction) cancelQuestionSheet;
+- (IBAction) askDidNotUnderstandQuestion;
+- (IBAction) askGoInDepthQuestion;
+- (IBAction) askFreeformQuestion;
 
 @end
