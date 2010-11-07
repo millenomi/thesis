@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="10"/>
 			<integer value="8"/>
+			<integer value="10"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -201,7 +201,7 @@
 						<double key="IBUIContentEdgeInsets.right">0.0</double>
 						<int key="IBUILineBreakMode">0</int>
 						<string key="IBUITitleShadowOffset">{-1, 0}</string>
-						<string key="IBUINormalTitle">More in depht?</string>
+						<string key="IBUINormalTitle">More in depth?</string>
 						<reference key="IBUIHighlightedTitleColor" ref="491575759"/>
 						<reference key="IBUINormalTitleColor" ref="491575759"/>
 						<object class="NSColor" key="IBUINormalTitleShadowColor">
