@@ -31,7 +31,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
-	self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(pollForCurrentKeynoteSlide:) userInfo:nil repeats:YES];
+	self.timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(pollForCurrentKeynoteSlide:) userInfo:nil repeats:YES];
 	
 	self.endpoint = [[SJEndpoint alloc] initWithURL:[NSURL URLWithString:@"http://localhost:8083"]];
 	
