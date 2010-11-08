@@ -23,6 +23,8 @@
 	IBOutlet ILStretchableImageButton* actionViewCancelButton;
 	
 	IBOutlet ILFauxActionSheetWindow* fauxActionSheet;
+	
+	CGRect originalTableViewFrame;
 }
 
 @property(retain) NSManagedObjectContext* managedObjectContext;

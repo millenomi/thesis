@@ -14,6 +14,8 @@
 #import "SJPoseAQuestionPane.h"
 #import "SJPointTableViewCell.h"
 
+#import "ILViewAnimationTools.h"
+
 #import <QuartzCore/QuartzCore.h>
 
 @interface SJLivePresentationPane ()
@@ -205,7 +207,6 @@
 
 - (void) tableView:(UITableView *)tv didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	self.askQuestionSheetPoint = [self.currentSlide pointAtIndex:[indexPath row]];
 	if (!self.askQuestionSheetPoint)
 		return;
@@ -268,6 +269,40 @@
 	
 	[self presentModalViewController:modal animated:YES];
 	[fauxActionSheet dismissAnimated:YES];
+}
+
+- (void) viewDidAppear:(BOOL)animated;
+{
+	[super viewDidAppear:animated];
+	originalTableViewFrame = tableView.frame;
+}
+
+- (void) fauxActionSheetWindow:(ILFauxActionSheetWindow *)window willAppearWithAnimationDuration:(CGFloat)duration curve:(UIViewAnimationCurve)curve finalContentViewFrame:(CGRect)frame;
+{
+	[UIView animateWithDuration:duration delay:0
+						options:ILViewAnimationOptionsForCurve(curve) | UIViewAnimationOptionAllowUserInteraction
+					 animations:^{
+						 
+						 CGRect contentViewFrameInSelf = [self.view convertRect:frame fromView:window];
+						 
+						 CGRect f = originalTableViewFrame;
+						 f.size.height = contentViewFrameInSelf.origin.y;
+						 tableView.frame = f;
+					 }
+					 completion:^(BOOL done) {
+						 NSIndexPath* indexPath = [tableView indexPathForSelectedRow];
+						 if (indexPath)
+							 [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+					 }];
+}
+
+- (void) fauxActionSheetWindowWillDismiss:(ILFauxActionSheetWindow *)window;
+{
+	NSIndexPath* indexPath = [tableView indexPathForSelectedRow];
+	if (indexPath)
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	tableView.frame = originalTableViewFrame;
 }
 
 - (void) fauxActionSheetWindowDidDismiss:(ILFauxActionSheetWindow *)window;
