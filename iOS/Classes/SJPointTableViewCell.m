@@ -26,6 +26,8 @@
 	if ((self = [super initWithNibName:name bundle:bundle reuseIdentifier:reuseIdent])) {
 		self.clipsToBounds = YES;
 		self.contentView.clipsToBounds = YES;
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mayHaveChangedStuff:) name:NSManagedObjectContextDidSaveNotification object:nil];
 	}
 	
 	return self;
@@ -33,6 +35,8 @@
 
 - (void) dealloc
 {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 	[pointTextLabel release];
 	[actionView release];
 	
@@ -41,6 +45,14 @@
 	[super dealloc];
 }
 
+
+- (void) mayHaveChangedStuff:(NSNotification*) n;
+{
+	if ([self.point isDeleted])
+		self.point = nil;
+	else
+		[self update];
+}
 
 @synthesize point;
 - (void) setPoint:(SJPoint *) p;

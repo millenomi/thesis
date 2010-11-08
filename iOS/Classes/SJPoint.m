@@ -16,6 +16,7 @@
 @dynamic text;
 @dynamic slide;
 @dynamic questions;
+@dynamic URLString;
 
 - (NSUInteger) indentationValue;
 {

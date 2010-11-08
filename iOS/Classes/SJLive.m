@@ -235,58 +235,69 @@
 		[unassignedSlides addObject:s];
 	
 	s.sortingOrder = slideSchema.sortingOrder;
-	
-	NSSet* oldPoints = [[s.points copy] autorelease];
-	for (SJPoint* pt in oldPoints)
-		[[pt managedObjectContext] deleteObject:pt];
-
-	NSMutableSet* newPoints = [NSMutableSet set];
-	
+		
 	NSInteger i = 0;
 	for (SJPointSchema* pointSchema in slideSchema.points) {
-		SJPoint* pt = [SJPoint insertedInto:self.managedObjectContext];
+		SJPoint* pt = [SJPoint oneWithPredicate:[NSPredicate predicateWithFormat:@"URLString == %@", pointSchema.URLString] fromContext:self.managedObjectContext];
+		
+		if (!pt)
+			pt = [SJPoint insertedInto:self.managedObjectContext];
+		
 		pt.sortingOrderValue = i;
 		pt.text = pointSchema.text;
 		pt.indentation = pointSchema.indentation;
-
-		[newPoints addObject:pt];
+		pt.URLString = pointSchema.URLString;
 		
 		for (NSString* questionURLString in pointSchema.questionURLStrings) {
-			SJQuestion* q = [SJQuestion oneWithPredicate:[NSPredicate predicateWithFormat:@"URLString == %@", questionURLString] fromContext:self.managedObjectContext];
-
-			if (!q) {
-				[self.endpoint beginDownloadingFromURL:questionURLString completionHandler:^(id <SJRequest> r) {
-					// TODO give a URL to points?
-					SJSlide* newlyFetchedSlide = [SJSlide slideWithURL:newSlideURL fromContext:self.managedObjectContext];
-					SJPoint* newlyFetchedPoint = [newlyFetchedSlide pointAtIndex:i];
-					
-					if (!newlyFetchedPoint)
-						return;
+			[self.endpoint beginDownloadingFromURL:questionURLString completionHandler:^(id <SJRequest> r) {
+				SJQuestion* newQ = [SJQuestion oneWithPredicate:[NSPredicate predicateWithFormat:@"URLString == %@", questionURLString] fromContext:self.managedObjectContext];
+				
+				if ([r.HTTPResponse statusCode] == 404) {
+					if (newQ)
+						[[newQ managedObjectContext] deleteObject:newQ];
+				} else {
 					
 					SJQuestionSchema* questionSchema = [r JSONValueWithSchema:[SJQuestionSchema class] error:NULL];
 					
 					if (questionSchema) {
-						SJQuestion* newQ = [SJQuestion insertedInto:self.managedObjectContext];
+						
+						// two, check if the po
+						SJSlide* newlyFetchedSlide = [SJSlide slideWithURL:newSlideURL fromContext:self.managedObjectContext];
+						SJPoint* newlyFetchedPoint = [newlyFetchedSlide pointAtIndex:i];
+						
+						if (!newlyFetchedPoint)
+							return;
+						
+						if (!newQ)
+							newQ = [SJQuestion insertedInto:self.managedObjectContext];
+						
 						newQ.URLString = questionURLString;
 						newQ.kind = questionSchema.kind;
 						newQ.text = questionSchema.text;
 						
 						[newlyFetchedPoint addQuestionsObject:newQ];
 						
-						if (![self.managedObjectContext save:NULL])
-							[self.managedObjectContext rollback];
-						else
-							[self.delegate live:self didDownloadQuestion:newQ];
 					}
-					
-				}];
-			}
+				}
+				
+				if (![self.managedObjectContext save:NULL])
+					[self.managedObjectContext rollback];
+				else if (newQ && ![newQ isDeleted])
+					[self.delegate live:self didDownloadQuestion:newQ];					
+				
+			}];
 		}
+				
+		for (SJQuestion* q in [SJQuestion allWithPredicate:[NSPredicate predicateWithFormat:@"point == %@ AND NOT (URLString IN %@)", pt, pointSchema.questionURLStrings] fromContext:self.managedObjectContext]) {
+			
+			[pt removeQuestionsObject:q];
+			[self.managedObjectContext deleteObject:q];
+		}
+		
+		[s addPointsObject:pt];
 		
 		i++;
 	}
-	
-	s.points = newPoints;
 	
 	if (![self.managedObjectContext save:NULL]) {
 		[self.managedObjectContext rollback];

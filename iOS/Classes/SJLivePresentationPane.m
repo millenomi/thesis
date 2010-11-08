@@ -225,8 +225,7 @@
 
 - (void) live:(SJLive *)live didUpdateCurrentSlide:(SJSlide *)slide;
 {
-	if (slide == self.currentSlide)
-		[tableView reloadData];
+	[[tableView visibleCells] makeObjectsPerformSelector:@selector(update)];
 }
 
 #pragma mark Question sheet

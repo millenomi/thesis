@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSNumber * sortingOrder;
 @property (nonatomic, retain) NSString * text;
 @property (nonatomic, retain) SJSlide * slide;
+@property (nonatomic, retain) NSString* URLString;
 
 @property(nonatomic, assign) NSUInteger indentationValue, sortingOrderValue;
 

@@ -57,7 +57,7 @@ class Point(Model):
 	
 	def to_data(self):
 		import question
-		point_data = { "text": self.text, "indentation": self.indentation, "questionURLs": [] }
+		point_data = { "URL": PointJSONView.url(self), "text": self.text, "indentation": self.indentation, "questionURLs": [] }
 		
 		for q in self.question_set:
 			point_data["questionURLs"].append(question.QuestionView.url(q))

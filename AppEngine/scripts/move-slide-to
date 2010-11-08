@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ "$1" == "end" ]; then
+	curl -D- -F 'end=true' http://localhost:8083/live
+else
+	curl -D- -F 'presentation=1' -F "slide=$1" http://localhost:8083/live
+fi
+
+curl -D- http://localhost:8083/live

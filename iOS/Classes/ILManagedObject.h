@@ -20,4 +20,8 @@
 + oneWithPredicate:(NSPredicate*) pred orderBy:(NSArray*) sortDescriptors fromContext:(NSManagedObjectContext*) moc;
 + oneWithPredicate:(NSPredicate*) pred fromContext:(NSManagedObjectContext*) moc;
 
++ resultOfFetchRequestWithProperties:(void(^)(NSFetchRequest*)) props fromContext:(NSManagedObjectContext*) moc;
+
++ (NSArray*) allWithPredicate:(NSPredicate*) pred fromContext:(NSManagedObjectContext*) moc;
+
 @end

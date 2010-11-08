@@ -24,15 +24,11 @@
 
 + oneWithPredicate:(NSPredicate*) pred orderBy:(NSArray*) sortDescriptors fromContext:(NSManagedObjectContext*) moc;
 {
-	NSEntityDescription* ed = [NSEntityDescription entityForName:NSStringFromClass(self) inManagedObjectContext:moc];
-	
-	NSFetchRequest* fetch = [[NSFetchRequest new] autorelease];
-	fetch.predicate = pred;
-	fetch.fetchLimit = 1;
-	fetch.entity = ed;
-	fetch.sortDescriptors = sortDescriptors;
-	
-	NSArray* a = [moc executeFetchRequest:fetch error:NULL];
+	NSArray* a = [self resultOfFetchRequestWithProperties:^(NSFetchRequest* fetch) {
+		fetch.predicate = pred;
+		fetch.fetchLimit = 1;
+		fetch.sortDescriptors = sortDescriptors;
+	} fromContext:moc];
 	
 	return ([a count] > 0)? [a objectAtIndex:0] : nil;
 }
@@ -40,6 +36,24 @@
 + oneWithPredicate:(NSPredicate*) pred fromContext:(NSManagedObjectContext*) moc;
 {
 	return [self oneWithPredicate:pred orderBy:nil fromContext:moc];
+}
+
++ resultOfFetchRequestWithProperties:(void(^)(NSFetchRequest*)) props fromContext:(NSManagedObjectContext*) moc;
+{
+	NSEntityDescription* ed = [NSEntityDescription entityForName:NSStringFromClass(self) inManagedObjectContext:moc];
+	
+	NSFetchRequest* fetch = [[NSFetchRequest new] autorelease];
+	fetch.entity = ed;
+	props(fetch);
+
+	return [moc executeFetchRequest:fetch error:NULL];
+}
+
++ (NSArray*) allWithPredicate:(NSPredicate*) pred fromContext:(NSManagedObjectContext*) moc;
+{
+	return [self resultOfFetchRequestWithProperties:^(NSFetchRequest* r) {
+		r.predicate = pred;
+	} fromContext:moc];
 }
 
 @end
