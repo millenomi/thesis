@@ -4,5 +4,9 @@ runtime: python
 api_version: 1
 
 handlers:
+- url: /common
+  static_dir: common
+- url: /lecturer
+  static_dir: lecturer
 - url: .*
   script: main.py

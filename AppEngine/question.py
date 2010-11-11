@@ -21,11 +21,14 @@ class Question(Model):
 		
 	
 class QuestionView(w.RequestHandler):
-	url_scheme = '/questions/(.*)'
+	url_scheme = '/questions/id/(.*)'
 	
 	@classmethod
 	def url(self, question):
-		return "/questions/%s" % (str(question.key()),)
+		if isinstance(question, Question):
+			question = question.key()
+			
+		return "/questions/id/%s" % (str(question),)
 		
 	def get(self, ident):
 		q = Question.get(Key(ident))
@@ -37,7 +40,6 @@ class QuestionView(w.RequestHandler):
 		data["pointURL"] = p.PointJSONView.url(q.point)
 		json.dump(data, self.response.out)
 		
-	
 class PoseAQuestion(w.RequestHandler):
 	url_scheme = '/presentations/at/(.*)/slides/(.*)/points/(.*)/new_question'
 	
@@ -72,6 +74,11 @@ class PoseAQuestion(w.RequestHandler):
 			
 		q = Question(point = x, parent = x, text = text, question_kind = kind)
 		q.put()
+		
+		import live
+		l = live.Live.get_current()
+		l.questions.append(q.key())
+		l.put()
 		
 		self.redirect(QuestionView.url(q))
 		

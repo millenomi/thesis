@@ -7,7 +7,8 @@ import question as qa
 
 class Live(Model):
 	slide = ReferenceProperty(p.Slide)
-
+	questions = ListProperty(Key)
+	
 	@classmethod
 	def get_current(self):
 		me = self.all().get()
@@ -16,7 +17,7 @@ class Live(Model):
 			# Whoever edits us will .put().
 			
 		return me
-
+		
 class LiveControl(w.RequestHandler):
 	url_scheme = '/live'
 	
@@ -33,10 +34,12 @@ class LiveControl(w.RequestHandler):
 				return
 				
 			me.slide = s
-			me.put()
 		elif self.request.get('end') == 'true':
 			me.slide = None
-			me.put()
+			me.questions = []
+		
+		me.put()
+		
 	
 	def get(self):
 		me = Live.get_current()
@@ -45,14 +48,6 @@ class LiveControl(w.RequestHandler):
 		
 		if s is not None:
 			response["slide"] = s.to_data()
-			# {
-			# 				"presentation": {
-			# 					"id": s.presentation.key().id(),
-			# 					"URL": p.PresentationJSONView.url(s.presentation)
-			# 				},
-			# 				"ordinal": s.sorting_order,
-			# 				"URL": p.SlideJSONView.url(s)
-			# 			}
 			response["slide"]["URL"] = p.SlideJSONView.url(s)
 			questions = []
 			
@@ -61,6 +56,10 @@ class LiveControl(w.RequestHandler):
 					questions.append(qa.QuestionView.url(q))
 			
 			response["slide"]["questionURLs"] = questions
+			
+			response["questionsPostedDuringLive"] = []
+			for q in me.questions:
+				response["questionsPostedDuringLive"].append(qa.QuestionView.url(q))
 		
 		self.response.headers['Content-Type'] = 'application/json'
 		json.dump(response, self.response.out)

@@ -26,6 +26,9 @@ class Presentation(Model):
 	def get_by_url_id(self, url_id):
 		return self.get(self.key_for_id(url_id))
 		
+	def url_id(self):
+		return self.key().id()
+		
 	def slide_at_index(self, i):
 		return Slide.gql("WHERE presentation = :1 AND sorting_order = :2", self, long(i)).get()
 	
@@ -136,7 +139,7 @@ class SlideJSONView(w.RequestHandler):
 	
 	@classmethod
 	def url(self, slide):
-		return "/presentations/at/%s/slides/%s" % (str(slide.presentation.key().id()), str(slide.sorting_order))
+		return "/presentations/at/%s/slides/%s" % (str(slide.presentation.url_id()), str(slide.sorting_order))
 	
 	def get(self, pres, index):
 		pres = Presentation.key_for_id(long(pres))
@@ -174,7 +177,7 @@ class PointJSONView(w.RequestHandler):
 	
 	@classmethod
 	def url(self, point):
-		return "/presentations/at/%s/slides/%s/points/%s" % (str(point.slide.presentation.key().id()), str(point.slide.sorting_order), str(point.sorting_order))
+		return "/presentations/at/%s/slides/%s/points/%s" % (str(point.slide.presentation.url_id()), str(point.slide.sorting_order), str(point.sorting_order))
 		
 	def get(self, pres, slide_index, point_index):
 		pres = Presentation.key_for_id(long(pres))
