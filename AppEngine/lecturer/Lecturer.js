@@ -18,8 +18,9 @@ $(function() {
 	
 	live = new ILabs.Subject.Live(delegate);
 	live.ongoing(function(o) {
-		if (!o)
+		if (!o) {
 			$('#questions-label').text("Live session not ongoing.");
 			$('#questions-list').empty();
+		}
 	});
 });
