@@ -210,11 +210,21 @@ if (!ILabs.Subject.Point) {
 		},
 		
 		setValuesByParsingData: function(data) {
+			this._text = data.text;
+			this._indentation = data.indentation;
+			
+			this._questions = [];
+			var i; for (i = 0; i < data.questionURLs.length; i++)
+				this._questions.unshift(new ILabs.Subject.Question(data.questionURLs[i]));
+				
+			// this._slide = new ILabs.Subject.Slide(data.slideURL);
 		}
 	};
 	
-	ILabs.Subject.giveAsyncAccessors(ILabs.Subject.Point.prototype //,
-		// TODO
+	ILabs.Subject.giveAsyncAccessors(ILabs.Subject.Point.prototype,
+		'text', '_text',
+		'indentation', '_indentation',
+		'questions', '_questions'
 	);
 }
 
