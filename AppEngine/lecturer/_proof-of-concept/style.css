@@ -1,0 +1,30 @@
+/* @override http://localhost:8083/lecturer/style.css */
+
+body {
+	font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	font-size: 10pt;
+}
+
+li {
+	list-style-type: circle;
+	font-size: 120%;
+}
+
+.point {
+	font-size: 60%;
+	color: #777;
+	font-weight: normal;
+}
+
+.freeform {
+	font-size: 140%;
+	font-weight: bold;	
+}
+
+.didNotUnderstand {
+	color: #db0d0d;
+}
+
+.goInDepth {
+	color: #0098f8;
+}

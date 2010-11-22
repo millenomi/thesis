@@ -1,4 +1,8 @@
 var live;
+var displayNamesForQuestionKinds = {
+	didNotUnderstand: 'Sorry?',
+	goInDepth: 'Can you go in depth?'
+};
 
 $(function() {
 	var delegate = new ILabs.Subject.LiveDelegate();
@@ -7,12 +11,22 @@ $(function() {
 	};
 	delegate.liveDidFinish = function(live) {
 		$('#questions-label').text("Live session not ongoing.");
-		$('#questions-list').empty();
 	};
 	delegate.liveDidPoseNewQuestion = function(live, question) {
 		$('#questions-label').text(live.questionsPostedDuringLive().count() + " questions.");
 		question.loadSelf(function() {
-			$('<li></li>').text(question.kind() + ": " + question.text()).appendTo($('#questions-list'));
+			var li = $('<li></li>');
+			li.addClass(question.kind());
+			if (question.kind() == 'freeform')
+				li.text("‘" + question.text() + "’");
+			else
+				li.text("1x " + displayNamesForQuestionKinds[question.kind()]);
+				
+			li.appendTo($('#questions-list'));
+			
+			question.point().text(function(text) {
+				$('<span></span>').addClass("point").text(" on “" + text + "”").appendTo(li);
+			});
 		});
 	};
 	
@@ -20,7 +34,6 @@ $(function() {
 	live.ongoing(function(o) {
 		if (!o) {
 			$('#questions-label').text("Live session not ongoing.");
-			$('#questions-list').empty();
 		}
 	});
 });

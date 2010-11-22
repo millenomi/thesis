@@ -1,6 +1,7 @@
 if (!window.ILabs)
 	window.ILabs = {};
-if (!ILabs.Subject)
+	
+if (!ILabs.Subject) {
 	ILabs.Subject = {
 		load: function(url, success, complete) {
 			$.ajax({
@@ -70,6 +71,7 @@ if (!ILabs.Subject)
 				self[arguments[i]] = this.asyncAccessor(arguments[i + 1]);
 		}
 	};
+}
 	
 if (!ILabs.Subject.ModelSet) {
 	ILabs.Subject.ModelSet = function() {};

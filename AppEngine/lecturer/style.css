@@ -1,0 +1,85 @@
+/* @override http://localhost:8083/lecturer/style.css */
+
+body {
+	overflow-y: scroll;
+}
+
+#header {
+	margin-top: 20px;
+}
+
+.slide {
+	border-top: 1px solid black;
+	padding-top: 30px;
+}
+
+.slide .slide-image img {
+	width: 100%;
+	background-color: #e8effb;
+}
+
+/* @group Questions */
+
+.questions {
+	padding-bottom: 10px;
+}
+
+.question {
+	border-top: 1px solid #ccc;
+	padding-top: 20px; padding-bottom: 25px;
+	padding-left: 70px;
+	background-repeat: no-repeat;
+	background-position: 0 15px;
+}
+
+.question h2 {
+	font-size: 130%;
+	font-weight: bold;
+	margin-bottom: 0;
+}
+
+.question .reference {
+	margin-top: 0;
+	margin-bottom: 0;
+	color: #868686;
+}
+
+.question .reference .point {
+	font-size: 120%;
+}
+
+/* @group Freeform */
+
+.question.freeform {
+	background-image: url(/common/art/freeform.png);
+}
+
+.question.freeform h2 {
+	font-size: 180%;
+	text-indent: 20px;
+}
+
+/* @end */
+
+
+/* @group Short */
+
+.question.short.didNotUnderstand {
+	background-image: url(/common/art/didNotUnderstand.png);
+}
+
+.question.short.didNotUnderstand h2 {
+	color: #d81b1e;
+}
+
+.question.short.goInDepth {
+	background-image: url(/common/art/goInDepth.png);
+}
+
+.question.short.goInDepth h2 {
+	color: #2f91e1;
+}
+
+/* @end */
+
+/* @end */
