@@ -3,10 +3,11 @@ $(function() {
 
 	window.live = ILabs.Subject.Live();
 
-	var slideView = null;
-
+	var orderedSlideViews = [], slideViewsByURL = Hash();
+	var enqueuedQuestionLoads = null;
+	
 	var liveDelegate = {
-		liveDidStart: function() {
+		liveDidStart: function(l) {
 			live.slide().presentation(function(p) {
 				p.title(function(t) {
 					$('#header')
@@ -17,19 +18,49 @@ $(function() {
 			});
 		},
 		
-		liveDidAskNewQuestions: function(questions) {
-			_(questions).each(function(q) {
-				q.point(function(p) {
-					p.slide(function(s) {
-						if (!slideView) {
-							slideView = ILabs.Subject.SlideView();
-							$('.container').append(slideView.$);
-						}
-							
-						slideView.beginUpdating(s);
+		liveDidMoveToSlide: function(l, slide) {
+			enqueuedQuestionLoads = [];
+			
+			slide.loadSelf(function() {
+				var x = slideViewsByURL.getItem(slide.URL());
+				if (!x) {
+					x = ILabs.Subject.SlideView();
+					x.setSlide(slide);
+					
+					slideViewsByURL.setItem(slide.URL(), x);
+					orderedSlideViews.push(x);
+					_.sortBy(orderedSlideViews, function(sv) { return sv.slide().sortingOrder(); });
+					var index = _.indexOf(_.map(orderedSlideViews, function(sv) { return sv.slide().URL(); }), x.slide().URL());
+					
+					if (index == 0)
+						$('.container').append(x.$);
+					else
+						$('.slide:nth(' + (index - 1) + ')').after(x.$);
+				}
+				
+				x.$.scrollTop(0);
+				
+				_.each(enqueuedQuestionLoads, function(c) { c(); });
+				enqueuedQuestionLoads = null;
+			});
+		},
+		
+		liveDidAskNewQuestions: function(l, questions) {
+			function actuallyDoIt() {
+				_.each(questions, function(q) {
+					q.point(function(p) {
+						p.slide(function(s) {
+							var slideView = slideViewsByURL.getItem(s.URL());
+							slideView.insertQuestion(q);
+						});						
 					});
 				});
-			});
+			}
+			
+			if (enqueuedQuestionLoads)
+				enqueuedQuestionLoads.push(actuallyDoIt);
+			else
+				actuallyDoIt();
 		},
 	};
 

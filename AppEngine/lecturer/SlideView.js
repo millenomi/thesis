@@ -20,88 +20,107 @@ if (!ILabs.Subject.SlideView) {
 			'<div class="questions span-11 last"></div>' +
 		'</div>');
 		
-		function newFreeformQuestionElement(question) {
-			var $newOne = $('<div class="question freeform"><h2></h2><p class="reference">re: <span class="point"></span></p></div>');
-
-			question.text(function(t) {
-				$newOne.find('h2').text(t);
-			});
-			question.point(function(p) {
-				p.text(function(t) {
-					$newOne.find('.point').text("“" + t + "”");
-				});
-			});
-
-			$newOne.data('modelURL', question.URL());
-			return $newOne;
+		function userVisibleOverallTextForQuestionKind(kind, count) {
+			var text = (count == 1? 'One person' : count + " people");
+			switch (kind) {
+				case "didNotUnderstand": text += " did not understand this"; break;
+				case "goInDepth": text += " would like to go in depth on this"; break;
+				default: return "(???)";
+			}
+			
+			return text;
 		}
 		
-		var _freeformQuestionElements = [],
-			_knownQuestionURLs = Hash(),
-			_quickQuestionElementsByKind = Hash();
+		var _knownQuestionURLs = Hash(),
+			_shortQuestionsByKind = Hash();
+
+		var _slide = null;
 
 		return {
 			$: $el,
 			
+			slide: function() { return _slide; },
+			setSlide: function(s) {
+				_slide = s;
+				if (s)
+					this.beginUpdating(s);
+			},
+			
 			beginUpdating: function(slide) {
 				var self = this;
 				slide.points(function(pts) {
-					pts.asyncValuesOfKey('questions', function(qs) {
-						self._actuallyUpdate(slide);
+					_.each(pts, function(pt) {
+						pt.loadSelf(function() {
+							_.each(pt.questions(), function(q) { self.insertQuestion(q); });
+						}, {reload: true});
 					});
 				});
 			},
 			
-			_actuallyUpdate: function(slide) {
-				// 1. sort questions
+			insertQuestion: function(q) {
+				var ident = _.uniqueId();
+				if (_knownQuestionURLs.hasItem(q.URL()))
+					return;
 				
-				var newFreeformQuestions = [];
-				var newQuickQuestionsByKind = Hash();
-				
-				var points = slide.points();
-				if (!points)
-					throw "The model should be loaded prior to invoking this method.";
+				q.loadSelf(function() {
+					if (_knownQuestionURLs.hasItem(q.URL())) {
+						console.log(ident, "Jettisoning load attempt because it was already known", q, q.URL());
+						return;					
+					}
 					
-				for (var i = 0; i < points.length; i++) {
-					var point = points[i];
-					var questions = point.questions();
-					if (!questions)
-						throw "The model should be loaded prior to invoking this method.";
+					_knownQuestionURLs.setItem(q.URL(), true);
 					
-					for (var j = 0; j < questions.length; j++) {
-						var question = questions[j];
-						if (_knownQuestionURLs.hasItem(question.URL()))
-							continue;
-							
-						if (question.kind() == 'freeform' && question.text())
-							newFreeformQuestions.push(question);
-						else {
-							var a = newQuickQuestionsByKind.getItem(question.kind());
-							if (!a) {
-								a = [];
-								newQuickQuestionsByKind.setItem(question.kind(), a);
-							}
-							
-							a.push(question);
+					if (q.kind() == "freeform") {
+						if (!q.text())
+							return;
+						
+						var $q = $('<div class="question freeform"><h2></h2><p class="reference">re: <span class="point"></span></p></div>');
+						$q.data('URL', q.URL());
+						
+						$q.find('h2').text(q.text());
+						
+						q.point().text(function(t) { $q.find('.point').text("“" + t + "”"); });
+						
+						var $quickOnes = $el.find('.question.freeform:last');
+						if ($quickOnes.length != 0)
+							$quickOnes.after($q);
+						else
+							$el.find('.questions').prepend($q);
+						$q.hide().show(400);
+						
+					} else {
+						
+						var $qs = _shortQuestionsByKind.getItem(q.kind());
+						if (!$qs) {
+							$qs = $('<div class="question short"><h2></h2></div>').addClass(q.kind());
+							_shortQuestionsByKind.setItem(q.kind(), $qs);
+							$el.find('.questions').append($qs);
+							$qs.hide().show(400);
 						}
 						
-						_knownQuestionURLs.setItem(question.URL(), true);
+						var count = $qs.data('count') || 0;
+						count++;
+						$qs.data('count', count);
+						
+						$qs.find('h2').text(userVisibleOverallTextForQuestionKind(q.kind(), count));
+						
+						var found = false;
+						$qs.find('.reference').each(function() {
+							if ($(this).data('pointURL') == q.point().URL()) {
+								found = true; return false;
+							}
+						});
+						
+						if (!found) {
+							var $p = $('<p class="reference">re: <span class="point"></span></p></div>');
+							q.point().text(function(t) { $p.find('.point').text("“" + t + "”"); });
+							$p.data('pointURL', q.point().URL());
+							$qs.append($p);
+						}
 					}
-				}
-				
-				// 2. add new elements for freeform questions.
-				
-				for (var i = 0; i < newFreeformQuestions.length; i++) {
-					var $q = newFreeformQuestionElement(newFreeformQuestions[i]);
-
-					var $where = $el.children('.question.freeform:last');
-					if ($where.length > 0) {
-						$where.after($q);
-					} else {
-						$where = $el.children('.questions').prepend($q);
-					}
-				}
-			},
+					
+				});
+			}
 		};
 	};
 }

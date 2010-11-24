@@ -35,7 +35,7 @@ function Hash()
 	var self = {};
 	
 	self.length = 0;
-	self.items = [];
+	self.items = {};
 	self.canUseHasOwnProperty = (typeof(Object.prototype.hasOwnProperty) != 'undefined');
 	for (var i = 0; i < arguments.length; i += 2) {
 		if (typeof(arguments[i + 1]) != 'undefined') {
@@ -96,6 +96,15 @@ function Hash()
 
 		this.length = 0;
 	}
+	
+	self.each = function(callback) {
+		for (var i in this.items) {
+			if (this.canUseHasOwnProperty && !this.items.hasOwnProperty(i))
+				continue;
+				
+			callback(i, this.items[i]);
+		}
+	};
 	
 	return self;
 }
@@ -426,7 +435,7 @@ if (!ILabs.Subject.Live) {
 					d.liveDidMoveToSlide(this, this._slide);
 					
 				if (!didFinish && questionsAsked)
-					d.liveDidAskNewQuestions(questionsAsked);
+					d.liveDidAskNewQuestions(this, questionsAsked);
 			}
 		};
 		
