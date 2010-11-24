@@ -29,7 +29,7 @@ $(function() {
 					
 					slideViewsByURL.setItem(slide.URL(), x);
 					orderedSlideViews.push(x);
-					_.sortBy(orderedSlideViews, function(sv) { return sv.slide().sortingOrder(); });
+					orderedSlideViews = _.sortBy(orderedSlideViews, function(sv) { return sv.slide().sortingOrder(); });
 					var index = _.indexOf(_.map(orderedSlideViews, function(sv) { return sv.slide().URL(); }), x.slide().URL());
 					
 					if (index == 0)
