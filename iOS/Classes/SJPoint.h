@@ -25,6 +25,10 @@
 
 @property (nonatomic, retain) NSSet* questions;
 
++ pointWithURL:(NSURL*) url fromContext:(NSManagedObjectContext*) moc;
+
+@property (nonatomic, copy) NSURL* URL;
+
 @end
 
 @interface SJPoint (CoreDataGeneratedAccessors)

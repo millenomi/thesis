@@ -38,4 +38,20 @@
 	self.sortingOrder = [NSNumber numberWithUnsignedInteger:i];
 }
 
++ pointWithURL:(NSURL*) url fromContext:(NSManagedObjectContext*) moc;
+{
+	NSPredicate* pred = [NSPredicate predicateWithFormat:@"URLString == %@", [url absoluteString]];
+	return [self oneWithPredicate:pred fromContext:moc];
+}
+
+- (NSURL *) URL;
+{
+	return self.URLString? [NSURL URLWithString:self.URLString] : nil;
+}
+
+- (void) setURL:(NSURL *) u;
+{
+	self.URLString = [u absoluteString];
+}
+
 @end

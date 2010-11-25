@@ -158,11 +158,11 @@
 
 - (void) liveDidEnd:(SJLive *)live;
 {
-	self.title = @"";
-	self.navigationItem.title = @"";
-	
-	self.currentSlide = nil;
-	[tableView reloadData];
+//	self.title = @"";
+//	self.navigationItem.title = @"";
+//	
+//	self.currentSlide = nil;
+//	[tableView reloadData];
 }
 
 

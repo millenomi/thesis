@@ -19,4 +19,6 @@
 @property (nonatomic, retain) SJPoint* point;
 @property (nonatomic, retain) NSString * URLString;
 
+@property (nonatomic, copy) NSURL* URL;
+
 @end

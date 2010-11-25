@@ -112,6 +112,11 @@
 
 
 
+@interface SJRequest ()
+
+@property(copy) NSURL* URL;
+
+@end
 
 
 @implementation SJRequest
@@ -119,6 +124,7 @@
 - (id) initWithURLRequest:(NSURLRequest *)req completionHandler:(SJRequestCompletionHandler)handler beforeCompletionHandler:(SJRequestCompletionHandler) cleanup;
 {
 	if ((self = [super init])) {
+		self.URL = [req URL];
 		self.HTTPRequest = req;
 		self.beforeCompletionHandler = cleanup;
 		self.completionHandlers = [NSMutableSet setWithObject:[[handler copy] autorelease]];
@@ -142,10 +148,11 @@
 	self.HTTPRequest = nil;
 	self.HTTPResponse = nil;
 	self.session = nil;
+	self.URL = nil;
 	[super dealloc];
 }
 
-@synthesize JSONValue, error, downloadedData, completionHandlers, dependencyHandlers, beforeCompletionHandler, connection, HTTPRequest, unfinishedDependencies, HTTPResponse, session;
+@synthesize JSONValue, error, downloadedData, completionHandlers, dependencyHandlers, beforeCompletionHandler, connection, HTTPRequest, unfinishedDependencies, HTTPResponse, session, URL;
 
 
 - (void) start;
@@ -284,6 +291,12 @@
 	self.HTTPResponse = (NSHTTPURLResponse*) response;
 }
 
+- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response;
+{
+	self.URL = request.URL;
+	return request;
+}
+
 - (id) JSONValue;
 {
 	if (!JSONValue && self.downloadedData) {
@@ -304,11 +317,6 @@
 {
 	self.session = nil;
 	shouldSuppressLogs = YES;
-}
-
-- (NSURL *) URL;
-{
-	return [self.HTTPRequest URL];
 }
 
 @end

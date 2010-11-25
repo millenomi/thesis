@@ -16,4 +16,14 @@
 @dynamic point;
 @dynamic URLString;
 
+- (NSURL *) URL;
+{
+	return self.URLString? [NSURL URLWithString:self.URLString] : nil;
+}
+
+- (void) setURL:(NSURL *) u;
+{
+	self.URLString = [u absoluteString];
+}
+
 @end

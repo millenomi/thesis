@@ -44,6 +44,9 @@
 @property(retain) SJLiveSchema* schema;
 - (void) checkForUpdateWithNewSchema:(SJLiveSchema *)s;
 
+- (SJQuestion *) storeQuestionDownloadedByRequest:(id <SJRequest>)r forPointWithURL:(NSURL *)url;
+- (SJQuestion *) storeQuestionDownloadedByRequest:(id <SJRequest>)r forPoint:(SJPoint *)pt;
+
 @end
 
 
@@ -250,41 +253,7 @@
 		
 		for (NSString* questionURLString in pointSchema.questionURLStrings) {
 			[self.endpoint beginDownloadingFromURL:questionURLString completionHandler:^(id <SJRequest> r) {
-				SJQuestion* newQ = [SJQuestion oneWithPredicate:[NSPredicate predicateWithFormat:@"URLString == %@", questionURLString] fromContext:self.managedObjectContext];
-				
-				if ([r.HTTPResponse statusCode] == 404) {
-					if (newQ)
-						[[newQ managedObjectContext] deleteObject:newQ];
-				} else {
-					
-					SJQuestionSchema* questionSchema = [r JSONValueWithSchema:[SJQuestionSchema class] error:NULL];
-					
-					if (questionSchema) {
-						
-						// two, check if the po
-						SJSlide* newlyFetchedSlide = [SJSlide slideWithURL:newSlideURL fromContext:self.managedObjectContext];
-						SJPoint* newlyFetchedPoint = [newlyFetchedSlide pointAtIndex:i];
-						
-						if (!newlyFetchedPoint)
-							return;
-						
-						if (!newQ)
-							newQ = [SJQuestion insertedInto:self.managedObjectContext];
-						
-						newQ.URLString = questionURLString;
-						newQ.kind = questionSchema.kind;
-						newQ.text = questionSchema.text;
-						
-						[newlyFetchedPoint addQuestionsObject:newQ];
-						
-					}
-				}
-				
-				if (![self.managedObjectContext save:NULL])
-					[self.managedObjectContext rollback];
-				else if (newQ && ![newQ isDeleted])
-					[self.delegate live:self didDownloadQuestion:newQ];					
-				
+				[self storeQuestionDownloadedByRequest:r forPointWithURL:pt.URL];
 			}];
 		}
 				
@@ -389,9 +358,11 @@
 	
 	[req setHTTPMethod:@"POST"];
 	
-	[[self.endpoint requestFromURLRequest:req completionHandler:^(id <SJRequest> req) {
+	[[self.endpoint requestFromURLRequest:req completionHandler:^(id <SJRequest> finalReq) {
 		
 		ILLog(@"Did finish URL request for asking question of kind %@", kind);
+		
+		[self storeQuestionDownloadedByRequest:finalReq forPoint:nil];
 		
 	}] start];
 }
@@ -414,11 +385,59 @@
 
 	[req setHTTPMethod:@"POST"];
 	
-	[[self.endpoint requestFromURLRequest:req completionHandler:^(id <SJRequest> req) {
+	[[self.endpoint requestFromURLRequest:req completionHandler:^(id <SJRequest> finalReq) {
 		
 		ILLog(@"Did finish URL request for asking freeform question: %@", question);
+
+		[self storeQuestionDownloadedByRequest:finalReq forPoint:nil];
 		
 	}] start];	
 }
+
+- (SJQuestion*) storeQuestionDownloadedByRequest:(id <SJRequest>) r forPointWithURL:(NSURL*) url;
+{
+	SJPoint* pt = [SJPoint pointWithURL:url fromContext:self.managedObjectContext];
+	return [self storeQuestionDownloadedByRequest:r forPoint:pt];
+}
+
+- (SJQuestion*) storeQuestionDownloadedByRequest:(id <SJRequest>) r forPoint:(SJPoint*) pt;
+{
+	SJQuestion* newQ = [SJQuestion oneWithPredicate:[NSPredicate predicateWithFormat:@"URLString == %@", r.URL] fromContext:self.managedObjectContext];
+	
+	if ([r.HTTPResponse statusCode] == 404) {
+		if (newQ)
+			[[newQ managedObjectContext] deleteObject:newQ];
+	} else {
+		
+		SJQuestionSchema* questionSchema = [r JSONValueWithSchema:[SJQuestionSchema class] error:NULL];
+		
+		if (questionSchema) {
+			if (!pt)
+				pt = [SJPoint pointWithURL:[NSURL URLWithString:questionSchema.pointURLString] fromContext:self.managedObjectContext];
+			
+			if (!pt) {
+				pt = [SJPoint insertedInto:self.managedObjectContext];
+				pt.URLString = questionSchema.pointURLString;
+			}
+			
+			if (!newQ)
+				newQ = [SJQuestion insertedInto:self.managedObjectContext];
+			
+			newQ.URL = r.URL;
+			newQ.kind = questionSchema.kind;
+			newQ.text = questionSchema.text;
+			
+			[pt addQuestionsObject:newQ];
+		}
+		
+	}
+	
+	if (![self.managedObjectContext save:NULL])
+		[self.managedObjectContext rollback];
+	else if (newQ && ![newQ isDeleted])
+		[self.delegate live:self didDownloadQuestion:newQ];	
+	
+	return newQ;
+}	
 
 @end
