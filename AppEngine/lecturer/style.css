@@ -15,11 +15,18 @@ body {
 .slide {
 	border-top: 1px solid black;
 	padding-top: 30px;
+	position: relative;
+	min-height: 300px;
 }
 
 .slide .slide-image img {
 	width: 100%;
 	background-color: #e8effb;
+}
+
+.slide .slide-number {
+	position: absolute;
+	top: 0;
 }
 
 /* @group Questions */

@@ -14,6 +14,7 @@ if (!ILabs.Subject.SlideViewCanonicalQuickQuestionOrder) {
 if (!ILabs.Subject.SlideView) {	
 	ILabs.Subject.SlideView = function() {
 		var $el = $('<div class="slide span-24 last">' +
+			'<p class="slide-number"></p>' +
 			'<div class="slide-image span-13">' +
 				'<img src="#">' +
 			'</div>' +
@@ -48,6 +49,9 @@ if (!ILabs.Subject.SlideView) {
 			
 			beginUpdating: function(slide) {
 				var self = this;
+				slide.sortingOrder(function(i) {
+					$el.find('.slide-number').text((i + 1).toString());
+				});
 				slide.points(function(pts) {
 					_.each(pts, function(pt) {
 						pt.loadSelf(function() {
@@ -104,18 +108,27 @@ if (!ILabs.Subject.SlideView) {
 						
 						$qs.find('h2').text(userVisibleOverallTextForQuestionKind(q.kind(), count));
 						
-						var found = false;
+						var found = null; var count;
 						$qs.find('.reference').each(function() {
 							if ($(this).data('pointURL') == q.point().URL()) {
-								found = true; return false;
+								found = this; count = $(this).data("count") || 0; return false;
 							}
 						});
 						
 						if (!found) {
 							var $p = $('<p class="reference">re: <span class="point"></span></p></div>');
 							q.point().text(function(t) { $p.find('.point').text("“" + t + "”"); });
-							$p.data('pointURL', q.point().URL());
+							$p
+								.data('pointURL', q.point().URL())
+								.data('count', 1)
+								;
 							$qs.append($p);
+							$p.hide().show(300);
+						} else {
+							$p = $(found);
+							count++;
+							$p.data('count', count);
+							q.point().text(function(t) { $p.find('.point').text("“" + t + "” (" + $p.data('count') + ")"); });
 						}
 					}
 					
