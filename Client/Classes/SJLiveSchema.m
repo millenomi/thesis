@@ -14,4 +14,13 @@
 @dynamic slide;
 - validClassForSlideKey { return [SJSlideSchema class]; }
 
+@dynamic finishedValue;
+- validClassForFinishedValueKey { return [NSNumber class]; }
+- (BOOL) isValueOptionalForFinishedValueKey { return YES; }
+
+- (BOOL) isFinished;
+{
+	return self.finishedValue? [self.finishedValue boolValue] : NO;
+}
+
 @end

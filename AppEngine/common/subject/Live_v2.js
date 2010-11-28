@@ -123,6 +123,22 @@ if (!ILabs.Subject) {
 				success: success,
 				complete: complete
 			});
+		},
+		
+		raise: function(e) {
+			var x = [];
+			for (var i = 1; i < arguments.length; i++)
+				x.push(arguments[i]);
+				
+			$(document.body).triggerHandler('x-ILabs-Subject-' + e, x);
+		},
+		
+		bind: function(e, data, handler) {
+			$(document.body).bind('x-ILabs-Subject-' + e, data, handler);
+		},
+		
+		unbind: function(e, handler) {
+			$(document.body).unbind('x-ILabs-Subject-' + e, handler);
 		}
 	};
 }
@@ -225,6 +241,13 @@ if (!ILabs.Subject.ModelItem) {
 			URL: function() { return url; },
 			context: function() { return context; },
 			
+			setValuesUsingKnownData: function(knownData) {
+				this._knownData = knownData;
+				this._hasLoaded = true;
+				this.setValuesWithRemoteData(knownData);
+				ILabs.Subject.raise(ILabs.Subject.ModelItem.Loaded, this);
+			},
+			
 			loadSelf: function(callback, options) {
 				var shouldReload = options && options['reload'];
 				
@@ -234,16 +257,12 @@ if (!ILabs.Subject.ModelItem) {
 					return;
 				}
 				
+				var needsToLoad = (!this._onLoadHandlers);
+				
 				if (this._knownData) {
-					this._hasLoaded = true;
-					this.setValuesWithRemoteData(this._knownData);
-					if (callback)
-						callback.apply(this);
-						
+					this.setValuesUsingKnownData(this._knownData);
 					return;
 				}
-				
-				var needsToLoad = (!this._onLoadHandlers);
 				
 				if (!this._onLoadHandlers)
 					this._onLoadHandlers = [];
@@ -260,6 +279,8 @@ if (!ILabs.Subject.ModelItem) {
 						
 							for (var i = 0; i < self._onLoadHandlers.length; i++)
 								self._onLoadHandlers[i].apply(self);
+								
+							ILabs.Subject.raise(ILabs.Subject.ModelItem.Loaded, self);
 						},
 						function onDone() {
 							self._onLoadHandlers = null;
@@ -293,6 +314,7 @@ if (!ILabs.Subject.ModelItem) {
 							actualCallback = function() {
 								if (callback)
 									callback.apply(this, [this[valueKey]]);
+								ILabs.Subject.raise(ILabs.Subject.ModelItem.ValueLoaded, this, name);
 							}
 						}
 						
@@ -309,6 +331,9 @@ if (!ILabs.Subject.ModelItem) {
 		
 		return self;
 	};
+	
+	ILabs.Subject.ModelItem.Loaded = 'ModelItem-Loaded';
+	ILabs.Subject.ModelItem.ValueLoaded = 'ModelItem-ValueLoaded';
 }
 
 // -----------------------------------------------
@@ -346,11 +371,12 @@ if (!ILabs.Subject.Slide) {
 			}
 			
 			self._points = this.getByArrayOf(ILabs.Subject.Point, optionsArray);
-			
 			self._presentation = this.getBy(ILabs.Subject.Presentation, data.presentation);
+			self._moods = data.moods;
+			self._revision = data.revision;
 		};
 		
-		self.addAsyncAccessors('sortingOrder', 'points', 'presentation');
+		self.addAsyncAccessors('sortingOrder', 'points', 'presentation', 'moods', 'revision');
 		
 		return self;
 	};
@@ -404,17 +430,18 @@ if (!ILabs.Subject.Live) {
 			var d = this.delegate();
 			
 			var didStart = (data.slide && !this._slide);
-			var didFinish = (!data.slide && this._slide);
+			var didFinish = this._slide && (!data._slide || data.finished);
 			
 			var didMoveToSlide = (data.slide && this._slide && data.slide.URL != this._slide.URL());
 			
 			var questionsAsked = null;
 			
-			if (data.slide)
-				this._slide = this.getBy(ILabs.Subject.Slide, { URL:data.slide.URL, knownData: data.slide });
-			else
+			if (data.slide && !data.finished) {
+				this._slide = this.getBy(ILabs.Subject.Slide, { URL: data.slide.URL });
+				this._slide.setValuesUsingKnownData(data.slide);
+			} else
 				delete this._slide;
-				
+			
 			if (!this._lastQuestionsAsked)
 				this._lastQuestionsAsked = [];
 			
@@ -442,7 +469,19 @@ if (!ILabs.Subject.Live) {
 		self.start = function() {
 			if (!this._timer) {
 				var self = this;
-				this._timer = window.setInterval(function() { self.loadSelf(null, {reload: true}); }, 1500);				
+				this._timer = window.setInterval(function() { self.loadSelf(null, {reload: true}); }, 1500);
+				
+				if (!this._loadedEventHandler) {
+					var lastRevision = null;
+					this._loadedEventHandler = function(e, object) {
+						if (self.delegate() && self._slide.URL() == object.URL() && lastRevision != object.revision()) {
+							lastRevision = object.revision();
+						 	self.delegate().liveDidUpdateCurrentSlide(self, object);
+						}
+					};
+				}
+				
+				ILabs.Subject.bind(ILabs.Subject.ModelItem.Loaded, this._loadedEventHandler);
 			}
 		};
 		
@@ -450,6 +489,11 @@ if (!ILabs.Subject.Live) {
 			if (this._timer) {
 				window.clearInterval(this._timer);
 				delete this._timer;
+				
+				if (this._loadedEventHandler) {
+					ILabs.Subject.unbind(ILabs.Subject.ModelItem.Loaded, this._loadedEventHandler);
+					delete this._loadedEventHandler;
+				}
 			}
 		};
 		
@@ -471,6 +515,8 @@ if (!ILabs.Subject.LiveDelegateMixin) {
 			object.liveDidFinish = doNothing;
 		if (!object.liveDidMoveToSlide)
 			object.liveDidMoveToSlide = doNothing;
+		if (!object.liveDidUpdateCurrentSlide)
+			object.liveDidUpdateCurrentSlide = doNothing;
 		if (!object.liveDidAskNewQuestions)
 			object.liveDidAskNewQuestions = doNothing;
 			

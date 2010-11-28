@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1538E01312A1573700D5A056 /* EmoticonToolbarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1538E01112A1573700D5A056 /* EmoticonToolbarIcon.png */; };
+		1538E01412A1573700D5A056 /* EmoticonToolbarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1538E01212A1573700D5A056 /* EmoticonToolbarIcon@2x.png */; };
 		154437B112759D88003197B3 /* libClient-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 154437B012759D80003197B3 /* libClient-iOS.a */; };
-		156F244A12734EA9000BC614 /* SJLivePresentationPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F244912734EA9000BC614 /* SJLivePresentationPane.m */; };
-		156F244C12734FC7000BC614 /* SJLivePresentationPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156F244B12734FC7000BC614 /* SJLivePresentationPane.xib */; };
+		156F244A12734EA9000BC614 /* SJPresentationPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F244912734EA9000BC614 /* SJPresentationPane.m */; };
+		156F244C12734FC7000BC614 /* SJPresentationPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156F244B12734FC7000BC614 /* SJPresentationPane.xib */; };
 		156F246B12735605000BC614 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156F246A12735605000BC614 /* QuartzCore.framework */; };
 		156F27D612703486005C6F71 /* SJLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F27D512703486005C6F71 /* SJLive.m */; };
 		156F28CA1270DF2B005C6F71 /* ILManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F28C91270DF2B005C6F71 /* ILManagedObject.m */; };
@@ -23,6 +25,12 @@
 		159F779A129EB24100C89A34 /* CancelButtonShine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 159F7798129EB24100C89A34 /* CancelButtonShine@2x.png */; };
 		159F779D129EB2A000C89A34 /* LargeButtonShine.png in Resources */ = {isa = PBXBuildFile; fileRef = 159F779B129EB2A000C89A34 /* LargeButtonShine.png */; };
 		159F779E129EB2A000C89A34 /* LargeButtonShine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 159F779C129EB2A000C89A34 /* LargeButtonShine@2x.png */; };
+		15A46A67129F995400EC7A42 /* BackArrowToolbarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A46A63129F995400EC7A42 /* BackArrowToolbarIcon.png */; };
+		15A46A68129F995400EC7A42 /* BackArrowToolbarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A46A64129F995400EC7A42 /* BackArrowToolbarIcon@2x.png */; };
+		15A46A69129F995400EC7A42 /* ForwardArrowToolbarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A46A65129F995400EC7A42 /* ForwardArrowToolbarIcon.png */; };
+		15A46A6A129F995400EC7A42 /* ForwardArrowToolbarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A46A66129F995400EC7A42 /* ForwardArrowToolbarIcon@2x.png */; };
+		15A46B47129FA50B00EC7A42 /* FastForwardArrowToolbarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A46B45129FA50B00EC7A42 /* FastForwardArrowToolbarIcon.png */; };
+		15A46B48129FA50B00EC7A42 /* FastForwardArrowToolbarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A46B46129FA50B00EC7A42 /* FastForwardArrowToolbarIcon@2x.png */; };
 		15D4366512845104005DBAE3 /* SJPointTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D4366412845104005DBAE3 /* SJPointTableViewCell.m */; };
 		15D4368012845185005DBAE3 /* libViewControllers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FBF1E512817F93005D68B6 /* libViewControllers.a */; };
 		15D43684128451C3005DBAE3 /* SJPointTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D43683128451C3005DBAE3 /* SJPointTableViewCell.xib */; };
@@ -116,10 +124,12 @@
 
 /* Begin PBXFileReference section */
 		150044241280711400E4BF1D /* libClient-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libClient-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1538E01112A1573700D5A056 /* EmoticonToolbarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = EmoticonToolbarIcon.png; path = ../Art/EmoticonToolbarIcon.png; sourceTree = SOURCE_ROOT; };
+		1538E01212A1573700D5A056 /* EmoticonToolbarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EmoticonToolbarIcon@2x.png"; path = "../Art/EmoticonToolbarIcon@2x.png"; sourceTree = SOURCE_ROOT; };
 		154437A812759D80003197B3 /* Client.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Client.xcodeproj; path = ../Client/Client.xcodeproj; sourceTree = SOURCE_ROOT; };
-		156F244812734EA9000BC614 /* SJLivePresentationPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLivePresentationPane.h; sourceTree = "<group>"; };
-		156F244912734EA9000BC614 /* SJLivePresentationPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLivePresentationPane.m; sourceTree = "<group>"; };
-		156F244B12734FC7000BC614 /* SJLivePresentationPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJLivePresentationPane.xib; sourceTree = "<group>"; };
+		156F244812734EA9000BC614 /* SJPresentationPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentationPane.h; sourceTree = "<group>"; };
+		156F244912734EA9000BC614 /* SJPresentationPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPresentationPane.m; sourceTree = "<group>"; };
+		156F244B12734FC7000BC614 /* SJPresentationPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJPresentationPane.xib; sourceTree = "<group>"; };
 		156F246A12735605000BC614 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		156F27D412703486005C6F71 /* SJLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLive.h; sourceTree = "<group>"; };
 		156F27D512703486005C6F71 /* SJLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLive.m; sourceTree = "<group>"; };
@@ -135,6 +145,12 @@
 		159F7798129EB24100C89A34 /* CancelButtonShine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "CancelButtonShine@2x.png"; path = "../Art/CancelButtonShine@2x.png"; sourceTree = SOURCE_ROOT; };
 		159F779B129EB2A000C89A34 /* LargeButtonShine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LargeButtonShine.png; path = ../Art/LargeButtonShine.png; sourceTree = SOURCE_ROOT; };
 		159F779C129EB2A000C89A34 /* LargeButtonShine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LargeButtonShine@2x.png"; path = "../Art/LargeButtonShine@2x.png"; sourceTree = SOURCE_ROOT; };
+		15A46A63129F995400EC7A42 /* BackArrowToolbarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BackArrowToolbarIcon.png; path = ../Art/BackArrowToolbarIcon.png; sourceTree = SOURCE_ROOT; };
+		15A46A64129F995400EC7A42 /* BackArrowToolbarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BackArrowToolbarIcon@2x.png"; path = "../Art/BackArrowToolbarIcon@2x.png"; sourceTree = SOURCE_ROOT; };
+		15A46A65129F995400EC7A42 /* ForwardArrowToolbarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ForwardArrowToolbarIcon.png; path = ../Art/ForwardArrowToolbarIcon.png; sourceTree = SOURCE_ROOT; };
+		15A46A66129F995400EC7A42 /* ForwardArrowToolbarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ForwardArrowToolbarIcon@2x.png"; path = "../Art/ForwardArrowToolbarIcon@2x.png"; sourceTree = SOURCE_ROOT; };
+		15A46B45129FA50B00EC7A42 /* FastForwardArrowToolbarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FastForwardArrowToolbarIcon.png; path = ../Art/FastForwardArrowToolbarIcon.png; sourceTree = SOURCE_ROOT; };
+		15A46B46129FA50B00EC7A42 /* FastForwardArrowToolbarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "FastForwardArrowToolbarIcon@2x.png"; path = "../Art/FastForwardArrowToolbarIcon@2x.png"; sourceTree = SOURCE_ROOT; };
 		15D4366312845104005DBAE3 /* SJPointTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPointTableViewCell.h; sourceTree = "<group>"; };
 		15D4366412845104005DBAE3 /* SJPointTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPointTableViewCell.m; sourceTree = "<group>"; };
 		15D43683128451C3005DBAE3 /* SJPointTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJPointTableViewCell.xib; sourceTree = "<group>"; };
@@ -213,9 +229,9 @@
 		156F244712734E24000BC614 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				156F244812734EA9000BC614 /* SJLivePresentationPane.h */,
-				156F244912734EA9000BC614 /* SJLivePresentationPane.m */,
-				156F244B12734FC7000BC614 /* SJLivePresentationPane.xib */,
+				156F244812734EA9000BC614 /* SJPresentationPane.h */,
+				156F244912734EA9000BC614 /* SJPresentationPane.m */,
+				156F244B12734FC7000BC614 /* SJPresentationPane.xib */,
 				15FBF1BC12817582005D68B6 /* SJPoseAQuestionPane.h */,
 				15FBF1BD12817582005D68B6 /* SJPoseAQuestionPane.m */,
 				15FBF1BE12817582005D68B6 /* SJPoseAQuestionPane.xib */,
@@ -332,6 +348,14 @@
 				159F7798129EB24100C89A34 /* CancelButtonShine@2x.png */,
 				159F779B129EB2A000C89A34 /* LargeButtonShine.png */,
 				159F779C129EB2A000C89A34 /* LargeButtonShine@2x.png */,
+				15A46A63129F995400EC7A42 /* BackArrowToolbarIcon.png */,
+				15A46A64129F995400EC7A42 /* BackArrowToolbarIcon@2x.png */,
+				15A46A65129F995400EC7A42 /* ForwardArrowToolbarIcon.png */,
+				15A46A66129F995400EC7A42 /* ForwardArrowToolbarIcon@2x.png */,
+				15A46B45129FA50B00EC7A42 /* FastForwardArrowToolbarIcon.png */,
+				15A46B46129FA50B00EC7A42 /* FastForwardArrowToolbarIcon@2x.png */,
+				1538E01112A1573700D5A056 /* EmoticonToolbarIcon.png */,
+				1538E01212A1573700D5A056 /* EmoticonToolbarIcon@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -460,7 +484,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				156F244C12734FC7000BC614 /* SJLivePresentationPane.xib in Resources */,
+				156F244C12734FC7000BC614 /* SJPresentationPane.xib in Resources */,
 				15FBF1B812817510005D68B6 /* Balloon.png in Resources */,
 				15FBF1BA12817513005D68B6 /* Balloon@2x.png in Resources */,
 				15FBF1C012817582005D68B6 /* SJPoseAQuestionPane.xib in Resources */,
@@ -477,6 +501,14 @@
 				159F779A129EB24100C89A34 /* CancelButtonShine@2x.png in Resources */,
 				159F779D129EB2A000C89A34 /* LargeButtonShine.png in Resources */,
 				159F779E129EB2A000C89A34 /* LargeButtonShine@2x.png in Resources */,
+				15A46A67129F995400EC7A42 /* BackArrowToolbarIcon.png in Resources */,
+				15A46A68129F995400EC7A42 /* BackArrowToolbarIcon@2x.png in Resources */,
+				15A46A69129F995400EC7A42 /* ForwardArrowToolbarIcon.png in Resources */,
+				15A46A6A129F995400EC7A42 /* ForwardArrowToolbarIcon@2x.png in Resources */,
+				15A46B47129FA50B00EC7A42 /* FastForwardArrowToolbarIcon.png in Resources */,
+				15A46B48129FA50B00EC7A42 /* FastForwardArrowToolbarIcon@2x.png in Resources */,
+				1538E01312A1573700D5A056 /* EmoticonToolbarIcon.png in Resources */,
+				1538E01412A1573700D5A056 /* EmoticonToolbarIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,7 +527,7 @@
 				15FD03DF126DB2DA00353B83 /* SJPoint.m in Sources */,
 				156F27D612703486005C6F71 /* SJLive.m in Sources */,
 				156F28CA1270DF2B005C6F71 /* ILManagedObject.m in Sources */,
-				156F244A12734EA9000BC614 /* SJLivePresentationPane.m in Sources */,
+				156F244A12734EA9000BC614 /* SJPresentationPane.m in Sources */,
 				15FBF1BF12817582005D68B6 /* SJPoseAQuestionPane.m in Sources */,
 				15D4366512845104005DBAE3 /* SJPointTableViewCell.m in Sources */,
 				15E64AB51286EB85005975D2 /* SJQuestion.m in Sources */,

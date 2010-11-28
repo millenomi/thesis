@@ -49,11 +49,38 @@
 	return [moc executeFetchRequest:fetch error:NULL];
 }
 
++ (NSUInteger) countForFetchRequestWithProperties:(void(^)(NSFetchRequest*)) props fromContext:(NSManagedObjectContext*) moc;
+{
+	NSEntityDescription* ed = [NSEntityDescription entityForName:NSStringFromClass(self) inManagedObjectContext:moc];
+	
+	NSFetchRequest* fetch = [[NSFetchRequest new] autorelease];
+	fetch.entity = ed;
+	props(fetch);
+	
+	return [moc countForFetchRequest:fetch error:NULL];
+}
+
 + (NSArray*) allWithPredicate:(NSPredicate*) pred fromContext:(NSManagedObjectContext*) moc;
 {
 	return [self resultOfFetchRequestWithProperties:^(NSFetchRequest* r) {
 		r.predicate = pred;
 	} fromContext:moc];
+}
+
++ (NSInteger) countForPredicate:(NSPredicate*) pred fromContext:(NSManagedObjectContext*) moc;
+{
+	return [self countForFetchRequestWithProperties:^(NSFetchRequest* r) {
+		r.predicate = pred;
+	} fromContext:moc];
+}
+
+@end
+
+@implementation NSArray (ILAdditions)
+
+- singleContainedObject;
+{
+	return [self count] == 1? [self objectAtIndex:0] : nil;
 }
 
 @end

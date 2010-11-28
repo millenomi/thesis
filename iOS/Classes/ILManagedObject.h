@@ -21,7 +21,15 @@
 + oneWithPredicate:(NSPredicate*) pred fromContext:(NSManagedObjectContext*) moc;
 
 + resultOfFetchRequestWithProperties:(void(^)(NSFetchRequest*)) props fromContext:(NSManagedObjectContext*) moc;
++ (NSUInteger) countForFetchRequestWithProperties:(void(^)(NSFetchRequest*)) props fromContext:(NSManagedObjectContext*) moc;
 
 + (NSArray*) allWithPredicate:(NSPredicate*) pred fromContext:(NSManagedObjectContext*) moc;
+
+@end
+
+
+@interface NSArray (ILAdditions)
+
+- singleContainedObject;
 
 @end

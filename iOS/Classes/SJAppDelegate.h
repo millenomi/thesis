@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-#import "SJLivePresentationPane.h"
+#import "SJPresentationPane.h"
 
 @interface SJAppDelegate : NSObject <UIApplicationDelegate> {
     
     IBOutlet UIWindow *window;
-	IBOutlet SJLivePresentationPane* livePane;
+	IBOutlet SJPresentationPane* livePane;
     
 @private
     NSManagedObjectContext *managedObjectContext_;

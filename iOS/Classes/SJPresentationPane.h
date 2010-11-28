@@ -12,9 +12,13 @@
 
 #import "ILViewController.h"
 #import "ILStretchableImageButton.h"
-#import "ILFauxActionSheetWindow.h"
+#import "ILCoverWindow.h"
 
-@interface SJLivePresentationPane : ILViewController <SJLiveDelegate, UITableViewDelegate, UITableViewDataSource, ILFauxActionSheetDelegate> {
+#import "ILManagedObject.h"
+
+@class SJSlide;
+
+@interface SJPresentationPane : ILViewController <SJLiveDelegate, UITableViewDelegate, UITableViewDataSource, ILCoverWindowDelegate> {
 	IBOutlet UIActivityIndicatorView* spinner;
 	IBOutlet UITableView* tableView;
 	IBOutlet UIView* tableHostView;
@@ -22,7 +26,11 @@
 	IBOutlet UIView* questionActionView;
 	IBOutlet ILStretchableImageButton* actionViewCancelButton;
 	
-	IBOutlet ILFauxActionSheetWindow* fauxActionSheet;
+	IBOutlet ILCoverWindow* fauxActionSheet;
+	
+	IBOutlet UIToolbar* toolbarWithOurItems;
+	IBOutlet UIBarButtonItem* backToolbarItem;
+	IBOutlet UIBarButtonItem* forwardToolbarItem;
 	
 	CGRect originalTableViewFrame;
 }
@@ -34,5 +42,10 @@
 - (IBAction) askDidNotUnderstandQuestion;
 - (IBAction) askGoInDepthQuestion;
 - (IBAction) askFreeformQuestion;
+
+- (IBAction) moveToNextSlide;
+- (IBAction) moveToPreviousSlide;
+
+- (IBAction) moveToLastSlide;
 
 @end

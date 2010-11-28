@@ -14,5 +14,8 @@
 @interface SJLiveSchema : SJSchema
 
 @property(readonly) SJSlideSchema* slide;
+@property(readonly, getter=finished) NSNumber* finishedValue;
+
+@property(readonly, getter=isFinished) BOOL finished;
 
 @end

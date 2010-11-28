@@ -77,6 +77,10 @@ $(function() {
 			else
 				actuallyDoIt();
 		},
+		
+		liveDidUpdateCurrentSlide: function(l, slide) {
+			console.log("liveDidUpdateCurrentSlide", l, slide);
+		},
 	};
 
 	$('#header').addClass('loading').html("<h1>Waiting for lecture…</h1>");

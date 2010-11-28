@@ -116,7 +116,7 @@
 			NSURL* newSlideURL = live.slide.URLString? [self.endpoint URL:live.slide.URLString] : nil;
 			NSURL* newPresentationURL = live.slide.presentationURLString? [self.endpoint URL:live.slide.presentationURLString] : nil;
 			
-			if (newPresentationURL && (!self.presentationURL || ![self.presentationURL isEqual:newPresentationURL])) {
+			if (newPresentationURL && (!self.presentationURL || ![[self.presentationURL absoluteURL] isEqual:[newPresentationURL absoluteURL]])) {
 				
 				// a new presentation started
 				[self beginPresentationWithURL:newPresentationURL slideURL:newSlideURL];
@@ -183,7 +183,7 @@
 		SJSlide* slide = [self storeSlideDownloadedByRequest:req];
 		
 		if (slide)
-			[self.delegate live:self didMoveToSlide:slide];
+			[self.delegate live:self didMoveToSlide:slide fromSlide:nil];
 		
 		[[ILSensorSink sharedSink] setEnabled:NO];
 
@@ -299,6 +299,7 @@
 	if (!self.presentationURL)
 		return;
 	
+	NSURL* previousSlideURL = self.slideURL;
 	self.slideURL = s;
 	
 	[self.endpoint beginDownloadingFromURL:s completionHandler:^(id <SJRequest> req) {
@@ -308,8 +309,10 @@
 		
 		SJSlide* slide = [self storeSlideDownloadedByRequest:req];
 		
+		SJSlide* previousSlide = [SJSlide slideWithURL:previousSlideURL fromContext:self.managedObjectContext];
+		
 		if (slide)
-			[self.delegate live:self didMoveToSlide:slide];
+			[self.delegate live:self didMoveToSlide:slide fromSlide:previousSlide];
 		
 	}];	
 }
