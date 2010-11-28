@@ -34,6 +34,16 @@
 		15C044EB12A2A13E00AD97AA /* SJMoodPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C044EA12A2A13E00AD97AA /* SJMoodPicker.m */; };
 		15C0451012A2F0E600AD97AA /* SJMoodPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15C0450F12A2F0E600AD97AA /* SJMoodPicker.xib */; };
 		15C0451812A2F32200AD97AA /* RightShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0451712A2F32200AD97AA /* RightShadow.png */; };
+		15C0452F12A301AB00AD97AA /* BoredEmoticon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0452512A301AB00AD97AA /* BoredEmoticon.png */; };
+		15C0453012A301AB00AD97AA /* ConfusedEmoticon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0452612A301AB00AD97AA /* ConfusedEmoticon.png */; };
+		15C0453112A301AB00AD97AA /* EngagedEmoticon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0452712A301AB00AD97AA /* EngagedEmoticon.png */; };
+		15C0453212A301AB00AD97AA /* HappyEmoticonCategory.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0452812A301AB00AD97AA /* HappyEmoticonCategory.png */; };
+		15C0453312A301AB00AD97AA /* HappyEmoticonCategory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0452912A301AB00AD97AA /* HappyEmoticonCategory@2x.png */; };
+		15C0453412A301AB00AD97AA /* InterestedEmoticon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0452A12A301AB00AD97AA /* InterestedEmoticon.png */; };
+		15C0453512A301AB00AD97AA /* ThoughtfulEmoticon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0452B12A301AB00AD97AA /* ThoughtfulEmoticon.png */; };
+		15C0453612A301AB00AD97AA /* UnhappyEmoticonCategory.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0452C12A301AB00AD97AA /* UnhappyEmoticonCategory.png */; };
+		15C0453712A301AB00AD97AA /* UnhappyEmoticonCategory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0452D12A301AB00AD97AA /* UnhappyEmoticonCategory@2x.png */; };
+		15C0453812A301AB00AD97AA /* WhyAmIHereEmoticon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0452E12A301AB00AD97AA /* WhyAmIHereEmoticon.png */; };
 		15D4366512845104005DBAE3 /* SJPointTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D4366412845104005DBAE3 /* SJPointTableViewCell.m */; };
 		15D4368012845185005DBAE3 /* libViewControllers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FBF1E512817F93005D68B6 /* libViewControllers.a */; };
 		15D43684128451C3005DBAE3 /* SJPointTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D43683128451C3005DBAE3 /* SJPointTableViewCell.xib */; };
@@ -158,6 +168,16 @@
 		15C044EA12A2A13E00AD97AA /* SJMoodPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJMoodPicker.m; sourceTree = "<group>"; };
 		15C0450F12A2F0E600AD97AA /* SJMoodPicker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJMoodPicker.xib; sourceTree = "<group>"; };
 		15C0451712A2F32200AD97AA /* RightShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RightShadow.png; sourceTree = "<group>"; };
+		15C0452512A301AB00AD97AA /* BoredEmoticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BoredEmoticon.png; path = ../Art/BoredEmoticon.png; sourceTree = SOURCE_ROOT; };
+		15C0452612A301AB00AD97AA /* ConfusedEmoticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ConfusedEmoticon.png; path = ../Art/ConfusedEmoticon.png; sourceTree = SOURCE_ROOT; };
+		15C0452712A301AB00AD97AA /* EngagedEmoticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = EngagedEmoticon.png; path = ../Art/EngagedEmoticon.png; sourceTree = SOURCE_ROOT; };
+		15C0452812A301AB00AD97AA /* HappyEmoticonCategory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HappyEmoticonCategory.png; path = ../Art/HappyEmoticonCategory.png; sourceTree = SOURCE_ROOT; };
+		15C0452912A301AB00AD97AA /* HappyEmoticonCategory@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "HappyEmoticonCategory@2x.png"; path = "../Art/HappyEmoticonCategory@2x.png"; sourceTree = SOURCE_ROOT; };
+		15C0452A12A301AB00AD97AA /* InterestedEmoticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = InterestedEmoticon.png; path = ../Art/InterestedEmoticon.png; sourceTree = SOURCE_ROOT; };
+		15C0452B12A301AB00AD97AA /* ThoughtfulEmoticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ThoughtfulEmoticon.png; path = ../Art/ThoughtfulEmoticon.png; sourceTree = SOURCE_ROOT; };
+		15C0452C12A301AB00AD97AA /* UnhappyEmoticonCategory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UnhappyEmoticonCategory.png; path = ../Art/UnhappyEmoticonCategory.png; sourceTree = SOURCE_ROOT; };
+		15C0452D12A301AB00AD97AA /* UnhappyEmoticonCategory@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UnhappyEmoticonCategory@2x.png"; path = "../Art/UnhappyEmoticonCategory@2x.png"; sourceTree = SOURCE_ROOT; };
+		15C0452E12A301AB00AD97AA /* WhyAmIHereEmoticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WhyAmIHereEmoticon.png; path = ../Art/WhyAmIHereEmoticon.png; sourceTree = SOURCE_ROOT; };
 		15D4366312845104005DBAE3 /* SJPointTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPointTableViewCell.h; sourceTree = "<group>"; };
 		15D4366412845104005DBAE3 /* SJPointTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPointTableViewCell.m; sourceTree = "<group>"; };
 		15D43683128451C3005DBAE3 /* SJPointTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJPointTableViewCell.xib; sourceTree = "<group>"; };
@@ -367,6 +387,16 @@
 				15A46B46129FA50B00EC7A42 /* FastForwardArrowToolbarIcon@2x.png */,
 				1538E01112A1573700D5A056 /* EmoticonToolbarIcon.png */,
 				1538E01212A1573700D5A056 /* EmoticonToolbarIcon@2x.png */,
+				15C0452512A301AB00AD97AA /* BoredEmoticon.png */,
+				15C0452612A301AB00AD97AA /* ConfusedEmoticon.png */,
+				15C0452712A301AB00AD97AA /* EngagedEmoticon.png */,
+				15C0452812A301AB00AD97AA /* HappyEmoticonCategory.png */,
+				15C0452912A301AB00AD97AA /* HappyEmoticonCategory@2x.png */,
+				15C0452A12A301AB00AD97AA /* InterestedEmoticon.png */,
+				15C0452B12A301AB00AD97AA /* ThoughtfulEmoticon.png */,
+				15C0452C12A301AB00AD97AA /* UnhappyEmoticonCategory.png */,
+				15C0452D12A301AB00AD97AA /* UnhappyEmoticonCategory@2x.png */,
+				15C0452E12A301AB00AD97AA /* WhyAmIHereEmoticon.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -522,6 +552,16 @@
 				1538E01412A1573700D5A056 /* EmoticonToolbarIcon@2x.png in Resources */,
 				15C0451012A2F0E600AD97AA /* SJMoodPicker.xib in Resources */,
 				15C0451812A2F32200AD97AA /* RightShadow.png in Resources */,
+				15C0452F12A301AB00AD97AA /* BoredEmoticon.png in Resources */,
+				15C0453012A301AB00AD97AA /* ConfusedEmoticon.png in Resources */,
+				15C0453112A301AB00AD97AA /* EngagedEmoticon.png in Resources */,
+				15C0453212A301AB00AD97AA /* HappyEmoticonCategory.png in Resources */,
+				15C0453312A301AB00AD97AA /* HappyEmoticonCategory@2x.png in Resources */,
+				15C0453412A301AB00AD97AA /* InterestedEmoticon.png in Resources */,
+				15C0453512A301AB00AD97AA /* ThoughtfulEmoticon.png in Resources */,
+				15C0453612A301AB00AD97AA /* UnhappyEmoticonCategory.png in Resources */,
+				15C0453712A301AB00AD97AA /* UnhappyEmoticonCategory@2x.png in Resources */,
+				15C0453812A301AB00AD97AA /* WhyAmIHereEmoticon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
