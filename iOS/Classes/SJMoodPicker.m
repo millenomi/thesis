@@ -14,13 +14,24 @@
 - (id) init;
 {
 	if ((self = [super initWithNibName:NSStringFromClass(self->isa) bundle:nil])) {
-		self.delegate = self;
+		self.coverDelegate = self;
 		self.contentView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 	}
 	
 	return self;
 }
 
+@synthesize moodPickerDelegate;
 
+- (void) cancel;
+{
+	[self.moodPickerDelegate moodPickerDidCancel:self];
+}
+
+- (void) pickMoodFromSenderTag:(id)sender;
+{
+	NSInteger i = [sender tag];
+	[self.moodPickerDelegate moodPicker:self didPickMood:[SJMoodPickerOrderedMoods() objectAtIndex:i]];
+}
 
 @end
