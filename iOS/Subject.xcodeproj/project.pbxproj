@@ -31,6 +31,9 @@
 		15A46A6A129F995400EC7A42 /* ForwardArrowToolbarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A46A66129F995400EC7A42 /* ForwardArrowToolbarIcon@2x.png */; };
 		15A46B47129FA50B00EC7A42 /* FastForwardArrowToolbarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A46B45129FA50B00EC7A42 /* FastForwardArrowToolbarIcon.png */; };
 		15A46B48129FA50B00EC7A42 /* FastForwardArrowToolbarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A46B46129FA50B00EC7A42 /* FastForwardArrowToolbarIcon@2x.png */; };
+		15C044EB12A2A13E00AD97AA /* SJMoodPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C044EA12A2A13E00AD97AA /* SJMoodPicker.m */; };
+		15C0451012A2F0E600AD97AA /* SJMoodPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15C0450F12A2F0E600AD97AA /* SJMoodPicker.xib */; };
+		15C0451812A2F32200AD97AA /* RightShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0451712A2F32200AD97AA /* RightShadow.png */; };
 		15D4366512845104005DBAE3 /* SJPointTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D4366412845104005DBAE3 /* SJPointTableViewCell.m */; };
 		15D4368012845185005DBAE3 /* libViewControllers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FBF1E512817F93005D68B6 /* libViewControllers.a */; };
 		15D43684128451C3005DBAE3 /* SJPointTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D43683128451C3005DBAE3 /* SJPointTableViewCell.xib */; };
@@ -151,6 +154,10 @@
 		15A46A66129F995400EC7A42 /* ForwardArrowToolbarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ForwardArrowToolbarIcon@2x.png"; path = "../Art/ForwardArrowToolbarIcon@2x.png"; sourceTree = SOURCE_ROOT; };
 		15A46B45129FA50B00EC7A42 /* FastForwardArrowToolbarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FastForwardArrowToolbarIcon.png; path = ../Art/FastForwardArrowToolbarIcon.png; sourceTree = SOURCE_ROOT; };
 		15A46B46129FA50B00EC7A42 /* FastForwardArrowToolbarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "FastForwardArrowToolbarIcon@2x.png"; path = "../Art/FastForwardArrowToolbarIcon@2x.png"; sourceTree = SOURCE_ROOT; };
+		15C044E912A2A13E00AD97AA /* SJMoodPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJMoodPicker.h; sourceTree = "<group>"; };
+		15C044EA12A2A13E00AD97AA /* SJMoodPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJMoodPicker.m; sourceTree = "<group>"; };
+		15C0450F12A2F0E600AD97AA /* SJMoodPicker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJMoodPicker.xib; sourceTree = "<group>"; };
+		15C0451712A2F32200AD97AA /* RightShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RightShadow.png; sourceTree = "<group>"; };
 		15D4366312845104005DBAE3 /* SJPointTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPointTableViewCell.h; sourceTree = "<group>"; };
 		15D4366412845104005DBAE3 /* SJPointTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPointTableViewCell.m; sourceTree = "<group>"; };
 		15D43683128451C3005DBAE3 /* SJPointTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJPointTableViewCell.xib; sourceTree = "<group>"; };
@@ -240,6 +247,10 @@
 				15D43683128451C3005DBAE3 /* SJPointTableViewCell.xib */,
 				15D436DA12845D74005DBAE3 /* TopShadow.png */,
 				15D436DC12845ECF005DBAE3 /* BottomShadow.png */,
+				15C0451712A2F32200AD97AA /* RightShadow.png */,
+				15C044E912A2A13E00AD97AA /* SJMoodPicker.h */,
+				15C044EA12A2A13E00AD97AA /* SJMoodPicker.m */,
+				15C0450F12A2F0E600AD97AA /* SJMoodPicker.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -509,6 +520,8 @@
 				15A46B48129FA50B00EC7A42 /* FastForwardArrowToolbarIcon@2x.png in Resources */,
 				1538E01312A1573700D5A056 /* EmoticonToolbarIcon.png in Resources */,
 				1538E01412A1573700D5A056 /* EmoticonToolbarIcon@2x.png in Resources */,
+				15C0451012A2F0E600AD97AA /* SJMoodPicker.xib in Resources */,
+				15C0451812A2F32200AD97AA /* RightShadow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +544,7 @@
 				15FBF1BF12817582005D68B6 /* SJPoseAQuestionPane.m in Sources */,
 				15D4366512845104005DBAE3 /* SJPointTableViewCell.m in Sources */,
 				15E64AB51286EB85005975D2 /* SJQuestion.m in Sources */,
+				15C044EB12A2A13E00AD97AA /* SJMoodPicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
