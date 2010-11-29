@@ -372,11 +372,10 @@ if (!ILabs.Subject.Slide) {
 			
 			self._points = this.getByArrayOf(ILabs.Subject.Point, optionsArray);
 			self._presentation = this.getBy(ILabs.Subject.Presentation, data.presentation);
-			self._moods = data.moods;
 			self._revision = data.revision;
 		};
 		
-		self.addAsyncAccessors('sortingOrder', 'points', 'presentation', 'moods', 'revision');
+		self.addAsyncAccessors('sortingOrder', 'points', 'presentation', 'revision');
 		
 		return self;
 	};
@@ -415,6 +414,21 @@ if (!ILabs.Subject.Question) {
 	};
 }
 
+if (!ILabs.Subject.Mood) {
+	ILabs.Subject.Mood = function(options) {
+		var self = ILabs.Subject.ModelItem(options);
+		
+		self.setValuesWithRemoteData = function(data) {
+			self._kind = data.kind;
+			self._slide = this.getBy(ILabs.Subject.Slide, data.slideURL);
+		};
+		
+		self.addAsyncAccessors('kind', 'slide');
+		
+		return self;
+	};
+}
+
 if (!ILabs.Subject.Live) {
 	ILabs.Subject.Live = function(options) {
 		if (!options)
@@ -430,11 +444,11 @@ if (!ILabs.Subject.Live) {
 			var d = this.delegate();
 			
 			var didStart = (data.slide && !this._slide);
-			var didFinish = this._slide && (!data._slide || data.finished);
+			var didFinish = this._slide && (!data.slide || data.finished);
 			
 			var didMoveToSlide = (data.slide && this._slide && data.slide.URL != this._slide.URL());
 			
-			var questionsAsked = null;
+			var questionsAsked = null, moodsReported = null;
 			
 			if (data.slide && !data.finished) {
 				this._slide = this.getBy(ILabs.Subject.Slide, { URL: data.slide.URL });
@@ -442,15 +456,31 @@ if (!ILabs.Subject.Live) {
 			} else
 				delete this._slide;
 			
-			if (!this._lastQuestionsAsked)
-				this._lastQuestionsAsked = [];
+			if (!this._questionURLsPostedDuringLive)
+				this._questionURLsPostedDuringLive = [];
 			
-			if (data.questionsPostedDuringLive && !_.isEqual(this._lastQuestionsAsked, data.questionsPostedDuringLive)) {
+			if (data.questionsPostedDuringLive && !_.isEqual(this._questionURLsPostedDuringLive, data.questionsPostedDuringLive)) {
 				var _data = _(data.questionsPostedDuringLive);
-				var newQuestionURLs = _data.without.apply(_data, this._lastQuestionsAsked);
+				var newQuestionURLs = _data.without.apply(_data, this._questionURLsPostedDuringLive);
 				questionsAsked = this.getByArrayOf(ILabs.Subject.Question, newQuestionURLs);
-				this._lastQuestionsAsked = data.questionsPostedDuringLive;
+				
+				this._questionURLsPostedDuringLive = data.questionsPostedDuringLive;
+				this._questionsPostedDuringLive = this.getByArrayOf(ILabs.Subject.Question, data.questionsPostedDuringLive);
 			}
+			
+			if (!this._moodURLs)
+				this._moodURLs = [];
+				
+			if (data.moods && !_.isEqual(data.moods, this._moodURLs)) {
+				var _data = _(data.moods);
+				var newMoodURLs = _data.without.apply(_data, this._moodURLs);
+				moodsReported = this.getByArrayOf(ILabs.Subject.Mood, newMoodURLs);
+				
+				this._moodURLs = data.moods;
+				this._moods = this.getByArrayOf(ILabs.Subject.Mood, data.moods);
+			}
+			
+			this._moodsForCurrentSlide = data.moodsForCurrentSlide;
 			
 			if (d) {
 				if (didStart) {
@@ -463,6 +493,9 @@ if (!ILabs.Subject.Live) {
 					
 				if (!didFinish && questionsAsked)
 					d.liveDidAskNewQuestions(this, questionsAsked);
+					
+				if (!didFinish && moodsReported)
+					d.liveDidReportNewMoods(this, moodsReported);
 			}
 		};
 		
@@ -470,34 +503,17 @@ if (!ILabs.Subject.Live) {
 			if (!this._timer) {
 				var self = this;
 				this._timer = window.setInterval(function() { self.loadSelf(null, {reload: true}); }, 1500);
-				
-				if (!this._loadedEventHandler) {
-					var lastRevision = null;
-					this._loadedEventHandler = function(e, object) {
-						if (self.delegate() && self._slide.URL() == object.URL() && lastRevision != object.revision()) {
-							lastRevision = object.revision();
-						 	self.delegate().liveDidUpdateCurrentSlide(self, object);
-						}
-					};
-				}
-				
-				ILabs.Subject.bind(ILabs.Subject.ModelItem.Loaded, this._loadedEventHandler);
 			}
 		};
 		
 		self.stop = function() {
 			if (this._timer) {
 				window.clearInterval(this._timer);
-				delete this._timer;
-				
-				if (this._loadedEventHandler) {
-					ILabs.Subject.unbind(ILabs.Subject.ModelItem.Loaded, this._loadedEventHandler);
-					delete this._loadedEventHandler;
-				}
+				delete this._timer;				
 			}
 		};
 		
-		self.addAsyncAccessors('slide');
+		self.addAsyncAccessors('slide', 'finished', 'moods', 'moodsForCurrentSlide', 'questionsPostedDuringLive');
 		return self;
 	}
 }
@@ -515,10 +531,10 @@ if (!ILabs.Subject.LiveDelegateMixin) {
 			object.liveDidFinish = doNothing;
 		if (!object.liveDidMoveToSlide)
 			object.liveDidMoveToSlide = doNothing;
-		if (!object.liveDidUpdateCurrentSlide)
-			object.liveDidUpdateCurrentSlide = doNothing;
 		if (!object.liveDidAskNewQuestions)
 			object.liveDidAskNewQuestions = doNothing;
+		if (!object.liveDidReportNewMoods)
+			object.liveDidReportNewMoods = doNothing;
 			
 		return object;
 	}

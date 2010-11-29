@@ -18,9 +18,30 @@
 - validClassForFinishedValueKey { return [NSNumber class]; }
 - (BOOL) isValueOptionalForFinishedValueKey { return YES; }
 
+@dynamic URLStringsOfQuestionsPostedDuringLive;
+- validClassForValuesOfURLStringsOfQuestionsPostedDuringLiveArrayKey { return [NSString class]; }
+
+@dynamic moodURLStrings;
+- validClassForValuesOfMoodURLStringsArrayKey { return [NSString class]; }
+
+@dynamic moodsForCurrentSlide;
+- validClassForMoodsForCurrentSlideKey { return [NSDictionary class]; }
+
 - (BOOL) isFinished;
 {
 	return self.finishedValue? [self.finishedValue boolValue] : NO;
 }
+
+@end
+
+
+
+@implementation SJMoodSchema : SJSchema
+
+@dynamic slideURLString;
+- validClassForSlideURLStringKey { return [NSString class]; }
+
+@dynamic kind;
+- validClassForKindKey { return [NSString class]; }
 
 @end

@@ -44,6 +44,8 @@
 		15C0453612A301AB00AD97AA /* UnhappyEmoticonCategory.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0452C12A301AB00AD97AA /* UnhappyEmoticonCategory.png */; };
 		15C0453712A301AB00AD97AA /* UnhappyEmoticonCategory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0452D12A301AB00AD97AA /* UnhappyEmoticonCategory@2x.png */; };
 		15C0453812A301AB00AD97AA /* WhyAmIHereEmoticon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0452E12A301AB00AD97AA /* WhyAmIHereEmoticon.png */; };
+		15C0465312A3B40B00AD97AA /* PopoverArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0465112A3B40B00AD97AA /* PopoverArrow.png */; };
+		15C0465412A3B40B00AD97AA /* PopoverArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0465212A3B40B00AD97AA /* PopoverArrow@2x.png */; };
 		15D4366512845104005DBAE3 /* SJPointTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D4366412845104005DBAE3 /* SJPointTableViewCell.m */; };
 		15D4368012845185005DBAE3 /* libViewControllers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FBF1E512817F93005D68B6 /* libViewControllers.a */; };
 		15D43684128451C3005DBAE3 /* SJPointTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D43683128451C3005DBAE3 /* SJPointTableViewCell.xib */; };
@@ -178,6 +180,8 @@
 		15C0452C12A301AB00AD97AA /* UnhappyEmoticonCategory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UnhappyEmoticonCategory.png; path = ../Art/UnhappyEmoticonCategory.png; sourceTree = SOURCE_ROOT; };
 		15C0452D12A301AB00AD97AA /* UnhappyEmoticonCategory@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UnhappyEmoticonCategory@2x.png"; path = "../Art/UnhappyEmoticonCategory@2x.png"; sourceTree = SOURCE_ROOT; };
 		15C0452E12A301AB00AD97AA /* WhyAmIHereEmoticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WhyAmIHereEmoticon.png; path = ../Art/WhyAmIHereEmoticon.png; sourceTree = SOURCE_ROOT; };
+		15C0465112A3B40B00AD97AA /* PopoverArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PopoverArrow.png; path = ../Art/PopoverArrow.png; sourceTree = SOURCE_ROOT; };
+		15C0465212A3B40B00AD97AA /* PopoverArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PopoverArrow@2x.png"; path = "../Art/PopoverArrow@2x.png"; sourceTree = SOURCE_ROOT; };
 		15D4366312845104005DBAE3 /* SJPointTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPointTableViewCell.h; sourceTree = "<group>"; };
 		15D4366412845104005DBAE3 /* SJPointTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPointTableViewCell.m; sourceTree = "<group>"; };
 		15D43683128451C3005DBAE3 /* SJPointTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJPointTableViewCell.xib; sourceTree = "<group>"; };
@@ -397,6 +401,8 @@
 				15C0452C12A301AB00AD97AA /* UnhappyEmoticonCategory.png */,
 				15C0452D12A301AB00AD97AA /* UnhappyEmoticonCategory@2x.png */,
 				15C0452E12A301AB00AD97AA /* WhyAmIHereEmoticon.png */,
+				15C0465112A3B40B00AD97AA /* PopoverArrow.png */,
+				15C0465212A3B40B00AD97AA /* PopoverArrow@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -562,6 +568,8 @@
 				15C0453612A301AB00AD97AA /* UnhappyEmoticonCategory.png in Resources */,
 				15C0453712A301AB00AD97AA /* UnhappyEmoticonCategory@2x.png in Resources */,
 				15C0453812A301AB00AD97AA /* WhyAmIHereEmoticon.png in Resources */,
+				15C0465312A3B40B00AD97AA /* PopoverArrow.png in Resources */,
+				15C0465412A3B40B00AD97AA /* PopoverArrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

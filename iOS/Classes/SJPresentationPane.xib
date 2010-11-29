@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="35"/>
 			<integer value="8"/>
+			<integer value="35"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -476,6 +476,22 @@
 					</object>
 					<int key="connectionID">48</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">reportMood</string>
+						<reference key="source" ref="613679781"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">55</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">moodToolbarItem</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="613679781"/>
+					</object>
+					<int key="connectionID">56</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -662,7 +678,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>SJPresentationPane</string>
 					<string>UIResponder</string>
-					<string>{{618, 273}, {320, 460}}</string>
+					<string>{{547, 273}, {320, 460}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{557, 259}, {320, 155}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -724,7 +740,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">54</int>
+			<int key="maxID">56</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -743,9 +759,11 @@
 							<string>moveToLastSlide</string>
 							<string>moveToNextSlide</string>
 							<string>moveToPreviousSlide</string>
+							<string>reportMood</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -766,6 +784,7 @@
 							<string>moveToLastSlide</string>
 							<string>moveToNextSlide</string>
 							<string>moveToPreviousSlide</string>
+							<string>reportMood</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -797,6 +816,10 @@
 								<string key="name">moveToPreviousSlide</string>
 								<string key="candidateClassName">id</string>
 							</object>
+							<object class="IBActionInfo">
+								<string key="name">reportMood</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -807,6 +830,7 @@
 							<string>backToolbarItem</string>
 							<string>fauxActionSheet</string>
 							<string>forwardToolbarItem</string>
+							<string>moodToolbarItem</string>
 							<string>questionActionView</string>
 							<string>spinner</string>
 							<string>tableHostView</string>
@@ -817,7 +841,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>ILStretchableImageButton</string>
 							<string>UIBarButtonItem</string>
-							<string>ILFauxActionSheetWindow</string>
+							<string>ILCoverWindow</string>
+							<string>UIBarButtonItem</string>
 							<string>UIBarButtonItem</string>
 							<string>UIView</string>
 							<string>UIActivityIndicatorView</string>
@@ -834,6 +859,7 @@
 							<string>backToolbarItem</string>
 							<string>fauxActionSheet</string>
 							<string>forwardToolbarItem</string>
+							<string>moodToolbarItem</string>
 							<string>questionActionView</string>
 							<string>spinner</string>
 							<string>tableHostView</string>
@@ -852,10 +878,14 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">fauxActionSheet</string>
-								<string key="candidateClassName">ILFauxActionSheetWindow</string>
+								<string key="candidateClassName">ILCoverWindow</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">forwardToolbarItem</string>
+								<string key="candidateClassName">UIBarButtonItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">moodToolbarItem</string>
 								<string key="candidateClassName">UIBarButtonItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">

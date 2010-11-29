@@ -16,9 +16,11 @@
 
 #import "ILManagedObject.h"
 
+#import "SJMoodPicker.h"
+
 @class SJSlide;
 
-@interface SJPresentationPane : ILViewController <SJLiveDelegate, UITableViewDelegate, UITableViewDataSource, ILCoverWindowDelegate> {
+@interface SJPresentationPane : ILViewController <SJLiveDelegate, UITableViewDelegate, UITableViewDataSource, ILCoverWindowDelegate, SJMoodPickerDelegate> {
 	IBOutlet UIActivityIndicatorView* spinner;
 	IBOutlet UITableView* tableView;
 	IBOutlet UIView* tableHostView;
@@ -31,8 +33,11 @@
 	IBOutlet UIToolbar* toolbarWithOurItems;
 	IBOutlet UIBarButtonItem* backToolbarItem;
 	IBOutlet UIBarButtonItem* forwardToolbarItem;
+	IBOutlet UIBarButtonItem* moodToolbarItem;
 	
 	CGRect originalTableViewFrame;
+	
+	SJMoodPicker* moodPicker;
 }
 
 @property(retain) NSManagedObjectContext* managedObjectContext;
@@ -47,5 +52,7 @@
 - (IBAction) moveToPreviousSlide;
 
 - (IBAction) moveToLastSlide;
+
+- (IBAction) reportMood;
 
 @end

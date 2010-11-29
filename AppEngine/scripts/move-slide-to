@@ -1,9 +1,14 @@
 #!/bin/bash
 
+PRESENTATION_NO="$2"
+if [ "$PRESENTATION_NO" == "" ]; then
+	PRESENTATION_NO=1
+fi
+
 if [ "$1" == "end" ]; then
 	curl -D- -F 'end=true' http://localhost:8083/live
 else
-	curl -D- -F 'presentation=1' -F "slide=$1" http://localhost:8083/live
+	curl -D- -F "presentation=$PRESENTATION_NO" -F "slide=$1" http://localhost:8083/live
 fi
 
 curl -D- http://localhost:8083/live

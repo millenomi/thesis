@@ -35,11 +35,9 @@ class Presentation(Model):
 class Slide(Model):
 	presentation = ReferenceProperty(Presentation)
 	sorting_order = IntegerProperty()
-	revision = IntegerProperty(default = 0)
 	
 	def to_data(self):
-		import question as q # ensures we have .moods and .summary_of_moods()
-		slide_data = { "sortingOrder": self.sorting_order, "points": [], "moods": self.summary_of_moods(), "revision": self.revision }
+		slide_data = { "sortingOrder": self.sorting_order, "points": [] }
 
 		for p in Point.gql("WHERE slide = :1 ORDER BY sorting_order ASC", self):
 			point_data = p.to_data()

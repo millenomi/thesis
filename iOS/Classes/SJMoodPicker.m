@@ -13,7 +13,7 @@
 
 - (id) init;
 {
-	if ((self = [super initWithNibName:NSStringFromClass(self->isa) bundle:nil])) {
+	if ((self = [super initWithNibName:@"SJMoodPicker" bundle:nil])) {
 		self.coverDelegate = self;
 		self.contentView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 	}

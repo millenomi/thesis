@@ -15,15 +15,11 @@
 @dynamic points;
 @dynamic presentationURLString;
 @dynamic URLString;
-@dynamic moods;
-@dynamic revision;
 
 - validClassForSortingOrderKey { return [NSNumber class]; }
 - validClassForValuesOfPointsArrayKey { return [SJPointSchema class]; }
 - validClassForPresentationURLStringKey { return [NSString class]; }
 - validClassForURLStringKey { return [NSString class]; }
-- validClassForMoodsKey { return [NSDictionary class]; }
-- validClassForRevisionKey { return [NSNumber class]; }
 
 - (BOOL) isValueOptionalForURLStringKey { return YES; }
 

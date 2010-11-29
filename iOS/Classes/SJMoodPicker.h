@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ILCoverWindow.h"
-#import "SJSlideSchema.h"
+#import "SJLiveSchema.h"
 
 @protocol SJMoodPickerDelegate;
 

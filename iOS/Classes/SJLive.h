@@ -33,6 +33,8 @@
 - (void) askQuestionOfKind:(NSString*) kind forPoint:(SJPoint*) point; // completionHandler:(void(^)(BOOL ok)) handler;
 - (void) askFreeformQuestion:(NSString*) question forPoint:(SJPoint*) point;
 
+- (void) reportMoodOfKind:(NSString*) kind forSlide:(SJSlide*) slide;
+
 @end
 
 

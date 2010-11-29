@@ -15,6 +15,7 @@
 #import "SJPointTableViewCell.h"
 
 #import "ILViewAnimationTools.h"
+#import "ILGrowFromPointChoreography.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -65,8 +66,7 @@
 	[self endObserving];
 	self.managedObjectContext = nil;
 	self.endpoint = nil;
-	self.live = nil;
-	self.lastLiveSlide = nil;
+	
 	[super dealloc];
 }
 
@@ -78,6 +78,8 @@
 	[self addObserver:self forKeyPath:@"managedObjectContext" options:0 context:NULL];
 	[self addObserver:self forKeyPath:@"endpoint" options:0 context:NULL];
 	
+	[self addObserver:self forKeyPath:@"live" options:0 context:NULL];
+	
 	[self addObserver:self forKeyPath:@"currentSlide" options:NSKeyValueObservingOptionOld context:NULL];
 	[self addObserver:self forKeyPath:@"lastLiveSlide" options:NSKeyValueObservingOptionOld context:NULL];
 }
@@ -86,6 +88,8 @@
 {
 	[self removeObserver:self forKeyPath:@"managedObjectContext"];
 	[self removeObserver:self forKeyPath:@"endpoint"];
+
+	[self removeObserver:self forKeyPath:@"live"];
 
 	[self removeObserver:self forKeyPath:@"currentSlide"];
 	[self removeObserver:self forKeyPath:@"lastLiveSlide"];
@@ -114,6 +118,9 @@
 		
 		[self updateCurrentSlideUIFromPreviousSlide:slide];
 	}
+	
+	if ([keyPath isEqual:@"lastLiveSlide"])
+		moodToolbarItem.enabled = (self.lastLiveSlide && self.currentSlide && self.live);
 }
 
 - (void) updateCurrentSlideUIFromPreviousSlide:(SJSlide*) oldSlide;
@@ -165,6 +172,8 @@
 {
 	[super viewDidLoad];
 	
+	moodToolbarItem.enabled = NO;
+	
 	if (!self.live && self.managedObjectContext && self.endpoint) {
 		self.live = [[[SJLive alloc] initWithEndpoint:self.endpoint delegate:self managedObjectContext:self.managedObjectContext] autorelease];
 	}
@@ -188,9 +197,9 @@
 	[self.navigationController setToolbarHidden:NO animated:animated];
 }
 
-- (void) viewDidUnload;
+- (void) clearOutlets;
 {
-	[super viewDidUnload];
+	[super clearOutlets];
 	
 	tableView.delegate = nil;
 	tableView.dataSource = nil;
@@ -207,12 +216,17 @@
 	
 	[backToolbarItem release]; backToolbarItem = nil;
 	[forwardToolbarItem release]; forwardToolbarItem = nil;
+	[moodToolbarItem release]; moodToolbarItem = nil;
 	
 	[self.live stop];
 	self.live.delegate = nil;
 	self.live = nil;
 	self.lastLiveSlide = nil;
 	self.navigationItem.rightBarButtonItem = nil;
+	
+	moodPicker.moodPickerDelegate = nil;
+	moodPicker.coverDelegate = nil;
+	[moodPicker release]; moodPicker = nil;
 }
 
 - (void) live:(SJLive *)live willBeginRunningPresentationAtURL:(NSURL *)presURL slideURL:(NSURL *)slideURL;
@@ -307,6 +321,7 @@
 - (void) viewWillDisappear:(BOOL)animated;
 {
 	[fauxActionSheet dismissAnimated:animated];
+	[moodPicker dismissAnimated:animated];
 }
 
 - (void) live:(SJLive *)live didUpdateCurrentSlide:(SJSlide *)slide;
@@ -364,6 +379,9 @@
 
 - (void) coverWindow:(ILCoverWindow *)window willAppearWithAnimationDuration:(CGFloat)duration curve:(UIViewAnimationCurve)curve finalContentViewFrame:(CGRect)frame;
 {
+	if (window != fauxActionSheet)
+		return;
+	
 	[UIView animateWithDuration:duration delay:0
 						options:ILViewAnimationOptionsForCurve(curve) | UIViewAnimationOptionAllowUserInteraction
 					 animations:^{
@@ -383,6 +401,9 @@
 
 - (void) coverWindowWillDismiss:(ILCoverWindow *)window;
 {
+	if (window != fauxActionSheet)
+		return;
+	
 	NSIndexPath* indexPath = [tableView indexPathForSelectedRow];
 	if (indexPath)
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -392,6 +413,9 @@
 
 - (void) coverWindowDidDismiss:(ILCoverWindow *)window;
 {
+	if (window != fauxActionSheet)
+		return;
+	
 	self.askQuestionSheetPoint = nil;
 }
 
@@ -444,6 +468,49 @@
 {
 	if (self.lastLiveSlide)
 		self.currentSlide = self.lastLiveSlide;
+}
+
+#pragma mark Mood reporting
+
+- (IBAction) reportMood;
+{
+	if (!self.live)
+		return;
+	
+	if (!moodPicker) {
+		moodPicker = [SJMoodPicker new];
+		moodPicker.moodPickerDelegate = self;
+		moodPicker.coverDelegate = self;
+	}
+	
+	[moodPicker showAnimated:YES];
+}
+
+- (void) moodPicker:(SJMoodPicker *)picker didPickMood:(NSString *)mood;
+{
+	[self.live reportMoodOfKind:mood forSlide:self.currentSlide];
+	[picker dismissAnimated:YES];
+}
+
+- (void) moodPickerDidCancel:(SJMoodPicker *)picker;
+{
+	[picker dismissAnimated:YES];
+}
+
+- (void) didReceiveMemoryWarning;
+{
+	[super didReceiveMemoryWarning];
+	
+	if (moodPicker.hidden) {
+		moodPicker.moodPickerDelegate = nil;
+		moodPicker.coverDelegate = nil;
+		[moodPicker release]; moodPicker = nil;
+	}
+	
+	if (fauxActionSheet.hidden) {
+		fauxActionSheet.coverDelegate = nil;
+		[fauxActionSheet release]; fauxActionSheet = nil;
+	}
 }
 
 @end

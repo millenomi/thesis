@@ -443,4 +443,29 @@
 	return newQ;
 }	
 
+- (void) reportMoodOfKind:(NSString*) kind forSlide:(SJSlide*) slide;
+{
+	NSURL* u = slide.URL;
+	NSString* path = [NSString stringWithFormat:@"/live%@/new_mood", [u path]];
+	
+	NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:[self.endpoint URL:path]];
+	[req setHTTPMethod:@"POST"];
+	
+	[req setValue:@"application/x-www-form-urlencoded;encoding=utf-8" forHTTPHeaderField:@"Content-Type"];
+	
+	NSDictionary* formData = [NSDictionary dictionaryWithObjectsAndKeys:
+							  kind, @"kind",
+							  nil];
+	
+	[req setHTTPBody:[[formData queryString] dataUsingEncoding:NSUTF8StringEncoding]];
+	
+	id <SJRequest> actualRequest = [self.endpoint requestFromURLRequest:req completionHandler:^(id <SJRequest> r) {
+		
+		ILLog(@"Finished reporting mood of kind %@ for slide %@ (HTTP status code: %d)", kind, slide, [[r HTTPResponse] statusCode]);
+		
+	}];
+	
+	[actualRequest start];
+}
+
 @end
