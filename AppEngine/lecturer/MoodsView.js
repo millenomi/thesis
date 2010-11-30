@@ -62,17 +62,17 @@ if (!ILabs.Subject.MoodsView) {
 	
 	var localizersForMoods = {};
 	localizersForMoods[Moods.WhyAmIHere] = Localizer({
-		1: "One person wonders why they're here",
-		n: "%d people are wondering why they're here"
+		1: "One person <span class='mood-description'>wonders why they're here</span>",
+		n: "%d people are <span class='mood-description'>wondering why they're here</span>"
 	});
 	localizersForMoods[Moods.Thoughtful] = Localizer({
-		1: "One person is really thinking about this",
-		n: "%d people are really thinking about this"
+		1: "One person is <span class='mood-description'>really thinking about this</span>",
+		n: "%d people are <span class='mood-description'>really thinking about this</span>"
 	});
-	localizersForMoods[Moods.Confused] = PeopleLocalizer(" confused");
-	localizersForMoods[Moods.Engaged] = PeopleLocalizer(" engaged");
-	localizersForMoods[Moods.Bored] = PeopleLocalizer(" bored");
-	localizersForMoods[Moods.Interested] = PeopleLocalizer(" interested");
+	localizersForMoods[Moods.Confused] = PeopleLocalizer(" <span class='mood-description'>confused</span>");
+	localizersForMoods[Moods.Engaged] = PeopleLocalizer(" <span class='mood-description'>engaged</span>");
+	localizersForMoods[Moods.Bored] = PeopleLocalizer(" <span class='mood-description'>bored</span>");
+	localizersForMoods[Moods.Interested] = PeopleLocalizer(" <span class='mood-description'>interested</span>");
 	
 	ILabs.Subject.MoodsView = function() {
 		var $el = $('<div class="moods"></div>');
@@ -101,7 +101,7 @@ if (!ILabs.Subject.MoodsView) {
 						$('<p class="mood"></p>')
 							.addClass(mood)
 							.addClass(Moods.isPositive(mood)? "positive" : "negative")
-							.text(l.stringForAmount(moods[mood]))
+							.html(l.stringForAmount(moods[mood]))
 					);
 				});
 				

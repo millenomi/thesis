@@ -122,5 +122,13 @@ body {
 	display: inline;
 }
 
+.moods .mood-description {
+	font-weight: bold;
+}
+
+.moods .negative .mood-description {
+	color: #CA1013;
+}
+
 /* @end */
 
