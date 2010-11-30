@@ -11,8 +11,11 @@ if (!ILabs.Subject.SlideViewCanonicalQuickQuestionOrder) {
 	];
 }
 
-if (!ILabs.Subject.SlideView) {	
+if (!ILabs.Subject.SlideView) {
 	ILabs.Subject.SlideView = function() {
+		if (!ILabs.Subject.MoodsView)
+			$(document.body).append('<script src="MoodsView.js" type="text/javascript"></scripts>');
+		
 		var $el = $('<div class="slide span-24 last">' +
 			'<p class="slide-number"></p>' +
 			'<div class="slide-image span-13">' +
@@ -36,6 +39,7 @@ if (!ILabs.Subject.SlideView) {
 			_shortQuestionsByKind = Hash();
 
 		var _slide = null;
+		var _moodsView = null, _moodsViewShown = false;
 
 		return {
 			$: $el,
@@ -59,6 +63,21 @@ if (!ILabs.Subject.SlideView) {
 						}, {reload: true});
 					});
 				});
+			},
+			
+			setMoods: function(moods) {
+				if (!_moodsView)
+					_moodsView = ILabs.Subject.MoodsView();
+					
+				_moodsView.setMoods(moods);
+				
+				if (_moodsView.shouldShow() && !_moodsViewShown) {
+					$el.find('.questions').prepend(_moodsView.$);
+					_moodsViewShown = true;
+				} else if (!_moodsView.shouldShow() && _moodsViewShown) {
+					_moodsView.$.hide();
+					_moodsViewShown = false;
+				}
 			},
 			
 			insertQuestion: function(q) {
@@ -85,9 +104,11 @@ if (!ILabs.Subject.SlideView) {
 						
 						q.point().text(function(t) { $q.find('.point').text("“" + t + "”"); });
 						
-						var $quickOnes = $el.find('.question.freeform:last');
-						if ($quickOnes.length != 0)
-							$quickOnes.after($q);
+						var $longOnes = $el.find('.question.freeform:last');
+						if ($longOnes.length != 0)
+							$longOnes.after($q);
+						else if (_moodsView)
+							_moodsView.$.after($q);
 						else
 							$el.find('.questions').prepend($q);
 						$q.hide().show(400);

@@ -94,3 +94,33 @@ body {
 /* @end */
 
 /* @end */
+
+
+/* @group Moods */
+
+.moods {
+	padding-bottom: 10px;
+}
+
+.moods .mood.negative {
+	color: #f00;
+	text-shadow: 0 1px 2px #ccc;
+}
+
+.moods .mood.positive {
+	color: #00a600;
+	text-shadow: #ede8a7 0 1px 2px;
+}
+
+.moods .mood {
+	display: inline;
+	margin: 0;
+}
+
+.moods .mood:after {
+	content: ' · ';
+	display: inline;
+}
+
+/* @end */
+

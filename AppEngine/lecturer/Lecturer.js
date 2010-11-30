@@ -5,15 +5,18 @@ $(function() {
 
 	var orderedSlideViews = [], slideViewsByURL = Hash();
 	var enqueuedQuestionLoads = null;
+	var currentSlide = null;
 	
 	function addSlideViewForSlide(slide) {
 		enqueuedQuestionLoads = [];
+		var moods = live.moodsForCurrentSlide();
 		
 		slide.loadSelf(function() {
 			var x = slideViewsByURL.getItem(slide.URL());
 			if (!x) {
 				x = ILabs.Subject.SlideView();
 				x.setSlide(slide);
+				x.setMoods(moods);
 				
 				slideViewsByURL.setItem(slide.URL(), x);
 				orderedSlideViews.push(x);
@@ -49,6 +52,7 @@ $(function() {
 		
 		liveDidMoveToSlide: function(l, slide) {
 			addSlideViewForSlide(slide);
+			currentSlide = slide;
 		},
 		
 		liveDidAskNewQuestions: function(l, questions) {
@@ -78,8 +82,13 @@ $(function() {
 				actuallyDoIt();
 		},
 		
-		liveDidUpdateCurrentSlide: function(l, slide) {
-			console.log("liveDidUpdateCurrentSlide", l, slide);
+		liveDidReportNewMoods: function(l, reportedMoods) {
+			if (!currentSlide)
+				return;
+				
+			var slideView = slideViewsByURL.getItem(currentSlide.URL());
+			if (slideView)
+				slideView.setMoods(l.moodsForCurrentSlide());
 		},
 	};
 
