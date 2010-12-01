@@ -38,7 +38,7 @@ if (!ILabs.Subject.SlideView) {
 		var _knownQuestionURLs = Hash(),
 			_shortQuestionsByKind = Hash();
 
-		var _slide = null;
+		var _slide = null, _slideObserver = null;
 		var _moodsView = null, _moodsViewShown = false;
 
 		return {
@@ -47,11 +47,16 @@ if (!ILabs.Subject.SlideView) {
 			slide: function() { return _slide; },
 			setSlide: function(s) {
 				_slide = s;
+				
 				if (s)
-					this.beginUpdating(s);
+					this.beginUpdating();
 			},
 			
-			beginUpdating: function(slide) {
+			beginUpdating: function() {
+				var slide = this.slide();
+				if (!slide)
+					return;
+				
 				var self = this;
 				slide.sortingOrder(function(i) {
 					$el.find('.slide-number').text((i + 1).toString());

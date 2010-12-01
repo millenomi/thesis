@@ -103,7 +103,7 @@ body {
 }
 
 .moods .mood.negative {
-	color: #f00;
+	color: #CA1013;
 	text-shadow: 0 1px 2px #ccc;
 }
 
@@ -115,6 +115,9 @@ body {
 .moods .mood {
 	display: inline;
 	margin: 0;
+	font-weight: bold;
+	margin-left: 10px; margin-right: 10px;
+	line-height: 20px;
 }
 
 .moods .mood:after {
@@ -122,12 +125,23 @@ body {
 	display: inline;
 }
 
-.moods .mood-description {
-	font-weight: bold;
+.moods .mood.whyAmIHere:after {
+	content: url(/common/art/whyAmIHere.png);
 }
-
-.moods .negative .mood-description {
-	color: #CA1013;
+.moods .mood.bored:after {
+	content: url(/common/art/bored.png);
+}
+.moods .mood.confused:after {
+	content: url(/common/art/confused.png);
+}
+.moods .mood.interested:after {
+	content: url(/common/art/interested.png);
+}
+.moods .mood.engaged:after {
+	content: url(/common/art/engaged.png);
+}
+.moods .mood.thoughtful:after {
+	content: url(/common/art/thoughtful.png);
 }
 
 /* @end */

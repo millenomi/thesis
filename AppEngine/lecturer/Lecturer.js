@@ -10,7 +10,7 @@ $(function() {
 	function addSlideViewForSlide(slide) {
 		enqueuedQuestionLoads = [];
 		var moods = null;
-		if (slide.URL() == live.slide().URL())
+		if (live.slide() && (slide.URL() == live.slide().URL()))
 			moods = live.moodsForCurrentSlide();
 		
 		slide.loadSelf(function() {
@@ -86,12 +86,11 @@ $(function() {
 		},
 		
 		liveDidReportNewMoods: function(l, reportedMoods) {
-			if (!currentSlide)
-				return;
-				
-			var slideView = slideViewsByURL.getItem(currentSlide.URL());
-			if (slideView)
-				slideView.setMoods(l.moodsForCurrentSlide());
+			_.each(orderedSlideViews, function(sv) {
+			 	sv.slide().summaryOfCurrentLiveMoods(function(summary) {
+			 		sv.setMoods(summary);
+			 	});
+			});
 		},
 	};
 

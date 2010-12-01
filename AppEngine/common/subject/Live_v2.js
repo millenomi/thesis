@@ -151,16 +151,23 @@ if (!ILabs.Coalescer) {
 		
 		return {
 			wait: function() {
+				finishedOnce = false;
 				count++;
 				var self = this;
 				return function() { self.finish(); };
 			},
 			
+			_waitingCount: function() { return count; },
+			_wouldTriggerOnWhenDoneCalled: function() { return finishedOnce; },
+			
 			finish: function() {
 				count--;
 				if (count == 0) {
-					if (callback)
+					if (callback) {
 						callback.apply(this);
+						callback = null;
+					}
+					
 					finishedOnce = true;
 				}
 			},
@@ -228,9 +235,11 @@ if (!ILabs.Subject.ModelItem) {
 	ILabs.Subject.ModelItem = function(options) {
 		var url = options.URL;
 		var context = options.context;
+		var needsInsertion = false;
+		
 		if (!context) {
 			context = ILabs.Subject.ModelContext();
-			context.setObjectForURL(this, url);
+			needsInsertion = true;
 		}
 		
 		var self = {
@@ -329,6 +338,9 @@ if (!ILabs.Subject.ModelItem) {
 			},
 		};
 		
+		if (needsInsertion)
+			context.setObjectForURL(self, url);
+		
 		return self;
 	};
 	
@@ -373,6 +385,38 @@ if (!ILabs.Subject.Slide) {
 			self._points = this.getByArrayOf(ILabs.Subject.Point, optionsArray);
 			self._presentation = this.getBy(ILabs.Subject.Presentation, data.presentation);
 			self._revision = data.revision;
+		};
+		
+		self.summaryOfCurrentLiveMoods = function(callback) {
+			var self = this;
+			var live = ILabs.Subject.Live.fromContext(this.context());
+			
+			live.moods(function(m) {
+				var c = ILabs.Coalescer();
+				
+				_.each(m, function(mood) {
+					mood.loadSelf(c.wait());
+				});
+				
+				c.whenDone(function() {
+					var summary = {};
+					
+					_.each(m, function(mood) {
+						if (!mood.slide())
+							throw "This mood reported it was loaded, but it doesn't know its .slide()";
+						
+						if (mood.slide().URL() != self.URL())
+							return; // continue
+						
+						if (!summary[mood.kind()])
+							summary[mood.kind()] = 1;
+						else
+							summary[mood.kind()]++;
+							
+						callback(summary);
+					});
+				});
+			});
 		};
 		
 		self.addAsyncAccessors('sortingOrder', 'points', 'presentation', 'revision');
@@ -515,6 +559,10 @@ if (!ILabs.Subject.Live) {
 		
 		self.addAsyncAccessors('slide', 'finished', 'moods', 'moodsForCurrentSlide', 'questionsPostedDuringLive');
 		return self;
+	}
+	
+	ILabs.Subject.Live.fromContext = function(context) {
+		return context.getBy(ILabs.Subject.Live, "/live");
 	}
 }
 
