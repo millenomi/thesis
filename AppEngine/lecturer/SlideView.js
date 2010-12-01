@@ -27,8 +27,8 @@ if (!ILabs.Subject.SlideView) {
 		function userVisibleOverallTextForQuestionKind(kind, count) {
 			var text = (count == 1? 'One person' : count + " people");
 			switch (kind) {
-				case "didNotUnderstand": text += " did not understand this"; break;
-				case "goInDepth": text += " would like to go in depth on this"; break;
+				case "didNotUnderstand": text += " did not understand this:"; break;
+				case "goInDepth": text += " would like to go in depth on this:"; break;
 				default: return "(???)";
 			}
 			
@@ -97,12 +97,12 @@ if (!ILabs.Subject.SlideView) {
 						if (!q.text())
 							return;
 						
-						var $q = $('<div class="question freeform"><h2></h2><p class="reference">re: <span class="point"></span></p></div>');
+						var $q = $('<div class="question freeform"><h2></h2><p class="reference">• <span class="point"></span></p></div>');
 						$q.data('URL', q.URL());
 						
 						$q.find('h2').text(q.text());
 						
-						q.point().text(function(t) { $q.find('.point').text("“" + t + "”"); });
+						q.point().text(function(t) { $q.find('.point').text(t); });
 						
 						var $longOnes = $el.find('.question.freeform:last');
 						if ($longOnes.length != 0)
@@ -137,8 +137,8 @@ if (!ILabs.Subject.SlideView) {
 						});
 						
 						if (!found) {
-							var $p = $('<p class="reference">re: <span class="point"></span></p></div>');
-							q.point().text(function(t) { $p.find('.point').text("“" + t + "”"); });
+							var $p = $('<p class="reference">• <span class="point"></span></p></div>');
+							q.point().text(function(t) { $p.find('.point').text(t); });
 							$p
 								.data('pointURL', q.point().URL())
 								.data('count', 1)

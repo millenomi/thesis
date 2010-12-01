@@ -9,14 +9,17 @@ $(function() {
 	
 	function addSlideViewForSlide(slide) {
 		enqueuedQuestionLoads = [];
-		var moods = live.moodsForCurrentSlide();
+		var moods = null;
+		if (slide.URL() == live.slide().URL())
+			moods = live.moodsForCurrentSlide();
 		
 		slide.loadSelf(function() {
 			var x = slideViewsByURL.getItem(slide.URL());
 			if (!x) {
 				x = ILabs.Subject.SlideView();
 				x.setSlide(slide);
-				x.setMoods(moods);
+				if (moods)
+					x.setMoods(moods);
 				
 				slideViewsByURL.setItem(slide.URL(), x);
 				orderedSlideViews.push(x);
