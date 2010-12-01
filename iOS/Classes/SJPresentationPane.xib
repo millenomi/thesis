@@ -12,8 +12,9 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="8"/>
 			<integer value="35"/>
+			<integer value="8"/>
+			<integer value="10"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -90,7 +91,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="920378047">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">266</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -155,7 +156,7 @@
 							<object class="IBUIButton" id="811513264">
 								<reference key="NSNextResponder" ref="579459101"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrameSize">{106, 79}</string>
+								<string key="NSFrame">{{0, -1}, {106, 80}}</string>
 								<reference key="NSSuperview" ref="579459101"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">1</int>
@@ -175,7 +176,7 @@
 								<double key="IBUITitleEdgeInsets.left">0.0</double>
 								<double key="IBUITitleEdgeInsets.right">0.0</double>
 								<string key="IBUITitleShadowOffset">{0, -1}</string>
-								<string key="IBUINormalTitle">Sorry?</string>
+								<string key="IBUINormalTitle">Unclear</string>
 								<object class="NSColor" key="IBUIHighlightedTitleColor">
 									<int key="NSColorSpace">2</int>
 									<bytes key="NSRGB">MC40NzA4MDI5MTk3IDAuNDE4Njk4MjU1IDAAA</bytes>
@@ -193,7 +194,7 @@
 							<object class="IBUIButton" id="526920491">
 								<reference key="NSNextResponder" ref="579459101"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{107, 0}, {106, 79}}</string>
+								<string key="NSFrame">{{107, -1}, {106, 80}}</string>
 								<reference key="NSSuperview" ref="579459101"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">2</int>
@@ -209,7 +210,7 @@
 								<double key="IBUITitleEdgeInsets.left">0.0</double>
 								<double key="IBUITitleEdgeInsets.right">0.0</double>
 								<string key="IBUITitleShadowOffset">{0, -1}</string>
-								<string key="IBUINormalTitle">Depth?</string>
+								<string key="IBUINormalTitle">In depth</string>
 								<object class="NSColor" key="IBUIHighlightedTitleColor">
 									<int key="NSColorSpace">2</int>
 									<bytes key="NSRGB">MC4xMDgwMTA1NDkzIDAuMzcwNjk5NTY2NyAwLjU4MDI5MTk3MDgAA</bytes>
@@ -221,7 +222,7 @@
 							<object class="IBUIButton" id="747515054">
 								<reference key="NSNextResponder" ref="579459101"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{214, 0}, {106, 79}}</string>
+								<string key="NSFrame">{{214, -1}, {106, 80}}</string>
 								<reference key="NSSuperview" ref="579459101"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
@@ -237,7 +238,7 @@
 								<double key="IBUITitleEdgeInsets.left">0.0</double>
 								<double key="IBUITitleEdgeInsets.right">0.0</double>
 								<string key="IBUITitleShadowOffset">{0, -1}</string>
-								<string key="IBUINormalTitle">Ask…</string>
+								<string key="IBUINormalTitle">Other…</string>
 								<object class="NSColor" key="IBUIHighlightedTitleColor">
 									<int key="NSColorSpace">2</int>
 									<bytes key="NSRGB">MC4zOTAwODE2MDY5IDAuNjkwMDY0MDMxNiAwLjkyOTQxMTgyODUAA</bytes>
@@ -311,6 +312,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 155}</string>
+				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MCAwAA</bytes>
