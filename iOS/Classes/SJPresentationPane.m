@@ -111,16 +111,27 @@
 		
 	}
 	
-	if ([keyPath isEqual:@"currentSlide"] || [keyPath isEqual:@"lastLiveSlide"]) {
+	if ([keyPath isEqual:@"currentSlide"]) {
 		id slide = [change objectForKey:NSKeyValueChangeOldKey];
 		if (slide == [NSNull null])
 			slide = nil;
 		
 		[self updateCurrentSlideUIFromPreviousSlide:slide];
+		
+		if (!self.currentSlide)
+			self.navigationItem.rightBarButtonItem = nil;
 	}
 	
 	if ([keyPath isEqual:@"lastLiveSlide"])
 		moodToolbarItem.enabled = (self.lastLiveSlide && self.currentSlide && self.live);
+	
+	if ([keyPath isEqual:@"currentSlide"] || [keyPath isEqual:@"lastLiveSlide"]) {
+		if (self.currentSlide && self.lastLiveSlide && ![[self.currentSlide URL] isEqual:[self.lastLiveSlide URL]]) {
+			self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"FastForwardArrowToolbarIcon.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(moveToLastSlide)] autorelease];	
+		} else {
+			self.navigationItem.rightBarButtonItem = nil;
+		}
+	}
 }
 
 - (void) updateCurrentSlideUIFromPreviousSlide:(SJSlide*) oldSlide;
@@ -158,13 +169,6 @@
 	} else {
 		backToolbarItem.enabled = NO;
 		forwardToolbarItem.enabled = NO;
-		self.navigationItem.rightBarButtonItem = nil;
-	}
-	
-	if (self.currentSlide && self.lastLiveSlide && ![self.currentSlide isEqual:self.lastLiveSlide]) {
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"FastForwardArrowToolbarIcon.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(moveToLastSlide)] autorelease];	
-	} else {
-		self.navigationItem.rightBarButtonItem = nil;
 	}
 }
 
@@ -186,6 +190,7 @@
 	
 	tableView.dataSource = self;
 	tableView.delegate = self;
+	tableView.scrollsToTop = YES;
 	
 	actionViewCancelButton.backgroundImageCaps = CGSizeMake(16, 0);
 	
@@ -244,13 +249,12 @@
 
 - (void) live:(SJLive*) live didMoveToSlide:(SJSlide*) slide fromSlide:(SJSlide*) previousSlide;
 {
-	BOOL shouldMove = !self.currentSlide || [previousSlide isEqual:self.currentSlide];
-	
-	if (!shouldMove)
-		return;
-	
-	self.currentSlide = slide;
 	self.lastLiveSlide = slide;
+	
+	BOOL shouldMove = !self.currentSlide || [[previousSlide URL] isEqual:[self.currentSlide URL]];
+	
+	if (shouldMove)
+		self.currentSlide = slide;
 }
 
 - (void) live:(SJLive *)live willBeginMovingToSlideAtURL:(NSURL *)slideURL;

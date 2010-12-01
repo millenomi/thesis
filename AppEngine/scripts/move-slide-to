@@ -1,7 +1,9 @@
 #!/bin/bash
 
-PRESENTATION_NO="$2"
-if [ "$PRESENTATION_NO" == "" ]; then
+if [ "$2" != "" ]; then
+	PRESENTATION_NO="$1"
+	shift
+else
 	PRESENTATION_NO=1
 fi
 

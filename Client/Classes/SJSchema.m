@@ -280,6 +280,12 @@ CF_INLINE NSString* SJStringByUppercasingFirstLetter(NSString* x) {
 		return [super methodSignatureForSelector:aSelector];
 }
 
+- (BOOL) respondsToSelector:(SEL)aSelector;
+{
+	NSString* prop = NSStringFromSelector(aSelector);
+	return ([values objectForKey:prop] || [unspecifiedOptionalValues containsObject:prop]) || [super respondsToSelector:aSelector];
+}
+
 - (id) valueForCallingSelector;
 { /* used for its signature only */ return nil; }
 

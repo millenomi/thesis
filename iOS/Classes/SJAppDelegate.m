@@ -19,6 +19,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDefaultsDidChange:) name:NSUserDefaultsDidChangeNotification object:nil];
+	
 	[[ILSensorSink sharedSink] setEnabled:YES];
 	
 	SJEndpoint* point = [[[SJEndpoint alloc] initWithURL:[NSURL URLWithString:@"http://kikyo.local:8083"]] autorelease];
@@ -31,6 +33,11 @@
     return YES;
 }
 
+- (void) userDefaultsDidChange:(NSNotificationCenter*) nc;
+{
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kSJEraseAllLocalContent"] && persistentStoreCoordinator_)
+		abort();
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     /*
@@ -135,8 +142,16 @@
     if (persistentStoreCoordinator_ != nil) {
         return persistentStoreCoordinator_;
     }
-    
+	
     NSURL *storeURL = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"Subject.sqlite"]];
+	
+	NSUserDefaults* ud = [NSUserDefaults standardUserDefaults];
+	if ([ud boolForKey:@"kSJEraseAllLocalContent"]) {
+		[ud setBool:NO forKey:@"kSJEraseAllLocalContent"];
+		[ud synchronize];
+		
+		[[NSFileManager defaultManager] removeItemAtURL:storeURL error:NULL];
+	}
     
     NSError *error = nil;
     persistentStoreCoordinator_ = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
