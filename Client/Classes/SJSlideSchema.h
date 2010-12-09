@@ -15,5 +15,6 @@
 @property(readonly) NSArray* points;
 @property(getter=presentation, readonly) NSString* presentationURLString;
 @property(getter=URL, readonly) NSString* URLString;
+@property(getter=imageURL, readonly) NSString* imageURLString;
 
 @end

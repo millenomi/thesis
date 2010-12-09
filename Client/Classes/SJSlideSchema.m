@@ -15,12 +15,15 @@
 @dynamic points;
 @dynamic presentationURLString;
 @dynamic URLString;
+@dynamic imageURLString;
 
 - validClassForSortingOrderKey { return [NSNumber class]; }
 - validClassForValuesOfPointsArrayKey { return [SJPointSchema class]; }
 - validClassForPresentationURLStringKey { return [NSString class]; }
 - validClassForURLStringKey { return [NSString class]; }
+- validClassForImageURLStringKey { return [NSString class]; }
 
 - (BOOL) isValueOptionalForURLStringKey { return YES; }
+- (BOOL) isValueOptionalForImageURLStringKey { return YES; }
 
 @end

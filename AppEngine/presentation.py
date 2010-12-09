@@ -35,6 +35,7 @@ class Presentation(Model):
 class Slide(Model):
 	presentation = ReferenceProperty(Presentation)
 	sorting_order = IntegerProperty()
+	image = BlobProperty()
 	
 	def to_data(self):
 		slide_data = { "sortingOrder": self.sorting_order, "points": [] }
@@ -45,6 +46,9 @@ class Slide(Model):
 			slide_data["points"].append(point_data)
 			
 		slide_data["presentation"] = PresentationJSONView.url(self.presentation)
+		
+		if (self.image):
+			slide_data['imageURL'] = SlideImageView.url(self)
 		
 		return slide_data
 	
@@ -154,6 +158,60 @@ class SlideJSONView(w.RequestHandler):
 
 		self.response.headers['Content-Type'] = 'application/json'
 		json.dump(s.to_data(), self.response.out)
+		
+class SlideImageView(w.RequestHandler):
+	url_scheme = '/presentations/at/(.*)/slides/(.*)/image'
+	
+	@classmethod
+	def url(self, slide):
+		return "/presentations/at/%s/slides/%s/image" % (str(slide.presentation.url_id()), str(slide.sorting_order))
+	
+	@classmethod
+	def slide_from_keys(self, pres, index):
+		pres = Presentation.key_for_id(long(pres))
+		index = long(index)
+		
+		s = Slide.gql("WHERE presentation = :1 AND sorting_order = :2", pres, index).get()
+		if s is None:
+			return None
+			
+		return s
+	
+	def get(self, pres, index):
+		s = SlideImageView.slide_from_keys(pres, index)
+		if s is None or s.image is None:
+			self.error(404)
+			self.response.headers['Content-Type'] = 'text/plain'
+			self.response.out.write("Not found")
+			if s is None:
+				self.response.headers['X-IL-Error-Reason'] = 'slide does not exist'
+			elif s.image is None:
+				self.response.headers['X-IL-Error-Reason'] = 'slide has no image'
+			return
+			
+		self.response.headers['Content-Type'] = 'image/png'
+		self.response.out.write(s.image)
+		
+	def post(self, pres, index):
+		if self.request.headers['Content-Type'] != 'image/png':
+			self.error(400)
+			self.response.headers['X-IL-Error-Reason'] = 'content type is not accepted (only image/png is)'
+			return
+		
+		s = SlideImageView.slide_from_keys(pres, index)
+		if s is None:
+			self.error(404)
+			self.response.headers['Content-Type'] = 'text/plain'
+			self.response.headers['X-IL-Error-Reason'] = 'slide does not exist'
+			self.response.out.write("Not found")
+			return
+		
+		blob = Blob(self.request.body)
+		s.image = blob
+		s.put()
+	
+	def put(self, pres, index):
+		return self.post(pres, index)
 
 class PresentationLoader(w.RequestHandler):
 	url_scheme = '/presentations/new'
@@ -206,6 +264,7 @@ class PointJSONView(w.RequestHandler):
 	
 def append_handlers(list):
 	list.append((PointJSONView.url_scheme, PointJSONView))
+	list.append((SlideImageView.url_scheme, SlideImageView))
 	list.append((SlideJSONView.url_scheme, SlideJSONView))
 	list.append((AllPresentationsJSONView.url_scheme, AllPresentationsJSONView))
 	list.append((PresentationJSONView.url_scheme, PresentationJSONView))

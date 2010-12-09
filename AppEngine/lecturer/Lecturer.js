@@ -50,6 +50,12 @@ $(function() {
 						.children('h1')
 							.text(t);
 				});
+				
+				p.slides(function(slides) {
+					_.each(slides, function(slide) {
+						addSlideViewForSlide(slide);
+					});
+				});
 			});
 		},
 		
