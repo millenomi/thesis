@@ -24,6 +24,10 @@ body {
 	background-color: #e8effb;
 }
 
+.slide .slide-image {
+	margin-bottom: 20px;
+}
+
 .slide .slide-number {
 	position: absolute;
 	top: 0;

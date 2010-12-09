@@ -23,6 +23,8 @@
 - (NSURLRequest*) HTTPRequest;
 - (NSURL*) URL;
 
+- (NSData*) data;
+
 - (void) setShouldNotLog;
 
 @end

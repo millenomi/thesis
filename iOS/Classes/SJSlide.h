@@ -20,6 +20,8 @@
 @property (nonatomic, retain) NSSet* points;
 @property (nonatomic, retain) SJPresentation * presentation;
 @property (nonatomic, retain) NSString * URLString;
+@property (nonatomic, retain) NSString * imageURLString;
+@property (nonatomic, retain) NSData * imageData;
 
 @property(nonatomic, assign) NSUInteger sortingOrderValue;
 @property(nonatomic, copy) NSURL* URL;

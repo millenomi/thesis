@@ -8,15 +8,17 @@ class Live(Model):
 	slide = ReferenceProperty(p.Slide)
 	questions = ListProperty(Key)
 	finished = BooleanProperty()
+	last_updated = DateTimeProperty(auto_now = True)
 	# moods = backreference set of Mood.
 	
 	@classmethod
-	def get_current(self):
+	def get_current(self, should_put = True):
 		me = self.all().get()
 		if me is None:
 			me = Live()
 			me.finished = True
-			me.put()
+			if should_put:
+				me.put()
 			
 		return me
 		
@@ -81,6 +83,9 @@ class LiveControl(w.RequestHandler):
 		me = Live.get_current()
 		slide_no = self.request.get('slide', default_value = None)
 		pres_id = self.request.get('presentation', default_value = None)
+		
+		
+		
 		if pres_id is not None and slide_no is not None:
 			if me.finished:
 				me.finished = False
@@ -105,13 +110,33 @@ class LiveControl(w.RequestHandler):
 	
 	def get(self):
 		import question as qa
+		import time, datetime, logging
 		
 		me = Live.get_current()
+		
+		# ---------- long polling ----------
+
+		if self.request.get('request.kind') == 'update':
+			start = datetime.datetime.now()
+			revision = me.last_updated
+
+			logging.debug("Will begin long polling cycle (stopwatching at %s, last revision at %s)" % (start, str(revision)))
+
+			maximum_time = datetime.timedelta(seconds = 20)
+
+			while revision == me.last_updated and datetime.datetime.now() - start < maximum_time:
+				time.sleep(1)
+				me = Live.get_current(should_put = False)
+				logging.debug("Slept, revision now %s" % (str(me.last_updated),))
+
+			logging.debug("Did finish long polling cycle")
+		
+		# ----------------------------------
 		
 		s = me.slide
 		response = { "slide": None, "questionsPostedDuringLive": [], "finished": me.finished,
 			"moods": [MoodView.url(x) for x in me.moods], "moodsForCurrentSlide": {} }
-		
+			
 		if s is not None:
 			response["slide"] = s.to_data()
 			response["slide"]["URL"] = p.SlideJSONView.url(s)

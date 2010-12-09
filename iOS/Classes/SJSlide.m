@@ -15,6 +15,8 @@
 @dynamic points;
 @dynamic presentation;
 @dynamic URLString;
+@dynamic imageURLString;
+@dynamic imageData;
 
 - (NSUInteger) sortingOrderValue;
 {

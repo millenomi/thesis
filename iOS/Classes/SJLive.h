@@ -22,6 +22,7 @@
 	NSTimer* timer;
 	BOOL isWaitingOnHeartbeatRequest;
 	NSMutableSet* unassignedSlides;
+	BOOL hasJustStarted;
 }
 
 - (id) initWithEndpoint:(SJEndpoint*) endpoint delegate:(id <SJLiveDelegate>) delegate managedObjectContext:(NSManagedObjectContext*) moc;

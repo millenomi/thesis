@@ -68,6 +68,9 @@ if (!ILabs.Subject.SlideView) {
 						}, {reload: true});
 					});
 				});
+				slide.imageURL(function(url) {
+					$el.find('.slide-image img').attr('src', url);
+				});
 			},
 			
 			setMoods: function(moods) {

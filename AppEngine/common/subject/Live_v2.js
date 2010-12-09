@@ -116,15 +116,6 @@ if (!window.ILabs)
 	
 if (!ILabs.Subject) {
 	ILabs.Subject = {
-		load: function(url, success, complete) {
-			$.ajax({
-				url: url,
-				dataType: 'json',
-				success: success,
-				complete: complete
-			});
-		},
-		
 		raise: function(e) {
 			var x = [];
 			for (var i = 1; i < arguments.length; i++)
@@ -281,8 +272,14 @@ if (!ILabs.Subject.ModelItem) {
 				
 				if (needsToLoad) {
 					var self = this;
-					ILabs.Subject.load(this.URL(),
-						function onSuccess(data) {
+					var data = null;
+					if (options)
+						data = options.data;
+						
+					$.ajax({
+						url: this.URL(),
+						dataType: 'json',
+						success: function(data) {
 							self._hasLoaded = true;
 							self.setValuesWithRemoteData(data);
 						
@@ -291,9 +288,11 @@ if (!ILabs.Subject.ModelItem) {
 								
 							ILabs.Subject.raise(ILabs.Subject.ModelItem.Loaded, self);
 						},
-						function onDone() {
+						complete: function() {
 							self._onLoadHandlers = null;
-						});
+						},
+						data: data
+					});
 				}
 			},
 			
@@ -385,6 +384,7 @@ if (!ILabs.Subject.Slide) {
 			self._points = this.getByArrayOf(ILabs.Subject.Point, optionsArray);
 			self._presentation = this.getBy(ILabs.Subject.Presentation, data.presentation);
 			self._revision = data.revision;
+			self._imageURL = data.imageURL;
 		};
 		
 		self.summaryOfCurrentLiveMoods = function(callback) {
@@ -419,7 +419,7 @@ if (!ILabs.Subject.Slide) {
 			});
 		};
 		
-		self.addAsyncAccessors('sortingOrder', 'points', 'presentation', 'revision');
+		self.addAsyncAccessors('sortingOrder', 'points', 'presentation', 'revision', 'imageURL');
 		
 		return self;
 	};
@@ -546,8 +546,10 @@ if (!ILabs.Subject.Live) {
 		self.start = function() {
 			if (!this._timer) {
 				var self = this;
-				this._timer = window.setInterval(function() { self.loadSelf(null, {reload: true}); }, 1500);
+				this._timer = window.setInterval(function() { self.loadSelf(null, {reload: true, data: { 'request.kind': 'update' } }); }, 1500);
 			}
+			
+			self.loadSelf(null, { reload: true });
 		};
 		
 		self.stop = function() {

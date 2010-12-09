@@ -34,6 +34,9 @@
 
 - (void) updateCurrentSlideUIFromPreviousSlide:(SJSlide*) old;
 
+- (void) beginLoadingImageForSlide:(SJSlide *)s;
+- (void) foundImageForSlide:(SJSlide*) s;
+
 @end
 
 
@@ -43,6 +46,8 @@
 {
 	if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
 		// self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@":) :(", @"Emoticon label for mood button in presentation view") style:UIBarButtonItemStyleBordered target:nil action:NULL] autorelease];
+		
+		loadedImages = [NSMutableDictionary new];
 		
 		[self setUpObserving];
 	}
@@ -66,6 +71,8 @@
 	[self endObserving];
 	self.managedObjectContext = nil;
 	self.endpoint = nil;
+	
+	[loadedImages release];
 	
 	[super dealloc];
 }
@@ -165,6 +172,11 @@
 			
 			[tableView reloadData];
 			[spinner stopAnimating];
+			
+			if (self.currentSlide.imageData)
+				[self foundImageForSlide:self.currentSlide];
+			else if (self.currentSlide.imageURLString)
+				[self beginLoadingImageForSlide:self.currentSlide];
 		}
 	} else {
 		backToolbarItem.enabled = NO;
@@ -514,6 +526,45 @@
 	if (fauxActionSheet.hidden) {
 		fauxActionSheet.coverDelegate = nil;
 		[fauxActionSheet release]; fauxActionSheet = nil;
+	}
+	
+	[loadedImages removeAllObjects];
+}
+
+#pragma mark Image loading
+
+- (void) beginLoadingImageForSlide:(SJSlide*) s;
+{
+	[self.endpoint beginDownloadingFromURL:s.imageURLString completionHandler:^(id <SJRequest> req) {
+		
+		s.imageData = [req data];
+		[self foundImageForSlide:s];
+		
+	}];
+}
+
+- (void) foundImageForSlide:(SJSlide*) s;
+{
+	UIImage* i = [loadedImages objectForKey:s.imageURLString];
+	if (!i) {
+		NSData* d = s.imageData;
+		if (!d)
+			return;
+		i = [UIImage imageWithData:d];
+		
+		if (i)
+			[loadedImages setObject:i forKey:s.imageURLString];
+		else
+			return;
+	}
+	
+	if (self.currentSlide && [s.URLString isEqual:self.currentSlide.URLString]) {
+		UIImageView* v = [[[UIImageView alloc] initWithImage:i] autorelease];
+		
+		CGFloat height = 320 * i.size.height / i.size.width;
+		v.frame = CGRectMake(0, 0, 320, height);
+		
+		tableView.tableHeaderView = v;
 	}
 }
 

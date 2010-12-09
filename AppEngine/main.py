@@ -21,14 +21,20 @@ import sitewide_settings
 
 class MainHandler(webapp.RequestHandler):
 	def get(self):
-		self.response.out.write('Hello world!')
+		if sitewide_settings.OPEN_FOR_BUSINESS:
+			greeting = 'open'
+		else:
+			greeting = 'closed'
+		self.response.out.write("Hello, we're %s!" % (greeting,))
 
 
 def main():
 	handlers = [('/', MainHandler)]
-	question.append_handlers(handlers)
-	presentation.append_handlers(handlers)
-	live.append_handlers(handlers)
+	
+	if sitewide_settings.OPEN_FOR_BUSINESS:
+		question.append_handlers(handlers)
+		presentation.append_handlers(handlers)
+		live.append_handlers(handlers)
 	
 	application = webapp.WSGIApplication(handlers,
                                          debug = sitewide_settings.DEBUG)

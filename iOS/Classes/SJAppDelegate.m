@@ -25,7 +25,11 @@
 	
 	[[ILSensorSink sharedSink] setEnabled:YES];
 	
-	SJEndpoint* point = [[[SJEndpoint alloc] initWithURL:[NSURL URLWithString:@"http://kikyo.local:8083"]] autorelease];
+	NSString* url;
+	// url = @"http://kikyo.local:8083";
+	url = @"http://infinitelabs-subject.appspot.com";
+	
+	SJEndpoint* point = [[[SJEndpoint alloc] initWithURL:[NSURL URLWithString:url]] autorelease];
 	
 	livePane.endpoint = point;
 	livePane.managedObjectContext = self.managedObjectContext;

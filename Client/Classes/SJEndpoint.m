@@ -319,4 +319,9 @@
 	shouldSuppressLogs = YES;
 }
 
+- (NSData*) data;
+{
+	return self.downloadedData;
+}
+
 @end

@@ -38,6 +38,8 @@
 	CGRect originalTableViewFrame;
 	
 	SJMoodPicker* moodPicker;
+	
+	NSMutableDictionary* loadedImages;
 }
 
 @property(retain) NSManagedObjectContext* managedObjectContext;

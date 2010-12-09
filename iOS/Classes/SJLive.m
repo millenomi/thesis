@@ -22,6 +22,7 @@
 #import "NSURL+ILURLParsing.h"
 
 #define kSJLiveRelativeURLString @"/live"
+#define kSJLiveRelativeURLStringWithLongPolling @"/live?request.kind=update"
 
 @interface SJLive ()
 
@@ -55,6 +56,7 @@
 - (id) initWithEndpoint:(SJEndpoint*) endpoint delegate:(id <SJLiveDelegate>) delegate managedObjectContext:(NSManagedObjectContext*) moc;
 {
 	if ((self = [super init])) {
+		hasJustStarted = YES;
 		self.endpoint = endpoint;
 		self.managedObjectContext = moc;
 		unassignedSlides = [NSMutableSet new];
@@ -102,8 +104,11 @@
 	
 	isWaitingOnHeartbeatRequest = YES;
 	
+	NSString* url = hasJustStarted? kSJLiveRelativeURLString : kSJLiveRelativeURLStringWithLongPolling;
+	hasJustStarted = NO;
+	
 	id <SJRequest> request =
-	[self.endpoint requestForDownloadingFromURL:kSJLiveRelativeURLString completionHandler:^(id <SJRequest> r) {
+	[self.endpoint requestForDownloadingFromURL:url completionHandler:^(id <SJRequest> r) {
 		
 		if (!self.endpoint)
 			return;
@@ -238,6 +243,7 @@
 		[unassignedSlides addObject:s];
 	
 	s.sortingOrder = slideSchema.sortingOrder;
+	s.imageURLString = slideSchema.imageURLString;
 		
 	NSInteger i = 0;
 	for (SJPointSchema* pointSchema in slideSchema.points) {
