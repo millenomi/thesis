@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="8"/>
 			<integer value="35"/>
+			<integer value="8"/>
 			<integer value="10"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -54,9 +54,12 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrame">{{20, 20}, {320, 460}}</string>
 								<reference key="NSSuperview" ref="460433668"/>
-								<object class="NSColor" key="IBUIBackgroundColor" id="491575759">
+								<object class="NSColor" key="IBUIBackgroundColor" id="462956508">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
+									<object class="NSColorSpace" key="NSCustomColorSpace" id="320451646">
+										<int key="NSID">2</int>
+									</object>
 								</object>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -68,16 +71,19 @@
 								<float key="IBUISectionHeaderHeight">22</float>
 								<float key="IBUISectionFooterHeight">22</float>
 							</object>
+							<object class="IBUIImageView" id="774275871">
+								<reference key="NSNextResponder" ref="460433668"/>
+								<int key="NSvFlags">-2147483374</int>
+								<string key="NSFrameSize">{340, 480}</string>
+								<reference key="NSSuperview" ref="460433668"/>
+								<int key="IBUIContentMode">1</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+							</object>
 						</object>
 						<string key="NSFrame">{{-20, -20}, {360, 500}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MQA</bytes>
-							<object class="NSColorSpace" key="NSCustomColorSpace" id="320451646">
-								<int key="NSID">2</int>
-							</object>
-						</object>
+						<reference key="IBUIBackgroundColor" ref="462956508"/>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</object>
@@ -143,7 +149,10 @@
 									<int key="NSColorSpace">2</int>
 									<bytes key="NSRGB">MC41MjkxOTcwODAzIDAuNTI5MTkwOTYxIDAuNTI5MTk3MDgwMwA</bytes>
 								</object>
-								<reference key="IBUINormalTitleColor" ref="491575759"/>
+								<object class="NSColor" key="IBUINormalTitleColor" id="491575759">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MQA</bytes>
+								</object>
 								<object class="NSColor" key="IBUINormalTitleShadowColor" id="190339034">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC41AA</bytes>
@@ -494,6 +503,14 @@
 					</object>
 					<int key="connectionID">56</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">largeImageView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="774275871"/>
+					</object>
+					<int key="connectionID">58</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -530,6 +547,7 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="191392207"/>
+							<reference ref="774275871"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -641,6 +659,11 @@
 						<reference key="object" ref="613679781"/>
 						<reference key="parent" ref="812442831"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">57</int>
+						<reference key="object" ref="774275871"/>
+						<reference key="parent" ref="460433668"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -675,6 +698,7 @@
 					<string>4.IBViewBoundsToFrameTransform</string>
 					<string>42.IBPluginDependency</string>
 					<string>54.IBPluginDependency</string>
+					<string>57.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -724,6 +748,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -742,7 +767,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">56</int>
+			<int key="maxID">58</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -832,6 +857,7 @@
 							<string>backToolbarItem</string>
 							<string>fauxActionSheet</string>
 							<string>forwardToolbarItem</string>
+							<string>largeImageView</string>
 							<string>moodToolbarItem</string>
 							<string>questionActionView</string>
 							<string>spinner</string>
@@ -845,6 +871,7 @@
 							<string>UIBarButtonItem</string>
 							<string>ILCoverWindow</string>
 							<string>UIBarButtonItem</string>
+							<string>UIImageView</string>
 							<string>UIBarButtonItem</string>
 							<string>UIView</string>
 							<string>UIActivityIndicatorView</string>
@@ -861,6 +888,7 @@
 							<string>backToolbarItem</string>
 							<string>fauxActionSheet</string>
 							<string>forwardToolbarItem</string>
+							<string>largeImageView</string>
 							<string>moodToolbarItem</string>
 							<string>questionActionView</string>
 							<string>spinner</string>
@@ -885,6 +913,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">forwardToolbarItem</string>
 								<string key="candidateClassName">UIBarButtonItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">largeImageView</string>
+								<string key="candidateClassName">UIImageView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">moodToolbarItem</string>

@@ -14,4 +14,4 @@ logging.warning('Sitewide settings reset: DEBUG = %s' % DEBUG)
 if DEBUG:
 	logging.getLogger().setLevel(logging.DEBUG)
 	
-OPEN_FOR_BUSINESS = False
+OPEN_FOR_BUSINESS = True

@@ -25,9 +25,9 @@
 	
 	[[ILSensorSink sharedSink] setEnabled:YES];
 	
-	NSString* url;
-	// url = @"http://kikyo.local:8083";
-	url = @"http://infinitelabs-subject.appspot.com";
+	NSString* url = [[[NSProcessInfo processInfo] environment] objectForKey:@"SJEndpointURL"];
+	if (!url)	
+		url = @"http://infinitelabs-subject.appspot.com";
 	
 	SJEndpoint* point = [[[SJEndpoint alloc] initWithURL:[NSURL URLWithString:url]] autorelease];
 	

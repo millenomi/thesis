@@ -207,6 +207,8 @@
 	actionViewCancelButton.backgroundImageCaps = CGSizeMake(16, 0);
 	
 	[self updateCurrentSlideUIFromPreviousSlide:nil];
+	
+	largeImageView.frame = self.view.bounds;
 }
 
 - (void) viewWillAppear:(BOOL)animated;
@@ -566,6 +568,62 @@
 		
 		tableView.tableHeaderView = v;
 	}
+	
+	largeImageView.image = i;
+}
+
+// -------------------- large image view -----
+
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation;
+{
+	if (largeImageView.image != nil)
+		return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
+	else
+		return toInterfaceOrientation == UIInterfaceOrientationPortrait;
+}
+
+- (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
+{
+	if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
+		self.view.backgroundColor = [UIColor blackColor];
+		
+		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+		[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+		self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+		self.navigationController.toolbar.barStyle = UIBarStyleBlackTranslucent;
+		self.navigationController.navigationBarHidden = YES;
+		
+		self.wantsFullScreenLayout = YES;
+		
+		largeImageView.alpha = 1.0;
+		largeImageView.hidden = NO;
+		largeImageView.userInteractionEnabled = YES;
+		
+		tableView.alpha = 0.0;
+	} else {
+		self.view.backgroundColor = [UIColor whiteColor];
+		
+		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+		[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+		self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+		self.navigationController.toolbar.barStyle = UIBarStyleDefault;
+		self.navigationController.navigationBarHidden = NO;
+		
+		largeImageView.alpha = 0.0;
+		largeImageView.userInteractionEnabled = NO;
+		
+		self.wantsFullScreenLayout = NO;
+		
+		tableView.alpha = 1.0;
+		tableView.hidden = NO;
+		tableView.frame = originalTableViewFrame;
+	}
+}
+
+- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation;
+{
+	if (!tableView.hidden)
+		tableView.frame = originalTableViewFrame;
 }
 
 @end

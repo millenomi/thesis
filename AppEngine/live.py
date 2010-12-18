@@ -111,12 +111,13 @@ class LiveControl(w.RequestHandler):
 	def get(self):
 		import question as qa
 		import time, datetime, logging
+		import sitewide_settings
 		
 		me = Live.get_current()
 		
 		# ---------- long polling ----------
 
-		if self.request.get('request.kind') == 'update':
+		if self.request.get('request.kind') == 'update' and not sitewide_settings.DEBUG:
 			start = datetime.datetime.now()
 			revision = me.last_updated
 

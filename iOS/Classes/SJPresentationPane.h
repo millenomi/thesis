@@ -35,6 +35,8 @@
 	IBOutlet UIBarButtonItem* forwardToolbarItem;
 	IBOutlet UIBarButtonItem* moodToolbarItem;
 	
+	IBOutlet UIImageView* largeImageView;
+
 	CGRect originalTableViewFrame;
 	
 	SJMoodPicker* moodPicker;
