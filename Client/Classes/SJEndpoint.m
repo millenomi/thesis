@@ -315,6 +315,9 @@
 
 - (void) setShouldNotLog;
 {
+	if ([[[[NSProcessInfo processInfo] environment] objectForKey:@"SJShouldLogAllRequests"] boolValue])
+		return;
+	
 	self.session = nil;
 	shouldSuppressLogs = YES;
 }

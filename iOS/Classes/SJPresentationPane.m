@@ -208,7 +208,25 @@
 	
 	[self updateCurrentSlideUIFromPreviousSlide:nil];
 	
-	largeImageView.frame = self.view.bounds;
+	largeImageView.frame = tableView.frame;
+	
+	UISwipeGestureRecognizer* rightSwipe = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moveToPreviousSlide)] autorelease];
+	rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
+	
+	UISwipeGestureRecognizer* leftSwipe = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moveToNextSlide)] autorelease];
+	leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
+	
+	largeImageView.gestureRecognizers = [NSArray arrayWithObjects:rightSwipe, leftSwipe, nil];
+	
+	// same for the table view.
+	
+	rightSwipe = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moveToPreviousSlide)] autorelease];
+	rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
+	
+	leftSwipe = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moveToNextSlide)] autorelease];
+	leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
+	
+	tableView.gestureRecognizers = [NSArray arrayWithObjects:rightSwipe, leftSwipe, nil];
 }
 
 - (void) viewWillAppear:(BOOL)animated;
@@ -561,15 +579,17 @@
 	}
 	
 	if (self.currentSlide && [s.URLString isEqual:self.currentSlide.URLString]) {
-		UIImageView* v = [[[UIImageView alloc] initWithImage:i] autorelease];
-		
-		CGFloat height = 320 * i.size.height / i.size.width;
-		v.frame = CGRectMake(0, 0, 320, height);
-		
-		tableView.tableHeaderView = v;
+//		UIImageView* v = [[[UIImageView alloc] initWithImage:i] autorelease];
+//		
+//		CGFloat height = 250 * i.size.height / i.size.width;
+//		v.frame = CGRectMake(0, 0, 250, height);
+//		v.contentMode = UIViewContentModeScaleAspectFit;
+//		
+//		tableView.tableHeaderView = v;
+
+		largeImageView.image = i;
 	}
 	
-	largeImageView.image = i;
 }
 
 // -------------------- large image view -----
@@ -591,7 +611,9 @@
 		[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
 		self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 		self.navigationController.toolbar.barStyle = UIBarStyleBlackTranslucent;
+
 		self.navigationController.navigationBarHidden = YES;
+		self.navigationController.toolbarHidden = YES;
 		
 		self.wantsFullScreenLayout = YES;
 		
@@ -607,8 +629,10 @@
 		[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 		self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
 		self.navigationController.toolbar.barStyle = UIBarStyleDefault;
+
 		self.navigationController.navigationBarHidden = NO;
-		
+		self.navigationController.toolbarHidden = NO;
+
 		largeImageView.alpha = 0.0;
 		largeImageView.userInteractionEnabled = NO;
 		

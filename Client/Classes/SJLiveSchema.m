@@ -13,6 +13,7 @@
 
 @dynamic slide;
 - validClassForSlideKey { return [SJSlideSchema class]; }
+- (BOOL) isValueOptionalForSlideKey { return YES; }
 
 @dynamic finishedValue;
 - validClassForFinishedValueKey { return [NSNumber class]; }
@@ -30,6 +31,16 @@
 - (BOOL) isFinished;
 {
 	return self.finishedValue? [self.finishedValue boolValue] : NO;
+}
+
+- (BOOL) validateAndReturnError:(NSError **)e;
+{
+	if (![self isFinished] && !self.slide) {
+		if (e) *e = [NSError errorWithDomain:kSJSchemaErrorDomain code:kSJSchemaErrorRequiredValueMissing userInfo:[NSDictionary dictionaryWithObject:@"slide" forKey:kSJSchemaErrorSourceKey]];
+		return NO;
+	}
+	
+	return YES;
 }
 
 @end

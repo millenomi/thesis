@@ -22,6 +22,11 @@
 	return [[[self alloc] initInsertedIntoManagedObjectContext:moc] autorelease];
 }
 
++ oneWhereKey:(NSString*) key equals:(id) value fromContext:(NSManagedObjectContext*) moc;
+{
+	return [self oneWithPredicate:[NSPredicate predicateWithFormat:@"%K == %@", value, key] fromContext:moc];
+}
+
 + oneWithPredicate:(NSPredicate*) pred orderBy:(NSArray*) sortDescriptors fromContext:(NSManagedObjectContext*) moc;
 {
 	NSArray* a = [self resultOfFetchRequestWithProperties:^(NSFetchRequest* fetch) {

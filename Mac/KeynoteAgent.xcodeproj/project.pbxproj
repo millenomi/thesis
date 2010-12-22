@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		158B89E012C09BA8007CB814 /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B89DE12C09BA8007CB814 /* LoggerClient.m */; };
+		158B89E612C09BE8007CB814 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 158B89E512C09BE8007CB814 /* SystemConfiguration.framework */; };
 		15BC4F0012741E7800550BF6 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15BC4EFF12741E7800550BF6 /* ScriptingBridge.framework */; };
 		15BC4FDC1274256800550BF6 /* SJClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15BC4FBB127423F600550BF6 /* SJClient.framework */; };
 		15BC4FDD1274256D00550BF6 /* SJClient.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 15BC4FBB127423F600550BF6 /* SJClient.framework */; };
@@ -59,6 +61,10 @@
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		158B89DD12C09BA8007CB814 /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
+		158B89DE12C09BA8007CB814 /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
+		158B89DF12C09BA8007CB814 /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerClient.h; sourceTree = "<group>"; };
+		158B89E512C09BE8007CB814 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		15BC4EFE12741E5700550BF6 /* Key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Key.h; sourceTree = "<group>"; };
 		15BC4EFF12741E7800550BF6 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		15BC4F811274226E00550BF6 /* Client.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Client.xcodeproj; path = ../Client/Client.xcodeproj; sourceTree = "<group>"; };
@@ -81,6 +87,7 @@
 				15BC4FDC1274256800550BF6 /* SJClient.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				15BC4F0012741E7800550BF6 /* ScriptingBridge.framework in Frameworks */,
+				158B89E612C09BE8007CB814 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +97,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				158B89E212C09BAA007CB814 /* NSLogger */,
 				256AC3D80F4B6AC300CF3369 /* SJKnAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* SJKnAppDelegate.m */,
 			);
@@ -112,6 +120,16 @@
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		158B89E212C09BAA007CB814 /* NSLogger */ = {
+			isa = PBXGroup;
+			children = (
+				158B89DD12C09BA8007CB814 /* LoggerCommon.h */,
+				158B89DE12C09BA8007CB814 /* LoggerClient.m */,
+				158B89DF12C09BA8007CB814 /* LoggerClient.h */,
+			);
+			name = NSLogger;
 			sourceTree = "<group>";
 		};
 		15BC4FB7127423F600550BF6 /* Products */ = {
@@ -141,6 +159,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				15BC4EFF12741E7800550BF6 /* ScriptingBridge.framework */,
+				158B89E512C09BE8007CB814 /* SystemConfiguration.framework */,
 			);
 			name = KeynoteAgent;
 			sourceTree = "<group>";
@@ -263,6 +282,7 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* SJKnAppDelegate.m in Sources */,
+				158B89E012C09BA8007CB814 /* LoggerClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

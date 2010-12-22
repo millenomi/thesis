@@ -13,6 +13,12 @@
 
 #import "Key.h"
 
+#import "LoggerClient.h"
+#define SJLog(level, x, ...) LogMessageF(__FILE__, __LINE__, __func__, @"Keynote Agent", (level), (x) , ## __VA_ARGS__)
+
+#define kSJLogImportant 0
+#define kSJLogDebug 4
+
 @interface SJKnAppDelegate ()
 
 @property NSTimer* timer;
@@ -33,7 +39,7 @@
 
 	self.timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(pollForCurrentKeynoteSlide:) userInfo:nil repeats:YES];
 	
-	self.endpoint = [[SJEndpoint alloc] initWithURL:[NSURL URLWithString:@"http://localhost:8083"]];
+	self.endpoint = [[SJEndpoint alloc] initWithURL:[NSURL URLWithString:@"http://infinitelabs-subject.appspot.com"]];
 	
 }
 
@@ -50,7 +56,7 @@
 	}
 	
 	if (!keynoteApp) {
-		NSLog(@"Not running");
+		SJLog(kSJLogDebug, @"Not running");
 		self.slideNumber = nil;
 		return;
 	}
@@ -61,14 +67,14 @@
 	NSArray* a = [[app slideshows] filteredArrayUsingPredicate:predicate];
 	
 	if ([a count] == 0) {
-		NSLog(@"No items in filtered array");
+		SJLog(kSJLogDebug, @"No items in filtered array");
 		self.slideNumber = nil;
 		return;
 	}
 	
 	KeySlideshow* runningSlideshow = [a objectAtIndex:0];
 	if (!runningSlideshow.playing) {
-		NSLog(@"Not playing");
+		SJLog(kSJLogDebug, @"Not playing");
 		self.slideNumber = nil;
 		return;
 	}
@@ -77,7 +83,7 @@
 	
 	NSInteger i = [[[runningSlideshow slides] get] indexOfObject:[slide get]];
 	
-	NSLog(@"index of slide == %d", (int) i);
+	SJLog(kSJLogDebug, @"index of slide == %d", (int) i);
 	self.slideNumber = [NSNumber numberWithInteger:i];
 }
 
@@ -90,10 +96,13 @@
 			NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:[self.endpoint URL:@"/live"]];
 			
 			NSString* str;
-			if (self.slideNumber)
+			if (self.slideNumber) {
 				str = [NSString stringWithFormat:@"presentation=%@&slide=%@", self.presentationID, self.slideNumber];
-			else
+				SJLog(kSJLogImportant, @"Will move to slide %@ of presentation %@", self.slideNumber, self.presentationID);
+			} else {
 				str = @"end=true";
+				SJLog(kSJLogImportant, @"Will end live presentation");
+			}
 			
 			[req setHTTPBody:[str dataUsingEncoding:NSASCIIStringEncoding]];
 			[req setHTTPMethod:@"POST"];
@@ -101,8 +110,8 @@
 			
 			[[self.endpoint requestFromURLRequest:req completionHandler:^(id <SJRequest> req) {
 				
-				NSLog(@"Did change slide to %@, %@ (end if nil)", self.presentationID, self.slideNumber);
-				NSLog(@"Result was: %d", req.HTTPResponse? [req.HTTPResponse statusCode] : 0);
+				SJLog(kSJLogImportant, @"Did change slide to %@, %@ (end if nil)", self.presentationID, self.slideNumber);
+				SJLog(kSJLogImportant, @"Result was: %d", req.HTTPResponse? [req.HTTPResponse statusCode] : 0);
 				
 			}] start];
 		}

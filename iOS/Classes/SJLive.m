@@ -105,6 +105,7 @@
 	isWaitingOnHeartbeatRequest = YES;
 	
 	NSString* url = hasJustStarted? kSJLiveRelativeURLString : kSJLiveRelativeURLStringWithLongPolling;
+	// NSString* url = kSJLiveRelativeURLStringWithLongPolling;
 	hasJustStarted = NO;
 	
 	id <SJRequest> request =

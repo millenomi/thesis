@@ -11,6 +11,7 @@
 #import "SJLiveSchema.h"
 #import "SJPresentationSchema.h"
 #import "ILSensorSink.h"
+#import "ILNSLoggerSensorTap.h"
 
 @implementation SJAppDelegate
 
@@ -23,6 +24,7 @@
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDefaultsDidChange:) name:NSUserDefaultsDidChangeNotification object:nil];
 	
+	[[ILSensorSink sharedSink] addTap:[[ILNSLoggerSensorTap new] autorelease]];
 	[[ILSensorSink sharedSink] setEnabled:YES];
 	
 	NSString* url = [[[NSProcessInfo processInfo] environment] objectForKey:@"SJEndpointURL"];

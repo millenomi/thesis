@@ -58,6 +58,25 @@
 		1544379412759CF6003197B3 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544375E12759C90003197B3 /* NSObject+SBJSON.h */; };
 		1544379512759CF6003197B3 /* NSString+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544376012759C90003197B3 /* NSString+SBJSON.h */; };
 		1544379612759CF6003197B3 /* SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544376212759C90003197B3 /* SBJSON.h */; };
+		158B8AA112C0BA81007CB814 /* SJDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 158B8A9F12C0BA81007CB814 /* SJDownloader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		158B8AA212C0BA81007CB814 /* SJDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8AA012C0BA81007CB814 /* SJDownloader.m */; };
+		158B8AA312C0BA81007CB814 /* SJDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 158B8A9F12C0BA81007CB814 /* SJDownloader.h */; };
+		158B8AA412C0BA81007CB814 /* SJDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8AA012C0BA81007CB814 /* SJDownloader.m */; };
+		158B8ADC12C0C01C007CB814 /* ILURLConnectionOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 158B8AD812C0C01C007CB814 /* ILURLConnectionOperation.h */; };
+		158B8ADD12C0C01C007CB814 /* ILURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8AD912C0C01C007CB814 /* ILURLConnectionOperation.m */; };
+		158B8ADE12C0C01C007CB814 /* ILInMemoryDownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 158B8ADA12C0C01C007CB814 /* ILInMemoryDownloadOperation.h */; };
+		158B8ADF12C0C01C007CB814 /* ILInMemoryDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8ADB12C0C01C007CB814 /* ILInMemoryDownloadOperation.m */; };
+		158B8B3A12C0C677007CB814 /* ILHostReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8B3812C0C677007CB814 /* ILHostReachability.m */; };
+		158B8B3B12C0C677007CB814 /* ILHostReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 158B8B3912C0C677007CB814 /* ILHostReachability.h */; };
+		158B8B4B12C0C7CB007CB814 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 158B8B4A12C0C7CB007CB814 /* SystemConfiguration.framework */; };
+		158B8B5412C0C821007CB814 /* SJSchemaProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 158B8B5212C0C821007CB814 /* SJSchemaProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		158B8B5512C0C821007CB814 /* SJSchemaProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8B5312C0C821007CB814 /* SJSchemaProvider.m */; };
+		158B8B5612C0C821007CB814 /* SJSchemaProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 158B8B5212C0C821007CB814 /* SJSchemaProvider.h */; };
+		158B8B5712C0C821007CB814 /* SJSchemaProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8B5312C0C821007CB814 /* SJSchemaProvider.m */; };
+		158B8DE812C0FD69007CB814 /* SJLiveObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 158B8DE612C0FD69007CB814 /* SJLiveObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		158B8DE912C0FD69007CB814 /* SJLiveObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8DE712C0FD69007CB814 /* SJLiveObserver.m */; };
+		158B8DEA12C0FD69007CB814 /* SJLiveObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 158B8DE612C0FD69007CB814 /* SJLiveObserver.h */; };
+		158B8DEB12C0FD69007CB814 /* SJLiveObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8DE712C0FD69007CB814 /* SJLiveObserver.m */; };
 		15BC4F461274216D00550BF6 /* SJSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F3C1274216D00550BF6 /* SJSchema.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		15BC4F471274216D00550BF6 /* SJSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F3D1274216D00550BF6 /* SJSchema.m */; };
 		15BC4F481274216D00550BF6 /* SJLiveSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F3E1274216D00550BF6 /* SJLiveSchema.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -112,6 +131,19 @@
 		1544376312759C90003197B3 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
 		1544377412759CB4003197B3 /* libClient-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libClient-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1544378712759CEA003197B3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		158B8A9F12C0BA81007CB814 /* SJDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJDownloader.h; sourceTree = "<group>"; };
+		158B8AA012C0BA81007CB814 /* SJDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJDownloader.m; sourceTree = "<group>"; };
+		158B8AD812C0C01C007CB814 /* ILURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ILURLConnectionOperation.h; path = ../LabsFoundation.line/iOS/Networking/ILURLConnectionOperation.h; sourceTree = SOURCE_ROOT; };
+		158B8AD912C0C01C007CB814 /* ILURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ILURLConnectionOperation.m; path = ../LabsFoundation.line/iOS/Networking/ILURLConnectionOperation.m; sourceTree = SOURCE_ROOT; };
+		158B8ADA12C0C01C007CB814 /* ILInMemoryDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ILInMemoryDownloadOperation.h; path = ../LabsFoundation.line/iOS/Networking/ILInMemoryDownloadOperation.h; sourceTree = SOURCE_ROOT; };
+		158B8ADB12C0C01C007CB814 /* ILInMemoryDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ILInMemoryDownloadOperation.m; path = ../LabsFoundation.line/iOS/Networking/ILInMemoryDownloadOperation.m; sourceTree = SOURCE_ROOT; };
+		158B8B3812C0C677007CB814 /* ILHostReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ILHostReachability.m; path = ../LabsFoundation.line/iOS/Networking/ILHostReachability.m; sourceTree = SOURCE_ROOT; };
+		158B8B3912C0C677007CB814 /* ILHostReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ILHostReachability.h; path = ../LabsFoundation.line/iOS/Networking/ILHostReachability.h; sourceTree = SOURCE_ROOT; };
+		158B8B4A12C0C7CB007CB814 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		158B8B5212C0C821007CB814 /* SJSchemaProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSchemaProvider.h; sourceTree = "<group>"; };
+		158B8B5312C0C821007CB814 /* SJSchemaProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSchemaProvider.m; sourceTree = "<group>"; };
+		158B8DE612C0FD69007CB814 /* SJLiveObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLiveObserver.h; sourceTree = "<group>"; };
+		158B8DE712C0FD69007CB814 /* SJLiveObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLiveObserver.m; sourceTree = "<group>"; };
 		15BC4F3C1274216D00550BF6 /* SJSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSchema.h; sourceTree = "<group>"; };
 		15BC4F3D1274216D00550BF6 /* SJSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSchema.m; sourceTree = "<group>"; };
 		15BC4F3E1274216D00550BF6 /* SJLiveSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLiveSchema.h; sourceTree = "<group>"; };
@@ -149,6 +181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
+				158B8B4B12C0C7CB007CB814 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,12 +201,14 @@
 			isa = PBXGroup;
 			children = (
 				15BC4F60127421D500550BF6 /* SJClient.h */,
+				158B8AD712C0C01C007CB814 /* URL connection operations */,
 				15BC4F3B1274215D00550BF6 /* Classes */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 				1544378712759CEA003197B3 /* Foundation.framework */,
+				158B8B4A12C0C7CB007CB814 /* SystemConfiguration.framework */,
 			);
 			name = Client;
 			sourceTree = "<group>";
@@ -228,14 +263,35 @@
 			path = SBJSON;
 			sourceTree = "<group>";
 		};
-		15BC4F3B1274215D00550BF6 /* Classes */ = {
+		158B8AD712C0C01C007CB814 /* URL connection operations */ = {
 			isa = PBXGroup;
 			children = (
-				1544375C12759C90003197B3 /* SBJSON */,
+				158B8B3812C0C677007CB814 /* ILHostReachability.m */,
+				158B8B3912C0C677007CB814 /* ILHostReachability.h */,
+				158B8AD812C0C01C007CB814 /* ILURLConnectionOperation.h */,
+				158B8AD912C0C01C007CB814 /* ILURLConnectionOperation.m */,
+				158B8ADA12C0C01C007CB814 /* ILInMemoryDownloadOperation.h */,
+				158B8ADB12C0C01C007CB814 /* ILInMemoryDownloadOperation.m */,
+			);
+			name = "URL connection operations";
+			sourceTree = "<group>";
+		};
+		158B8B5112C0C811007CB814 /* Telemetry */ = {
+			isa = PBXGroup;
+			children = (
 				15BC4F701274222400550BF6 /* ILSensorSession.h */,
 				15BC4F711274222400550BF6 /* ILSensorSession.m */,
 				15BC4F721274222400550BF6 /* ILSensorSink.h */,
 				15BC4F731274222400550BF6 /* ILSensorSink.m */,
+			);
+			name = Telemetry;
+			sourceTree = "<group>";
+		};
+		15BC4F3B1274215D00550BF6 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1544375C12759C90003197B3 /* SBJSON */,
+				158B8B5112C0C811007CB814 /* Telemetry */,
 				15BC4F501274217300550BF6 /* SJEndpoint.h */,
 				15BC4F511274217300550BF6 /* SJEndpoint.m */,
 				15BC4F3C1274216D00550BF6 /* SJSchema.h */,
@@ -250,6 +306,12 @@
 				15BC4F451274216D00550BF6 /* SJPresentationSchema.m */,
 				150044131280702400E4BF1D /* SJQuestionSchema.h */,
 				150044141280702400E4BF1D /* SJQuestionSchema.m */,
+				158B8A9F12C0BA81007CB814 /* SJDownloader.h */,
+				158B8AA012C0BA81007CB814 /* SJDownloader.m */,
+				158B8B5212C0C821007CB814 /* SJSchemaProvider.h */,
+				158B8B5312C0C821007CB814 /* SJSchemaProvider.m */,
+				158B8DE612C0FD69007CB814 /* SJLiveObserver.h */,
+				158B8DE712C0FD69007CB814 /* SJLiveObserver.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -283,6 +345,9 @@
 				1544379512759CF6003197B3 /* NSString+SBJSON.h in Headers */,
 				1544379612759CF6003197B3 /* SBJSON.h in Headers */,
 				150044171280702400E4BF1D /* SJQuestionSchema.h in Headers */,
+				158B8AA312C0BA81007CB814 /* SJDownloader.h in Headers */,
+				158B8B5612C0C821007CB814 /* SJSchemaProvider.h in Headers */,
+				158B8DEA12C0FD69007CB814 /* SJLiveObserver.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +369,12 @@
 				1544376712759C90003197B3 /* NSString+SBJSON.h in Headers */,
 				1544376912759C90003197B3 /* SBJSON.h in Headers */,
 				150044151280702400E4BF1D /* SJQuestionSchema.h in Headers */,
+				158B8AA112C0BA81007CB814 /* SJDownloader.h in Headers */,
+				158B8ADC12C0C01C007CB814 /* ILURLConnectionOperation.h in Headers */,
+				158B8ADE12C0C01C007CB814 /* ILInMemoryDownloadOperation.h in Headers */,
+				158B8B3B12C0C677007CB814 /* ILHostReachability.h in Headers */,
+				158B8B5412C0C821007CB814 /* SJSchemaProvider.h in Headers */,
+				158B8DE812C0FD69007CB814 /* SJLiveObserver.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +472,9 @@
 				1544378512759CC2003197B3 /* NSString+SBJSON.m in Sources */,
 				1544378612759CC2003197B3 /* SBJSON.m in Sources */,
 				150044181280702400E4BF1D /* SJQuestionSchema.m in Sources */,
+				158B8AA412C0BA81007CB814 /* SJDownloader.m in Sources */,
+				158B8B5712C0C821007CB814 /* SJSchemaProvider.m in Sources */,
+				158B8DEB12C0FD69007CB814 /* SJLiveObserver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,6 +494,12 @@
 				1544376812759C90003197B3 /* NSString+SBJSON.m in Sources */,
 				1544376A12759C90003197B3 /* SBJSON.m in Sources */,
 				150044161280702400E4BF1D /* SJQuestionSchema.m in Sources */,
+				158B8AA212C0BA81007CB814 /* SJDownloader.m in Sources */,
+				158B8ADD12C0C01C007CB814 /* ILURLConnectionOperation.m in Sources */,
+				158B8ADF12C0C01C007CB814 /* ILInMemoryDownloadOperation.m in Sources */,
+				158B8B3A12C0C677007CB814 /* ILHostReachability.m in Sources */,
+				158B8B5512C0C821007CB814 /* SJSchemaProvider.m in Sources */,
+				158B8DE912C0FD69007CB814 /* SJLiveObserver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

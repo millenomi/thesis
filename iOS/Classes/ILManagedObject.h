@@ -17,6 +17,8 @@
 
 + insertedInto:(NSManagedObjectContext*) moc;
 
++ oneWhereKey:(NSString*) key equals:(id) value fromContext:(NSManagedObjectContext*) moc;
+
 + oneWithPredicate:(NSPredicate*) pred orderBy:(NSArray*) sortDescriptors fromContext:(NSManagedObjectContext*) moc;
 + oneWithPredicate:(NSPredicate*) pred fromContext:(NSManagedObjectContext*) moc;
 

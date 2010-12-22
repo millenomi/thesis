@@ -10,11 +10,16 @@
 		1538E01312A1573700D5A056 /* EmoticonToolbarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1538E01112A1573700D5A056 /* EmoticonToolbarIcon.png */; };
 		1538E01412A1573700D5A056 /* EmoticonToolbarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1538E01212A1573700D5A056 /* EmoticonToolbarIcon@2x.png */; };
 		154437B112759D88003197B3 /* libClient-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 154437B012759D80003197B3 /* libClient-iOS.a */; };
+		15620EF912C2373A009750D1 /* SJPresentationPane_v2.m in Sources */ = {isa = PBXBuildFile; fileRef = 15620EF812C2373A009750D1 /* SJPresentationPane_v2.m */; };
+		15620EFE12C23799009750D1 /* SJObservers.m in Sources */ = {isa = PBXBuildFile; fileRef = 15620EFD12C23799009750D1 /* SJObservers.m */; };
 		156F244A12734EA9000BC614 /* SJPresentationPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F244912734EA9000BC614 /* SJPresentationPane.m */; };
 		156F244C12734FC7000BC614 /* SJPresentationPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156F244B12734FC7000BC614 /* SJPresentationPane.xib */; };
 		156F246B12735605000BC614 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156F246A12735605000BC614 /* QuartzCore.framework */; };
 		156F27D612703486005C6F71 /* SJLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F27D512703486005C6F71 /* SJLive.m */; };
 		156F28CA1270DF2B005C6F71 /* ILManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F28C91270DF2B005C6F71 /* ILManagedObject.m */; };
+		158B8A3412C09E5C007CB814 /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8A3212C09E5C007CB814 /* LoggerClient.m */; };
+		158B8A3712C09E6B007CB814 /* ILNSLoggerSensorTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8A3612C09E6B007CB814 /* ILNSLoggerSensorTap.m */; };
+		158B8A3E12C09F45007CB814 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 158B8A3D12C09F45007CB814 /* CFNetwork.framework */; };
 		159783E812BD5FD9000862B3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 159783E712BD5FD9000862B3 /* SystemConfiguration.framework */; };
 		159F7780129EAF0500C89A34 /* DidNotUnderstand.png in Resources */ = {isa = PBXBuildFile; fileRef = 159F777A129EAF0500C89A34 /* DidNotUnderstand.png */; };
 		159F7781129EAF0500C89A34 /* DidNotUnderstand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 159F777B129EAF0500C89A34 /* DidNotUnderstand@2x.png */; };
@@ -144,6 +149,10 @@
 		1538E01112A1573700D5A056 /* EmoticonToolbarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = EmoticonToolbarIcon.png; path = ../Art/EmoticonToolbarIcon.png; sourceTree = SOURCE_ROOT; };
 		1538E01212A1573700D5A056 /* EmoticonToolbarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EmoticonToolbarIcon@2x.png"; path = "../Art/EmoticonToolbarIcon@2x.png"; sourceTree = SOURCE_ROOT; };
 		154437A812759D80003197B3 /* Client.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Client.xcodeproj; path = ../Client/Client.xcodeproj; sourceTree = SOURCE_ROOT; };
+		15620EF712C2373A009750D1 /* SJPresentationPane_v2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentationPane_v2.h; sourceTree = "<group>"; };
+		15620EF812C2373A009750D1 /* SJPresentationPane_v2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPresentationPane_v2.m; sourceTree = "<group>"; };
+		15620EFC12C23799009750D1 /* SJObservers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJObservers.h; sourceTree = "<group>"; };
+		15620EFD12C23799009750D1 /* SJObservers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJObservers.m; sourceTree = "<group>"; };
 		156F244812734EA9000BC614 /* SJPresentationPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentationPane.h; sourceTree = "<group>"; };
 		156F244912734EA9000BC614 /* SJPresentationPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPresentationPane.m; sourceTree = "<group>"; };
 		156F244B12734FC7000BC614 /* SJPresentationPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJPresentationPane.xib; sourceTree = "<group>"; };
@@ -152,6 +161,12 @@
 		156F27D512703486005C6F71 /* SJLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLive.m; sourceTree = "<group>"; };
 		156F28C81270DF2B005C6F71 /* ILManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILManagedObject.h; sourceTree = "<group>"; };
 		156F28C91270DF2B005C6F71 /* ILManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILManagedObject.m; sourceTree = "<group>"; };
+		158B8A3112C09E5C007CB814 /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
+		158B8A3212C09E5C007CB814 /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
+		158B8A3312C09E5C007CB814 /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerClient.h; sourceTree = "<group>"; };
+		158B8A3512C09E6B007CB814 /* ILNSLoggerSensorTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILNSLoggerSensorTap.h; sourceTree = "<group>"; };
+		158B8A3612C09E6B007CB814 /* ILNSLoggerSensorTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILNSLoggerSensorTap.m; sourceTree = "<group>"; };
+		158B8A3D12C09F45007CB814 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		159783E712BD5FD9000862B3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		159F777A129EAF0500C89A34 /* DidNotUnderstand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DidNotUnderstand.png; path = ../Art/DidNotUnderstand.png; sourceTree = SOURCE_ROOT; };
 		159F777B129EAF0500C89A34 /* DidNotUnderstand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DidNotUnderstand@2x.png"; path = "../Art/DidNotUnderstand@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -236,6 +251,7 @@
 				28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */,
 				156F246B12735605000BC614 /* QuartzCore.framework in Frameworks */,
 				159783E812BD5FD9000862B3 /* SystemConfiguration.framework in Frameworks */,
+				158B8A3E12C09F45007CB814 /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +261,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				158B8A3012C09E54007CB814 /* NSLogger */,
 				156F244712734E24000BC614 /* Views */,
 				15FD03D1126DB14900353B83 /* Model */,
 				1D3623240D0F684500981E51 /* SJAppDelegate.h */,
@@ -260,6 +277,17 @@
 				154437B012759D80003197B3 /* libClient-iOS.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		15620EFB12C23786009750D1 /* New-style Client Stuff */ = {
+			isa = PBXGroup;
+			children = (
+				15620EF712C2373A009750D1 /* SJPresentationPane_v2.h */,
+				15620EF812C2373A009750D1 /* SJPresentationPane_v2.m */,
+				15620EFC12C23799009750D1 /* SJObservers.h */,
+				15620EFD12C23799009750D1 /* SJObservers.m */,
+			);
+			name = "New-style Client Stuff";
 			sourceTree = "<group>";
 		};
 		156F244712734E24000BC614 /* Views */ = {
@@ -280,8 +308,21 @@
 				15C044E912A2A13E00AD97AA /* SJMoodPicker.h */,
 				15C044EA12A2A13E00AD97AA /* SJMoodPicker.m */,
 				15C0450F12A2F0E600AD97AA /* SJMoodPicker.xib */,
+				15620EFB12C23786009750D1 /* New-style Client Stuff */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		158B8A3012C09E54007CB814 /* NSLogger */ = {
+			isa = PBXGroup;
+			children = (
+				158B8A3112C09E5C007CB814 /* LoggerCommon.h */,
+				158B8A3212C09E5C007CB814 /* LoggerClient.m */,
+				158B8A3312C09E5C007CB814 /* LoggerClient.h */,
+				158B8A3512C09E6B007CB814 /* ILNSLoggerSensorTap.h */,
+				158B8A3612C09E6B007CB814 /* ILNSLoggerSensorTap.m */,
+			);
+			name = NSLogger;
 			sourceTree = "<group>";
 		};
 		15D4365E128450DF005DBAE3 /* Labs Foundation */ = {
@@ -358,6 +399,7 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				156F246A12735605000BC614 /* QuartzCore.framework */,
 				159783E712BD5FD9000862B3 /* SystemConfiguration.framework */,
+				158B8A3D12C09F45007CB814 /* CFNetwork.framework */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -601,6 +643,10 @@
 				15D4366512845104005DBAE3 /* SJPointTableViewCell.m in Sources */,
 				15E64AB51286EB85005975D2 /* SJQuestion.m in Sources */,
 				15C044EB12A2A13E00AD97AA /* SJMoodPicker.m in Sources */,
+				158B8A3412C09E5C007CB814 /* LoggerClient.m in Sources */,
+				158B8A3712C09E6B007CB814 /* ILNSLoggerSensorTap.m in Sources */,
+				15620EF912C2373A009750D1 /* SJPresentationPane_v2.m in Sources */,
+				15620EFE12C23799009750D1 /* SJObservers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

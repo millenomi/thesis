@@ -93,7 +93,7 @@ CF_INLINE NSString* SJStringByUppercasingFirstLetter(NSString* x) {
 			
 			NSString* uppercasePropName = SJStringByUppercasingFirstLetter(prop);
 
-			if (!subvalue) {
+			if (!subvalue || subvalue == [NSNull null]) {
 				BOOL optional = NO;
 				
 				SEL isValueOptionalSelector = NSSelectorFromString([NSString stringWithFormat:@"isValueOptionalFor%@Key", uppercasePropName]);
