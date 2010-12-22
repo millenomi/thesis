@@ -1,6 +1,7 @@
 from google.appengine.ext.db import *
 from django.utils import simplejson as json
 from google.appengine.ext import webapp as w
+from google.appengine.api import memcache
 
 import presentation as p
 
@@ -84,8 +85,6 @@ class LiveControl(w.RequestHandler):
 		slide_no = self.request.get('slide', default_value = None)
 		pres_id = self.request.get('presentation', default_value = None)
 		
-		
-		
 		if pres_id is not None and slide_no is not None:
 			if me.finished:
 				me.finished = False
@@ -105,6 +104,7 @@ class LiveControl(w.RequestHandler):
 			me.finished = True
 			me.slide = None
 		
+		memcache.delete(key = "Live")
 		me.put()
 		
 	
@@ -113,11 +113,19 @@ class LiveControl(w.RequestHandler):
 		import time, datetime, logging
 		import sitewide_settings
 		
+		is_long_polling_request = (self.request.get('request.kind') == 'update')
+		
+		cache = memcache.get(key = "Live")
+		if not is_long_polling_request and cache is not None:
+			self.response.headers['Content-Type'] = 'application/json'
+			self.response.out.write(cache)
+			return
+		
 		me = Live.get_current()
 		
 		# ---------- long polling ----------
 
-		if self.request.get('request.kind') == 'update' and not sitewide_settings.DEBUG:
+		if is_long_polling_request and not sitewide_settings.DEBUG:
 			start = datetime.datetime.now()
 			revision = me.last_updated
 
@@ -154,6 +162,8 @@ class LiveControl(w.RequestHandler):
 			response["questionsPostedDuringLive"].append(qa.QuestionView.url(q))
 		
 		self.response.headers['Content-Type'] = 'application/json'
+		cache = json.dumps(response)
+		memcache.set(key = "Live", value = cache)
 		json.dump(response, self.response.out)
 	
 class ReportAMood(w.RequestHandler):
