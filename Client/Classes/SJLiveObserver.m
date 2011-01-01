@@ -23,6 +23,7 @@ static const NSTimeInterval kSJLiveObserverRequestDelay = 3.0;
 @property(nonatomic) BOOL needsImmediateUpdate;
 
 @property(nonatomic, retain) SJLiveSchema* latestDownloadedSchema;
+@property(nonatomic, retain) NSTimer* updateTimer;
 
 @end
 
@@ -43,39 +44,44 @@ static const NSTimeInterval kSJLiveObserverRequestDelay = 3.0;
 {
 	self.endpoint = nil;
 	self.latestDownloadedSchema = nil;
+	
+	[self.updateTimer invalidate];
+	self.updateTimer = nil;
+	
 	[super dealloc];
 }
 
-@synthesize endpoint, latestDownloadedSchema, delegate;
+@synthesize endpoint, latestDownloadedSchema, delegate, updateTimer;
 
-- (void) schemaProvider:(SJSchemaProvider *)sp didDownloadSchema:(id)schema fromURL:(NSURL *)url reason:(SJDownloaderReason) reason partial:(BOOL)partial;
+- (void) schemaProvider:(SJSchemaProvider *)sp didDownloadSchema:(id)schema fromURL:(NSURL *)url reason:(SJDownloadPriority) reason partial:(BOOL)partial;
 {
 	if (partial)
 		return;
 	
 	SJLiveSchema* live = schema;
 	if (live.slide)
-		[sp provideSchema:live.slide fromURL:url reason:kSJDownloaderReasonResourceForImmediateDisplay partial:YES];
+		[sp provideSchema:live.slide fromURL:url reason:kSJDownloadPriorityResourceForImmediateDisplay partial:YES];
 	
 	for (NSString* s in live.moodURLStrings)
-		[sp noteSchemaOfClass:[SJMoodSchema class] atURL:[self.endpoint URL:s] subresourceOfSchema:schema reason:kSJDownloaderReasonResourceForImmediateDisplay];
+		[sp noteSchemaOfClass:[SJMoodSchema class] atURL:[self.endpoint URL:s] subresourceOfSchema:schema reason:kSJDownloadPriorityResourceForImmediateDisplay];
 	
 	for (NSString* q in live.URLStringsOfQuestionsPostedDuringLive)
-		[sp noteSchemaOfClass:[SJQuestionSchema class] atURL:[self.endpoint URL:q] subresourceOfSchema:schema reason:kSJDownloaderReasonResourceForImmediateDisplay];
+		[sp noteSchemaOfClass:[SJQuestionSchema class] atURL:[self.endpoint URL:q] subresourceOfSchema:schema reason:kSJDownloadPriorityResourceForImmediateDisplay];
 
 	SJLiveSchema* old = [[self.latestDownloadedSchema retain] autorelease];
 	self.latestDownloadedSchema = schema;
 		
 	BOOL didStart = NO, didEnd = NO;
-	if (!old || ([old isFinished] && ![live isFinished])) {
+	BOOL oldWasFinished = !old || [old isFinished];
+	if (oldWasFinished && ![live isFinished]) {
 		[self.delegate liveDidStart:self];
 		didStart = YES;
-	} else if (![old isFinished] && [live isFinished]) {
+	} else if (!oldWasFinished && [live isFinished]) {
 		[self.delegate liveDidEnd:self];
 		didEnd = YES;
 	}
 	
-	if (didStart || (!didEnd && ![old.slide isEqual:live.slide])) {
+	if (didStart || (![live isFinished] && ![old.slide isEqual:live.slide])) {
 		[self.delegate live:self didMoveToSlideAtURL:[self.endpoint URL:live.slide.URLString] schema:live.slide];
 	}
 	
@@ -102,14 +108,12 @@ static const NSTimeInterval kSJLiveObserverRequestDelay = 3.0;
 	}
 	
 	self.needsImmediateUpdate = NO;
-	[self performSelector:@selector(tick) withObject:nil afterDelay:kSJLiveObserverRequestDelay];
 }
 
 - (void) schemaProvider:(SJSchemaProvider *)sp didFailToDownloadFromURL:(NSURL *)url error:(NSError *)error;
 {
 	[self.delegate live:self didFailToLoadWithError:error];
 	self.needsImmediateUpdate = YES;
-	[self performSelector:@selector(tick) withObject:nil afterDelay:kSJLiveObserverRequestDelay];
 }
 
 @synthesize schemaProvider;
@@ -120,20 +124,22 @@ static const NSTimeInterval kSJLiveObserverRequestDelay = 3.0;
 		
 		schemaProvider = p;
 		
-		if (!hadSchemaProvider && schemaProvider)
-			[self performSelector:@selector(tick) withObject:nil afterDelay:kSJLiveObserverRequestDelay];
-		else if (hadSchemaProvider && !schemaProvider)
-			[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(tick) object:nil];
+		if (!hadSchemaProvider && schemaProvider && !self.updateTimer) {
+			self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:kSJLiveObserverRequestDelay target:self selector:@selector(tick:) userInfo:nil repeats:YES];
+		} else if (hadSchemaProvider && !schemaProvider) {
+			[self.updateTimer invalidate];
+			self.updateTimer = nil;
+		}
 	}
 }
 
 @synthesize needsImmediateUpdate;
 
-- (void) tick;
+- (void) tick:(id) timer;
 {
 	// NSURL* url = (self.needsImmediateUpdate? [self.endpoint URL:@"/live"] : [self.endpoint URL:@"/live?request.kind=update"]);
 	NSURL* url = [self.endpoint URL:@"/live"];
-	[self.schemaProvider beginFetchingSchemaOfClass:[SJLiveSchema class] fromURL:url reason:kSJDownloaderReasonLiveUpdate];
+	[self.schemaProvider beginFetchingSchemaOfClass:[SJLiveSchema class] fromURL:url reason:kSJDownloadPriorityLiveUpdate];
 }
 
 @end

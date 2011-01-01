@@ -2,7 +2,7 @@ import presentation as p
 from google.appengine.ext.db import *
 from django.utils import simplejson as json
 from google.appengine.ext import webapp as w
-
+	
 class Question(Model):
 	point = ReferenceProperty(p.Point)
 	text = TextProperty()
@@ -20,7 +20,12 @@ class Question(Model):
 			data['text'] = self.text
 			
 		return data
-	
+
+class Answer(Model):
+	text = TextProperty()
+	sorting_order = IntegerProperty()
+	question = ReferenceProperty(Question)
+
 class QuestionView(w.RequestHandler):
 	url_scheme = '/questions/id/(.*)'
 	

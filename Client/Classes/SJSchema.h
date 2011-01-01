@@ -25,7 +25,7 @@ enum {
 // The object that cause validation to fail.
 #define kSJSchemaErrorInvalidObjectKey @"SJSchemaErrorInvalidObject"
 
-@interface SJSchema : NSObject {
+@interface SJSchema : NSObject <NSCopying> {
 	NSDictionary* values;
 	NSSet* unspecifiedOptionalValues;
 }
@@ -75,9 +75,3 @@ enum {
 
 @end
 
-@class SJEndpoint;
-@interface SJSchema (SJLiveLoading)
-
-+ (void) contentsOfURL:(id) stringOrURL ofEndpoint:(SJEndpoint*) endpoint completionHandler:(void (^)(id s)) completion failureHandler:(void (^)(NSError* e)) failure;
-
-@end

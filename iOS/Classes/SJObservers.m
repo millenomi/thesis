@@ -13,22 +13,20 @@
 #import "SJPoint.h"
 #import "SJQuestion.h"
 
-#if 0
-
 CF_INLINE SJDownloaderReason SJReasonFor(SJDownloaderReason reason) {
 	return (reason == kSJDownloaderReasonResourceForImmediateDisplay? kSJDownloaderReasonSubresourceForImmediateDisplay : kSJDownloaderReasonOpportunistic);
 }
 
-NSDictionary* SJDefaultObservers(NSManagedObjectContext* moc, id <SJLiveObserverDelegate> liveDelegate) {
-	SJLiveObserver* live = [[SJLiveObserver new] autorelease];
+NSDictionary* SJDefaultObservers(NSManagedObjectContext* moc, SJEndpoint* e, id <SJLiveObserverDelegate> liveDelegate) {
+	SJLiveObserver* live = [[[SJLiveObserver alloc] initWithEndpoint:e] autorelease];
 	live.delegate = liveDelegate;
 	
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			[SJPresentationSchema class], [[SJPresentationObserver observerWithManagedObjectContext:moc] autorelease],
-			[SJSlideSchema class], [[SJSlideObserver observerWithManagedObjectContext:moc] autorelease],
-			[SJPointSchema class], [[SJPointObserver observerWithManagedObjectContext:moc] autorelease],
-			[SJQuestionSchema class], [[SJQuestionObserver observerWithManagedObjectContext:moc] autorelease],
-			[SJLiveSchema class], live,
+			[SJPresentationObserver observerWithManagedObjectContext:moc],[SJPresentationSchema class],
+			[SJSlideObserver observerWithManagedObjectContext:moc], [SJSlideSchema class],
+			[SJPointObserver observerWithManagedObjectContext:moc], [SJPointSchema class], 
+			[SJQuestionObserver observerWithManagedObjectContext:moc], [SJQuestionSchema class], 
+			live, [SJLiveSchema class],
 			nil];
 }
 
@@ -145,7 +143,8 @@ NSDictionary* SJDefaultObservers(NSManagedObjectContext* moc, id <SJLiveObserver
 
 - (void) schemaProvider:(SJSchemaProvider *)sp didNoteSchemaOfClass:(Class)c atURL:(NSURL *)url subresourceOfSchema:(id)x reason:(SJDownloaderReason)reason;
 {
-	[sp beginFetchingSchemaOfClass:c fromURL:url reason:reason];
+	if ([SJSlide countForPredicate:[NSPredicate predicateWithFormat:@"URLString == %@", [url absoluteString]] fromContext:self.managedObjectContext] == 0)
+		[sp beginFetchingSchemaOfClass:c fromURL:url reason:reason];
 }
 
 - (void) schemaProvider:(SJSchemaProvider *)sp didDownloadSchema:(id)schema fromURL:(NSURL *)url reason:(SJDownloaderReason)reason partial:(BOOL)partial;
@@ -153,7 +152,7 @@ NSDictionary* SJDefaultObservers(NSManagedObjectContext* moc, id <SJLiveObserver
 	[self beginEditing];
 	
 	SJSlideSchema* slideSchema = schema;
-	SJSlide* s = [SJSlide oneWhereKey:@"URLString" equals:[url absoluteURL] fromContext:self.managedObjectContext];
+	SJSlide* s = [SJSlide oneWhereKey:@"URLString" equals:[url absoluteString] fromContext:self.managedObjectContext];
 	
 	if (!s)
 		s = [SJSlide insertedInto:self.managedObjectContext];
@@ -161,17 +160,25 @@ NSDictionary* SJDefaultObservers(NSManagedObjectContext* moc, id <SJLiveObserver
 	if (!s.URL)
 		s.URL = url;
 	
+	if (slideSchema.presentationURLString)
+		[sp noteSchemaOfClass:[SJPresentationSchema class] atURL:[NSURL URLWithString:slideSchema.presentationURLString relativeToURL:url]];
+	
 	if (!s.presentation)
 		s.presentation = [SJPresentation oneWhereKey:@"URLString" equals:slideSchema.presentationURLString fromContext:self.managedObjectContext];
+		
 	
 	s.sortingOrder = slideSchema.sortingOrder;
 	
+	NSInteger i = 0;
 	for (SJPointSchema* ps in slideSchema.points) {
 		NSURL* pointURL = [NSURL URLWithString:ps.URLString relativeToURL:url];
 		[sp provideSchema:ps fromURL:pointURL reason:SJReasonFor(reason) partial:NO];
 		
 		SJPoint* p = [SJPoint pointWithURL:pointURL fromContext:self.managedObjectContext];
+		p.sortingOrderValue = i;
 		[s addPointsObject:p];
+		
+		i++;
 	}
 	
 	if (slideSchema.imageURLString && ![s.imageURLString isEqual:slideSchema.imageURLString]) {
@@ -220,12 +227,44 @@ NSDictionary* SJDefaultObservers(NSManagedObjectContext* moc, id <SJLiveObserver
 	if (!p)
 		p = [SJPoint insertedInto:self.managedObjectContext];
 	
+	p.URL = url;
+	p.text = ps.text;
+	p.indentationValue = ps.indentationValue;
 	
+	if (!p.slide)
+		p.slide = [SJSlide slideWithURL:[NSURL URLWithString:ps.slideURLString relativeToURL:url] fromContext:self.managedObjectContext];
+
+	[self endEditing];
+	[self saveIfFinished:NULL];
 }
 
 @end
 
 @implementation SJQuestionObserver
+
+- (void) schemaProvider:(SJSchemaProvider *)sp didNoteSchemaOfClass:(Class)c atURL:(NSURL *)url subresourceOfSchema:(id)x reason:(SJDownloaderReason)reason;
+{
+	if ([SJQuestion countForPredicate:[NSPredicate predicateWithFormat:@"URLString == %@", [url absoluteString]] fromContext:self.managedObjectContext] == 0)
+		[sp beginFetchingSchemaOfClass:c fromURL:url reason:SJReasonFor(reason)];
+}
+
+- (void) schemaProvider:(SJSchemaProvider *)sp didDownloadSchema:(id)schema fromURL:(NSURL *)url reason:(SJDownloaderReason)reason partial:(BOOL)partial;
+{
+	[self beginEditing];
+	
+	SJQuestionSchema* qs = schema;
+	
+	SJQuestion* q = [SJQuestion insertedInto:self.managedObjectContext];
+	
+	q.text = qs.text;
+	q.kind = qs.kind;
+	
+	if (!q.point)
+		q.point = [SJPoint pointWithURL:[NSURL URLWithString:qs.pointURLString relativeToURL:url] fromContext:self.managedObjectContext];
+	
+	[self endEditing];
+	[self saveIfFinished:NULL];
+}
+
 @end
 
-#endif

@@ -10,6 +10,65 @@
 #import "ILInMemoryDownloadOperation.h"
 #import "ILHostReachability.h"
 
+// -------------------------------------------
+// -------------------------------------------
+
+#pragma mark Download requests
+
+@implementation SJDownloadRequest
+
++ downloadRequest;
+{
+	return [[self new] autorelease];
+}
+
+@synthesize URL, reason, userInfo, downloadedData, error;
+
+- (void) dealloc
+{
+	self.URL = nil;
+	self.userInfo = nil;
+	self.downloadedData = nil;
+	self.error = nil;
+	
+	[super dealloc];
+}
+
+- (id) copyWithZone:(NSZone *)zone;
+{
+	SJDownloadRequest* req = [[[self class] allocWithZone:zone] init];
+	req.URL = self.URL;
+	req.reason = self.reason;
+	req.userInfo = self.userInfo;
+	
+	return req;
+}
+
+- (NSUInteger) hash;
+{
+	return [[self class] hash] ^ [self.URL hash] ^ self.reason ^ [self.userInfo hash];
+}
+
+- (BOOL) isEqual:(id)object;
+{
+	if (![object isKindOfClass:[self class]])
+		return NO;
+	
+	SJDownloadRequest* req = object;
+	return
+		[[req URL] isEqual:self.URL] &&
+		[[req userInfo] isEqual:self.userInfo] &&
+		[req reason] == self.reason;
+}
+
+@end
+
+
+// -------------------------------------------
+// -------------------------------------------
+
+#pragma mark The Downloader proper
+
 typedef void (^SJRunnable)(void);
 static SJRunnable SJOnMainThread(SJRunnable r) {
 	return [[^{
@@ -22,7 +81,7 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 @property(nonatomic, retain) NSOperationQueue* operationQueue, * liveUpdateQueue;
 @property(nonatomic, retain) ILHostReachability* reach;
 
-- (void) didDownloadDataWithOperation:(ILInMemoryDownloadOperation *)op fromURL:(NSURL *)url options:(NSDictionary*) options;
+- (void) didDownloadDataWithOperation:(ILInMemoryDownloadOperation *)op request:(SJDownloadRequest*) req;
 
 @end
 
@@ -64,23 +123,22 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 
 @synthesize operationQueue, liveUpdateQueue, reach;
 
-- (void) beginDownloadingDataFromURL:(NSURL *)u options:(NSDictionary *)options;
+- (void) beginDownloadingWithRequest:(SJDownloadRequest*) request;
 {	
-	NSNumber* n = [options objectForKey:kSJDownloaderOptionDownloadReason];
-	SJDownloaderReason r = n? [n unsignedIntegerValue] : kSJDownloaderReasonOpportunistic;
+	request = [[request copy] autorelease];
 	
-	if (r == kSJDownloaderReasonOpportunistic && self.reach.reachabilityKnown && self.reach.requiresRoutingOnWWAN) {
-		[self.delegate downloader:self
-	 didFailDownloadingDataForURL:u
-						  options:options
-							error:[NSError errorWithDomain:kSJDownloaderErrorDomain
-													  code:kSJDownloaderErrorWillNotPerformOpportunisticDownloadsOnWWAN
-												  userInfo:nil]
-		 ];
+	SJDownloadPriority r = request.reason;
+	
+	if (r == kSJDownloadPriorityOpportunistic && self.reach.reachabilityKnown && self.reach.requiresRoutingOnWWAN) {
+		request.error = [NSError errorWithDomain:kSJDownloaderErrorDomain
+											code:kSJDownloaderErrorWillNotPerformOpportunisticDownloadsOnWWAN
+										userInfo:nil];
+
+		[self.delegate downloader:self didFinishDowloadingRequest:request];
 		return;
 	}
 
-	NSURLRequest* req = [NSURLRequest requestWithURL:u];
+	NSURLRequest* req = [NSURLRequest requestWithURL:request.URL];
 	
 	ILInMemoryDownloadOperation* op = [[[ILInMemoryDownloadOperation alloc] initWithRequest:req] autorelease];
 	op.maximumResourceSize = 1 * 1024 * 1024; // TODO configurable?
@@ -88,29 +146,29 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 	
 	__block id blockOp = op; // avoids retain cycle.
 	[op setURLConnectionCompletionBlock:SJOnMainThread(^{
-		[self didDownloadDataWithOperation:blockOp fromURL:u options:options];
+		[self didDownloadDataWithOperation:blockOp request:request];
 	})];
 	
 	NSOperationQueue* opQueue = self.operationQueue;
 	
 	switch (r) {
-		case kSJDownloaderReasonOpportunistic:
+		case kSJDownloadPriorityOpportunistic:
 			[op setQueuePriority:NSOperationQueuePriorityLow];
 			break;
-		case kSJDownloaderReasonSubresourceForImmediateDisplay:
+		case kSJDownloadPrioritySubresourceForImmediateDisplay:
 			[op setQueuePriority:NSOperationQueuePriorityNormal];
 			break;
-		case kSJDownloaderReasonResourceForImmediateDisplay:
+		case kSJDownloadPriorityResourceForImmediateDisplay:
 			[op setQueuePriority:NSOperationQueuePriorityVeryHigh];
 			break;
-		case kSJDownloaderReasonLiveUpdate:
+		case kSJDownloadPriorityLiveUpdate:
 			opQueue = self.liveUpdateQueue;
 			break;
 	}
 	
 	[opQueue addOperation:op];
 	
-	if (opQueue == self.operationQueue && r == kSJDownloaderReasonOpportunistic) {
+	if (opQueue == self.operationQueue && r == kSJDownloadPriorityOpportunistic) {
 		for (NSOperation* currentOp in [self.operationQueue operations]) {
 			if ([currentOp queuePriority] <= NSOperationQueuePriorityLow && [currentOp isExecuting])
 				[currentOp cancel];
@@ -120,12 +178,11 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 
 @synthesize delegate;
 
-- (void) didDownloadDataWithOperation:(ILInMemoryDownloadOperation*) op fromURL:(NSURL*) url options:(NSDictionary*) options;
+- (void) didDownloadDataWithOperation:(ILInMemoryDownloadOperation *)op request:(SJDownloadRequest*) req;
 {
-	if (!op.error)
-		[self.delegate downloader:self didDownloadData:op.downloadedData forURL:url options:options];
-	else
-		[self.delegate downloader:self didFailDownloadingDataForURL:url options:options error:op.error];
+	req.error = op.error;
+	req.downloadedData = op.downloadedData;
+	[self.delegate downloader:self didFinishDowloadingRequest:req];
 }
 
 - (void) hostReachabilityDidChange:(ILHostReachability*) r;

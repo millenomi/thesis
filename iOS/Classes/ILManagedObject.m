@@ -24,7 +24,7 @@
 
 + oneWhereKey:(NSString*) key equals:(id) value fromContext:(NSManagedObjectContext*) moc;
 {
-	return [self oneWithPredicate:[NSPredicate predicateWithFormat:@"%K == %@", value, key] fromContext:moc];
+	return [self oneWithPredicate:[NSPredicate predicateWithFormat:@"%K == %@", key, value] fromContext:moc];
 }
 
 + oneWithPredicate:(NSPredicate*) pred orderBy:(NSArray*) sortDescriptors fromContext:(NSManagedObjectContext*) moc;
@@ -72,7 +72,7 @@
 	} fromContext:moc];
 }
 
-+ (NSInteger) countForPredicate:(NSPredicate*) pred fromContext:(NSManagedObjectContext*) moc;
++ (NSUInteger) countForPredicate:(NSPredicate*) pred fromContext:(NSManagedObjectContext*) moc;
 {
 	return [self countForFetchRequestWithProperties:^(NSFetchRequest* r) {
 		r.predicate = pred;

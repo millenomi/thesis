@@ -37,4 +37,4 @@
 @interface SJQuestionObserver : SJBaseSchemaProviderObserver <SJSchemaProviderObserver>
 @end
 
-extern NSDictionary* SJDefaultObservers();
+NSDictionary* SJDefaultObservers(NSManagedObjectContext* moc, SJEndpoint* e, id <SJLiveObserverDelegate> liveDelegate);

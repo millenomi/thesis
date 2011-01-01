@@ -13,7 +13,44 @@
 #import "ILSensorSink.h"
 #import "ILNSLoggerSensorTap.h"
 
+#import "SJClient.h"
+#import "SJObservers.h"
+
+@interface SJAppDelegate () <SJLiveObserverDelegate>
+@end
+
+
 @implementation SJAppDelegate
+
+- (void) liveDidStart:(SJLiveObserver*) observer;
+{
+	ILLog(@"Started");
+}
+
+- (void) liveDidEnd:(SJLiveObserver*) observer;
+{
+	ILLog(@"Finished");
+}
+
+- (void) live:(SJLiveObserver*) observer didMoveToSlideAtURL:(NSURL*) url schema:(SJSlideSchema*) schema;
+{
+	ILLog(@"%@ -> %@", url, schema);
+}
+
+- (void) live:(SJLiveObserver*) observer didPostQuestionsAtURLs:(NSSet*) urls;
+{
+	ILLog(@"%@", urls);
+}
+
+- (void) live:(SJLiveObserver*) observer didPostMoodsAtURLs:(NSSet*) urls;
+{
+	ILLog(@"%@", urls);
+}
+
+- (void) live:(SJLiveObserver*) observer didFailToLoadWithError:(NSError*) e;
+{
+	ILLog(@"%@", e);
+}
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -35,6 +72,16 @@
 	
 	livePane.endpoint = point;
 	livePane.managedObjectContext = self.managedObjectContext;
+	
+	// TEST STUFF
+	
+	SJSchemaProvider* sp = [[SJSchemaProvider alloc] init];
+	
+	NSDictionary* observers = SJDefaultObservers(self.managedObjectContext, point, self);
+	for (Class c in observers)
+		[sp setObserver:[observers objectForKey:c] forFetchedSchemasOfClass:c];
+	
+	// ----------
 	
     [window makeKeyAndVisible];
     

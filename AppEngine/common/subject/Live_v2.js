@@ -546,7 +546,7 @@ if (!ILabs.Subject.Live) {
 		self.start = function() {
 			if (!this._timer) {
 				var self = this;
-				this._timer = window.setInterval(function() { self.loadSelf(null, {reload: true, data: { 'request.kind': 'update' } }); }, 1500);
+				this._timer = window.setInterval(function() { self.loadSelf(null, {reload: true}); }, 3000);
 			}
 			
 			self.loadSelf(null, { reload: true });

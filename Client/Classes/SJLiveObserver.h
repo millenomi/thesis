@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SJSchemaProvider.h"
 
-@class SJLiveSchema, SJSlideSchema;
+@class SJLiveSchema, SJSlideSchema, SJEndpoint;
 
 @protocol SJLiveObserverDelegate;
 

@@ -44,17 +44,17 @@
 
 - (void) noteSchemaOfClass:(Class)c atURL:(NSURL *)url;
 {
-	[self noteSchemaOfClass:c atURL:url subresourceOfSchema:nil reason:kSJDownloaderReasonOpportunistic];
+	[self noteSchemaOfClass:c atURL:url subresourceOfSchema:nil reason:kSJDownloadPriorityOpportunistic];
 }
 
-- (void) noteSchemaOfClass:(Class) c atURL:(NSURL*) url subresourceOfSchema:(id) x reason:(SJDownloaderReason) reason;
+- (void) noteSchemaOfClass:(Class) c atURL:(NSURL*) url subresourceOfSchema:(id) x reason:(SJDownloadPriority) reason;
 {
 	id <SJSchemaProviderObserver> obs = [self observerForSchemaClass:c];
 	if (obs && [obs respondsToSelector:@selector(schemaProvider:didNoteSchemaOfClass:atURL:subresourceOfSchema:reason:)])
 		[obs schemaProvider:self didNoteSchemaOfClass:c atURL:url subresourceOfSchema:x reason:reason];
 }
 
-- (void) provideSchema:(SJSchema *)s fromURL:(NSURL *)url reason:(SJDownloaderReason) reason partial:(BOOL) partial;
+- (void) provideSchema:(SJSchema *)s fromURL:(NSURL *)url reason:(SJDownloadPriority) reason partial:(BOOL) partial;
 {
 	[[self observerForSchemaClass:[s class]] schemaProvider:self didDownloadSchema:s fromURL:url reason:reason partial:partial];
 }
@@ -62,101 +62,101 @@
 #define kSJSchemaProviderClass @"SJSchemaProviderClass"
 #define kSJSchemaSuperResource @"SJSchemaSuperResource"
 
-- (void) beginFetchingSchemaOfClass:(Class)c fromURL:(NSURL *)url reason:(SJDownloaderReason)reason;
+- (void) beginFetchingSchemaOfClass:(Class)c fromURL:(NSURL *)url reason:(SJDownloadPriority)reason;
 {
 	NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
 							  c, kSJSchemaProviderClass,
 							  nil];
-	NSDictionary* options = [NSDictionary dictionaryWithObjectsAndKeys:
-							 userInfo, kSJDownloaderOptionUserInfo,
-							 [NSNumber numberWithUnsignedInteger:reason], kSJDownloaderOptionDownloadReason,
-							 nil];
-	[self.downloader beginDownloadingDataFromURL:url options:options];
+	
+	SJDownloadRequest* req = [[SJDownloadRequest new] autorelease];
+	req.URL = url;
+	req.reason = reason;
+	req.userInfo = userInfo;
+	
+	[self.downloader beginDownloadingWithRequest:req];
 }
 
-- (void) beginFetchingDataFromURL:(NSURL *)url subresourceOfSchema:(SJSchema*)s reason:(SJDownloaderReason)reason;
+- (void) beginFetchingDataFromURL:(NSURL *)url subresourceOfSchema:(SJSchema*)s reason:(SJDownloadPriority)reason;
 {
 	NSDictionary* userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
 							  s, kSJSchemaSuperResource,
 							  nil];
-	NSDictionary* options = [NSDictionary dictionaryWithObjectsAndKeys:
-							 userInfo, kSJDownloaderOptionUserInfo,
-							 [NSNumber numberWithUnsignedInteger:reason], kSJDownloaderOptionDownloadReason,
-							 nil];
-	[self.downloader beginDownloadingDataFromURL:url options:options];
+	
+	SJDownloadRequest* req = [[SJDownloadRequest new] autorelease];
+	req.URL = url;
+	req.reason = reason;
+	req.userInfo = userInfo;
+	
+	[self.downloader beginDownloadingWithRequest:req];
+	
 }
 
-- (void) downloader:(SJDownloader*) d didDownloadData:(NSData*) data forURL:(NSURL*) url options:(NSDictionary*) options;
+- (void) downloader:(SJDownloader *)d didFinishDowloadingRequest:(SJDownloadRequest *)req;
 {
-	NSDictionary* userInfo = [options objectForKey:kSJDownloaderOptionUserInfo];
-	Class c = [userInfo objectForKey:kSJSchemaProviderClass];
-	SJSchema* superresource = [userInfo objectForKey:kSJSchemaSuperResource];
-
-	if (!c && superresource)
-		c = [superresource class];
-	
-	id <SJSchemaProviderObserver> obs = [self observerForSchemaClass:c];
-	if (!obs)
-		return;
-	
-	if (superresource)
-		[obs schemaProvider:self didDownloadResourceData:data fromURL:url subresourceOfSchema:superresource];
-	else {
+	if (req.downloadedData && !req.error) {
+		NSDictionary* userInfo = req.userInfo;
+		Class c = [userInfo objectForKey:kSJSchemaProviderClass];
+		SJSchema* superresource = [userInfo objectForKey:kSJSchemaSuperResource];
 		
-		NSString* s = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-		id x = [s JSONValue];
+		if (!c && superresource)
+			c = [superresource class];
 		
-		if (x && [x isKindOfClass:[NSDictionary class]]) {
+		id <SJSchemaProviderObserver> obs = [self observerForSchemaClass:c];
+		if (!obs)
+			return;
+		
+		if (superresource)
+			[obs schemaProvider:self didDownloadResourceData:req.downloadedData fromURL:req.URL subresourceOfSchema:superresource];
+		else {
 			
-			NSError* e;
-			id schema = [[[c alloc] initWithJSONDictionaryValue:x error:&e] autorelease];
-			if (schema)
-				[obs schemaProvider:self didDownloadSchema:schema fromURL:url reason:[[options objectForKey:kSJDownloaderOptionDownloadReason] unsignedIntegerValue] partial:NO];
-			else
-				NSLog(@"Error while decoding schema: %@", e); // TODO
-
+			NSString* s = [[[NSString alloc] initWithData:req.downloadedData encoding:NSUTF8StringEncoding] autorelease];
+			id x = [s JSONValue];
+			
+			if (x && [x isKindOfClass:[NSDictionary class]]) {
+				
+				NSError* e;
+				id schema = [[[c alloc] initWithJSONDictionaryValue:x error:&e] autorelease];
+				if (schema)
+					[obs schemaProvider:self didDownloadSchema:schema fromURL:req.URL reason:req.reason partial:NO];
+				else
+					NSLog(@"Error while decoding schema: %@", e); // TODO
+				
+				
+			}
 			
 		}
+	} else if (req.error) {
+		NSDictionary* userInfo = req.userInfo;
+		Class c = [userInfo objectForKey:kSJSchemaProviderClass];
+		SJSchema* superresource = [userInfo objectForKey:kSJSchemaSuperResource];
 		
+		if (!c && superresource)
+			c = [superresource class];
+		
+		id <SJSchemaProviderObserver> obs = [self observerForSchemaClass:c];
+		if ([obs respondsToSelector:@selector(schemaProvider:didFailToDownloadFromURL:error:)])
+			[obs schemaProvider:self didFailToDownloadFromURL:req.URL error:req.error];		
 	}
-}
-
-- (void) downloader:(SJDownloader*) d didFailDownloadingDataForURL:(NSURL*) url options:(NSDictionary*) options error:(NSError*) e;
-{
-	NSDictionary* userInfo = [options objectForKey:kSJDownloaderOptionUserInfo];
-	Class c = [userInfo objectForKey:kSJSchemaProviderClass];
-	SJSchema* superresource = [userInfo objectForKey:kSJSchemaSuperResource];
-	
-	if (!c && superresource)
-		c = [superresource class];
-	
-	id <SJSchemaProviderObserver> obs = [self observerForSchemaClass:c];
-	if ([obs respondsToSelector:@selector(schemaProvider:didFailToDownloadFromURL:error:)])
-		 [obs schemaProvider:self didFailToDownloadFromURL:url error:e];
 }
 
 - (void) setObserver:(id <SJSchemaProviderObserver>)o forFetchedSchemasOfClass:(Class)c;
 {
-	[self.observers setObject:o forKey:NSStringFromClass(c)];
+	[self.observers setObject:o forKey:c];
 	[o setSchemaProvider:self];
 }
 
 - (void) removeObserverForFetchedSchemasOfClass:(Class) c;
 {
-	NSString* key = NSStringFromClass(c);
-	id <SJSchemaProviderObserver> o = [self.observers objectForKey:key];
+	id <SJSchemaProviderObserver> o = [self.observers objectForKey:c];
 	[o setSchemaProvider:nil];
-	[self.observers removeObjectForKey:key];
+	[self.observers removeObjectForKey:c];
 }
 
 - (id <SJSchemaProviderObserver>) observerForSchemaClass:(Class) c;
 {
-	for (NSString* className in self.observers) {
-		Class otherClass = NSClassFromString(className);
-		
+	for (Class otherClass in self.observers) {
 		if ([c isSubclassOfClass:otherClass])
-			return [self.observers objectForKey:className];
-		
+			return [self.observers objectForKey:otherClass];
 	}
 	
 	return nil;

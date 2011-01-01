@@ -130,7 +130,8 @@
 	}
 	
 	if ([keyPath isEqual:@"lastLiveSlide"])
-		moodToolbarItem.enabled = (self.lastLiveSlide && self.currentSlide && self.live);
+		// moodToolbarItem.enabled = (self.lastLiveSlide && self.currentSlide && self.live);
+		moodToolbarItem.enabled = YES;
 	
 	if ([keyPath isEqual:@"currentSlide"] || [keyPath isEqual:@"lastLiveSlide"]) {
 		if (self.currentSlide && self.lastLiveSlide && ![[self.currentSlide URL] isEqual:[self.lastLiveSlide URL]]) {
@@ -188,7 +189,7 @@
 {
 	[super viewDidLoad];
 	
-	moodToolbarItem.enabled = NO;
+	// moodToolbarItem.enabled = NO;
 	
 	if (!self.live && self.managedObjectContext && self.endpoint) {
 		self.live = [[[SJLive alloc] initWithEndpoint:self.endpoint delegate:self managedObjectContext:self.managedObjectContext] autorelease];
@@ -226,7 +227,7 @@
 	leftSwipe = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(moveToNextSlide)] autorelease];
 	leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
 	
-	tableView.gestureRecognizers = [NSArray arrayWithObjects:rightSwipe, leftSwipe, nil];
+	self.view.gestureRecognizers = [NSArray arrayWithObjects:rightSwipe, leftSwipe, nil];
 }
 
 - (void) viewWillAppear:(BOOL)animated;

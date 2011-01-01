@@ -24,6 +24,7 @@
 
 + resultOfFetchRequestWithProperties:(void(^)(NSFetchRequest*)) props fromContext:(NSManagedObjectContext*) moc;
 + (NSUInteger) countForFetchRequestWithProperties:(void(^)(NSFetchRequest*)) props fromContext:(NSManagedObjectContext*) moc;
++ (NSUInteger) countForPredicate:(NSPredicate*) pred fromContext:(NSManagedObjectContext*) moc;
 
 + (NSArray*) allWithPredicate:(NSPredicate*) pred fromContext:(NSManagedObjectContext*) moc;
 

@@ -16,22 +16,23 @@ enum {
 enum {
 	// only attempted on non-WWAN networks.
 	// all executing ones will be cancelled if a user request arrives.
-	kSJDownloaderReasonOpportunistic,
+	kSJDownloadPriorityOpportunistic = 0,
 	
 	// cancelled if running and a user request arrives.
-	kSJDownloaderReasonSubresourceForImmediateDisplay,
+	kSJDownloadPrioritySubresourceForImmediateDisplay,
 	
 	// never cancelled. highest priority of all.
-	kSJDownloaderReasonResourceForImmediateDisplay,
+	kSJDownloadPriorityResourceForImmediateDisplay,
 	
 	// has its own private queue
-	kSJDownloaderReasonLiveUpdate,
+	kSJDownloadPriorityLiveUpdate,
 };
-typedef NSUInteger SJDownloaderReason;
+typedef NSUInteger SJDownloadPriority;
 
 #define kSJDownloaderOptionDownloadReason @"SJDownloaderOptionDownloadReason"
 #define kSJDownloaderOptionUserInfo @"SJDownloaderOptionUserInfo"
 
+@class SJDownloadRequest;
 @protocol SJDownloaderDelegate;
 
 
@@ -39,14 +40,29 @@ typedef NSUInteger SJDownloaderReason;
 
 + downloader;
 
-- (void) beginDownloadingDataFromURL:(NSURL*) u options:(NSDictionary*) options;
+- (void) beginDownloadingWithRequest:(SJDownloadRequest*) request;
 @property(nonatomic, assign) id <SJDownloaderDelegate> delegate;
 
 @end
 
+
 @protocol SJDownloaderDelegate <NSObject>
 
-- (void) downloader:(SJDownloader*) d didDownloadData:(NSData*) data forURL:(NSURL*) url options:(NSDictionary*) options;
-- (void) downloader:(SJDownloader*) d didFailDownloadingDataForURL:(NSURL*) url options:(NSDictionary*) options error:(NSError*) e;
+// The request
+- (void) downloader:(SJDownloader*) d didFinishDowloadingRequest:(SJDownloadRequest*) req;
+
+@end
+
+
+@interface SJDownloadRequest : NSObject <NSCopying> {}
+
++ downloadRequest;
+
+@property(copy) NSURL* URL;
+@property SJDownloadPriority reason;
+@property(retain) id userInfo;
+
+@property(retain) NSData* downloadedData;
+@property(copy) NSError* error;
 
 @end
