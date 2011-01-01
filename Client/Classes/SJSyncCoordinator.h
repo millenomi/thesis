@@ -12,6 +12,12 @@
 @class SJEntityUpdate;
 @protocol SJSyncController;
 
+enum {
+	kSJEntityUpdateSnapshotKindSchema,
+	kSJEntityUpdateSnapshotKindData,
+};
+typedef NSInteger SJEntityUpdateSnapshotKind;
+
 
 @interface SJSyncCoordinator : NSObject {}
 
@@ -30,8 +36,8 @@
 + updateWithSnapshotsClass:(Class) c URL:(NSURL*) url;
 + updateWithAvailableSnapshot:(id) snap URL:(NSURL*) url;
 
-- (SJEntityUpdate*) relatedUpdateWithSnapshotClass:(Class) c URL:(NSURL*) url;
-- (SJEntityUpdate*) relatedUpdateWithAvailableSnapshot:(id) snap URL:(NSURL*) url;
+- (SJEntityUpdate*) relatedUpdateWithSnapshotClass:(Class) c URL:(NSURL*) url refers:(BOOL) ref;
+- (SJEntityUpdate*) relatedUpdateWithAvailableSnapshot:(id) snap URL:(NSURL*) url refers:(BOOL) ref;
 
 - (NSURL*) relativeURLTo:(NSString*) path;
 
@@ -41,6 +47,10 @@
 @property(nonatomic, copy) id availableSnapshot;
 
 @property(nonatomic) SJDownloadPriority downloadPriority;
+
+@property(nonatomic, copy) id userInfo;
+@property(nonatomic) SJEntityUpdateSnapshotKind snapshotKind;
+@property(nonatomic, retain) SJEntityUpdate* referrerEntityUpdate;
 
 @end
 

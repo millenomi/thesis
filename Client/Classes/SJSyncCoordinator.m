@@ -134,19 +134,24 @@
 		return;
 	}
 	
-	// TODO below, call didFailDownloading… with appropriate NSErrors instead of just returning.
+	id snapshot;
+	if (update.snapshotKind == kSJEntityUpdateSnapshotKindSchema) {
+		// TODO below, call didFailDownloading… with appropriate NSErrors instead of just returning.
+			
+		NSString* downloadedString = [[[NSString alloc] initWithData:req.downloadedData encoding:NSUTF8StringEncoding] autorelease];
+		if (!downloadedString)
+			return;
 		
-	NSString* downloadedString = [[[NSString alloc] initWithData:req.downloadedData encoding:NSUTF8StringEncoding] autorelease];
-	if (!downloadedString)
-		return;
-	
-	id dict = [downloadedString JSONValue];
-	if (![dict isKindOfClass:[NSDictionary dictionary]])
-		return;
-	
-	id snapshot = [[[update.snapshotsClass alloc] initWithJSONDictionaryValue:dict error:NULL] autorelease];
-	if (!snapshot)
-		return;
+		id dict = [downloadedString JSONValue];
+		if (![dict isKindOfClass:[NSDictionary dictionary]])
+			return;
+		
+		id snapshot = [[[update.snapshotsClass alloc] initWithJSONDictionaryValue:dict error:NULL] autorelease];
+		if (!snapshot)
+			return;
+	} else {
+		snapshot = req.downloadedData;
+	}
 	
 	[ctl processSnapshot:snapshot forUpdate:update];
 	
@@ -168,6 +173,8 @@
 {
 	self.URL = nil;
 	self.availableSnapshot = nil;
+	self.referrerEntityUpdate = nil;
+	self.userInfo = nil;
 	[super dealloc];
 }
 
@@ -178,6 +185,7 @@
 	SJEntityUpdate* me = [[self new] autorelease];
 	me.URL = url;
 	me.snapshotsClass = c;
+	return me;
 }
 
 + updateWithAvailableSnapshot:(id) snap URL:(NSURL*) url;
@@ -187,7 +195,7 @@
 	return me;
 }
 
-- (SJEntityUpdate*) relatedUpdateWithSnapshotClass:(Class) c URL:(NSURL*) url;
+- (SJEntityUpdate*) relatedUpdateWithSnapshotClass:(Class) c URL:(NSURL*) url refers:(BOOL) ref;
 {
 	SJEntityUpdate* related = [[self class] updateWithSnapshotsClass:c URL:url];
 	switch (self.downloadPriority) {
@@ -205,12 +213,15 @@
 			break;
 	}
 	
+	if (ref)
+		related.referrerEntityUpdate = self;
+	
 	return related;
 }
 
-- (SJEntityUpdate*) relatedUpdateWithAvailableSnapshot:(id) snap URL:(NSURL*) url;
+- (SJEntityUpdate*) relatedUpdateWithAvailableSnapshot:(id) snap URL:(NSURL*) url refers:(BOOL) ref;
 {
-	SJEntityUpdate* related = [self relatedUpdateWithSnapshotClass:[snap class] URL:url];
+	SJEntityUpdate* related = [self relatedUpdateWithSnapshotClass:[snap class] URL:url refers:ref];
 	related.availableSnapshot = snap;
 	return related;
 }
@@ -219,6 +230,8 @@
 {
 	return [NSURL URLWithString:path relativeToURL:self.URL];
 }
+
+@synthesize referrerEntityUpdate, snapshotKind, userInfo;
 
 @end
 

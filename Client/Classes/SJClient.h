@@ -9,7 +9,9 @@
 	#import "SJPresentationSchema.h"
 	#import "SJQuestionSchema.h"
 	#import "SJDownloader.h"
-	#import "SJSchemaProvider.h"
-	#import "SJLiveObserver.h"
+	
+	#import "SJSyncCoordinator.h"
+	#import "SJCoreDataSyncCoordinator.h"
+	#import "SJLiveSyncController.h"
 
 #endif

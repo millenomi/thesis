@@ -64,13 +64,13 @@
 {
 	SJLiveSchema* live = snapshot;
 	if (live.slide) {
-		[self.syncCoordinator processUpdate:[update relatedUpdateWithAvailableSnapshot:live.slide URL:[update relativeURLTo:live.slide.URLString]]];
+		[self.syncCoordinator processUpdate:[update relatedUpdateWithAvailableSnapshot:live.slide URL:[update relativeURLTo:live.slide.URLString] refers:NO]];
 		
 		for (NSString* s in live.moodURLStrings)
-			[self.syncCoordinator processUpdate:[update relatedUpdateWithSnapshotClass:[SJMoodSchema class] URL:[update relativeURLTo:s]]];
+			[self.syncCoordinator processUpdate:[update relatedUpdateWithSnapshotClass:[SJMoodSchema class] URL:[update relativeURLTo:s] refers:NO]];
 		
 		for (NSString* q in live.URLStringsOfQuestionsPostedDuringLive)
-			[self.syncCoordinator processUpdate:[update relatedUpdateWithSnapshotClass:[SJQuestionSchema class] URL:[update relativeURLTo:q]]];
+			[self.syncCoordinator processUpdate:[update relatedUpdateWithSnapshotClass:[SJQuestionSchema class] URL:[update relativeURLTo:q] refers:NO]];
 		
 		SJLiveSchema* old = [[self.lastDownloadedSnapshot retain] autorelease];
 		self.lastDownloadedSnapshot = live;

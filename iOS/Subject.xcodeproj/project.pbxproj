@@ -11,7 +11,6 @@
 		1538E01412A1573700D5A056 /* EmoticonToolbarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1538E01212A1573700D5A056 /* EmoticonToolbarIcon@2x.png */; };
 		154437B112759D88003197B3 /* libClient-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 154437B012759D80003197B3 /* libClient-iOS.a */; };
 		15620EF912C2373A009750D1 /* SJPresentationPane_v2.m in Sources */ = {isa = PBXBuildFile; fileRef = 15620EF812C2373A009750D1 /* SJPresentationPane_v2.m */; };
-		15620EFE12C23799009750D1 /* SJObservers.m in Sources */ = {isa = PBXBuildFile; fileRef = 15620EFD12C23799009750D1 /* SJObservers.m */; };
 		156F244A12734EA9000BC614 /* SJPresentationPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F244912734EA9000BC614 /* SJPresentationPane.m */; };
 		156F244C12734FC7000BC614 /* SJPresentationPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156F244B12734FC7000BC614 /* SJPresentationPane.xib */; };
 		156F246B12735605000BC614 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156F246A12735605000BC614 /* QuartzCore.framework */; };
@@ -37,6 +36,7 @@
 		15A46A6A129F995400EC7A42 /* ForwardArrowToolbarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A46A66129F995400EC7A42 /* ForwardArrowToolbarIcon@2x.png */; };
 		15A46B47129FA50B00EC7A42 /* FastForwardArrowToolbarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A46B45129FA50B00EC7A42 /* FastForwardArrowToolbarIcon.png */; };
 		15A46B48129FA50B00EC7A42 /* FastForwardArrowToolbarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A46B46129FA50B00EC7A42 /* FastForwardArrowToolbarIcon@2x.png */; };
+		15AF560212CF8A72000311EB /* SJSlideSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AF560112CF8A72000311EB /* SJSlideSync.m */; };
 		15C044EB12A2A13E00AD97AA /* SJMoodPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C044EA12A2A13E00AD97AA /* SJMoodPicker.m */; };
 		15C0451012A2F0E600AD97AA /* SJMoodPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15C0450F12A2F0E600AD97AA /* SJMoodPicker.xib */; };
 		15C0451812A2F32200AD97AA /* RightShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0451712A2F32200AD97AA /* RightShadow.png */; };
@@ -151,8 +151,6 @@
 		154437A812759D80003197B3 /* Client.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Client.xcodeproj; path = ../Client/Client.xcodeproj; sourceTree = SOURCE_ROOT; };
 		15620EF712C2373A009750D1 /* SJPresentationPane_v2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentationPane_v2.h; sourceTree = "<group>"; };
 		15620EF812C2373A009750D1 /* SJPresentationPane_v2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPresentationPane_v2.m; sourceTree = "<group>"; };
-		15620EFC12C23799009750D1 /* SJObservers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJObservers.h; sourceTree = "<group>"; };
-		15620EFD12C23799009750D1 /* SJObservers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJObservers.m; sourceTree = "<group>"; };
 		156F244812734EA9000BC614 /* SJPresentationPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentationPane.h; sourceTree = "<group>"; };
 		156F244912734EA9000BC614 /* SJPresentationPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPresentationPane.m; sourceTree = "<group>"; };
 		156F244B12734FC7000BC614 /* SJPresentationPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJPresentationPane.xib; sourceTree = "<group>"; };
@@ -184,6 +182,8 @@
 		15A46A66129F995400EC7A42 /* ForwardArrowToolbarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ForwardArrowToolbarIcon@2x.png"; path = "../Art/ForwardArrowToolbarIcon@2x.png"; sourceTree = SOURCE_ROOT; };
 		15A46B45129FA50B00EC7A42 /* FastForwardArrowToolbarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FastForwardArrowToolbarIcon.png; path = ../Art/FastForwardArrowToolbarIcon.png; sourceTree = SOURCE_ROOT; };
 		15A46B46129FA50B00EC7A42 /* FastForwardArrowToolbarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "FastForwardArrowToolbarIcon@2x.png"; path = "../Art/FastForwardArrowToolbarIcon@2x.png"; sourceTree = SOURCE_ROOT; };
+		15AF560012CF8A72000311EB /* SJSlideSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSlideSync.h; sourceTree = "<group>"; };
+		15AF560112CF8A72000311EB /* SJSlideSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSlideSync.m; sourceTree = "<group>"; };
 		15C044E912A2A13E00AD97AA /* SJMoodPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJMoodPicker.h; sourceTree = "<group>"; };
 		15C044EA12A2A13E00AD97AA /* SJMoodPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJMoodPicker.m; sourceTree = "<group>"; };
 		15C0450F12A2F0E600AD97AA /* SJMoodPicker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJMoodPicker.xib; sourceTree = "<group>"; };
@@ -282,10 +282,9 @@
 		15620EFB12C23786009750D1 /* New-style Client Stuff */ = {
 			isa = PBXGroup;
 			children = (
+				15AF55FF12CF8A67000311EB /* Sync */,
 				15620EF712C2373A009750D1 /* SJPresentationPane_v2.h */,
 				15620EF812C2373A009750D1 /* SJPresentationPane_v2.m */,
-				15620EFC12C23799009750D1 /* SJObservers.h */,
-				15620EFD12C23799009750D1 /* SJObservers.m */,
 			);
 			name = "New-style Client Stuff";
 			sourceTree = "<group>";
@@ -323,6 +322,15 @@
 				158B8A3612C09E6B007CB814 /* ILNSLoggerSensorTap.m */,
 			);
 			name = NSLogger;
+			sourceTree = "<group>";
+		};
+		15AF55FF12CF8A67000311EB /* Sync */ = {
+			isa = PBXGroup;
+			children = (
+				15AF560012CF8A72000311EB /* SJSlideSync.h */,
+				15AF560112CF8A72000311EB /* SJSlideSync.m */,
+			);
+			name = Sync;
 			sourceTree = "<group>";
 		};
 		15D4365E128450DF005DBAE3 /* Labs Foundation */ = {
@@ -646,7 +654,7 @@
 				158B8A3412C09E5C007CB814 /* LoggerClient.m in Sources */,
 				158B8A3712C09E6B007CB814 /* ILNSLoggerSensorTap.m in Sources */,
 				15620EF912C2373A009750D1 /* SJPresentationPane_v2.m in Sources */,
-				15620EFE12C23799009750D1 /* SJObservers.m in Sources */,
+				15AF560212CF8A72000311EB /* SJSlideSync.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
