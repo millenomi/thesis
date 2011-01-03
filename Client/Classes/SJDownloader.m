@@ -99,9 +99,7 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 		self.operationQueue = [[NSOperationQueue new] autorelease];
 		self.liveUpdateQueue = [[NSOperationQueue new] autorelease];
 		
-		// we assume all ops go on the outer Internet.
-		self.reach = [[[ILHostReachability alloc] initWithHostAddressString:@"infinite-labs.net"] autorelease];
-		self.reach.delegate = self;
+		self.monitorsInternetReachability = YES;
 	}
 	
 	return self;
@@ -120,6 +118,8 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 	[super dealloc];
 }
 
+
+#pragma mark Downloading stuff
 
 @synthesize operationQueue, liveUpdateQueue, reach;
 
@@ -168,12 +168,12 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 	
 	[opQueue addOperation:op];
 	
-	if (opQueue == self.operationQueue && r == kSJDownloadPriorityOpportunistic) {
-		for (NSOperation* currentOp in [self.operationQueue operations]) {
-			if ([currentOp queuePriority] <= NSOperationQueuePriorityLow && [currentOp isExecuting])
-				[currentOp cancel];
-		}
-	}
+//	if (opQueue == self.operationQueue && r == kSJDownloadPriorityOpportunistic) {
+//		for (NSOperation* currentOp in [self.operationQueue operations]) {
+//			if ([currentOp queuePriority] <= NSOperationQueuePriorityLow && [currentOp isExecuting])
+//				[currentOp cancel];
+//		}
+//	}
 }
 
 @synthesize delegate;
@@ -183,6 +183,27 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 	req.error = op.error;
 	req.downloadedData = op.downloadedData;
 	[self.delegate downloader:self didFinishDowloadingRequest:req];
+}
+
+#pragma mark Reachability
+
+@synthesize monitorsInternetReachability;
+- (void) setMonitorsInternetReachability:(BOOL) m;
+{
+	if (m != monitorsInternetReachability) {
+		monitorsInternetReachability = m;
+		
+		self.reach.delegate = nil;
+		[self.reach stop];
+		
+		if (monitorsInternetReachability) {			
+			self.reach = [[[ILHostReachability alloc] initWithHostAddressString:@"infinite-labs.net"] autorelease];
+			self.reach.delegate = self;
+		} else {
+			[self.operationQueue setSuspended:NO];
+			[self.liveUpdateQueue setSuspended:NO];			
+		}
+	}
 }
 
 - (void) hostReachabilityDidChange:(ILHostReachability*) r;

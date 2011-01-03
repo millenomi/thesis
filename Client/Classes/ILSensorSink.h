@@ -82,6 +82,8 @@
 		[ILSensorSink log:([NSDictionary dictionaryWithObjectsAndKeys:__VA_ARGS__, nil]) atLine:__LINE__ function:__PRETTY_FUNCTION__ object:(self) channel:(nil)]; \
 	} while (0)
 
+#define ILLogDictInfo(x, ...) ILLogDict(x, @"info", __VA_ARGS__)
+
 
 /** Sends a telemetry message whose content is a formatted string. This macro is a drop-in replacement for NSLog.
  */

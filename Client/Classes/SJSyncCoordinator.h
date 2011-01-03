@@ -28,6 +28,8 @@ typedef NSInteger SJEntityUpdateSnapshotKind;
 
 - (void) afterDownloadingNextSnapshotForEntityAtURL:(NSURL*) url perform:(void (^)()) block;
 
+@property(nonatomic, readonly, retain) SJDownloader* downloader;
+
 @end
 
 

@@ -85,4 +85,9 @@
 	[self update];
 }
 
+- (void) updateState:(NSString*) state;
+{
+	[self updateBySettingObject:state forPropertyKey:@"info"];
+}
+
 @end

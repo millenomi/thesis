@@ -38,11 +38,19 @@
 	SJPresentation* pres = obj;
 	SJPresentationSchema* presSchema = snapshot;
 	
+	pres.URL = update.URL;
 	pres.title = presSchema.title;
 	pres.knownCountOfSlidesValue = [presSchema.slides count];
 	
 	for (SJPresentationSlideInfoSchema* slideInfo in presSchema.slides) {
-		SJEntityUpdate* slideUpdate = [SJEntityUpdate updateWithSnapshotsClass:[SJSlideSchema class] URL:[NSURL URLWithString:slideInfo.URLString relativeToURL:update.URL]];
+		NSURL* slideURL = [NSURL URLWithString:slideInfo.URLString relativeToURL:update.URL];
+		
+		SJSlide* s = [SJSlide slideWithURL:slideURL fromContext:self.managedObjectContext];
+		s.presentation = pres;
+		
+		// we still produce an update; the SJSlideSync object decides whether it's OK to redownload or not.
+		
+		SJEntityUpdate* slideUpdate = [SJEntityUpdate updateWithSnapshotsClass:[SJSlideSchema class] URL:slideURL];
 		
 		slideUpdate.availableSnapshot = slideInfo.contents;
 		

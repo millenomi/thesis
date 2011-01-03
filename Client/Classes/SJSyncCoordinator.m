@@ -11,6 +11,9 @@
 #import "JSON.h"
 #import "SJSchema.h"
 
+#import "ILSensorSink.h"
+#import "ILSensorSession.h"
+
 @interface SJSyncCoordinator () <SJDownloaderDelegate>
 
 @property(nonatomic, retain) NSMutableDictionary* syncControllers;
@@ -20,6 +23,8 @@
 - (void) callWatchesForURL:(NSURL*) u;
 
 @property(nonatomic, retain) SJDownloader* downloader;
+
+@property(nonatomic, retain) NSMutableSet* URLsBeingDownloaded;
 
 @end
 
@@ -35,6 +40,7 @@
 		
 		self.downloader = [SJDownloader downloader];
 		self.downloader.delegate = self;
+		self.URLsBeingDownloaded = [NSMutableSet set];
 	}
 	return self;
 }
@@ -63,16 +69,25 @@
 		blocksSet = [NSMutableSet set];
 		[self.watches setObject:blocksSet forKey:url];
 	}
+		
+	[blocksSet addObject:[[block copy] autorelease]];
 	
-	[blocksSet addObject:[block copy]];
+	ILLogDictInfo(@"Watch set on URL",
+				  url, @"URL");
 }
 
 - (void) callWatchesForURL:(NSURL*) u;
 {
+	ILLogDictInfo(@"Will call watchers",
+				  u, @"URL");
+	
 	for (void (^block)() in [self.watches objectForKey:u])
 		block();
 	
 	[self.watches removeObjectForKey:u];
+	
+	ILLogDictInfo(@"Did call watchers",
+				  u, @"URL");
 }
 
 #pragma mark Sync Controllers
@@ -84,13 +99,22 @@
 	NSAssert(!ctl.syncCoordinator || ctl.syncCoordinator == self, @"Cannot share a controller between multiple coordinators");
 	ctl.syncCoordinator = self;
 	[self.syncControllers setObject:ctl forKey:c];
+	
+	ILLogDictInfo(@"Set a sync controller",
+				  c, @"snapshotsClass",
+				  ctl, @"syncController");
 }
 
 - (void) removeSyncControllerForEntitiesWithSnapshotsClass:(Class)c;
-{
+{	
 	id <SJSyncController> ctl = [self.syncControllers objectForKey:c];
-	ctl.syncCoordinator = nil;
-	[self.syncControllers removeObjectForKey:c];
+	if (ctl) {
+		ILLogDictInfo(@"Will remove a sync controller",
+					  c, @"snapshotsClass",
+					  ctl, @"syncController");
+		ctl.syncCoordinator = nil;
+		[self.syncControllers removeObjectForKey:c];
+	}
 }
 
 - (id <SJSyncController>) syncControllerForEntitiesOfClass:(Class) c;
@@ -105,26 +129,57 @@
 
 #pragma mark Updates
 
-@synthesize downloader;
+@synthesize downloader, URLsBeingDownloaded;
 
 - (void) processUpdate:(SJEntityUpdate*) update;
 {
 	id <SJSyncController> ctl = [self syncControllerForEntitiesOfClass:update.snapshotsClass];
 	
-	if (update.availableSnapshot)
-		[ctl processSnapshot:update.availableSnapshot forUpdate:update];
+	if (!ctl) {
+		ILLogDictInfo(@"No sync controller to process update, ignoring",
+					  update, @"update");
+		return;
+	}
 	
-	if ([ctl shouldDownloadSnapshotForUpdate:update]) {
-		
-		SJDownloadRequest* req = [SJDownloadRequest downloadRequest];
-		req.URL = update.URL;
-		req.reason = update.downloadPriority;
-		req.userInfo = update;
-		
-		[self.downloader beginDownloadingWithRequest:req];
-		
+	ILLogDictInfo(@"About to process update",
+				  update, @"update",
+				  ctl, @"syncController");
+	
+	if (update.availableSnapshot) {
+		ILLogDictInfo(@"Will process available snapshot first",
+					  update, @"update",
+					  ctl, @"syncController");
+		[ctl processSnapshot:update.availableSnapshot forUpdate:update];
+	}
+	
+	NSURL* absURL = [update.URL absoluteURL];
+	BOOL isDownloading = [self.URLsBeingDownloaded containsObject:absURL];
+	
+	if (isDownloading) {
+		ILLogDictInfo(@"Processing an update for an URL already being downloaded",
+					  update, @"update",
+					  ctl, @"syncController");
 	} else {
-		[self callWatchesForURL:update.URL];
+		if ([ctl shouldDownloadSnapshotForUpdate:update]) {
+			ILLogDictInfo(@"Controller said OK to download update",
+						  update, @"update",
+						  ctl, @"syncController");
+			
+			[self.URLsBeingDownloaded addObject:absURL];
+			
+			SJDownloadRequest* req = [SJDownloadRequest downloadRequest];
+			req.URL = update.URL;
+			req.reason = update.downloadPriority;
+			req.userInfo = update;
+			
+			[self.downloader beginDownloadingWithRequest:req];
+			
+		} else {
+			ILLogDictInfo(@"Controller said no to download update, calling watches",
+						  update, @"update",
+						  ctl, @"syncController");
+			[self callWatchesForURL:update.URL];
+		}
 	}
 		
 }
@@ -132,10 +187,22 @@
 - (void) downloader:(SJDownloader*) d didFinishDowloadingRequest:(SJDownloadRequest*) req;
 {
 	SJEntityUpdate* update = req.userInfo;
+	[self.URLsBeingDownloaded removeObject:[update.URL absoluteURL]];
+	
 	id <SJSyncController> ctl = [self syncControllerForEntitiesOfClass:update.snapshotsClass];
+	
+	ILLogDictInfo(@"Got download for update",
+				  update, @"update",
+				  ctl, @"syncController",
+				  req.error?: [NSNull null], @"error");
 	
 	if (req.error) {
 		BOOL reschedule = [ctl shouldRescheduleFailedDownloadForUpdate:update error:req.error];
+		ILLogDictInfo(@"Asked controller to reschedule failed download",
+					  update, @"update",
+					  ctl, @"syncController",
+					  req.error?: [NSNull null], @"error",
+					  [NSNumber numberWithBool:reschedule], @"shouldRescheduleDownload");
 		
 		if (reschedule)
 			[self processUpdate:update];
@@ -162,8 +229,18 @@
 		snapshot = req.downloadedData;
 	}
 	
+	ILLogDictInfo(@"Will process snapshot for update",
+				  update, @"update",
+				  ctl, @"syncController",
+				  [snapshot isKindOfClass:[NSData class]]? @"((data))" : snapshot, @"snapshot");
+	
 	[ctl processSnapshot:snapshot forUpdate:update];
 	
+	ILLogDictInfo(@"Did process snapshot for update",
+				  update, @"update",
+				  ctl, @"syncController",
+				  [snapshot isKindOfClass:[NSData class]]? @"((data))" : snapshot, @"snapshot");
+
 	[self callWatchesForURL:update.URL];
 }
 

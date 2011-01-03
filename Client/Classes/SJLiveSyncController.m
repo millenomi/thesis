@@ -69,6 +69,7 @@
 		
 		if (syncCoordinator && !self.updateTimer) {
 			self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(tick:) userInfo:nil repeats:YES];
+			[self performSelector:@selector(tick:) withObject:nil afterDelay:0.001];
 		} else if (!syncCoordinator) {
 			[self.updateTimer invalidate];
 			self.updateTimer = nil;
@@ -103,14 +104,13 @@
 		SJLiveSchema* old = [[self.lastDownloadedSnapshot retain] autorelease];
 		self.lastDownloadedSnapshot = live;
 		
-		BOOL didStart = NO, didEnd = NO;
+		BOOL didStart = NO;
 		BOOL oldWasFinished = !old || [old isFinished];
 		if (oldWasFinished && ![live isFinished]) {
 			[self.delegate liveDidStart:self];
 			didStart = YES;
 		} else if (!oldWasFinished && [live isFinished]) {
 			[self.delegate liveDidEnd:self];
-			didEnd = YES;
 		}
 		
 		if (didStart || (![live isFinished] && ![old.slide isEqual:live.slide])) {

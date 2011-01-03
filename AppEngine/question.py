@@ -84,6 +84,7 @@ class PoseAQuestion(w.RequestHandler):
 		import live
 		l = live.Live.get_current()
 		l.questions.append(q.key())
+		self.response.headers['X-IL-Debug-LiveQuestionsContent'] = str(l.questions)
 		l.put()
 		
 		self.redirect(QuestionView.url(q))

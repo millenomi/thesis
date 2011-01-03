@@ -43,6 +43,8 @@ typedef NSUInteger SJDownloadPriority;
 - (void) beginDownloadingWithRequest:(SJDownloadRequest*) request;
 @property(nonatomic, assign) id <SJDownloaderDelegate> delegate;
 
+@property(nonatomic) BOOL monitorsInternetReachability;
+
 @end
 
 

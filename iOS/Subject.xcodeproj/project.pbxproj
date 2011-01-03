@@ -11,6 +11,8 @@
 		1538E01412A1573700D5A056 /* EmoticonToolbarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1538E01212A1573700D5A056 /* EmoticonToolbarIcon@2x.png */; };
 		154437B112759D88003197B3 /* libClient-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 154437B012759D80003197B3 /* libClient-iOS.a */; };
 		1555C25712D1EC1E005A3D09 /* SJPresentationSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 1555C25612D1EC1E005A3D09 /* SJPresentationSync.m */; };
+		1555C40912D20C96005A3D09 /* SJPointSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 1555C40812D20C96005A3D09 /* SJPointSync.m */; };
+		1555C45612D223E8005A3D09 /* SJQuestionSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 1555C45512D223E8005A3D09 /* SJQuestionSync.m */; };
 		15620EF912C2373A009750D1 /* SJPresentationPane_v2.m in Sources */ = {isa = PBXBuildFile; fileRef = 15620EF812C2373A009750D1 /* SJPresentationPane_v2.m */; };
 		156F244A12734EA9000BC614 /* SJPresentationPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F244912734EA9000BC614 /* SJPresentationPane.m */; };
 		156F244C12734FC7000BC614 /* SJPresentationPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156F244B12734FC7000BC614 /* SJPresentationPane.xib */; };
@@ -159,6 +161,10 @@
 		154437A812759D80003197B3 /* Client.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Client.xcodeproj; path = ../Client/Client.xcodeproj; sourceTree = SOURCE_ROOT; };
 		1555C25512D1EC1E005A3D09 /* SJPresentationSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentationSync.h; sourceTree = "<group>"; };
 		1555C25612D1EC1E005A3D09 /* SJPresentationSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPresentationSync.m; sourceTree = "<group>"; };
+		1555C40712D20C96005A3D09 /* SJPointSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPointSync.h; sourceTree = "<group>"; };
+		1555C40812D20C96005A3D09 /* SJPointSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPointSync.m; sourceTree = "<group>"; };
+		1555C45412D223E8005A3D09 /* SJQuestionSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJQuestionSync.h; sourceTree = "<group>"; };
+		1555C45512D223E8005A3D09 /* SJQuestionSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJQuestionSync.m; sourceTree = "<group>"; };
 		15620EF712C2373A009750D1 /* SJPresentationPane_v2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentationPane_v2.h; sourceTree = "<group>"; };
 		15620EF812C2373A009750D1 /* SJPresentationPane_v2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPresentationPane_v2.m; sourceTree = "<group>"; };
 		156F244812734EA9000BC614 /* SJPresentationPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentationPane.h; sourceTree = "<group>"; };
@@ -342,6 +348,10 @@
 				15AF560112CF8A72000311EB /* SJSlideSync.m */,
 				1555C25512D1EC1E005A3D09 /* SJPresentationSync.h */,
 				1555C25612D1EC1E005A3D09 /* SJPresentationSync.m */,
+				1555C40712D20C96005A3D09 /* SJPointSync.h */,
+				1555C40812D20C96005A3D09 /* SJPointSync.m */,
+				1555C45412D223E8005A3D09 /* SJQuestionSync.h */,
+				1555C45512D223E8005A3D09 /* SJQuestionSync.m */,
 			);
 			name = Sync;
 			sourceTree = "<group>";
@@ -676,6 +686,8 @@
 				15620EF912C2373A009750D1 /* SJPresentationPane_v2.m in Sources */,
 				15AF560212CF8A72000311EB /* SJSlideSync.m in Sources */,
 				1555C25712D1EC1E005A3D09 /* SJPresentationSync.m in Sources */,
+				1555C40912D20C96005A3D09 /* SJPointSync.m in Sources */,
+				1555C45612D223E8005A3D09 /* SJQuestionSync.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

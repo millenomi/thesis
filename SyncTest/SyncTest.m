@@ -3,8 +3,13 @@
 
 #import "Foundation/Basics/ILErrorHandling.h"
 #import "SJClient.h"
+
 #import "SJSlideSync.h"
 #import "SJPresentationSync.h"
+#import "SJPointSync.h"
+#import "SJQuestionSync.h"
+
+#import "ILSensorSink.h"
 
 // ------------ the sync controller delegate
 
@@ -15,7 +20,7 @@
 // -----------------------------------------
 
 int main (int argc, const char * argv[]) {
-
+	
 	// Let's build a CD stack.
 	NSBundle* me = [NSBundle mainBundle];
 	NSDictionary* environment = [[NSProcessInfo processInfo] environment];
@@ -29,6 +34,8 @@ int main (int argc, const char * argv[]) {
 	if ([[environment objectForKey:@"SJSyncTestClearBackingStoreBeforeUse"] boolValue])
 		[fm removeItemAtURL:store error:NULL];
 	
+	[[ILSensorSink sharedSink] setEnabled:[[environment objectForKey:@"SJSyncTestShouldEnableSensorSink"] boolValue]];
+	
 	ILCAssertNoNSError([psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:store options:nil error:&ERROR]);
 	
 	NSManagedObjectContext* moc = [[NSManagedObjectContext alloc] init];
@@ -41,9 +48,14 @@ int main (int argc, const char * argv[]) {
 	NSURL* baseURL = [NSURL URLWithString:@"http://localhost:8083/"];
 	
 	SJSyncCoordinator* coord = [[SJSyncCoordinator alloc] init];
+	coord.downloader.monitorsInternetReachability = NO;
+	
 	[SJLiveSyncController addControllerForLiveURL:[NSURL URLWithString:@"/live" relativeToURL:baseURL] delegate:[SJTestLiveSyncDelegate new] toCoordinator:coord];
 	[SJSlideSync addControllerWithManagedObjectContext:moc toCoordinator:coord];
 	[SJPresentationSync addControllerWithManagedObjectContext:moc toCoordinator:coord];
+	[SJPointSync addControllerWithManagedObjectContext:moc toCoordinator:coord];
+	[SJQuestionSync addControllerWithManagedObjectContext:moc toCoordinator:coord];
+	
 	
 	// ---------------------------------
 	

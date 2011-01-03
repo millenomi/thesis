@@ -41,6 +41,28 @@
 		s.imageData = snapshot;
 		return;
 	}
+
+#if 0
+	if ([snapshot isKindOfClass:[SJPointSchema class]]) {
+		if (!obj)
+			obj = [SJPoint insertedInto:self.managedObjectContext];
+		
+		SJPoint* point = obj;
+		SJPointSchema* pointSchema = snapshot;
+		
+		point.URL = update.URL;
+		point.text = pointSchema.text;
+		point.indentationValue = pointSchema.indentationValue;
+		
+		if (pointSchema.slideURLString) {
+			SJSlide* slide = [SJSlide slideWithURL:[NSURL URLWithString:pointSchema.slideURLString relativeToURL:update.URL] fromContext:self.managedObjectContext];
+			if (slide)
+				point.slide = slide;
+		}
+		
+		return;
+	}
+#endif
 	
 	SJSlide* slide = obj;
 	if (!slide)

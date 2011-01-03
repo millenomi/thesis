@@ -26,6 +26,8 @@
 - (void) removeObjectForPropertyKey:(NSString*) k;
 - (void) updateByRemovingObjectForPropertyKey:(NSString*) k;
 
+- (void) updateState:(NSString*) state;
+
 @end
 
 #define ILSessionIfNotStarted(x) do { \

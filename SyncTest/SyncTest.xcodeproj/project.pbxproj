@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1555C26A12D1EE9D005A3D09 /* SJPresentationSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 1555C26912D1EE9D005A3D09 /* SJPresentationSync.m */; };
+		1555C42012D20DE3005A3D09 /* SJPointSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 1555C41F12D20DE3005A3D09 /* SJPointSync.m */; };
+		1555C45C12D22456005A3D09 /* SJQuestionSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 1555C45B12D22456005A3D09 /* SJQuestionSync.m */; };
 		15FCC8FD12D1D7B300D52E53 /* ILURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FCC8FA12D1D7B300D52E53 /* ILURLConnectionOperation.m */; };
 		15FCC8FE12D1D7B300D52E53 /* ILInMemoryDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FCC8FC12D1D7B300D52E53 /* ILInMemoryDownloadOperation.m */; };
 		15FCC90312D1D7E400D52E53 /* libClient-Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FCC8E712D1D75600D52E53 /* libClient-Mac.a */; };
@@ -97,6 +99,10 @@
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		1555C26812D1EE9D005A3D09 /* SJPresentationSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SJPresentationSync.h; path = ../iOS/Classes/SJPresentationSync.h; sourceTree = SOURCE_ROOT; };
 		1555C26912D1EE9D005A3D09 /* SJPresentationSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SJPresentationSync.m; path = ../iOS/Classes/SJPresentationSync.m; sourceTree = SOURCE_ROOT; };
+		1555C41E12D20DE3005A3D09 /* SJPointSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SJPointSync.h; path = ../iOS/Classes/SJPointSync.h; sourceTree = SOURCE_ROOT; };
+		1555C41F12D20DE3005A3D09 /* SJPointSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SJPointSync.m; path = ../iOS/Classes/SJPointSync.m; sourceTree = SOURCE_ROOT; };
+		1555C45A12D22456005A3D09 /* SJQuestionSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SJQuestionSync.h; path = ../iOS/Classes/SJQuestionSync.h; sourceTree = SOURCE_ROOT; };
+		1555C45B12D22456005A3D09 /* SJQuestionSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SJQuestionSync.m; path = ../iOS/Classes/SJQuestionSync.m; sourceTree = SOURCE_ROOT; };
 		15FCC8A612D1D73000D52E53 /* Client.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Client.xcodeproj; path = ../Client/Client.xcodeproj; sourceTree = SOURCE_ROOT; };
 		15FCC8F912D1D7B300D52E53 /* ILURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ILURLConnectionOperation.h; path = ../LabsFoundation.line/iOS/Networking/ILURLConnectionOperation.h; sourceTree = SOURCE_ROOT; };
 		15FCC8FA12D1D7B300D52E53 /* ILURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ILURLConnectionOperation.m; path = ../LabsFoundation.line/iOS/Networking/ILURLConnectionOperation.m; sourceTree = SOURCE_ROOT; };
@@ -237,6 +243,10 @@
 		15FCC97312D1DB3500D52E53 /* Sync code from iOS app */ = {
 			isa = PBXGroup;
 			children = (
+				1555C45A12D22456005A3D09 /* SJQuestionSync.h */,
+				1555C45B12D22456005A3D09 /* SJQuestionSync.m */,
+				1555C41E12D20DE3005A3D09 /* SJPointSync.h */,
+				1555C41F12D20DE3005A3D09 /* SJPointSync.m */,
 				1555C26812D1EE9D005A3D09 /* SJPresentationSync.h */,
 				1555C26912D1EE9D005A3D09 /* SJPresentationSync.m */,
 				15FCC97612D1DB5700D52E53 /* SJSlideSync.h */,
@@ -373,6 +383,8 @@
 				15FCC97812D1DB5700D52E53 /* SJSlideSync.m in Sources */,
 				15FCC9A512D1DDB700D52E53 /* ILHostReachability.m in Sources */,
 				1555C26A12D1EE9D005A3D09 /* SJPresentationSync.m in Sources */,
+				1555C42012D20DE3005A3D09 /* SJPointSync.m in Sources */,
+				1555C45C12D22456005A3D09 /* SJQuestionSync.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

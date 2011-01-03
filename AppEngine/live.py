@@ -12,6 +12,10 @@ class Live(Model):
 	last_updated = DateTimeProperty(auto_now = True)
 	# moods = backreference set of Mood.
 	
+	def put(self):
+		memcache.delete(key = "Live")
+		Model.put(self)
+	
 	@classmethod
 	def get_current(self, should_put = True):
 		me = self.all().get()
