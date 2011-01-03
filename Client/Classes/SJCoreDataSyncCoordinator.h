@@ -19,6 +19,9 @@
 	int saveHoldCount;
 }
 
++ (id) addControllerWithManagedObjectContext:(NSManagedObjectContext*) moc toCoordinator:(SJSyncCoordinator*) coord;
+- (void) addToCoordinator:(SJSyncCoordinator*) coord;
+
 - (id) initWithManagedObjectContext:(NSManagedObjectContext*) moc;
 
 - (NSFetchRequest*) fetchRequestForUpdate:(SJEntityUpdate*) update; // abstract

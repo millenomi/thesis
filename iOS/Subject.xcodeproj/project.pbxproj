@@ -142,6 +142,13 @@
 			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = ViewControllers;
 		};
+		15FCC8E312D1D73800D52E53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 154437A812759D80003197B3 /* Client.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 15FCC8E112D1D73800D52E53 /* libClient-iOS.a */;
+			remoteInfo = "Client (iOS Library) copy";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -275,6 +282,7 @@
 			children = (
 				154437AE12759D80003197B3 /* SJClient.framework */,
 				154437B012759D80003197B3 /* libClient-iOS.a */,
+				15FCC8E412D1D73800D52E53 /* libClient-iOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -578,6 +586,13 @@
 			fileType = archive.ar;
 			path = libViewControllers.a;
 			remoteRef = 15FBF1E412817F93005D68B6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		15FCC8E412D1D73800D52E53 /* libClient-iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libClient-iOS.a";
+			remoteRef = 15FCC8E312D1D73800D52E53 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

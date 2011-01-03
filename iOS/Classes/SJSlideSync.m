@@ -14,6 +14,11 @@
 
 @implementation SJSlideSync
 
+- (void) addToCoordinator:(SJSyncCoordinator *)coord;
+{
+	[coord setSyncController:self forEntitiesWithSnapshotsClass:[SJSlideSchema class]];
+}
+
 - (BOOL) shouldDownloadSnapshotForUpdate:(SJEntityUpdate *)update;
 {
 	if ([update.userInfo isEqual:@"image"]) {
@@ -43,6 +48,7 @@
 	
 	SJSlideSchema* schema = snapshot;
 	slide.URL = update.URL;
+	slide.sortingOrderValue = [schema.sortingOrder unsignedIntegerValue];
 
 	NSURL* presentationURL = [update relativeURLTo:schema.presentationURLString];
 	SJPresentation* presentation = [SJPresentation presentationWithURL:presentationURL fromContext:self.managedObjectContext];
@@ -74,8 +80,10 @@
 		 ];
 		
 		SJPoint* point = [SJPoint pointWithURL:pointURL fromContext:self.managedObjectContext];
-		[slide addPointsObject:point];
-		point.sortingOrderValue = i;
+		if (point) {
+			[slide addPointsObject:point];
+			point.sortingOrderValue = i;
+		}
 		
 		i++;
 	}

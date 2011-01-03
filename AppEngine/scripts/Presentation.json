@@ -1,0 +1,409 @@
+{
+  "title": "il processo di interaction design - II",
+  "slides": [
+    {
+      "points": [
+        {
+          "text": "il processo di interaction design - II",
+          "indentation": 0
+        },
+        {
+          "text": "Prof. Garzotto",
+          "indentation": 0
+        }
+      ]
+    },
+    {
+      "points": [
+        {
+          "text": "Le attività coinvolte nell’interaction design",
+          "indentation": 0
+        },
+        {
+          "text": "Gestione requisiti",
+          "indentation": 1
+        },
+        {
+          "text": "Valutazione",
+          "indentation": 1
+        },
+        {
+          "text": "Design",
+          "indentation": 1
+        },
+        {
+          "text": "Prototipizzazione",
+          "indentation": 1
+        }
+      ]
+    },
+    {
+      "points": [
+        {
+          "text": "Design",
+          "indentation": 0
+        },
+        {
+          "text": "I requisiti: spazio del problema",
+          "indentation": 1
+        },
+        {
+          "text": "Design: spazio della SOLUZIONE",
+          "indentation": 1
+        },
+        {
+          "text": "Rappresentazione delle caratteristiche di ",
+          "indentation": 1
+        },
+        {
+          "text": "Contenuti (tipologie, struttura, …)",
+          "indentation": 2
+        },
+        {
+          "text": "Servizi (flussi di operazioni)",
+          "indentation": 2
+        },
+        {
+          "text": "Meccanismi di interazione (navigazione, interazione in the small)",
+          "indentation": 2
+        },
+        {
+          "text": "Lay-out (soluzioni grafiche e tipografiche)",
+          "indentation": 2
+        },
+        {
+          "text": "NON considera gli aspetti implementativi",
+          "indentation": 1
+        },
+        {
+          "text": "Puo’ avere vari livelli di astrazione",
+          "indentation": 1
+        },
+        {
+          "text": "Usa linguaggi di rappresentazione diversi a seconda del livello di astrazione e del dominio applicativo",
+          "indentation": 1
+        }
+      ]
+    },
+    {
+      "points": [
+        {
+          "text": "Tecniche di design: gli scenari",
+          "indentation": 0
+        },
+        {
+          "text": "Scenario: storia d’uso",
+          "indentation": 1
+        },
+        {
+          "text": "profilo utente + obbiettivo (+ contesto d’uso) + tasks",
+          "indentation": 1
+        },
+        {
+          "text": "Il concetto di scenario puo’ essere usato sia in fase di design che di gestione di requisiti",
+          "indentation": 1
+        },
+        {
+          "text": "Design scenario: il racconto di come un utente interagisce con il sistema per raggiungere un determinato obbiettivo",
+          "indentation": 1
+        }
+      ]
+    },
+    {
+      "points": [
+        {
+          "text": "Esempio: il sito web di un teatro d’opera",
+          "indentation": 0
+        },
+        {
+          "text": "User profile: Un appassionato d’opera lirica, di 20-30 anni e con una buona familiarità con le tecnologie Web ",
+          "indentation": 1
+        },
+        {
+          "text": "Goal: vuole prepararsi ad uno spettacolo.",
+          "indentation": 1
+        },
+        {
+          "text": "Contesto d’uso: L’utente da casa accede al sito del teatro",
+          "indentation": 1
+        },
+        {
+          "text": "Tasks: Selezione il cartellone della stagione attuale. Trova una lista di spettacoli in cartellone, sia già avvenuti che futuri. L’utente seleziona una futura rappresentazione dell’Aida diretta da Riccardo Muti. Accede alla presentazione della performance. Quindi selezione il link di approfondimento sull’Aida di Verdi dove viene sinteticamente presentata l’opera e la descrizione di ciascun atto. Poi scarica il libretto. Infine torna alla home e attiva il servizio acquisti per comprare un biglietto.",
+          "indentation": 1
+        }
+      ]
+    },
+    {
+      "points": [
+        {
+          "text": "Tecniche di design: story board",
+          "indentation": 0
+        },
+        {
+          "text": "Nel mondo del cinema:",
+          "indentation": 1
+        },
+        {
+          "text": "sequenza di “istantanee” – foto o schizzi che danno un’idea di una scena)",
+          "indentation": 2
+        },
+        {
+          "text": "In HCI: ",
+          "indentation": 1
+        },
+        {
+          "text": "Rappresentazione visiva realistica di come appare il sistema finale, priva di ogni funzionalità",
+          "indentation": 2
+        },
+        {
+          "text": "Modalità di interazione rese mediante annotazioni testuali, vignette, schizzi (eventualmente animate)",
+          "indentation": 2
+        },
+        {
+          "text": "Vari livelli di astrazione",
+          "indentation": 2
+        },
+        {
+          "text": "“Schermate” (singole interazioni)",
+          "indentation": 2
+        },
+        {
+          "text": "Contesto d’uso",
+          "indentation": 2
+        }
+      ]
+    },
+    {
+      "points": [
+        {
+          "text": "Prototipizzazione",
+          "indentation": 0
+        },
+        {
+          "text": "Prototipo: un artefatto che simula alcune  (non necessariamente tutte) proprietà di interazione  del sistema che si sta sviluppando",
+          "indentation": 1
+        },
+        {
+          "text": "Prototipo ",
+          "indentation": 1
+        },
+        {
+          "text": "Strumento di elicitazione, analisi e validazione dei requisiti",
+          "indentation": 2
+        },
+        {
+          "text": "Permette di scoprire in anticipo requisiti scorretti o incompleti, o soluzioni di design errate",
+          "indentation": 2
+        }
+      ]
+    },
+    {
+      "points": [
+        {
+          "text": "Tipologie di prototipi",
+          "indentation": 0
+        },
+        {
+          "text": "“Throw-away”",
+          "indentation": 1
+        },
+        {
+          "text": "Tecnologicamente fittizio",
+          "indentation": 2
+        },
+        {
+          "text": "Utile per “rendere le idee” e comprendere meglio i requisiti e le soluzioni di design INIZIALI",
+          "indentation": 2
+        },
+        {
+          "text": "Incrementale (approccio “verticale”)",
+          "indentation": 1
+        },
+        {
+          "text": "Tecnologia definitiva",
+          "indentation": 2
+        },
+        {
+          "text": "Presuppone un approccio modulare allo sviluppo sw (modularizzazione)",
+          "indentation": 2
+        },
+        {
+          "text": "Considera solo alcune componenti del sistema finale (che sono progressivamente aumentate e integrate)",
+          "indentation": 2
+        },
+        {
+          "text": "Evolutivo (approccio “orizzontale”)",
+          "indentation": 1
+        },
+        {
+          "text": "Tecnologia definitiva",
+          "indentation": 2
+        },
+        {
+          "text": "Dal punto di vista dell’interazione, copre tutti gli aspetti principali del sistema",
+          "indentation": 2
+        },
+        {
+          "text": "Trascura gli aspetti “dietro la scena”, più legati alla implementazione (ad es. performance)",
+          "indentation": 2
+        }
+      ]
+    },
+    {
+      "points": [
+        {
+          "text": "Tecniche di prototipizzazione “throw-away”: simulazione",
+          "indentation": 0
+        },
+        {
+          "text": "Schermate con oggetti (testuali o grafici) con un comportamento attaccato che simula alcune funzionalità del sistema e le interazioni possibili per l’utente",
+          "indentation": 1
+        },
+        {
+          "text": "Una simulazione permette di essere valutata in modo interattivo con gli utenti, e modificata molto rapidamente",
+          "indentation": 1
+        },
+        {
+          "text": "Oggi vari strumenti disponibili",
+          "indentation": 1
+        },
+        {
+          "text": "Visual Basic",
+          "indentation": 2
+        },
+        {
+          "text": "Micromedia Flash",
+          "indentation": 2
+        },
+        {
+          "text": "….",
+          "indentation": 2
+        }
+      ]
+    },
+    {
+      "points": [
+        {
+          "text": "Tecniche di prototipizzazione:  Wizard of Oz (mago di Oz)",
+          "indentation": 0
+        },
+        {
+          "text": "Prototipo throw-away (simulazione), incrementale, o evolutivo in cui parte delle funzionalità sono eseguite dal sistema e parte dal progettista (“il mago”)",
+          "indentation": 1
+        },
+        {
+          "text": "Esempio: invio di feedback o messaggi di risposta",
+          "indentation": 2
+        }
+      ]
+    },
+    {
+      "points": [
+        {
+          "text": "Confronto con il processo di sviluppo “tradizionale” dell’ingegneria del software",
+          "indentation": 0
+        },
+        {
+          "text": "COME intervengono? ",
+          "indentation": 1
+        },
+        {
+          "text": "DOVE intervengono le attività di Interaction Design nel “tradizionale” processo di sviluppo\tdi un sistema interattivo?",
+          "indentation": 1
+        }
+      ]
+    },
+    {
+      "points": [
+        {
+          "text": "Il modello di sviluppo del software",
+          "indentation": 0
+        },
+        {
+          "text": "(modello “a cascata”)",
+          "indentation": 1
+        }
+      ]
+    },
+    {
+      "points": [
+        {
+          "text": "COME intervengono le attività  di interaction design nel processo tradizionale  di sviluppo del software?",
+          "indentation": 0
+        },
+        {
+          "text": "Introducendo una prospettiva diversa:  ",
+          "indentation": 1
+        },
+        {
+          "text": "CENTRATA SULL’UTENTE fin dall’inizio del progetto",
+          "indentation": 2
+        },
+        {
+          "text": "Focus sull’ interfaccia",
+          "indentation": 2
+        }
+      ]
+    },
+    {
+      "points": [
+        {
+          "text": "COME intervengono le attività di interaction design nel processo tradizionale di sviluppo del software? ",
+          "indentation": 0
+        },
+        {
+          "text": "REQUISITI: ",
+          "indentation": 1
+        },
+        {
+          "text": "si concentrano sui BISOGNI DELL’UTENTE",
+          "indentation": 2
+        },
+        {
+          "text": "DESIGN: ",
+          "indentation": 1
+        },
+        {
+          "text": "si concentra sulle proprietà del sistema DIRETTAMENTE PERCEPIBILI DALL’UTENTE",
+          "indentation": 2
+        },
+        {
+          "text": "può coinvolgere l’utente stesso nell’attività (“design partecipativo”)",
+          "indentation": 2
+        },
+        {
+          "text": "enfasi sulla PROTOPIPIZZATIONE della interfaccia",
+          "indentation": 2
+        },
+        {
+          "text": "VALUTAZIONE (di requisiti e design):  ",
+          "indentation": 1
+        },
+        {
+          "text": "coinvolge l’utente",
+          "indentation": 2
+        },
+        {
+          "text": "si focalizza sulla soddisfacibilità dei suoi bisogni e sulla USABILITÀ della interfaccia",
+          "indentation": 2
+        }
+      ]
+    },
+    {
+      "points": [
+        {
+          "text": "Vale la pena di investire sull’interaction design?",
+          "indentation": 0
+        },
+        {
+          "text": "1978: viene stimato che il 50% del tempo di sviluppo è sul codice dell’interfaccia (IBM)",
+          "indentation": 1
+        },
+        {
+          "text": "1992: confermati stessi risultati (Mayer & Rosson)",
+          "indentation": 1
+        }
+      ]
+    }
+  ]
+}

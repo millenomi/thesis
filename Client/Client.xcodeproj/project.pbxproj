@@ -15,6 +15,7 @@
 			dependencies = (
 				1500443D128071E900E4BF1D /* PBXTargetDependency */,
 				1500443F128071E900E4BF1D /* PBXTargetDependency */,
+				15FCC90A12D1D81B00D52E53 /* PBXTargetDependency */,
 			);
 			name = "Client (All)";
 			productName = "Client (All)";
@@ -58,6 +59,7 @@
 		1544379412759CF6003197B3 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544375E12759C90003197B3 /* NSObject+SBJSON.h */; };
 		1544379512759CF6003197B3 /* NSString+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544376012759C90003197B3 /* NSString+SBJSON.h */; };
 		1544379612759CF6003197B3 /* SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544376212759C90003197B3 /* SBJSON.h */; };
+		1555C1D112D1E4AC005A3D09 /* libBasics-Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1555C1CE12D1E49F005A3D09 /* libBasics-Mac.a */; };
 		158B8AA112C0BA81007CB814 /* SJDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 158B8A9F12C0BA81007CB814 /* SJDownloader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		158B8AA212C0BA81007CB814 /* SJDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8AA012C0BA81007CB814 /* SJDownloader.m */; };
 		158B8AA312C0BA81007CB814 /* SJDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 158B8A9F12C0BA81007CB814 /* SJDownloader.h */; };
@@ -106,6 +108,45 @@
 		15BC4F751274222400550BF6 /* ILSensorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F711274222400550BF6 /* ILSensorSession.m */; };
 		15BC4F761274222400550BF6 /* ILSensorSink.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F721274222400550BF6 /* ILSensorSink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		15BC4F771274222400550BF6 /* ILSensorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F731274222400550BF6 /* ILSensorSink.m */; };
+		15FCC8B512D1D73800D52E53 /* SJSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F3C1274216D00550BF6 /* SJSchema.h */; };
+		15FCC8B612D1D73800D52E53 /* SJLiveSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F3E1274216D00550BF6 /* SJLiveSchema.h */; };
+		15FCC8B712D1D73800D52E53 /* SJSlideSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F401274216D00550BF6 /* SJSlideSchema.h */; };
+		15FCC8B812D1D73800D52E53 /* SJPointSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F421274216D00550BF6 /* SJPointSchema.h */; };
+		15FCC8B912D1D73800D52E53 /* SJPresentationSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F441274216D00550BF6 /* SJPresentationSchema.h */; };
+		15FCC8BA12D1D73800D52E53 /* SJEndpoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F501274217300550BF6 /* SJEndpoint.h */; };
+		15FCC8BB12D1D73800D52E53 /* SJClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F60127421D500550BF6 /* SJClient.h */; };
+		15FCC8BC12D1D73800D52E53 /* ILSensorSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F701274222400550BF6 /* ILSensorSession.h */; };
+		15FCC8BD12D1D73800D52E53 /* ILSensorSink.h in Headers */ = {isa = PBXBuildFile; fileRef = 15BC4F721274222400550BF6 /* ILSensorSink.h */; };
+		15FCC8BE12D1D73800D52E53 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544375D12759C90003197B3 /* JSON.h */; };
+		15FCC8BF12D1D73800D52E53 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544375E12759C90003197B3 /* NSObject+SBJSON.h */; };
+		15FCC8C012D1D73800D52E53 /* NSString+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544376012759C90003197B3 /* NSString+SBJSON.h */; };
+		15FCC8C112D1D73800D52E53 /* SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544376212759C90003197B3 /* SBJSON.h */; };
+		15FCC8C212D1D73800D52E53 /* SJQuestionSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 150044131280702400E4BF1D /* SJQuestionSchema.h */; };
+		15FCC8C312D1D73800D52E53 /* SJDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 158B8A9F12C0BA81007CB814 /* SJDownloader.h */; };
+		15FCC8C412D1D73800D52E53 /* SJSchemaProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 158B8B5212C0C821007CB814 /* SJSchemaProvider.h */; };
+		15FCC8C512D1D73800D52E53 /* SJLiveObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 158B8DE612C0FD69007CB814 /* SJLiveObserver.h */; };
+		15FCC8C612D1D73800D52E53 /* SJSyncCoordinator.h in Headers */ = {isa = PBXBuildFile; fileRef = 15A13FC412CDE41B00C0C29D /* SJSyncCoordinator.h */; };
+		15FCC8C712D1D73800D52E53 /* SJLiveSyncController.h in Headers */ = {isa = PBXBuildFile; fileRef = 15AF554512CF720D000311EB /* SJLiveSyncController.h */; };
+		15FCC8C812D1D73800D52E53 /* SJCoreDataSyncCoordinator.h in Headers */ = {isa = PBXBuildFile; fileRef = 15AF558412CF85B3000311EB /* SJCoreDataSyncCoordinator.h */; };
+		15FCC8CA12D1D73800D52E53 /* SJSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F3D1274216D00550BF6 /* SJSchema.m */; };
+		15FCC8CB12D1D73800D52E53 /* SJLiveSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F3F1274216D00550BF6 /* SJLiveSchema.m */; };
+		15FCC8CC12D1D73800D52E53 /* SJSlideSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F411274216D00550BF6 /* SJSlideSchema.m */; };
+		15FCC8CD12D1D73800D52E53 /* SJPointSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F431274216D00550BF6 /* SJPointSchema.m */; };
+		15FCC8CE12D1D73800D52E53 /* SJPresentationSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F451274216D00550BF6 /* SJPresentationSchema.m */; };
+		15FCC8CF12D1D73800D52E53 /* SJEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F511274217300550BF6 /* SJEndpoint.m */; };
+		15FCC8D012D1D73800D52E53 /* ILSensorSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F711274222400550BF6 /* ILSensorSession.m */; };
+		15FCC8D112D1D73800D52E53 /* ILSensorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F731274222400550BF6 /* ILSensorSink.m */; };
+		15FCC8D212D1D73800D52E53 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1544375F12759C90003197B3 /* NSObject+SBJSON.m */; };
+		15FCC8D312D1D73800D52E53 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1544376112759C90003197B3 /* NSString+SBJSON.m */; };
+		15FCC8D412D1D73800D52E53 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1544376312759C90003197B3 /* SBJSON.m */; };
+		15FCC8D512D1D73800D52E53 /* SJQuestionSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 150044141280702400E4BF1D /* SJQuestionSchema.m */; };
+		15FCC8D612D1D73800D52E53 /* SJDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8AA012C0BA81007CB814 /* SJDownloader.m */; };
+		15FCC8D712D1D73800D52E53 /* SJSchemaProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8B5312C0C821007CB814 /* SJSchemaProvider.m */; };
+		15FCC8D812D1D73800D52E53 /* SJLiveObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8DE712C0FD69007CB814 /* SJLiveObserver.m */; };
+		15FCC8D912D1D73800D52E53 /* SJSyncCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A13FC512CDE41B00C0C29D /* SJSyncCoordinator.m */; };
+		15FCC8DA12D1D73800D52E53 /* SJLiveSyncController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AF554612CF720D000311EB /* SJLiveSyncController.m */; };
+		15FCC8DB12D1D73800D52E53 /* SJCoreDataSyncCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AF558512CF85B3000311EB /* SJCoreDataSyncCoordinator.m */; };
+		15FCC8DD12D1D73800D52E53 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1544378712759CEA003197B3 /* Foundation.framework */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -125,6 +166,48 @@
 			remoteGlobalIDString = 1544377312759CB4003197B3;
 			remoteInfo = "Client (iOS Library)";
 		};
+		1555C1CD12D1E49F005A3D09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1555C1C812D1E49F005A3D09 /* Basics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D /* libBasics-Mac.a */;
+			remoteInfo = "Basics (Mac)";
+		};
+		1555C1CF12D1E49F005A3D09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1555C1C812D1E49F005A3D09 /* Basics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 150F250512CD082300389F22 /* libBasics-iOS.a */;
+			remoteInfo = "Basics (iOS)";
+		};
+		1555C1D212D1E4B3005A3D09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1555C1C812D1E49F005A3D09 /* Basics.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D /* Basics (Mac) */;
+			remoteInfo = "Basics (Mac)";
+		};
+		1555C1D412D1E4B8005A3D09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1555C1C812D1E49F005A3D09 /* Basics.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 150F250412CD082300389F22 /* Basics (iOS) */;
+			remoteInfo = "Basics (iOS)";
+		};
+		1555C1D612D1E4CC005A3D09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1555C1C812D1E49F005A3D09 /* Basics.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D /* Basics (Mac) */;
+			remoteInfo = "Basics (Mac)";
+		};
+		15FCC90912D1D81B00D52E53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 15FCC8B312D1D73800D52E53;
+			remoteInfo = "Client (Mac Library, x86_64 only)";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -143,6 +226,7 @@
 		1544376312759C90003197B3 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
 		1544377412759CB4003197B3 /* libClient-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libClient-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1544378712759CEA003197B3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1555C1C812D1E49F005A3D09 /* Basics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Basics.xcodeproj; path = ../LabsFoundation.line/Foundation/Basics/Basics.xcodeproj; sourceTree = SOURCE_ROOT; };
 		158B8A9F12C0BA81007CB814 /* SJDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJDownloader.h; sourceTree = "<group>"; };
 		158B8AA012C0BA81007CB814 /* SJDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJDownloader.m; sourceTree = "<group>"; };
 		158B8AD812C0C01C007CB814 /* ILURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ILURLConnectionOperation.h; path = ../LabsFoundation.line/iOS/Networking/ILURLConnectionOperation.h; sourceTree = SOURCE_ROOT; };
@@ -179,6 +263,7 @@
 		15BC4F711274222400550BF6 /* ILSensorSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILSensorSession.m; sourceTree = "<group>"; };
 		15BC4F721274222400550BF6 /* ILSensorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILSensorSink.h; sourceTree = "<group>"; };
 		15BC4F731274222400550BF6 /* ILSensorSink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILSensorSink.m; sourceTree = "<group>"; };
+		15FCC8E112D1D73800D52E53 /* libClient-Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libClient-Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		32DBCF5E0370ADEE00C91783 /* Client_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Client_Prefix.pch; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* SJClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SJClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,10 +279,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		15FCC8DC12D1D73800D52E53 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15FCC8DD12D1D73800D52E53 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DC2EF560486A6940098B216 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1555C1D112D1E4AC005A3D09 /* libBasics-Mac.a in Frameworks */,
 				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
 				158B8B4B12C0C7CB007CB814 /* SystemConfiguration.framework in Frameworks */,
 			);
@@ -211,6 +305,7 @@
 			children = (
 				8DC2EF5B0486A6940098B216 /* SJClient.framework */,
 				1544377412759CB4003197B3 /* libClient-iOS.a */,
+				15FCC8E112D1D73800D52E53 /* libClient-Mac.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -218,6 +313,7 @@
 		0867D691FE84028FC02AAC07 /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				1555C1C812D1E49F005A3D09 /* Basics.xcodeproj */,
 				15BC4F60127421D500550BF6 /* SJClient.h */,
 				158B8AD712C0C01C007CB814 /* URL connection operations */,
 				15BC4F3B1274215D00550BF6 /* Classes */,
@@ -279,6 +375,15 @@
 				1544376312759C90003197B3 /* SBJSON.m */,
 			);
 			path = SBJSON;
+			sourceTree = "<group>";
+		};
+		1555C1C912D1E49F005A3D09 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1555C1CE12D1E49F005A3D09 /* libBasics-Mac.a */,
+				1555C1D012D1E49F005A3D09 /* libBasics-iOS.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		158B8AD712C0C01C007CB814 /* URL connection operations */ = {
@@ -386,6 +491,33 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		15FCC8B412D1D73800D52E53 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15FCC8B512D1D73800D52E53 /* SJSchema.h in Headers */,
+				15FCC8B612D1D73800D52E53 /* SJLiveSchema.h in Headers */,
+				15FCC8B712D1D73800D52E53 /* SJSlideSchema.h in Headers */,
+				15FCC8B812D1D73800D52E53 /* SJPointSchema.h in Headers */,
+				15FCC8B912D1D73800D52E53 /* SJPresentationSchema.h in Headers */,
+				15FCC8BA12D1D73800D52E53 /* SJEndpoint.h in Headers */,
+				15FCC8BB12D1D73800D52E53 /* SJClient.h in Headers */,
+				15FCC8BC12D1D73800D52E53 /* ILSensorSession.h in Headers */,
+				15FCC8BD12D1D73800D52E53 /* ILSensorSink.h in Headers */,
+				15FCC8BE12D1D73800D52E53 /* JSON.h in Headers */,
+				15FCC8BF12D1D73800D52E53 /* NSObject+SBJSON.h in Headers */,
+				15FCC8C012D1D73800D52E53 /* NSString+SBJSON.h in Headers */,
+				15FCC8C112D1D73800D52E53 /* SBJSON.h in Headers */,
+				15FCC8C212D1D73800D52E53 /* SJQuestionSchema.h in Headers */,
+				15FCC8C312D1D73800D52E53 /* SJDownloader.h in Headers */,
+				15FCC8C412D1D73800D52E53 /* SJSchemaProvider.h in Headers */,
+				15FCC8C512D1D73800D52E53 /* SJLiveObserver.h in Headers */,
+				15FCC8C612D1D73800D52E53 /* SJSyncCoordinator.h in Headers */,
+				15FCC8C712D1D73800D52E53 /* SJLiveSyncController.h in Headers */,
+				15FCC8C812D1D73800D52E53 /* SJCoreDataSyncCoordinator.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DC2EF500486A6940098B216 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -430,10 +562,29 @@
 			buildRules = (
 			);
 			dependencies = (
+				1555C1D512D1E4B8005A3D09 /* PBXTargetDependency */,
 			);
 			name = "Client (iOS Library)";
 			productName = "Client (iOS library)";
 			productReference = 1544377412759CB4003197B3 /* libClient-iOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		15FCC8B312D1D73800D52E53 /* Client (Mac Library) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 15FCC8DE12D1D73800D52E53 /* Build configuration list for PBXNativeTarget "Client (Mac Library)" */;
+			buildPhases = (
+				15FCC8B412D1D73800D52E53 /* Headers */,
+				15FCC8C912D1D73800D52E53 /* Sources */,
+				15FCC8DC12D1D73800D52E53 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1555C1D712D1E4CC005A3D09 /* PBXTargetDependency */,
+			);
+			name = "Client (Mac Library)";
+			productName = "Client (iOS library)";
+			productReference = 15FCC8E112D1D73800D52E53 /* libClient-Mac.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		8DC2EF4F0486A6940098B216 /* Client (Mac Framework) */ = {
@@ -448,6 +599,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				1555C1D312D1E4B3005A3D09 /* PBXTargetDependency */,
 			);
 			name = "Client (Mac Framework)";
 			productInstallPath = "$(HOME)/Library/Frameworks";
@@ -473,14 +625,38 @@
 			mainGroup = 0867D691FE84028FC02AAC07 /* Client */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1555C1C912D1E49F005A3D09 /* Products */;
+					ProjectRef = 1555C1C812D1E49F005A3D09 /* Basics.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8DC2EF4F0486A6940098B216 /* Client (Mac Framework) */,
 				1544377312759CB4003197B3 /* Client (iOS Library) */,
 				15004438128071E400E4BF1D /* Client (All) */,
+				15FCC8B312D1D73800D52E53 /* Client (Mac Library) */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1555C1CE12D1E49F005A3D09 /* libBasics-Mac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libBasics-Mac.a";
+			remoteRef = 1555C1CD12D1E49F005A3D09 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1555C1D012D1E49F005A3D09 /* libBasics-iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libBasics-iOS.a";
+			remoteRef = 1555C1CF12D1E49F005A3D09 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8DC2EF520486A6940098B216 /* Resources */ = {
@@ -516,6 +692,31 @@
 				15A13FC912CDE41B00C0C29D /* SJSyncCoordinator.m in Sources */,
 				15AF554A12CF720D000311EB /* SJLiveSyncController.m in Sources */,
 				15AF558712CF85B3000311EB /* SJCoreDataSyncCoordinator.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15FCC8C912D1D73800D52E53 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15FCC8CA12D1D73800D52E53 /* SJSchema.m in Sources */,
+				15FCC8CB12D1D73800D52E53 /* SJLiveSchema.m in Sources */,
+				15FCC8CC12D1D73800D52E53 /* SJSlideSchema.m in Sources */,
+				15FCC8CD12D1D73800D52E53 /* SJPointSchema.m in Sources */,
+				15FCC8CE12D1D73800D52E53 /* SJPresentationSchema.m in Sources */,
+				15FCC8CF12D1D73800D52E53 /* SJEndpoint.m in Sources */,
+				15FCC8D012D1D73800D52E53 /* ILSensorSession.m in Sources */,
+				15FCC8D112D1D73800D52E53 /* ILSensorSink.m in Sources */,
+				15FCC8D212D1D73800D52E53 /* NSObject+SBJSON.m in Sources */,
+				15FCC8D312D1D73800D52E53 /* NSString+SBJSON.m in Sources */,
+				15FCC8D412D1D73800D52E53 /* SBJSON.m in Sources */,
+				15FCC8D512D1D73800D52E53 /* SJQuestionSchema.m in Sources */,
+				15FCC8D612D1D73800D52E53 /* SJDownloader.m in Sources */,
+				15FCC8D712D1D73800D52E53 /* SJSchemaProvider.m in Sources */,
+				15FCC8D812D1D73800D52E53 /* SJLiveObserver.m in Sources */,
+				15FCC8D912D1D73800D52E53 /* SJSyncCoordinator.m in Sources */,
+				15FCC8DA12D1D73800D52E53 /* SJLiveSyncController.m in Sources */,
+				15FCC8DB12D1D73800D52E53 /* SJCoreDataSyncCoordinator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,6 +760,26 @@
 			isa = PBXTargetDependency;
 			target = 1544377312759CB4003197B3 /* Client (iOS Library) */;
 			targetProxy = 1500443E128071E900E4BF1D /* PBXContainerItemProxy */;
+		};
+		1555C1D312D1E4B3005A3D09 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Basics (Mac)";
+			targetProxy = 1555C1D212D1E4B3005A3D09 /* PBXContainerItemProxy */;
+		};
+		1555C1D512D1E4B8005A3D09 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Basics (iOS)";
+			targetProxy = 1555C1D412D1E4B8005A3D09 /* PBXContainerItemProxy */;
+		};
+		1555C1D712D1E4CC005A3D09 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Basics (Mac)";
+			targetProxy = 1555C1D612D1E4CC005A3D09 /* PBXContainerItemProxy */;
+		};
+		15FCC90A12D1D81B00D52E53 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 15FCC8B312D1D73800D52E53 /* Client (Mac Library) */;
+			targetProxy = 15FCC90912D1D81B00D52E53 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -604,6 +825,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../LabsFoundation.line";
 				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
 				PRODUCT_NAME = "Client-iOS";
@@ -620,10 +842,48 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../LabsFoundation.line";
 				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
 				PRODUCT_NAME = "Client-iOS";
 				SDKROOT = iphoneos;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		15FCC8DF12D1D73800D52E53 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../LabsFoundation.line";
+				ONLY_ACTIVE_ARCH = NO;
+				PREBINDING = NO;
+				PRODUCT_NAME = "Client-Mac";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		15FCC8E012D1D73800D52E53 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../LabsFoundation.line";
+				ONLY_ACTIVE_ARCH = NO;
+				PREBINDING = NO;
+				PRODUCT_NAME = "Client-Mac";
+				SDKROOT = macosx;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -645,6 +905,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Client_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../LabsFoundation.line";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
@@ -668,6 +929,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Client_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../LabsFoundation.line";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@loader_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
@@ -720,6 +982,15 @@
 			buildConfigurations = (
 				1544377512759CB5003197B3 /* Debug */,
 				1544377612759CB5003197B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		15FCC8DE12D1D73800D52E53 /* Build configuration list for PBXNativeTarget "Client (Mac Library)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15FCC8DF12D1D73800D52E53 /* Debug */,
+				15FCC8E012D1D73800D52E53 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

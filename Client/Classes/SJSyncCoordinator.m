@@ -41,6 +41,7 @@
 
 - (void) dealloc
 {
+	[[self.syncControllers allValues] makeObjectsPerformSelector:@selector(setSyncCoordinator:) withObject:nil];
 	self.syncControllers = nil;
 	
 	self.downloader.delegate = nil;
@@ -80,11 +81,15 @@
 
 - (void) setSyncController:(id <SJSyncController>)ctl forEntitiesWithSnapshotsClass:(Class)c;
 {
+	NSAssert(!ctl.syncCoordinator || ctl.syncCoordinator == self, @"Cannot share a controller between multiple coordinators");
+	ctl.syncCoordinator = self;
 	[self.syncControllers setObject:ctl forKey:c];
 }
 
 - (void) removeSyncControllerForEntitiesWithSnapshotsClass:(Class)c;
 {
+	id <SJSyncController> ctl = [self.syncControllers objectForKey:c];
+	ctl.syncCoordinator = nil;
 	[self.syncControllers removeObjectForKey:c];
 }
 
@@ -134,7 +139,7 @@
 		return;
 	}
 	
-	id snapshot;
+	id snapshot = nil;
 	if (update.snapshotKind == kSJEntityUpdateSnapshotKindSchema) {
 		// TODO below, call didFailDownloading… with appropriate NSErrors instead of just returning.
 			
@@ -143,10 +148,10 @@
 			return;
 		
 		id dict = [downloadedString JSONValue];
-		if (![dict isKindOfClass:[NSDictionary dictionary]])
+		if (![dict isKindOfClass:[NSDictionary class]])
 			return;
 		
-		id snapshot = [[[update.snapshotsClass alloc] initWithJSONDictionaryValue:dict error:NULL] autorelease];
+		snapshot = [[[update.snapshotsClass alloc] initWithJSONDictionaryValue:dict error:NULL] autorelease];
 		if (!snapshot)
 			return;
 	} else {
@@ -166,6 +171,29 @@
 
 @end
 
+#define ILCaseReturningNameOfConstant(x) \
+	case x: \
+		return @#x;
+
+CF_INLINE NSString* SJEntityUpdateSnapshotKindDescription(SJEntityUpdateSnapshotKind k) {
+	switch (k) {
+		ILCaseReturningNameOfConstant(kSJEntityUpdateSnapshotKindSchema)
+		ILCaseReturningNameOfConstant(kSJEntityUpdateSnapshotKindData)
+		default:
+			return @"???";
+	}
+}
+
+CF_INLINE NSString* SJDownloadPriorityDescription(SJDownloadPriority p) {
+	switch (p) {
+		ILCaseReturningNameOfConstant(kSJDownloadPriorityLiveUpdate)
+		ILCaseReturningNameOfConstant(kSJDownloadPriorityResourceForImmediateDisplay)
+		ILCaseReturningNameOfConstant(kSJDownloadPrioritySubresourceForImmediateDisplay)
+		ILCaseReturningNameOfConstant(kSJDownloadPriorityOpportunistic)
+		default:
+			return @"???";
+	}
+}
 
 @implementation SJEntityUpdate
 
@@ -232,6 +260,18 @@
 }
 
 @synthesize referrerEntityUpdate, snapshotKind, userInfo;
+
+- (NSString *) description;
+{
+	return [NSString stringWithFormat:@"%@ { update for entity at URL: %@, with snapshots class: %@, snapshot kind: %@, download priority: %@, referrer update: %@, user info: %@ }",
+			[super description],
+			self.URL,
+			self.snapshotsClass,
+			SJEntityUpdateSnapshotKindDescription(self.snapshotKind),
+			SJDownloadPriorityDescription(self.downloadPriority),
+			self.referrerEntityUpdate,
+			self.userInfo];
+}
 
 @end
 

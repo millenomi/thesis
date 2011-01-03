@@ -7,6 +7,7 @@
 //
 
 #import "SJCoreDataSyncCoordinator.h"
+#import "Foundation/Basics/ILErrorHandling.h"
 
 @interface SJCoreDataSyncController ()
 
@@ -16,6 +17,18 @@
 
 
 @implementation SJCoreDataSyncController
+
++ (id) addControllerWithManagedObjectContext:(NSManagedObjectContext*) moc toCoordinator:(SJSyncCoordinator*) coord;
+{
+	SJCoreDataSyncController* me = [[[self alloc] initWithManagedObjectContext:moc] autorelease];
+	[me addToCoordinator:coord];
+	return me;
+}
+
+- (void) addToCoordinator:(SJSyncCoordinator*) coord;
+{
+	ILAbstractMethod();
+}
 
 - (id) initWithManagedObjectContext:(NSManagedObjectContext*) moc;
 {

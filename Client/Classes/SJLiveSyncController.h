@@ -14,9 +14,10 @@
 
 @interface SJLiveSyncController : NSObject <SJSyncController> {}
 
-+ addControllerForLiveURL:(NSURL*) url toCoordinator:(SJSyncCoordinator*) coord;
++ addControllerForLiveURL:(NSURL*) url delegate:(id <SJLiveSyncControllerDelegate>) d toCoordinator:(SJSyncCoordinator*) coord;
 
 - (id) initWithLiveURL:(NSURL*) url;
+- (void) addToCoordinator:(SJSyncCoordinator*) coord;
 
 @property(nonatomic, assign) id <SJLiveSyncControllerDelegate> delegate;
 

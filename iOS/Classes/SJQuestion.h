@@ -10,7 +10,7 @@
 #import "SJPoint.h"
 #import "ILManagedObject.h"
 
-#import "SJQuestionSchema.h" // for the kSJQuestion*Kind constants
+#import "SJClient.h" // for the kSJQuestion*Kind constants
 
 @interface SJQuestion : ILManagedObject
 

@@ -16,15 +16,18 @@
 @property(nonatomic, copy) SJLiveSchema* lastDownloadedSnapshot;
 @property(nonatomic, copy) NSURL* URL;
 
+@property(nonatomic, retain) NSTimer* updateTimer;
+
 @end
 
 
 @implementation SJLiveSyncController
 
-+ addControllerForLiveURL:(NSURL*) url toCoordinator:(SJSyncCoordinator*) coord;
++ addControllerForLiveURL:(NSURL*) url delegate:(id <SJLiveSyncControllerDelegate>) d toCoordinator:(SJSyncCoordinator*) coord;
 {
-	id me = [[[self alloc] initWithLiveURL:url] autorelease];
-	[coord setSyncController:me forEntitiesWithSnapshotsClass:[SJLiveSchema class]];
+	SJLiveSyncController* me = [[[self alloc] initWithLiveURL:url] autorelease];
+	me.delegate = d;
+	[me addToCoordinator:coord];
 	return me;
 }
 
@@ -39,16 +42,48 @@
 
 - (void) dealloc
 {
+	[self.updateTimer invalidate];
+	self.updateTimer = nil;
+	
 	self.URL = nil;
 	self.lastDownloadedSnapshot = nil;
+		
 	[super dealloc];
 }
 
-@synthesize URL, lastDownloadedSnapshot, delegate;
+@synthesize URL, lastDownloadedSnapshot, delegate, updateTimer;
+
+- (void) addToCoordinator:(SJSyncCoordinator*) coord;
+{
+	[coord setSyncController:self forEntitiesWithSnapshotsClass:[SJLiveSchema class]];
+}
 
 #pragma mark The actual sync stuff
 
 @synthesize syncCoordinator;
+- (void) setSyncCoordinator:(SJSyncCoordinator *) sc;
+{
+	if (sc != syncCoordinator) {
+		
+		syncCoordinator = sc;
+		
+		if (syncCoordinator && !self.updateTimer) {
+			self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(tick:) userInfo:nil repeats:YES];
+		} else if (!syncCoordinator) {
+			[self.updateTimer invalidate];
+			self.updateTimer = nil;
+		}
+		
+	}
+}
+
+- (void) tick:(NSTimer*) t;
+{
+	NSLog(@"Did tick: %@", self);
+	SJEntityUpdate* update = [SJEntityUpdate updateWithSnapshotsClass:[SJLiveSchema class] URL:self.URL];
+	update.downloadPriority = kSJDownloadPriorityLiveUpdate;
+	[self.syncCoordinator processUpdate:update];
+}
 
 - (BOOL) shouldDownloadSnapshotForUpdate:(SJEntityUpdate *)update;
 {
@@ -64,14 +99,6 @@
 {
 	SJLiveSchema* live = snapshot;
 	if (live.slide) {
-		[self.syncCoordinator processUpdate:[update relatedUpdateWithAvailableSnapshot:live.slide URL:[update relativeURLTo:live.slide.URLString] refers:NO]];
-		
-		for (NSString* s in live.moodURLStrings)
-			[self.syncCoordinator processUpdate:[update relatedUpdateWithSnapshotClass:[SJMoodSchema class] URL:[update relativeURLTo:s] refers:NO]];
-		
-		for (NSString* q in live.URLStringsOfQuestionsPostedDuringLive)
-			[self.syncCoordinator processUpdate:[update relatedUpdateWithSnapshotClass:[SJQuestionSchema class] URL:[update relativeURLTo:q] refers:NO]];
-		
 		SJLiveSchema* old = [[self.lastDownloadedSnapshot retain] autorelease];
 		self.lastDownloadedSnapshot = live;
 		
@@ -87,6 +114,14 @@
 		
 		if (didStart || (![live isFinished] && ![old.slide isEqual:live.slide])) {
 			[self.delegate live:self didMoveToSlideAtURL:[update relativeURLTo:live.slide.URLString] schema:live.slide];
+
+			[self.syncCoordinator processUpdate:[update relatedUpdateWithAvailableSnapshot:live.slide URL:[update relativeURLTo:live.slide.URLString] refers:NO]];
+			
+			for (NSString* s in live.moodURLStrings)
+				[self.syncCoordinator processUpdate:[update relatedUpdateWithSnapshotClass:[SJMoodSchema class] URL:[update relativeURLTo:s] refers:NO]];
+			
+			for (NSString* q in live.URLStringsOfQuestionsPostedDuringLive)
+				[self.syncCoordinator processUpdate:[update relatedUpdateWithSnapshotClass:[SJQuestionSchema class] URL:[update relativeURLTo:q] refers:NO]];
 		}
 		
 		if (![live isFinished]) {
