@@ -16,8 +16,10 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSSet* slides;
 @property (nonatomic, retain) NSString * URLString;
+@property (nonatomic, retain) NSNumber * knownCountOfSlides;
 
 @property(nonatomic, copy) NSURL* URL;
+@property(nonatomic) NSUInteger knownCountOfSlidesValue;
 
 + presentationWithURL:(NSURL*) url fromContext:(NSManagedObjectContext*) moc;
 

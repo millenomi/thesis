@@ -90,9 +90,10 @@
 	return (!update.availableSnapshot || ![update.availableSnapshot isEqual:self.lastDownloadedSnapshot]);
 }
 
-- (void) didFailDownloadingUpdate:(SJEntityUpdate *)update error:(NSError *)error;
+- (BOOL) shouldRescheduleFailedDownloadForUpdate:(SJEntityUpdate*) update error:(NSError*) error;
 {
 	[self.delegate live:self didFailToLoadWithError:error];
+	return NO;
 }
 
 - (void) processSnapshot:(id)snapshot forUpdate:(SJEntityUpdate *)update;
@@ -118,10 +119,10 @@
 			[self.syncCoordinator processUpdate:[update relatedUpdateWithAvailableSnapshot:live.slide URL:[update relativeURLTo:live.slide.URLString] refers:NO]];
 			
 			for (NSString* s in live.moodURLStrings)
-				[self.syncCoordinator processUpdate:[update relatedUpdateWithSnapshotClass:[SJMoodSchema class] URL:[update relativeURLTo:s] refers:NO]];
+				[self.syncCoordinator processUpdate:[update relatedUpdateWithSnapshotsClass:[SJMoodSchema class] URL:[update relativeURLTo:s] refers:NO]];
 			
 			for (NSString* q in live.URLStringsOfQuestionsPostedDuringLive)
-				[self.syncCoordinator processUpdate:[update relatedUpdateWithSnapshotClass:[SJQuestionSchema class] URL:[update relativeURLTo:q] refers:NO]];
+				[self.syncCoordinator processUpdate:[update relatedUpdateWithSnapshotsClass:[SJQuestionSchema class] URL:[update relativeURLTo:q] refers:NO]];
 		}
 		
 		if (![live isFinished]) {

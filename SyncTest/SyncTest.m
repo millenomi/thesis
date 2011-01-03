@@ -4,6 +4,7 @@
 #import "Foundation/Basics/ILErrorHandling.h"
 #import "SJClient.h"
 #import "SJSlideSync.h"
+#import "SJPresentationSync.h"
 
 // ------------ the sync controller delegate
 
@@ -42,6 +43,7 @@ int main (int argc, const char * argv[]) {
 	SJSyncCoordinator* coord = [[SJSyncCoordinator alloc] init];
 	[SJLiveSyncController addControllerForLiveURL:[NSURL URLWithString:@"/live" relativeToURL:baseURL] delegate:[SJTestLiveSyncDelegate new] toCoordinator:coord];
 	[SJSlideSync addControllerWithManagedObjectContext:moc toCoordinator:coord];
+	[SJPresentationSync addControllerWithManagedObjectContext:moc toCoordinator:coord];
 	
 	// ---------------------------------
 	

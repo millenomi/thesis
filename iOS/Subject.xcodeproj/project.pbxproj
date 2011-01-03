@@ -10,6 +10,7 @@
 		1538E01312A1573700D5A056 /* EmoticonToolbarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1538E01112A1573700D5A056 /* EmoticonToolbarIcon.png */; };
 		1538E01412A1573700D5A056 /* EmoticonToolbarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1538E01212A1573700D5A056 /* EmoticonToolbarIcon@2x.png */; };
 		154437B112759D88003197B3 /* libClient-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 154437B012759D80003197B3 /* libClient-iOS.a */; };
+		1555C25712D1EC1E005A3D09 /* SJPresentationSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 1555C25612D1EC1E005A3D09 /* SJPresentationSync.m */; };
 		15620EF912C2373A009750D1 /* SJPresentationPane_v2.m in Sources */ = {isa = PBXBuildFile; fileRef = 15620EF812C2373A009750D1 /* SJPresentationPane_v2.m */; };
 		156F244A12734EA9000BC614 /* SJPresentationPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F244912734EA9000BC614 /* SJPresentationPane.m */; };
 		156F244C12734FC7000BC614 /* SJPresentationPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156F244B12734FC7000BC614 /* SJPresentationPane.xib */; };
@@ -146,7 +147,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 154437A812759D80003197B3 /* Client.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 15FCC8E112D1D73800D52E53 /* libClient-iOS.a */;
+			remoteGlobalIDString = 15FCC8E112D1D73800D52E53;
 			remoteInfo = "Client (iOS Library) copy";
 		};
 /* End PBXContainerItemProxy section */
@@ -156,6 +157,8 @@
 		1538E01112A1573700D5A056 /* EmoticonToolbarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = EmoticonToolbarIcon.png; path = ../Art/EmoticonToolbarIcon.png; sourceTree = SOURCE_ROOT; };
 		1538E01212A1573700D5A056 /* EmoticonToolbarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EmoticonToolbarIcon@2x.png"; path = "../Art/EmoticonToolbarIcon@2x.png"; sourceTree = SOURCE_ROOT; };
 		154437A812759D80003197B3 /* Client.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Client.xcodeproj; path = ../Client/Client.xcodeproj; sourceTree = SOURCE_ROOT; };
+		1555C25512D1EC1E005A3D09 /* SJPresentationSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentationSync.h; sourceTree = "<group>"; };
+		1555C25612D1EC1E005A3D09 /* SJPresentationSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPresentationSync.m; sourceTree = "<group>"; };
 		15620EF712C2373A009750D1 /* SJPresentationPane_v2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentationPane_v2.h; sourceTree = "<group>"; };
 		15620EF812C2373A009750D1 /* SJPresentationPane_v2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPresentationPane_v2.m; sourceTree = "<group>"; };
 		156F244812734EA9000BC614 /* SJPresentationPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentationPane.h; sourceTree = "<group>"; };
@@ -282,7 +285,7 @@
 			children = (
 				154437AE12759D80003197B3 /* SJClient.framework */,
 				154437B012759D80003197B3 /* libClient-iOS.a */,
-				15FCC8E412D1D73800D52E53 /* libClient-iOS.a */,
+				15FCC8E412D1D73800D52E53 /* libClient-Mac.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -337,6 +340,8 @@
 			children = (
 				15AF560012CF8A72000311EB /* SJSlideSync.h */,
 				15AF560112CF8A72000311EB /* SJSlideSync.m */,
+				1555C25512D1EC1E005A3D09 /* SJPresentationSync.h */,
+				1555C25612D1EC1E005A3D09 /* SJPresentationSync.m */,
 			);
 			name = Sync;
 			sourceTree = "<group>";
@@ -588,10 +593,10 @@
 			remoteRef = 15FBF1E412817F93005D68B6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		15FCC8E412D1D73800D52E53 /* libClient-iOS.a */ = {
+		15FCC8E412D1D73800D52E53 /* libClient-Mac.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libClient-iOS.a";
+			path = "libClient-Mac.a";
 			remoteRef = 15FCC8E312D1D73800D52E53 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -670,6 +675,7 @@
 				158B8A3712C09E6B007CB814 /* ILNSLoggerSensorTap.m in Sources */,
 				15620EF912C2373A009750D1 /* SJPresentationPane_v2.m in Sources */,
 				15AF560212CF8A72000311EB /* SJSlideSync.m in Sources */,
+				1555C25712D1EC1E005A3D09 /* SJPresentationSync.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

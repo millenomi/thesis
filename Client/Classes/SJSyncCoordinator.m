@@ -135,7 +135,11 @@
 	id <SJSyncController> ctl = [self syncControllerForEntitiesOfClass:update.snapshotsClass];
 	
 	if (req.error) {
-		[ctl didFailDownloadingUpdate:update error:req.error];
+		BOOL reschedule = [ctl shouldRescheduleFailedDownloadForUpdate:update error:req.error];
+		
+		if (reschedule)
+			[self processUpdate:update];
+		
 		return;
 	}
 	
@@ -223,7 +227,7 @@ CF_INLINE NSString* SJDownloadPriorityDescription(SJDownloadPriority p) {
 	return me;
 }
 
-- (SJEntityUpdate*) relatedUpdateWithSnapshotClass:(Class) c URL:(NSURL*) url refers:(BOOL) ref;
+- (SJEntityUpdate*) relatedUpdateWithSnapshotsClass:(Class) c URL:(NSURL*) url refers:(BOOL) ref;
 {
 	SJEntityUpdate* related = [[self class] updateWithSnapshotsClass:c URL:url];
 	switch (self.downloadPriority) {
@@ -249,7 +253,7 @@ CF_INLINE NSString* SJDownloadPriorityDescription(SJDownloadPriority p) {
 
 - (SJEntityUpdate*) relatedUpdateWithAvailableSnapshot:(id) snap URL:(NSURL*) url refers:(BOOL) ref;
 {
-	SJEntityUpdate* related = [self relatedUpdateWithSnapshotClass:[snap class] URL:url refers:ref];
+	SJEntityUpdate* related = [self relatedUpdateWithSnapshotsClass:[snap class] URL:url refers:ref];
 	related.availableSnapshot = snap;
 	return related;
 }

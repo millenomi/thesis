@@ -66,7 +66,7 @@
 		}];
 		
 		[self.syncCoordinator processUpdate:
-		 [SJEntityUpdate updateWithSnapshotsClass:[SJPresentationSchema class] URL:presentationURL]
+		 [update relatedUpdateWithSnapshotsClass:[SJPresentationSchema class] URL:presentationURL refers:NO]
 		 ];
 	}
 	
@@ -90,7 +90,7 @@
 	
 	if (!slide.imageData && schema.imageURLString) {
 		SJEntityUpdate* imageUpdate = 
-			[update relatedUpdateWithSnapshotClass:[SJSlideSchema class] URL:[update relativeURLTo:schema.imageURLString] refers:YES];
+			[update relatedUpdateWithSnapshotsClass:[SJSlideSchema class] URL:[update relativeURLTo:schema.imageURLString] refers:YES];
 		
 		imageUpdate.userInfo = @"image";
 		imageUpdate.snapshotKind = kSJEntityUpdateSnapshotKindData;

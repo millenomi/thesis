@@ -14,15 +14,26 @@
 @dynamic title;
 @dynamic slides;
 @dynamic URLString;
+@dynamic knownCountOfSlides;
 
 - (NSURL*) URL;
 {
-	return [NSURL URLWithString:self.URLString];
+	return self.URLString? [NSURL URLWithString:self.URLString] : nil;
 }
 
 - (void) setURL:(NSURL*) u;
 {
 	self.URLString = [u absoluteString];
+}
+
+- (NSUInteger) knownCountOfSlidesValue;
+{
+	return self.knownCountOfSlides? [self.knownCountOfSlides unsignedIntegerValue] : 0;
+}
+
+- (void) setKnownCountOfSlidesValue:(NSUInteger) v;
+{
+	self.knownCountOfSlides = [NSNumber numberWithUnsignedInteger:v];
 }
 
 + presentationWithURL:(NSURL*) url fromContext:(NSManagedObjectContext*) moc;

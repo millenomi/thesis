@@ -98,9 +98,9 @@
 	return obj;
 }
 
-- (void) didFailDownloadingUpdate:(SJEntityUpdate*) update error:(NSError*) error;
+- (BOOL) shouldRescheduleFailedDownloadForUpdate:(SJEntityUpdate*) update error:(NSError*) error;
 {
-	// this method intentionally left blank
+	return [self shouldDownloadSnapshotForUpdate:update];
 }
 
 - (void) processSnapshot:(id)snapshot forUpdate:(SJEntityUpdate *)update correspondingToFetchedObject:(id) obj;

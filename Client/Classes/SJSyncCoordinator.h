@@ -36,7 +36,10 @@ typedef NSInteger SJEntityUpdateSnapshotKind;
 + updateWithSnapshotsClass:(Class) c URL:(NSURL*) url;
 + updateWithAvailableSnapshot:(id) snap URL:(NSURL*) url;
 
-- (SJEntityUpdate*) relatedUpdateWithSnapshotClass:(Class) c URL:(NSURL*) url refers:(BOOL) ref;
+// To be used whenever this update needs:
+// - a subresource for immediate display; or
+// - a superresource.
+- (SJEntityUpdate*) relatedUpdateWithSnapshotsClass:(Class) c URL:(NSURL*) url refers:(BOOL) ref;
 - (SJEntityUpdate*) relatedUpdateWithAvailableSnapshot:(id) snap URL:(NSURL*) url refers:(BOOL) ref;
 
 - (NSURL*) relativeURLTo:(NSString*) path;
@@ -60,7 +63,7 @@ typedef NSInteger SJEntityUpdateSnapshotKind;
 - (BOOL) shouldDownloadSnapshotForUpdate:(SJEntityUpdate*) update;
 - (void) processSnapshot:(id) snapshot forUpdate:(SJEntityUpdate*) update;
 
-- (void) didFailDownloadingUpdate:(SJEntityUpdate*) update error:(NSError*) error;
+- (BOOL) shouldRescheduleFailedDownloadForUpdate:(SJEntityUpdate*) update error:(NSError*) error;
 
 @property(nonatomic, assign) SJSyncCoordinator* syncCoordinator;
 
