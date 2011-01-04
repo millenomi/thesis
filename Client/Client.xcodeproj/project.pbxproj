@@ -158,35 +158,35 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 1555C1C812D1E49F005A3D09 /* Basics.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D /* libBasics-Mac.a */;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
 			remoteInfo = "Basics (Mac)";
 		};
 		1555C1CF12D1E49F005A3D09 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1555C1C812D1E49F005A3D09 /* Basics.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 150F250512CD082300389F22 /* libBasics-iOS.a */;
+			remoteGlobalIDString = 150F250512CD082300389F22;
 			remoteInfo = "Basics (iOS)";
 		};
 		1555C1D212D1E4B3005A3D09 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1555C1C812D1E49F005A3D09 /* Basics.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D /* Basics (Mac) */;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = "Basics (Mac)";
 		};
 		1555C1D412D1E4B8005A3D09 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1555C1C812D1E49F005A3D09 /* Basics.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 150F250412CD082300389F22 /* Basics (iOS) */;
+			remoteGlobalIDString = 150F250412CD082300389F22;
 			remoteInfo = "Basics (iOS)";
 		};
 		1555C1D612D1E4CC005A3D09 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1555C1C812D1E49F005A3D09 /* Basics.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D /* Basics (Mac) */;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = "Basics (Mac)";
 		};
 		15FCC90912D1D81B00D52E53 /* PBXContainerItemProxy */ = {

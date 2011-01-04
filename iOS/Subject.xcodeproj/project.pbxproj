@@ -40,6 +40,7 @@
 		15A46B47129FA50B00EC7A42 /* FastForwardArrowToolbarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A46B45129FA50B00EC7A42 /* FastForwardArrowToolbarIcon.png */; };
 		15A46B48129FA50B00EC7A42 /* FastForwardArrowToolbarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15A46B46129FA50B00EC7A42 /* FastForwardArrowToolbarIcon@2x.png */; };
 		15AF560212CF8A72000311EB /* SJSlideSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AF560112CF8A72000311EB /* SJSlideSync.m */; };
+		15B0370612D3213E000BA8B8 /* SJPresentationPane_v2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15B0370512D3213E000BA8B8 /* SJPresentationPane_v2.xib */; };
 		15C044EB12A2A13E00AD97AA /* SJMoodPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C044EA12A2A13E00AD97AA /* SJMoodPicker.m */; };
 		15C0451012A2F0E600AD97AA /* SJMoodPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15C0450F12A2F0E600AD97AA /* SJMoodPicker.xib */; };
 		15C0451812A2F32200AD97AA /* RightShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C0451712A2F32200AD97AA /* RightShadow.png */; };
@@ -200,6 +201,7 @@
 		15A46B46129FA50B00EC7A42 /* FastForwardArrowToolbarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "FastForwardArrowToolbarIcon@2x.png"; path = "../Art/FastForwardArrowToolbarIcon@2x.png"; sourceTree = SOURCE_ROOT; };
 		15AF560012CF8A72000311EB /* SJSlideSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSlideSync.h; sourceTree = "<group>"; };
 		15AF560112CF8A72000311EB /* SJSlideSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSlideSync.m; sourceTree = "<group>"; };
+		15B0370512D3213E000BA8B8 /* SJPresentationPane_v2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJPresentationPane_v2.xib; sourceTree = "<group>"; };
 		15C044E912A2A13E00AD97AA /* SJMoodPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJMoodPicker.h; sourceTree = "<group>"; };
 		15C044EA12A2A13E00AD97AA /* SJMoodPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJMoodPicker.m; sourceTree = "<group>"; };
 		15C0450F12A2F0E600AD97AA /* SJMoodPicker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJMoodPicker.xib; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				15AF55FF12CF8A67000311EB /* Sync */,
 				15620EF712C2373A009750D1 /* SJPresentationPane_v2.h */,
 				15620EF812C2373A009750D1 /* SJPresentationPane_v2.m */,
+				15B0370512D3213E000BA8B8 /* SJPresentationPane_v2.xib */,
 			);
 			name = "New-style Client Stuff";
 			sourceTree = "<group>";
@@ -658,6 +661,7 @@
 				15C0465312A3B40B00AD97AA /* PopoverArrow.png in Resources */,
 				15C0465412A3B40B00AD97AA /* PopoverArrow@2x.png in Resources */,
 				15C6EF4212A6972A0030C085 /* Settings.bundle in Resources */,
+				15B0370612D3213E000BA8B8 /* SJPresentationPane_v2.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,7 +15,16 @@
 
 #import "SJClient.h"
 
+#import "SJSlideSync.h"
+#import "SJPresentationSync.h"
+#import "SJPointSync.h"
+#import "SJQuestionSync.h"
+
 @interface SJAppDelegate ()
+
+@property(nonatomic, retain) SJSyncCoordinator* syncCoordinator;
+@property(nonatomic, retain) SJLiveSyncController* liveSyncController;
+
 @end
 
 
@@ -24,6 +33,8 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
+@synthesize syncCoordinator, liveSyncController;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
 	application.idleTimerDisabled = YES;
@@ -31,16 +42,28 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDefaultsDidChange:) name:NSUserDefaultsDidChangeNotification object:nil];
 	
 	[[ILSensorSink sharedSink] addTap:[[ILNSLoggerSensorTap new] autorelease]];
-	[[ILSensorSink sharedSink] setEnabled:YES];
+	//[[ILSensorSink sharedSink] setEnabled:YES];
 	
-	NSString* url = [[[NSProcessInfo processInfo] environment] objectForKey:@"SJEndpointURL"];
-	if (!url)	
-		url = @"http://infinitelabs-subject.appspot.com";
 	
-	SJEndpoint* point = [[[SJEndpoint alloc] initWithURL:[NSURL URLWithString:url]] autorelease];
+	NSString* baseURLString = [[[NSProcessInfo processInfo] environment] objectForKey:@"SJEndpointURL"];
+	if (!baseURLString)
+		baseURLString = @"http://infinitelabs-subject.appspot.com";
 	
-	livePane.endpoint = point;
-	livePane.managedObjectContext = self.managedObjectContext;
+	NSURL* baseURL = [NSURL URLWithString:baseURLString];
+	
+	self.syncCoordinator = [[SJSyncCoordinator alloc] init];
+	
+	SJSyncCoordinator* coord = self.syncCoordinator;
+	NSManagedObjectContext* moc = self.managedObjectContext;
+	
+	self.liveSyncController = [SJLiveSyncController addControllerForLiveURL:[NSURL URLWithString:@"live" relativeToURL:baseURL] delegate:nil toCoordinator:coord];
+	[SJSlideSync addControllerWithManagedObjectContext:moc toCoordinator:coord];
+	[SJPresentationSync addControllerWithManagedObjectContext:moc toCoordinator:coord];
+	[SJPointSync addControllerWithManagedObjectContext:moc toCoordinator:coord];
+	[SJQuestionSync addControllerWithManagedObjectContext:moc toCoordinator:coord];	
+	
+	livePane.liveSyncController = self.liveSyncController;
+	livePane.managedObjectContext = moc;
 	
     [window makeKeyAndVisible];
     
