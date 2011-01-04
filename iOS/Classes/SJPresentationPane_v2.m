@@ -143,8 +143,16 @@
 	
 	UISwipeGestureRecognizer* forwardSwipe = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goForward)] autorelease];
 	forwardSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
+
+	UISwipeGestureRecognizer* twoFingerBackSwipe = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goBack)] autorelease];
+	twoFingerBackSwipe.direction = UISwipeGestureRecognizerDirectionRight;
+	twoFingerBackSwipe.numberOfTouchesRequired = 2;
 	
-	self.view.gestureRecognizers = [NSArray arrayWithObjects:backSwipe, forwardSwipe, nil];
+	UISwipeGestureRecognizer* twoFingerForwardSwipe = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goForward)] autorelease];
+	twoFingerForwardSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
+	twoFingerForwardSwipe.numberOfTouchesRequired = 2;
+	
+	self.view.gestureRecognizers = [NSArray arrayWithObjects:backSwipe, forwardSwipe, twoFingerBackSwipe, twoFingerForwardSwipe, nil];
 }
 
 - (void) clearOutlets;
