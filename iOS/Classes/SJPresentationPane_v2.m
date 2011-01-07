@@ -14,6 +14,10 @@
 #import "SJPresentation.h"
 
 #import "SJPointTableViewCell.h"
+#import "SJPoseAQuestionPane.h"
+
+#import "SJQuestionKindPicker.h"
+#import "SJQuestionSending.h"
 
 #define ILRetain(to, newObj) \
 	do { [to release]; to = [newObj retain]; } while (0)
@@ -60,6 +64,12 @@
 @property(nonatomic, retain) UIBarButtonItem* backButtonItem, * forwardButtonItem;
 - (void) updateBackForwardButtonItems;
 
+@property(nonatomic, retain) SJQuestionKindPicker* questionKindPicker;
+
+@property(nonatomic, retain) NSOperationQueue* operationQueue;
+- (void) beginPosingQuestionForPoint:(SJPoint*) point;
+- (void) poseQuestionOfKind:(NSString*) kind forPoint:(SJPoint*) point;
+
 @end
 
 
@@ -92,6 +102,9 @@
 	[super viewWillDisappear:animated];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:nil];
+	
+	[self.questionKindPicker dismissAnimated:YES];
+	self.questionKindPicker = nil;
 }
 
 #pragma mark Memory management
@@ -110,6 +123,9 @@
 - (void) viewDidLoad;
 {
 	[super viewDidLoad];
+	
+	if (self.operationQueue)
+		self.operationQueue = [[NSOperationQueue new] autorelease];
 	
 	if (!self.backButtonItem || !self.forwardButtonItem) {
 		NSMutableArray* items = [NSMutableArray array];
@@ -364,21 +380,125 @@
 	}
 }
 
-#pragma mark TODO
+#pragma mark Pose a question
+
+@synthesize operationQueue;
+- (NSOperationQueue *) operationQueue;
+{
+	if (!operationQueue)
+		operationQueue = [NSOperationQueue new];
+	
+	return operationQueue;
+}
+
+@synthesize questionKindPicker;
+- (SJQuestionKindPicker*) questionKindPicker;
+{
+	if (!questionKindPicker) {
+		questionKindPicker = [[SJQuestionKindPicker alloc] init];
+		
+		questionKindPicker.didCancel = ^{
+			NSIndexPath* path = [tableView indexPathForSelectedRow];
+			if (path)
+				[tableView deselectRowAtIndexPath:path animated:YES];
+			
+			[questionKindPicker dismissAnimated:YES];
+		};
+	}
+	
+	return questionKindPicker;
+}
+
+- (void) beginPosingQuestionForPoint:(SJPoint*) point;
+{
+	self.questionKindPicker.didPickQuestionKind = ^(NSString* kind) {
+		[self poseQuestionOfKind:kind forPoint:point];
+		[self.questionKindPicker dismissAnimated:YES];
+	};
+	
+	[self.questionKindPicker showAnimated:YES];
+}
+
+- (void) poseQuestionOfKind:(NSString*) kind forPoint:(SJPoint*) point;
+{
+	void (^sendQuestion)(NSString*) = ^(NSString* text) {
+		NSIndexPath* path = [tableView indexPathForSelectedRow];
+		if (path)
+			[tableView deselectRowAtIndexPath:path animated:YES];
+
+		SJQuestion* question = [SJQuestion insertedInto:self.managedObjectContext];
+		
+		question.kind = kind;
+		question.point = point;
+		question.text = text;
+		if ([self.managedObjectContext save:NULL])
+			[question sendUsingQueue:self.operationQueue whenSent:NULL];
+		else
+			[self.managedObjectContext rollback];
+	};
+	
+	if ([kind isEqual:kSJQuestionFreeformKind]) {
+		
+		SJPoseAQuestionPane* pane;
+		UIViewController* modal = [SJPoseAQuestionPane modalPaneForViewController:&pane];
+		
+		pane.context = point.text;
+		
+		pane.didCancelHandler = ^{
+			NSIndexPath* path = [tableView indexPathForSelectedRow];
+			if (path)
+				[tableView deselectRowAtIndexPath:path animated:YES];
+
+			[pane dismissModalViewControllerAnimated:YES];
+		};
+		
+		pane.didAskQuestionHandler = ^(NSString* questionText) {
+			sendQuestion(questionText);
+			[pane dismissModalViewControllerAnimated:YES];
+		};
+		
+		[self presentModalViewController:modal animated:YES];
+		
+	} else {
+		sendQuestion(nil);
+	}
+}
+
+- (void) tableView:(UITableView*) tv didSelectRowAtIndexPath:(NSIndexPath*) indexPath;
+{
+	SJPointTableViewCell* pointCell = (SJPointTableViewCell*) [tv cellForRowAtIndexPath:indexPath];
+	
+	SJPoint* p = pointCell.point;
+	[self beginPosingQuestionForPoint:p];
+	
+	[tv scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+}
+
+#pragma mark Live methods we don't use
 
 - (void) liveDidStart:(SJLiveSyncController*) observer;
-{}
+{
+	/* This method intentionally left blank. */
+}
 
 - (void) liveDidEnd:(SJLiveSyncController*) observer;
-{}
+{
+	/* This method intentionally left blank. */
+}
 
 - (void) live:(SJLiveSyncController*) observer didPostQuestionsAtURLs:(NSSet*) urls;
-{}
+{
+	/* This method intentionally left blank. */
+}
 
 - (void) live:(SJLiveSyncController*) observer didPostMoodsAtURLs:(NSSet*) urls;
-{}
+{
+	/* This method intentionally left blank. */
+}
 
 - (void) live:(SJLiveSyncController*) observer didFailToLoadWithError:(NSError*) e;
-{}
+{
+	/* This method intentionally left blank. */
+}
 
 @end
