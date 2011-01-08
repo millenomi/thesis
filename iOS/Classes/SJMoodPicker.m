@@ -21,17 +21,28 @@
 	return self;
 }
 
-@synthesize moodPickerDelegate;
+- (void) dealloc
+{
+	self.didPickMood = nil;
+	self.didCancel = nil;
+	[super dealloc];
+}
+
+
+@synthesize didPickMood, didCancel;
 
 - (void) cancel;
 {
-	[self.moodPickerDelegate moodPickerDidCancel:self];
+	if (self.didCancel)
+		(self.didCancel)();
 }
 
 - (void) pickMoodFromSenderTag:(id)sender;
 {
-	NSInteger i = [sender tag];
-	[self.moodPickerDelegate moodPicker:self didPickMood:[SJMoodPickerOrderedMoods() objectAtIndex:i]];
+	if (self.didPickMood) {
+		NSInteger i = [sender tag];
+		(self.didPickMood)([SJMoodPickerOrderedMoods() objectAtIndex:i]);
+	}
 }
 
 @end

@@ -18,6 +18,8 @@
 
 #import "SJQuestionKindPicker.h"
 #import "SJQuestionSending.h"
+#import "SJMoodPicker.h"
+#import "SJMoodSending.h"
 
 #define ILRetain(to, newObj) \
 	do { [to release]; to = [newObj retain]; } while (0)
@@ -65,6 +67,7 @@
 - (void) updateBackForwardButtonItems;
 
 @property(nonatomic, retain) SJQuestionKindPicker* questionKindPicker;
+@property(nonatomic, retain) SJMoodPicker* moodPicker;
 
 @property(nonatomic, retain) NSOperationQueue* operationQueue;
 - (void) beginPosingQuestionForPoint:(SJPoint*) point;
@@ -105,6 +108,9 @@
 	
 	[self.questionKindPicker dismissAnimated:YES];
 	self.questionKindPicker = nil;
+	
+	[self.moodPicker dismissAnimated:YES];
+	self.moodPicker = nil;
 }
 
 #pragma mark Memory management
@@ -115,6 +121,10 @@
 			@"tableView",
 			@"backButtonItem",
 			@"forwardButtonItem",
+			
+			@"moodSendProgressView",
+			@"moodSendSpinner",
+			@"moodSendLabel",
 			nil];
 }
 
@@ -138,7 +148,7 @@
 		 [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL] autorelease]
 		 ];
 		[items addObject:
-		 [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"EmoticonToolbarIcon.png"] style:UIBarButtonItemStylePlain target:nil action:NULL] autorelease]
+		 [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"EmoticonToolbarIcon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(sendMoodForCurrentSlide)] autorelease]
 		 ];
 		[items addObject:
 		 [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL] autorelease]
@@ -472,6 +482,95 @@
 	[self beginPosingQuestionForPoint:p];
 	
 	[tv scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+}
+
+#pragma mark Send a mood
+
+@synthesize moodPicker;
+- (SJMoodPicker*) moodPicker;
+{
+	if (!moodPicker) {
+		moodPicker = [[SJMoodPicker alloc] init];
+		
+		moodPicker.didCancel = ^{
+			NSIndexPath* path = [tableView indexPathForSelectedRow];
+			if (path)
+				[tableView deselectRowAtIndexPath:path animated:YES];
+			
+			[moodPicker dismissAnimated:YES];
+		};
+	}
+	
+	return moodPicker;
+}
+
+- (IBAction) sendMoodForCurrentSlide;
+{
+	self.moodPicker.didPickMood = ^(NSString* mood) {
+		[self.moodPicker dismissAnimated:YES];
+		
+		moodSendProgressView.hidden = YES;
+		moodSendProgressView.alpha = 1.0;
+		
+		moodSendLabel.hidden = YES;
+		moodSendSpinner.hidden = NO;
+		[moodSendSpinner startAnimating];
+		
+		CGPoint from = CGPointMake(0, CGRectGetMaxY(tableView.bounds));
+		CGPoint to = from;
+		to.y -= moodSendProgressView.frame.size.height;
+		
+		CGRect frame = moodSendProgressView.frame;
+		
+		frame.origin = from;
+		moodSendProgressView.frame = frame;
+		moodSendProgressView.hidden = NO;
+		
+		[UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionBeginFromCurrentState
+						 animations:^{
+							 CGRect f = frame;
+							 f.origin = to;
+							 moodSendProgressView.frame = f;
+						 }
+						 completion:NULL];
+		
+		[self.displayedSlide sendMoodOfKind:mood usingQueue:self.operationQueue whenSent:^(BOOL done) {
+			
+			if (!done) {
+				[UIView animateWithDuration:0.2
+								 animations:^{
+									 moodSendProgressView.alpha = 0.0;
+								 }
+								 completion:^(BOOL done) {
+									 [moodSendSpinner stopAnimating];
+									 moodSendProgressView.hidden = YES;
+								 }];
+			} else {
+				moodSendLabel.alpha = 0.0;
+				moodSendLabel.hidden = NO;
+				
+				[UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionBeginFromCurrentState
+								 animations:^{
+									 moodSendLabel.alpha = 1.0;
+									 moodSendSpinner.alpha = 0.0;
+								 }
+								 completion:^(BOOL finished) {
+									 [moodSendSpinner stopAnimating];
+
+									 [UIView animateWithDuration:0.4 delay:1.0 options:UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionBeginFromCurrentState
+													  animations:^{
+														  moodSendProgressView.frame = frame;
+													  }
+													  completion:^(BOOL finished) {
+														  moodSendProgressView.hidden = YES;
+													  }];
+									 
+								 }];
+			}
+		}];
+	};
+	
+	[self.moodPicker showAnimated:YES];
 }
 
 #pragma mark Live methods we don't use

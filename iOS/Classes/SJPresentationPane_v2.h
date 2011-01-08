@@ -15,6 +15,10 @@
 
 @interface SJPresentationPane_v2 : ILViewController {
 	IBOutlet UITableView* tableView;
+	
+	IBOutlet UIView* moodSendProgressView;
+	IBOutlet UIActivityIndicatorView* moodSendSpinner;
+	IBOutlet UILabel* moodSendLabel;
 }
 
 @property(nonatomic, retain) SJSlide* displayedSlide;

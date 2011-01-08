@@ -66,7 +66,7 @@
 		15D436DB12845D74005DBAE3 /* TopShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 15D436DA12845D74005DBAE3 /* TopShadow.png */; };
 		15D436DD12845ECF005DBAE3 /* BottomShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 15D436DC12845ECF005DBAE3 /* BottomShadow.png */; };
 		15E648201286B88E005975D2 /* libControls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E6481F1286B887005975D2 /* libControls.a */; };
-		15E6495F1286C8EB005975D2 /* libNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E6495E1286C8E8005975D2 /* libNetworking.a */; };
+		15E6495F1286C8EB005975D2 /* libNetworking-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E6495E1286C8E8005975D2 /* libNetworking-iOS.a */; };
 		15E64AB51286EB85005975D2 /* SJQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E64AB41286EB85005975D2 /* SJQuestion.m */; };
 		15FBF1B812817510005D68B6 /* Balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FBF1B71281750F005D68B6 /* Balloon.png */; };
 		15FBF1BA12817513005D68B6 /* Balloon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FBF1B912817512005D68B6 /* Balloon@2x.png */; };
@@ -75,6 +75,19 @@
 		15FD03D4126DB15900353B83 /* SJPresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD03D3126DB15900353B83 /* SJPresentation.m */; };
 		15FD03DC126DB29D00353B83 /* SJSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD03DB126DB29D00353B83 /* SJSlide.m */; };
 		15FD03DF126DB2DA00353B83 /* SJPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FD03DE126DB2DA00353B83 /* SJPoint.m */; };
+		15FED31F12D8C7B7007229B2 /* BoredEmoticon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FED31312D8C7B7007229B2 /* BoredEmoticon-Small.png */; };
+		15FED32012D8C7B7007229B2 /* BoredEmoticon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FED31412D8C7B7007229B2 /* BoredEmoticon-Small@2x.png */; };
+		15FED32112D8C7B7007229B2 /* ConfusedEmoticon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FED31512D8C7B7007229B2 /* ConfusedEmoticon-Small.png */; };
+		15FED32212D8C7B7007229B2 /* ConfusedEmoticon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FED31612D8C7B7007229B2 /* ConfusedEmoticon-Small@2x.png */; };
+		15FED32312D8C7B7007229B2 /* EngagedEmoticon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FED31712D8C7B7007229B2 /* EngagedEmoticon-Small.png */; };
+		15FED32412D8C7B7007229B2 /* EngagedEmoticon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FED31812D8C7B7007229B2 /* EngagedEmoticon-Small@2x.png */; };
+		15FED32512D8C7B7007229B2 /* InterestedEmoticon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FED31912D8C7B7007229B2 /* InterestedEmoticon-Small.png */; };
+		15FED32612D8C7B7007229B2 /* InterestedEmoticon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FED31A12D8C7B7007229B2 /* InterestedEmoticon-Small@2x.png */; };
+		15FED32712D8C7B7007229B2 /* ThoughtfulEmoticon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FED31B12D8C7B7007229B2 /* ThoughtfulEmoticon-Small.png */; };
+		15FED32812D8C7B7007229B2 /* ThoughtfulEmoticon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FED31C12D8C7B7007229B2 /* ThoughtfulEmoticon-Small@2x.png */; };
+		15FED32912D8C7B7007229B2 /* WhyAmIHereEmoticon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FED31D12D8C7B7007229B2 /* WhyAmIHereEmoticon-Small.png */; };
+		15FED32A12D8C7B7007229B2 /* WhyAmIHereEmoticon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15FED31E12D8C7B7007229B2 /* WhyAmIHereEmoticon-Small@2x.png */; };
+		15FED33B12D8C99A007229B2 /* SJMoodSending.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FED33A12D8C99A007229B2 /* SJMoodSending.m */; };
 		1D3623260D0F684500981E51 /* SJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* SJAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -155,6 +168,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 15FCC8E112D1D73800D52E53;
 			remoteInfo = "Client (iOS Library) copy";
+		};
+		15FED30D12D8C580007229B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15E649591286C8E7005975D2 /* Networking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 15B40F3612D6585C008BB339 /* libNetworking-Mac.a */;
+			remoteInfo = "Networking (Mac)";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -248,6 +268,20 @@
 		15FD03DB126DB29D00353B83 /* SJSlide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSlide.m; sourceTree = "<group>"; };
 		15FD03DD126DB2DA00353B83 /* SJPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPoint.h; sourceTree = "<group>"; };
 		15FD03DE126DB2DA00353B83 /* SJPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPoint.m; sourceTree = "<group>"; };
+		15FED31312D8C7B7007229B2 /* BoredEmoticon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BoredEmoticon-Small.png"; path = "../Art/BoredEmoticon-Small.png"; sourceTree = SOURCE_ROOT; };
+		15FED31412D8C7B7007229B2 /* BoredEmoticon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "BoredEmoticon-Small@2x.png"; path = "../Art/BoredEmoticon-Small@2x.png"; sourceTree = SOURCE_ROOT; };
+		15FED31512D8C7B7007229B2 /* ConfusedEmoticon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ConfusedEmoticon-Small.png"; path = "../Art/ConfusedEmoticon-Small.png"; sourceTree = SOURCE_ROOT; };
+		15FED31612D8C7B7007229B2 /* ConfusedEmoticon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ConfusedEmoticon-Small@2x.png"; path = "../Art/ConfusedEmoticon-Small@2x.png"; sourceTree = SOURCE_ROOT; };
+		15FED31712D8C7B7007229B2 /* EngagedEmoticon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EngagedEmoticon-Small.png"; path = "../Art/EngagedEmoticon-Small.png"; sourceTree = SOURCE_ROOT; };
+		15FED31812D8C7B7007229B2 /* EngagedEmoticon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "EngagedEmoticon-Small@2x.png"; path = "../Art/EngagedEmoticon-Small@2x.png"; sourceTree = SOURCE_ROOT; };
+		15FED31912D8C7B7007229B2 /* InterestedEmoticon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "InterestedEmoticon-Small.png"; path = "../Art/InterestedEmoticon-Small.png"; sourceTree = SOURCE_ROOT; };
+		15FED31A12D8C7B7007229B2 /* InterestedEmoticon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "InterestedEmoticon-Small@2x.png"; path = "../Art/InterestedEmoticon-Small@2x.png"; sourceTree = SOURCE_ROOT; };
+		15FED31B12D8C7B7007229B2 /* ThoughtfulEmoticon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ThoughtfulEmoticon-Small.png"; path = "../Art/ThoughtfulEmoticon-Small.png"; sourceTree = SOURCE_ROOT; };
+		15FED31C12D8C7B7007229B2 /* ThoughtfulEmoticon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ThoughtfulEmoticon-Small@2x.png"; path = "../Art/ThoughtfulEmoticon-Small@2x.png"; sourceTree = SOURCE_ROOT; };
+		15FED31D12D8C7B7007229B2 /* WhyAmIHereEmoticon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "WhyAmIHereEmoticon-Small.png"; path = "../Art/WhyAmIHereEmoticon-Small.png"; sourceTree = SOURCE_ROOT; };
+		15FED31E12D8C7B7007229B2 /* WhyAmIHereEmoticon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "WhyAmIHereEmoticon-Small@2x.png"; path = "../Art/WhyAmIHereEmoticon-Small@2x.png"; sourceTree = SOURCE_ROOT; };
+		15FED33912D8C99A007229B2 /* SJMoodSending.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJMoodSending.h; sourceTree = "<group>"; };
+		15FED33A12D8C99A007229B2 /* SJMoodSending.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJMoodSending.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* SJAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* SJAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJAppDelegate.m; sourceTree = "<group>"; };
@@ -267,7 +301,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15E6495F1286C8EB005975D2 /* libNetworking.a in Frameworks */,
+				15E6495F1286C8EB005975D2 /* libNetworking-iOS.a in Frameworks */,
 				15E648201286B88E005975D2 /* libControls.a in Frameworks */,
 				15D4368012845185005DBAE3 /* libViewControllers.a in Frameworks */,
 				154437B112759D88003197B3 /* libClient-iOS.a in Frameworks */,
@@ -368,6 +402,8 @@
 				1555C45512D223E8005A3D09 /* SJQuestionSync.m */,
 				159115AE12D7894D00E622BE /* SJQuestionSending.h */,
 				159115AF12D7894D00E622BE /* SJQuestionSending.m */,
+				15FED33912D8C99A007229B2 /* SJMoodSending.h */,
+				15FED33A12D8C99A007229B2 /* SJMoodSending.m */,
 			);
 			name = Sync;
 			sourceTree = "<group>";
@@ -393,7 +429,8 @@
 		15E6495A1286C8E7005975D2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				15E6495E1286C8E8005975D2 /* libNetworking.a */,
+				15E6495E1286C8E8005975D2 /* libNetworking-iOS.a */,
+				15FED30E12D8C580007229B2 /* libNetworking-Mac.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -498,6 +535,18 @@
 				15C0452E12A301AB00AD97AA /* WhyAmIHereEmoticon.png */,
 				15C0465112A3B40B00AD97AA /* PopoverArrow.png */,
 				15C0465212A3B40B00AD97AA /* PopoverArrow@2x.png */,
+				15FED31312D8C7B7007229B2 /* BoredEmoticon-Small.png */,
+				15FED31412D8C7B7007229B2 /* BoredEmoticon-Small@2x.png */,
+				15FED31512D8C7B7007229B2 /* ConfusedEmoticon-Small.png */,
+				15FED31612D8C7B7007229B2 /* ConfusedEmoticon-Small@2x.png */,
+				15FED31712D8C7B7007229B2 /* EngagedEmoticon-Small.png */,
+				15FED31812D8C7B7007229B2 /* EngagedEmoticon-Small@2x.png */,
+				15FED31912D8C7B7007229B2 /* InterestedEmoticon-Small.png */,
+				15FED31A12D8C7B7007229B2 /* InterestedEmoticon-Small@2x.png */,
+				15FED31B12D8C7B7007229B2 /* ThoughtfulEmoticon-Small.png */,
+				15FED31C12D8C7B7007229B2 /* ThoughtfulEmoticon-Small@2x.png */,
+				15FED31D12D8C7B7007229B2 /* WhyAmIHereEmoticon-Small.png */,
+				15FED31E12D8C7B7007229B2 /* WhyAmIHereEmoticon-Small@2x.png */,
 				15C6EF4112A6972A0030C085 /* Settings.bundle */,
 			);
 			name = Resources;
@@ -605,10 +654,10 @@
 			remoteRef = 15E6481E1286B887005975D2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		15E6495E1286C8E8005975D2 /* libNetworking.a */ = {
+		15E6495E1286C8E8005975D2 /* libNetworking-iOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libNetworking.a;
+			path = "libNetworking-iOS.a";
 			remoteRef = 15E6495D1286C8E8005975D2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -624,6 +673,13 @@
 			fileType = archive.ar;
 			path = "libClient-Mac.a";
 			remoteRef = 15FCC8E312D1D73800D52E53 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		15FED30E12D8C580007229B2 /* libNetworking-Mac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libNetworking-Mac.a";
+			remoteRef = 15FED30D12D8C580007229B2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -676,6 +732,18 @@
 				15C6EF4212A6972A0030C085 /* Settings.bundle in Resources */,
 				15B0370612D3213E000BA8B8 /* SJPresentationPane_v2.xib in Resources */,
 				1591153912D7840E00E622BE /* SJQuestionKindPicker.xib in Resources */,
+				15FED31F12D8C7B7007229B2 /* BoredEmoticon-Small.png in Resources */,
+				15FED32012D8C7B7007229B2 /* BoredEmoticon-Small@2x.png in Resources */,
+				15FED32112D8C7B7007229B2 /* ConfusedEmoticon-Small.png in Resources */,
+				15FED32212D8C7B7007229B2 /* ConfusedEmoticon-Small@2x.png in Resources */,
+				15FED32312D8C7B7007229B2 /* EngagedEmoticon-Small.png in Resources */,
+				15FED32412D8C7B7007229B2 /* EngagedEmoticon-Small@2x.png in Resources */,
+				15FED32512D8C7B7007229B2 /* InterestedEmoticon-Small.png in Resources */,
+				15FED32612D8C7B7007229B2 /* InterestedEmoticon-Small@2x.png in Resources */,
+				15FED32712D8C7B7007229B2 /* ThoughtfulEmoticon-Small.png in Resources */,
+				15FED32812D8C7B7007229B2 /* ThoughtfulEmoticon-Small@2x.png in Resources */,
+				15FED32912D8C7B7007229B2 /* WhyAmIHereEmoticon-Small.png in Resources */,
+				15FED32A12D8C7B7007229B2 /* WhyAmIHereEmoticon-Small@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,6 +776,7 @@
 				1555C45612D223E8005A3D09 /* SJQuestionSync.m in Sources */,
 				1591153712D7839A00E622BE /* SJQuestionKindPicker.m in Sources */,
 				159115B012D7894D00E622BE /* SJQuestionSending.m in Sources */,
+				15FED33B12D8C99A007229B2 /* SJMoodSending.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

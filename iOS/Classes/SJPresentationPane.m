@@ -262,7 +262,7 @@
 	self.lastLiveSlide = nil;
 	self.navigationItem.rightBarButtonItem = nil;
 	
-	moodPicker.moodPickerDelegate = nil;
+//	moodPicker.moodPickerDelegate = nil;
 	moodPicker.coverDelegate = nil;
 	[moodPicker release]; moodPicker = nil;
 }
@@ -516,7 +516,7 @@
 	
 	if (!moodPicker) {
 		moodPicker = [SJMoodPicker new];
-		moodPicker.moodPickerDelegate = self;
+//		moodPicker.moodPickerDelegate = self;
 		moodPicker.coverDelegate = self;
 	}
 	
@@ -539,7 +539,7 @@
 	[super didReceiveMemoryWarning];
 	
 	if (moodPicker.hidden) {
-		moodPicker.moodPickerDelegate = nil;
+//		moodPicker.moodPickerDelegate = nil;
 		moodPicker.coverDelegate = nil;
 		[moodPicker release]; moodPicker = nil;
 	}

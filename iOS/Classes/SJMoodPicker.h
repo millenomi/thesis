@@ -27,10 +27,11 @@ CF_INLINE NSArray* SJMoodPickerOrderedMoods() {
 
 - (id) init;
 
-@property(assign) id <SJMoodPickerDelegate> moodPickerDelegate;
-
 - (IBAction) cancel;
 - (IBAction) pickMoodFromSenderTag:(id) sender;
+
+@property(copy, nonatomic) void (^didPickMood)(NSString* mood);
+@property(copy, nonatomic) void (^didCancel)();
 
 @end
 
