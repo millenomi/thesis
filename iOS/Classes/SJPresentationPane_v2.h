@@ -19,6 +19,11 @@
 	IBOutlet UIView* moodSendProgressView;
 	IBOutlet UIActivityIndicatorView* moodSendSpinner;
 	IBOutlet UILabel* moodSendLabel;
+	
+	IBOutlet UIView* slideImageOverlay;
+	IBOutlet UIImageView* slideImageView;
+	
+	UIInterfaceOrientation rotatedToOrientation;
 }
 
 @property(nonatomic, retain) SJSlide* displayedSlide;

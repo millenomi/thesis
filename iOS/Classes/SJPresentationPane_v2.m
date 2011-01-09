@@ -24,6 +24,14 @@
 #define ILRetain(to, newObj) \
 	do { [to release]; to = [newObj retain]; } while (0)
 
+typedef enum {
+	kSJPresentationMoveAnimationKindNone = 0,
+	
+	kSJPresentationMoveAnimationKindNext,
+	kSJPresentationMoveAnimationKindPrevious,
+	kSJPresentationMoveAnimationKindSkip,
+} SJPresentationMoveAnimationKind;
+
 #pragma mark Conveniences
 
 @implementation UITableView (ILConveniences)
@@ -72,6 +80,9 @@
 @property(nonatomic, retain) NSOperationQueue* operationQueue;
 - (void) beginPosingQuestionForPoint:(SJPoint*) point;
 - (void) poseQuestionOfKind:(NSString*) kind forPoint:(SJPoint*) point;
+
+- (CATransition *) transitionForAnimationKind:(SJPresentationMoveAnimationKind) kind;
+- (void) updateSlideImageWithAnimation:(SJPresentationMoveAnimationKind) ani;
 
 @end
 
@@ -125,6 +136,9 @@
 			@"moodSendProgressView",
 			@"moodSendSpinner",
 			@"moodSendLabel",
+			
+			@"slideImageOverlay",
+			@"slideImageView",
 			nil];
 }
 
@@ -133,6 +147,7 @@
 - (void) viewDidLoad;
 {
 	[super viewDidLoad];
+	self.rotationStyle = kILRotateAny;
 	
 	if (self.operationQueue)
 		self.operationQueue = [[NSOperationQueue new] autorelease];
@@ -191,6 +206,43 @@
 
 #pragma mark Slide display
 
+- (CATransition*) transitionForAnimationKind:(SJPresentationMoveAnimationKind) kind;
+{
+	switch (kind) {
+		case kSJPresentationMoveAnimationKindNext: {
+			CATransition* tx = [CATransition animation];
+			tx.type = kCATransitionPush;
+			tx.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+			
+			tx.duration = 0.3;
+
+			tx.subtype = kCATransitionFromRight;
+			return tx;
+		}
+			
+		case kSJPresentationMoveAnimationKindPrevious: {
+			CATransition* tx = [CATransition animation];
+			tx.type = kCATransitionPush;
+			tx.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+			
+			tx.duration = 0.3;
+			
+			tx.subtype = kCATransitionFromLeft;
+			return tx;
+		}
+			
+		case kSJPresentationMoveAnimationKindSkip: {
+			CATransition* tx = [CATransition animation];
+			tx.type = kCATransitionFade;
+			return tx;
+		}
+			
+		case kSJPresentationMoveAnimationKindNone:
+		default:
+			return nil;
+	}
+}
+
 @synthesize displayedSlide;
 - (void) setDisplayedSlide:(SJSlide *) s;
 {
@@ -206,32 +258,28 @@
 		ILRetain(displayedSlide, s);
 		
 		self.title = displayedSlide.presentation.title;
+		SJPresentationMoveAnimationKind kind = kSJPresentationMoveAnimationKindNone;
 		
 		if (ani) {
-			CATransition* tx = nil;
-			
 			if ([displayedSlide.presentation isEqual:[oldSlide presentation]]) {
-
-				tx = [CATransition animation];
-				tx.type = kCATransitionPush;
-				tx.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-				
-				tx.duration = 0.3;
 									 
 				if (displayedSlide.sortingOrderValue > oldSlide.sortingOrderValue) {
-					tx.subtype = kCATransitionFromRight;
+					kind = kSJPresentationMoveAnimationKindNext;
 				} else {
-					tx.subtype = kCATransitionFromLeft;
+					kind = kSJPresentationMoveAnimationKindPrevious;
 				}
 				
 			} else {
-				tx = [CATransition animation];
-				tx.type = kCATransitionFade;
+				kind = kSJPresentationMoveAnimationKindSkip;
 			}
+			
+			CATransition* tx = [self transitionForAnimationKind:kind];
 			
 			if (tx)
 				[self.view.layer addAnimation:tx forKey:@"SJPresentationPaneDisplayedSlideTransition"];
 		}
+		
+		[self updateSlideImageWithAnimation:kind];
 		
 		[self updateBackForwardButtonItems];
 		[tableView reloadData];
@@ -571,6 +619,53 @@
 	};
 	
 	[self.moodPicker showAnimated:YES];
+}
+
+#pragma mark Slide image display
+
+- (void) willRotateToInterfaceOrientation:(UIInterfaceOrientation) to duration:(NSTimeInterval)duration;
+{
+	rotatedToOrientation = to;
+	
+	if (UIInterfaceOrientationIsLandscape(to)) {
+		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
+		[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+		[self.navigationController setNavigationBarHidden:YES];
+		[self.navigationController setToolbarHidden:YES];
+		
+		slideImageOverlay.hidden = NO;
+		slideImageOverlay.userInteractionEnabled = YES;
+
+		[UIView animateWithDuration:duration animations:^{
+			slideImageOverlay.alpha = 1.0;
+		}];
+		
+		[self updateSlideImageWithAnimation:kSJPresentationMoveAnimationKindNone];
+	} else {
+		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+		[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+
+		slideImageOverlay.userInteractionEnabled = NO;
+
+		[UIView animateWithDuration:duration animations:^{
+			slideImageOverlay.alpha = 0.0;
+		}];
+	}
+}
+
+- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation) from;
+{
+	if (UIInterfaceOrientationIsPortrait(rotatedToOrientation)) {
+		slideImageOverlay.hidden = YES;
+		[self.navigationController setNavigationBarHidden:NO animated:YES];
+		[self.navigationController setToolbarHidden:NO animated:YES];
+	}
+}
+
+- (void) updateSlideImageWithAnimation:(SJPresentationMoveAnimationKind) ani;
+{
+	if (self.displayedSlide)
+		slideImageView.image = [UIImage imageWithData:self.displayedSlide.imageData];
 }
 
 #pragma mark Live methods we don't use
