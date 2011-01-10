@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10H574</string>
+		<string key="IBDocument.SystemVersion">10J567</string>
 		<string key="IBDocument.InterfaceBuilderVersion">823</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">132</string>
@@ -108,9 +108,9 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{223, 81}, {97, 77}}</string>
 								<reference key="NSSuperview" ref="80688993"/>
-								<object class="NSColor" key="IBUIBackgroundColor">
+								<object class="NSColor" key="IBUIBackgroundColor" id="749110855">
 									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC42MjU2MDI2MDMgMC43MjE4NTc3ODYyIDAAA</bytes>
+									<bytes key="NSRGB">MC4xNDkyODY4MjE1IDAuMzMyODYyMTk4NCAwAA</bytes>
 								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">5</int>
@@ -134,10 +134,7 @@
 								</object>
 								<reference key="IBUISelectedTitleColor" ref="827380916"/>
 								<reference key="IBUINormalTitleColor" ref="827380916"/>
-								<object class="NSColor" key="IBUINormalTitleShadowColor" id="483705989">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC4zMDE5NjA3OTYxAA</bytes>
-								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="749110855"/>
 								<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="891853500">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">LargeButtonShine.png</string>
@@ -149,8 +146,8 @@
 								<string key="NSFrame">{{223, 0}, {97, 78}}</string>
 								<reference key="NSSuperview" ref="80688993"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC45MDE0NTk4NTQAA</bytes>
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC45OTAyNjIwMzE2IDAuNzk2NjE3NTY3NSAwLjgwMDA4OTY1NzMAA</bytes>
 								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">2</int>
@@ -162,20 +159,17 @@
 								<double key="IBUITitleEdgeInsets.bottom">0.0</double>
 								<double key="IBUITitleEdgeInsets.left">0.0</double>
 								<double key="IBUITitleEdgeInsets.right">0.0</double>
-								<string key="IBUITitleShadowOffset">{0, -1}</string>
+								<string key="IBUITitleShadowOffset">{0, 1}</string>
 								<string key="IBUINormalTitle">Bored!</string>
 								<object class="NSColor" key="IBUIHighlightedTitleColor">
 									<int key="NSColorSpace">2</int>
 									<bytes key="NSRGB">MC4zOTAwODE2MDY5IDAuNjkwMDY0MDMxNiAwLjkyOTQxMTgyODUAA</bytes>
 								</object>
-								<object class="NSColor" key="IBUINormalTitleColor">
-									<int key="NSColorSpace">2</int>
-									<bytes key="NSRGB">MC4yOTgwMzkyMjc3IDAuMzM3MjU0OTExNyAwLjQyMzUyOTQ0NjEAA</bytes>
-								</object>
-								<object class="NSColor" key="IBUINormalTitleShadowColor">
+								<object class="NSColor" key="IBUINormalTitleColor" id="662809818">
 									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC44MTM4Njg2MTMxAA</bytes>
+									<bytes key="NSWhite">MC4zMDE5NjA3OTYxAA</bytes>
 								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="827380916"/>
 								<reference key="IBUINormalBackgroundImage" ref="891853500"/>
 							</object>
 							<object class="IBUIButton" id="579439972">
@@ -203,11 +197,11 @@
 									<int key="NSColorSpace">2</int>
 									<bytes key="NSRGB">MC42MjQwODc1OTEyIDAuNTU1MDE4NjE3MSAwAA</bytes>
 								</object>
-								<object class="NSColor" key="IBUINormalTitleColor">
-									<int key="NSColorSpace">2</int>
-									<bytes key="NSRGB">MC45OTIxNTY5MjI4IDAuODgyMzUzMDA3OCAwAA</bytes>
+								<reference key="IBUINormalTitleColor" ref="827380916"/>
+								<object class="NSColor" key="IBUINormalTitleShadowColor" id="483705989">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC4zMDE5NjA3OTYxAA</bytes>
 								</object>
-								<reference key="IBUINormalTitleShadowColor" ref="483705989"/>
 								<reference key="IBUINormalBackgroundImage" ref="891853500"/>
 							</object>
 							<object class="IBUIButton" id="599671922">
@@ -217,13 +211,13 @@
 								<reference key="NSSuperview" ref="80688993"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MCAwIDAAA</bytes>
+									<bytes key="NSRGB">MC4zNDE2NTczNzAzIDAgMAA</bytes>
 								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<object class="NSFont" key="IBUIFont" id="335236981">
+								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica-Bold</string>
 									<double key="NSSize">11</double>
 									<int key="NSfFlags">16</int>
@@ -247,31 +241,28 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{126, 81}, {96, 77}}</string>
 								<reference key="NSSuperview" ref="80688993"/>
-								<object class="NSColor" key="IBUIBackgroundColor">
-									<int key="NSColorSpace">2</int>
-									<bytes key="NSRGB">MC4zOTAwODE2MDY5IDAuNjkwMDY0MDMxNiAwLjkyOTQxMTgyODUAA</bytes>
+								<object class="NSColor" key="IBUIBackgroundColor" id="574708591">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4yMjIzOTM4NzA0IDAuNTE0ODM2MTkyMSAwAA</bytes>
 								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">4</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<reference key="IBUIFont" ref="335236981"/>
+								<reference key="IBUIFont" ref="906156435"/>
 								<double key="IBUITitleEdgeInsets.top">50</double>
 								<double key="IBUITitleEdgeInsets.bottom">0.0</double>
 								<double key="IBUITitleEdgeInsets.left">0.0</double>
 								<double key="IBUITitleEdgeInsets.right">0.0</double>
 								<string key="IBUITitleShadowOffset">{0, -1}</string>
-								<string key="IBUINormalTitle">Makes me think!</string>
+								<string key="IBUINormalTitle">Eureka!</string>
 								<object class="NSColor" key="IBUIHighlightedTitleColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MC40NTQwODE2NTQ1IDAuNDU0MDgxNjU0NSAwLjQ1NDA4MTY1NDUAA</bytes>
 								</object>
 								<reference key="IBUINormalTitleColor" ref="827380916"/>
-								<object class="NSColor" key="IBUINormalTitleShadowColor" id="92232868">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC4zMDE5NjA3OTYxAA</bytes>
-								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="574708591"/>
 								<reference key="IBUINormalBackgroundImage" ref="891853500"/>
 							</object>
 							<object class="IBUIButton" id="416587461">
@@ -279,9 +270,9 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{29, 81}, {96, 77}}</string>
 								<reference key="NSSuperview" ref="80688993"/>
-								<object class="NSColor" key="IBUIBackgroundColor">
-									<int key="NSColorSpace">2</int>
-									<bytes key="NSRGB">MC45OTIxNTY5MjI4IDAuODgyMzUzMDA3OCAwAA</bytes>
+								<object class="NSColor" key="IBUIBackgroundColor" id="245838100">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4zOTMzNTYwODQ4IDAuOTExMzQ5ODMzIDAAA</bytes>
 								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">3</int>
@@ -295,19 +286,16 @@
 								<double key="IBUITitleEdgeInsets.right">0.0</double>
 								<string key="IBUITitleShadowOffset">{0, -1}</string>
 								<string key="IBUINormalTitle">Engaged!!</string>
-								<reference key="IBUIHighlightedTitleColor" ref="92232868"/>
+								<object class="NSColor" key="IBUIHighlightedTitleColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC4zMDE5NjA3OTYxAA</bytes>
+								</object>
 								<object class="NSColor" key="IBUISelectedTitleColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MC42OTg5Nzk2MTYyIDAuNjk4OTc5NjE2MiAwLjY5ODk3OTYxNjIAA</bytes>
 								</object>
-								<object class="NSColor" key="IBUINormalTitleColor">
-									<int key="NSColorSpace">2</int>
-									<bytes key="NSRGB">MC4yOTgwMzkyMjc3IDAuMzM3MjU0OTExNyAwLjQyMzUyOTQ0NjEAA</bytes>
-								</object>
-								<object class="NSColor" key="IBUINormalTitleShadowColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC44MTM4Njg2MTMxAA</bytes>
-								</object>
+								<reference key="IBUINormalTitleColor" ref="662809818"/>
+								<reference key="IBUINormalTitleShadowColor" ref="245838100"/>
 								<reference key="IBUINormalBackgroundImage" ref="891853500"/>
 							</object>
 							<object class="IBUIImageView" id="859071815">

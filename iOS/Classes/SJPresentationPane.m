@@ -622,7 +622,7 @@
 		largeImageView.hidden = NO;
 		largeImageView.userInteractionEnabled = YES;
 		
-		tableView.alpha = 0.0;
+		tableView.alpha = 0.0;		
 	} else {
 		self.view.backgroundColor = [UIColor whiteColor];
 		

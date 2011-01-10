@@ -331,6 +331,7 @@ typedef enum {
 	if (!self.displayedSlide) {
 		self.backButtonItem.enabled = NO;
 		self.forwardButtonItem.enabled = NO;
+		self.navigationItem.rightBarButtonItem = nil;
 		return;
 	}
 	
@@ -350,7 +351,19 @@ typedef enum {
 		[req setPredicate:[NSPredicate predicateWithFormat:@"sortingOrder == %d", s.sortingOrderValue + 1]];
 		[req setFetchLimit:1];
 		
-	} fromContext:[s managedObjectContext]] > 0);	
+	} fromContext:[s managedObjectContext]] > 0);
+	
+	BOOL isNotOnCurrentSlide = self.currentLiveSlide && (![self.currentLiveSlide isEqual:self.displayedSlide]);
+	if (isNotOnCurrentSlide)
+		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"FastForwardArrowToolbarIcon.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(goToCurrentSlide)] autorelease];
+	else
+		self.navigationItem.rightBarButtonItem = nil;
+}
+
+- (void) goToCurrentSlide;
+{
+	if (self.currentLiveSlide)
+		[self setDisplayedSlide:self.currentLiveSlide animated:YES];
 }
 
 - (void) goBack;
