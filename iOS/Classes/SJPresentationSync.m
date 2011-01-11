@@ -40,21 +40,30 @@
 	
 	pres.URL = update.URL;
 	pres.title = presSchema.title;
-	pres.knownCountOfSlidesValue = [presSchema.slides count];
+	
+	NSMutableArray* URLs = [NSMutableArray arrayWithCapacity:[presSchema.slides count]];
+	
+	// To avoid problems, first we fill in the presentation, then we issue updates.
 	
 	for (SJPresentationSlideInfoSchema* slideInfo in presSchema.slides) {
 		NSURL* slideURL = [NSURL URLWithString:slideInfo.URLString relativeToURL:update.URL];
+		[URLs addObject:slideURL];
+	}
+	
+	pres.knownSlideURLs = [[URLs copy] autorelease];
+	
+	NSInteger i = 0;
+	for (SJPresentationSlideInfoSchema* slideInfo in presSchema.slides) {
+		NSURL* url = [URLs objectAtIndex:i];
 		
-		SJSlide* s = [SJSlide slideWithURL:slideURL fromContext:self.managedObjectContext];
+		SJSlide* s = [SJSlide slideWithURL:url fromContext:self.managedObjectContext];
 		s.presentation = pres;
-		
-		// we still produce an update; the SJSlideSync object decides whether it's OK to redownload or not.
-		
-		SJEntityUpdate* slideUpdate = [SJEntityUpdate updateWithSnapshotsClass:[SJSlideSchema class] URL:slideURL];
-		
-		slideUpdate.availableSnapshot = slideInfo.contents;
-		
-		[self.syncCoordinator processUpdate:slideUpdate];
+
+		SJEntityUpdate* up = [SJEntityUpdate updateWithSnapshotsClass:[SJSlideSchema class] URL:url];
+		up.availableSnapshot = slideInfo.contents;
+		[self.syncCoordinator processUpdate:up];
+	
+		i++;
 	}
 }
 
@@ -62,10 +71,11 @@
 {
 	SJEntityUpdate* up;
 	
-	up = [SJEntityUpdate updateWithSnapshotsClass:[SJPresentationSchema class] URL:p.URL];
-	up.requireRefetch = YES;
-	up.downloadPriority = priority;
-	[p incompleteObjectNeedsFetchingSnapshotWithUpdate:up];	
+	if (!p.knownSlideURLs) {
+		up = [SJEntityUpdate updateWithSnapshotsClass:[SJPresentationSchema class] URL:p.URL];
+		up.downloadPriority = priority;
+		[p incompleteObjectNeedsFetchingSnapshotWithUpdate:up];	
+	}
 }
 
 @end

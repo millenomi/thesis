@@ -37,8 +37,11 @@
 - (void) processSnapshot:(id)snapshot forUpdate:(SJEntityUpdate *)update correspondingToFetchedObject:(id)obj;
 {
 	if ([update.userInfo isEqual:@"image"]) {
-		SJSlide* s = [self managedObjectCorrespondingToUpdate:update.referrerEntityUpdate];
-		s.imageData = snapshot;
+		if (snapshot) {
+			SJSlide* s = [self managedObjectCorrespondingToUpdate:update.referrerEntityUpdate];
+			if (!s.imageData)
+				s.imageData = snapshot;
+		}
 		return;
 	}
 	
@@ -87,10 +90,12 @@
 		
 		i++;
 	}
-		
-	if (!slide.imageData && schema.imageURLString) {
+	
+	slide.imageURLString = schema.imageURLString;
+	
+	if (!slide.imageData && slide.imageURLString) {
 		SJEntityUpdate* imageUpdate = 
-			[update relatedUpdateWithSnapshotsClass:[SJSlideSchema class] URL:[update relativeURLTo:schema.imageURLString] refers:YES];
+			[update relatedUpdateWithSnapshotsClass:[SJSlideSchema class] URL:[update relativeURLTo:slide.imageURLString] refers:YES];
 		
 		imageUpdate.userInfo = @"image";
 		imageUpdate.snapshotKind = kSJEntityUpdateSnapshotKindData;
@@ -109,12 +114,24 @@
 	[s incompleteObjectNeedsFetchingSnapshotWithUpdate:up];
 	
 	if (s.imageURLString && !s.imageData) {
-		up = [up relatedUpdateWithSnapshotsClass:[SJSlideSchema class] URL:s.URL refers:YES];
+		up = [up relatedUpdateWithSnapshotsClass:[SJSlideSchema class] URL:[NSURL URLWithString:s.imageURLString relativeToURL:s.URL] refers:YES];
 		up.requireRefetch = YES;
 		up.userInfo = @"image";
 		up.snapshotKind = kSJEntityUpdateSnapshotKindData;
 		[s incompleteObjectNeedsFetchingSnapshotWithUpdate:up];
 	}
+}
+
++ (void) requireUpdateForImageOfSlide:(SJSlide*) s priority:(SJDownloadPriority) priority;
+{
+	SJEntityUpdate* up;
+
+	up = [SJEntityUpdate updateWithSnapshotsClass:[SJSlideSchema class] URL:[NSURL URLWithString:s.imageURLString relativeToURL:s.URL]];
+	up.requireRefetch = YES;
+	up.userInfo = @"image";
+	up.snapshotKind = kSJEntityUpdateSnapshotKindData;
+	up.downloadPriority = kSJDownloadPriorityResourceForImmediateDisplay;
+	[s incompleteObjectNeedsFetchingSnapshotWithUpdate:up];
 }
 
 @end

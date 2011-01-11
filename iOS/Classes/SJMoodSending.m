@@ -36,12 +36,16 @@
 	
 	if (whenSent) {
 		[operation setURLConnectionCompletionBlock:^{
+			[[NSNotificationCenter defaultCenter] postNotificationName:kSJDidEndUsingNetworkForImmediateDisplayNotification object:self];
+			
 			[[NSOperationQueue mainQueue] addOperationWithBlock:^{
 				whenSent(operation.successful);
 			}];
 		}];
 	}
 	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kSJWillBeginUsingNetworkForImmediateDisplayNotification object:self];
+
 	[queue addOperation:operation];
 }
 

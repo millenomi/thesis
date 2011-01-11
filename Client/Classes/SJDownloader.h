@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#define kSJWillBeginUsingNetworkForImmediateDisplayNotification @"kSJWillBeginUsingNetworkForImmediateDisplayNotification"
+#define kSJDidEndUsingNetworkForImmediateDisplayNotification @"kSJDidEndUsingNetworkForImmediateDisplayNotification"
+
 #define kSJDownloaderErrorDomain @"SJDownloaderErrorDomain"
 enum {
 	kSJDownloaderErrorWillNotPerformOpportunisticDownloadsOnWWAN = 1,
@@ -17,6 +20,8 @@ typedef enum {
 	// only attempted on non-WWAN networks.
 	// all executing ones will be cancelled if a user request arrives.
 	kSJDownloadPriorityOpportunistic = 0,
+	
+	kSJDownloadResourceWillProbablyDisplayInImmediateFuture,
 	
 	kSJDownloadPrioritySubresourceForImmediateDisplay,
 	kSJDownloadPriorityResourceForImmediateDisplay,

@@ -103,13 +103,40 @@ typedef enum {
 
 - (void) mayHaveUpdated:(NSNotification*) n;
 {
-	if ([n object] == self.displayedSlide.managedObjectContext) {
-		self.orderedPoints = nil;
-		self.title = self.displayedSlide.presentation.title;
-		[tableView reloadData];
-		
-		[self updateBackForwardButtonItems];
-		[self updateSlideImageWithAnimation:kSJPresentationMoveAnimationKindSkip];
+	if (!n || [n object] == self.displayedSlide.managedObjectContext) {
+		[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayedUpdate) object:nil];
+		[self performSelector:@selector(delayedUpdate) withObject:nil afterDelay:1.0];
+	}
+}
+
+- (void) delayedUpdate;
+{
+	self.orderedPoints = nil;
+	self.title = self.displayedSlide.presentation.title;
+	[tableView reloadData];
+	
+	[self updateBackForwardButtonItems];
+	[self updateSlideImageWithAnimation:kSJPresentationMoveAnimationKindSkip];
+	
+	if (self.displayedSlide) {
+		NSArray* urls = self.displayedSlide.presentation.knownSlideURLs;
+		if (urls) {
+			NSInteger i = self.displayedSlide.sortingOrderValue + 1;
+			
+			if (i < [urls count]) {
+				SJEntityUpdate* up = [SJEntityUpdate updateWithSnapshotsClass:[SJSlideSchema class] URL:[urls objectAtIndex:i]];
+				up.downloadPriority = kSJDownloadResourceWillProbablyDisplayInImmediateFuture;
+				[self incompleteObjectNeedsFetchingSnapshotWithUpdate:up];
+			}
+			
+			i = self.displayedSlide.sortingOrderValue - 1;
+			
+			if (i > 0 && i < [urls count]) {
+				SJEntityUpdate* up = [SJEntityUpdate updateWithSnapshotsClass:[SJSlideSchema class] URL:[urls objectAtIndex:i]];
+				up.downloadPriority = kSJDownloadResourceWillProbablyDisplayInImmediateFuture;
+				[self incompleteObjectNeedsFetchingSnapshotWithUpdate:up];
+			}
+		}
 	}
 }
 
@@ -260,7 +287,30 @@ typedef enum {
 		SJSlide* oldSlide = [[displayedSlide retain] autorelease];
 		ILRetain(displayedSlide, s);
 		
+		// TODO clean up this mess
+		
 		[displayedSlide checkIfCompleteWithDownloadPriority:kSJDownloadPriorityResourceForImmediateDisplay];
+//		SJSlide* potentialNext = [SJSlide oneWithPredicate:
+//								  [NSPredicate predicateWithFormat:@"presentation == %@ && sortingOrder == %d", s.presentation, s.sortingOrderValue + 1]
+//											   fromContext:[self.displayedSlide managedObjectContext]];
+//		[potentialNext checkIfCompleteWithDownloadPriority:kSJDownloadPriorityOpportunistic];
+		
+		NSArray* urls = displayedSlide.presentation.knownSlideURLs;
+		if (urls) {
+			NSInteger i = displayedSlide.sortingOrderValue + 1;
+
+			if (i < [urls count]) {
+				SJEntityUpdate* up = [SJEntityUpdate updateWithSnapshotsClass:[SJSlideSchema class] URL:[urls objectAtIndex:i]];
+				[self incompleteObjectNeedsFetchingSnapshotWithUpdate:up];
+			}
+			
+			i = displayedSlide.sortingOrderValue - 1;
+		
+			if (i > 0 && i < [urls count]) {
+				SJEntityUpdate* up = [SJEntityUpdate updateWithSnapshotsClass:[SJSlideSchema class] URL:[urls objectAtIndex:i]];
+				[self incompleteObjectNeedsFetchingSnapshotWithUpdate:up];
+			}
+		}
 		
 		self.title = displayedSlide.presentation.title;
 		SJPresentationMoveAnimationKind kind = kSJPresentationMoveAnimationKindNone;
@@ -406,7 +456,7 @@ typedef enum {
 	
 	if (s.sortingOrderValue != s.presentation.knownCountOfSlidesValue - 1) {
 		SJSlide* forwardSlide = [SJSlide oneWithPredicate:
-							  [NSPredicate predicateWithFormat:@"presentation == %@ &&sortingOrder == %d", s.presentation, s.sortingOrderValue + 1]
+							  [NSPredicate predicateWithFormat:@"presentation == %@ && sortingOrder == %d", s.presentation, s.sortingOrderValue + 1]
 										   fromContext:[self.displayedSlide managedObjectContext]];
 		
 		if (forwardSlide)
@@ -415,6 +465,11 @@ typedef enum {
 }
 
 #pragma mark Following a live
+
+- (void) liveDidEnd:(SJLiveSyncController*) observer;
+{
+	self.currentLiveSlide = nil;
+}
 
 @synthesize liveSyncController;
 - (void) setLiveSyncController:(SJLiveSyncController *) live;
@@ -650,6 +705,7 @@ typedef enum {
 
 - (void) willRotateToInterfaceOrientation:(UIInterfaceOrientation) to duration:(NSTimeInterval)duration;
 {
+	[self mayHaveUpdated:nil];
 	rotatedToOrientation = to;
 	
 	if (UIInterfaceOrientationIsLandscape(to)) {
@@ -689,14 +745,21 @@ typedef enum {
 
 - (void) updateSlideImageWithAnimation:(SJPresentationMoveAnimationKind) ani;
 {
-	if (self.displayedSlide) {
+	if (self.displayedSlide && !slideImageOverlay.hidden) {
 		NSData* d = self.displayedSlide.imageData;
 		if (d) {
 			[slideImageLoadSpinner stopAnimating];
 			slideImageView.image = [UIImage imageWithData:d];
+			
+			if (!slideImageView.image) {
+				self.displayedSlide.imageData = nil;
+				[self.displayedSlide checkImageWithDownloadPriority:kSJDownloadPriorityResourceForImmediateDisplay];
+			}
+			
 		} else {
 			[slideImageLoadSpinner startAnimating];
 			slideImageView.image = nil;
+			[self.displayedSlide checkImageWithDownloadPriority:kSJDownloadPriorityResourceForImmediateDisplay];
 		}
 	}
 }
@@ -705,12 +768,7 @@ typedef enum {
 
 - (void) liveDidStart:(SJLiveSyncController*) observer;
 {
-	/* This method intentionally left blank. */
-}
-
-- (void) liveDidEnd:(SJLiveSyncController*) observer;
-{
-	/* This method intentionally left blank. */
+	[self updateBackForwardButtonItems];
 }
 
 - (void) live:(SJLiveSyncController*) observer didPostQuestionsAtURLs:(NSSet*) urls;

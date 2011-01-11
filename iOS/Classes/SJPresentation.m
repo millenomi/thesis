@@ -14,13 +14,12 @@
 @dynamic title;
 @dynamic slides;
 @dynamic URLString;
-@dynamic knownCountOfSlides;
+@dynamic knownSlideURLs;
 
 - (void) checkIfCompleteWithDownloadPriority:(SJDownloadPriority) priority;
 {	
-	if (self.URL && (!self.knownCountOfSlides || self.knownCountOfSlidesValue != self.slides.count)) {
-		// [SJPresentationSync requireUpdateForContentsOfPresentation:self priority:priority];
-	}
+	if (self.URL && !self.knownSlideURLs)
+		[SJPresentationSync requireUpdateForContentsOfPresentation:self priority:priority];
 }
 
 - (NSURL*) URL;
@@ -33,14 +32,14 @@
 	self.URLString = [u absoluteString];
 }
 
-- (NSUInteger) knownCountOfSlidesValue;
+- (NSNumber *) knownCountOfSlides;
 {
-	return self.knownCountOfSlides? [self.knownCountOfSlides unsignedIntegerValue] : 0;
+	return self.knownSlideURLs? [NSNumber numberWithInteger:[self.knownSlideURLs count]] : nil;
 }
 
-- (void) setKnownCountOfSlidesValue:(NSUInteger) v;
+- (NSUInteger) knownCountOfSlidesValue;
 {
-	self.knownCountOfSlides = [NSNumber numberWithUnsignedInteger:v];
+	return self.knownSlideURLs? [self.knownSlideURLs count] : 0;
 }
 
 + presentationWithURL:(NSURL*) url fromContext:(NSManagedObjectContext*) moc;

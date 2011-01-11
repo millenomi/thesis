@@ -10,6 +10,8 @@
 #import "ILInMemoryDownloadOperation.h"
 #import "ILHostReachability.h"
 
+#import <objc/runtime.h>
+
 // -------------------------------------------
 // -------------------------------------------
 
@@ -63,6 +65,30 @@
 
 @end
 
+// -------------------------------------------
+
+
+
+@interface ILURLConnectionOperation (SJConveniences)
+@property(copy, nonatomic) SJDownloadRequest* subject_originalDownloadRequest;
+@end
+
+@implementation ILURLConnectionOperation (SJConveniences)
+
+char kSJOriginalDownloadRequestAssociatedObjectKeyValue = 0;
+void* const kSJOriginalDownloadRequestAssociatedObjectKey = &kSJOriginalDownloadRequestAssociatedObjectKeyValue;
+
+- (SJDownloadRequest*) subject_originalDownloadRequest;
+{
+	return objc_getAssociatedObject(self, kSJOriginalDownloadRequestAssociatedObjectKey);
+}
+
+- (void) setSubject_originalDownloadRequest:(SJDownloadRequest*) req;
+{
+	objc_setAssociatedObject(self, kSJOriginalDownloadRequestAssociatedObjectKey, req, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+@end
 
 // -------------------------------------------
 // -------------------------------------------
@@ -83,6 +109,9 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 
 - (void) didDownloadDataWithOperation:(ILInMemoryDownloadOperation *)op request:(SJDownloadRequest*) req;
 
+- (void) beginHoldingQueue;
+- (void) endHoldingQueue;
+
 @end
 
 
@@ -97,7 +126,10 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 {
 	if ((self = [super init])) {
 		self.operationQueue = [[NSOperationQueue new] autorelease];
-		[self.operationQueue setMaxConcurrentOperationCount:2];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillBeginUsingNetworkForImmediateUse:) name:kSJWillBeginUsingNetworkForImmediateDisplayNotification object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEndUsingNetworkForImmediateUse:) name:kSJDidEndUsingNetworkForImmediateDisplayNotification object:nil];
+		
 		self.monitorsInternetReachability = YES;
 	}
 	
@@ -106,6 +138,8 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 
 - (void) dealloc
 {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 	[self.operationQueue cancelAllOperations];
 	self.operationQueue = nil;
 	[self.liveUpdateQueue cancelAllOperations];
@@ -144,75 +178,110 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 	
 	
 	__block id blockOp = [op retain]; // avoids retain cycle.
-	[op setURLConnectionCompletionBlock:SJOnMainThread(^{
-		if (blockOp) {
-			[self didDownloadDataWithOperation:blockOp request:request];
-			[blockOp release]; blockOp = nil;
-		}
-	})];
+	[op setURLConnectionCompletionBlock:^{
+		
+		[NSThread sleepForTimeInterval:2.0];
+		
+		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
+			if (blockOp) {
+				[self didDownloadDataWithOperation:blockOp request:request];
+				[blockOp release]; blockOp = nil;
+			}
+		}];
+	}];
 	
 	NSOperationQueue* opQueue = self.operationQueue;
-	BOOL executesRightNow = NO;
+	BOOL executesRightNow = NO, suspendsOpportunistDownloads = NO;
 	switch (r) {
 		case kSJDownloadPriorityOpportunistic:
 			[op setQueuePriority:NSOperationQueuePriorityLow];
 			break;
+
+		case kSJDownloadResourceWillProbablyDisplayInImmediateFuture:
 		case kSJDownloadPrioritySubresourceForImmediateDisplay:
 		case kSJDownloadPriorityResourceForImmediateDisplay:			
+			executesRightNow = YES;
+			suspendsOpportunistDownloads = YES;
+			break;
+			
 		case kSJDownloadPriorityLiveUpdate:
 			executesRightNow = YES;
+			suspendsOpportunistDownloads = NO;
 			break;
 	}
 		
 	if (executesRightNow) {
-		[opQueue setSuspended:YES];
-		queueHoldCount++;
-		
-		for (ILInMemoryDownloadOperation* op in [opQueue operations]) {
-			if ([op isExecuting]) {
-				[op cancel];
-				
-				ILInMemoryDownloadOperation* newOp = [[[ILInMemoryDownloadOperation alloc] initWithRequest:op.request] autorelease];
-				
-				__block id blockOp = [op retain]; // avoids retain cycle.
-				[newOp setURLConnectionCompletionBlock:SJOnMainThread(^{
-					if (blockOp) {
-						[self didDownloadDataWithOperation:blockOp request:request];
-						[blockOp release]; blockOp = nil;
-					}
-				})];
-				
-				NSLog(@"Dequeuing %@ and enqueuing it at end of queue as %@", op, newOp);
-
-				[opQueue addOperation:newOp];
-			}
+		NSLog(@"Running immediate download for %@", request.URL);
+		if (suspendsOpportunistDownloads) {
+			NSLog(@"Suspending queue for this download");
+			[self beginHoldingQueue];
 		}
 		
 		[NSThread detachNewThreadSelector:@selector(start) toTarget:op withObject:nil];
 	} else {
+		NSLog(@"Enqueuing opportunity download for %@", request.URL);
+		[op setSubject_originalDownloadRequest:request];
 		[opQueue addOperation:op];
-	}	
+	}
+}
+
+- (void) beginHoldingQueue;
+{
+	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(resumeOpportunistDownloads) object:nil];
+	queueHoldCount++;
 	
-//	if (opQueue == self.operationQueue && r == kSJDownloadPriorityOpportunistic) {
-//		for (NSOperation* currentOp in [self.operationQueue operations]) {
-//			if ([currentOp queuePriority] <= NSOperationQueuePriorityLow && [currentOp isExecuting])
-//				[currentOp cancel];
-//		}
-//	}
+	[self.operationQueue setSuspended:YES];
+	
+	for (ILURLConnectionOperation* op in [self.operationQueue operations]) {
+		[op cancel];
+	}
+}
+
+- (void) endHoldingQueue;
+{
+	if (queueHoldCount > 0) {
+		queueHoldCount--;
+		if (queueHoldCount == 0)
+			[self performSelector:@selector(resumeOpportunistDownloads) withObject:nil afterDelay:2.0];
+	}
+}
+
+- (void) applicationWillBeginUsingNetworkForImmediateUse:(NSNotification*) n;
+{
+	[self beginHoldingQueue];
+}
+
+- (void) applicationDidEndUsingNetworkForImmediateUse:(NSNotification*) n;
+{
+	[self endHoldingQueue];
 }
 
 @synthesize delegate;
 
 - (void) didDownloadDataWithOperation:(ILInMemoryDownloadOperation *)op request:(SJDownloadRequest*) req;
 {
-	req.error = op.error;
-	req.downloadedData = op.downloadedData;
-	[self.delegate downloader:self didFinishDowloadingRequest:req];
+	NSLog(@"Did finish downloading %@ (was opportunity? = %d)", req.URL, req.reason == kSJDownloadPriorityOpportunistic);
 	
-	if (req.reason != kSJDownloadPriorityOpportunistic) {
-		queueHoldCount--;
-		if (queueHoldCount == 0)
-			[self.operationQueue setSuspended:NO];
+	if ([[op.error domain] isEqual:NSCocoaErrorDomain] && [op.error code] == NSUserCancelledError && [op subject_originalDownloadRequest]) {
+		NSLog(@"Was cancelled, re-enqueuing");
+		[self beginDownloadingWithRequest:[op subject_originalDownloadRequest]]; // reenqueues it for later.
+	} else {
+		req.error = op.error;
+		req.downloadedData = op.downloadedData;
+		[self.delegate downloader:self didFinishDowloadingRequest:req];
+	}
+	
+	if (req.reason == kSJDownloadPriorityResourceForImmediateDisplay || req.reason == kSJDownloadPrioritySubresourceForImmediateDisplay) {
+		NSLog(@"No more suspend-queue downloads pending");
+		[self endHoldingQueue];
+	}
+}
+
+- (void) resumeOpportunistDownloads;
+{
+	if (queueHoldCount == 0) {
+		NSLog(@"Resuming queue");
+		[self.operationQueue setSuspended:NO];
 	}
 }
 

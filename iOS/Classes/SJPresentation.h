@@ -11,16 +11,17 @@
 #import "SJClient.h"
 
 @interface SJPresentation : ILManagedObject {
-
+	BOOL checkedCompleteness;
 }
 
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSSet* slides;
 @property (nonatomic, retain) NSString * URLString;
-@property (nonatomic, retain) NSNumber * knownCountOfSlides;
+@property (nonatomic, retain) NSArray * knownSlideURLs;
 
 @property(nonatomic, copy) NSURL* URL;
-@property(nonatomic) NSUInteger knownCountOfSlidesValue;
+@property(nonatomic, readonly) NSNumber * knownCountOfSlides;
+@property(nonatomic, readonly) NSUInteger knownCountOfSlidesValue;
 
 + presentationWithURL:(NSURL*) url fromContext:(NSManagedObjectContext*) moc;
 

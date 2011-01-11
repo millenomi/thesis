@@ -14,8 +14,6 @@
 		1555C40912D20C96005A3D09 /* SJPointSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 1555C40812D20C96005A3D09 /* SJPointSync.m */; };
 		1555C45612D223E8005A3D09 /* SJQuestionSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 1555C45512D223E8005A3D09 /* SJQuestionSync.m */; };
 		15620EF912C2373A009750D1 /* SJPresentationPane_v2.m in Sources */ = {isa = PBXBuildFile; fileRef = 15620EF812C2373A009750D1 /* SJPresentationPane_v2.m */; };
-		156F244A12734EA9000BC614 /* SJPresentationPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F244912734EA9000BC614 /* SJPresentationPane.m */; };
-		156F244C12734FC7000BC614 /* SJPresentationPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156F244B12734FC7000BC614 /* SJPresentationPane.xib */; };
 		156F246B12735605000BC614 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156F246A12735605000BC614 /* QuartzCore.framework */; };
 		156F27D612703486005C6F71 /* SJLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F27D512703486005C6F71 /* SJLive.m */; };
 		156F28CA1270DF2B005C6F71 /* ILManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F28C91270DF2B005C6F71 /* ILManagedObject.m */; };
@@ -191,9 +189,6 @@
 		1555C45512D223E8005A3D09 /* SJQuestionSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJQuestionSync.m; sourceTree = "<group>"; };
 		15620EF712C2373A009750D1 /* SJPresentationPane_v2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentationPane_v2.h; sourceTree = "<group>"; };
 		15620EF812C2373A009750D1 /* SJPresentationPane_v2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPresentationPane_v2.m; sourceTree = "<group>"; };
-		156F244812734EA9000BC614 /* SJPresentationPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPresentationPane.h; sourceTree = "<group>"; };
-		156F244912734EA9000BC614 /* SJPresentationPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPresentationPane.m; sourceTree = "<group>"; };
-		156F244B12734FC7000BC614 /* SJPresentationPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SJPresentationPane.xib; sourceTree = "<group>"; };
 		156F246A12735605000BC614 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		156F27D412703486005C6F71 /* SJLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLive.h; sourceTree = "<group>"; };
 		156F27D512703486005C6F71 /* SJLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLive.m; sourceTree = "<group>"; };
@@ -357,9 +352,6 @@
 		156F244712734E24000BC614 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				156F244812734EA9000BC614 /* SJPresentationPane.h */,
-				156F244912734EA9000BC614 /* SJPresentationPane.m */,
-				156F244B12734FC7000BC614 /* SJPresentationPane.xib */,
 				15FBF1BC12817582005D68B6 /* SJPoseAQuestionPane.h */,
 				15FBF1BD12817582005D68B6 /* SJPoseAQuestionPane.m */,
 				15FBF1BE12817582005D68B6 /* SJPoseAQuestionPane.xib */,
@@ -690,7 +682,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				156F244C12734FC7000BC614 /* SJPresentationPane.xib in Resources */,
 				15FBF1B812817510005D68B6 /* Balloon.png in Resources */,
 				15FBF1BA12817513005D68B6 /* Balloon@2x.png in Resources */,
 				15FBF1C012817582005D68B6 /* SJPoseAQuestionPane.xib in Resources */,
@@ -762,7 +753,6 @@
 				15FD03DF126DB2DA00353B83 /* SJPoint.m in Sources */,
 				156F27D612703486005C6F71 /* SJLive.m in Sources */,
 				156F28CA1270DF2B005C6F71 /* ILManagedObject.m in Sources */,
-				156F244A12734EA9000BC614 /* SJPresentationPane.m in Sources */,
 				15FBF1BF12817582005D68B6 /* SJPoseAQuestionPane.m in Sources */,
 				15D4366512845104005DBAE3 /* SJPointTableViewCell.m in Sources */,
 				15E64AB51286EB85005975D2 /* SJQuestion.m in Sources */,

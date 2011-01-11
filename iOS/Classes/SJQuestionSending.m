@@ -25,13 +25,13 @@
 @implementation SJQuestion (SJQuestionSending)
 
 - (void) sendUsingQueue:(NSOperationQueue*) queue whenSent:(void (^)(BOOL done)) whenSent;
-{
+{	
 	NSParameterAssert(queue != nil);
 	NSAssert(self.point, @"This question must be associated to a point");
 	
 	NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/new_question", self.point.URLString]];
 	NSAssert(url != nil, @"Could not create a valid question URL");
-	
+
 	NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
 	
 	[request setHTTPMethod:@"POST"];
@@ -51,6 +51,8 @@
 	
 	[operation setURLConnectionCompletionBlock:^{
 		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
+			[[NSNotificationCenter defaultCenter] postNotificationName:kSJDidEndUsingNetworkForImmediateDisplayNotification object:self];
+
 			if (operation.successful)
 				self.URL = operation.response.URL;
 			else
@@ -64,6 +66,8 @@
 				whenSent(operation.successful);
 		}];
 	}];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kSJWillBeginUsingNetworkForImmediateDisplayNotification object:self];
 	
 	[queue addOperation:operation];
 }

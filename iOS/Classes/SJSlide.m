@@ -32,6 +32,13 @@
 	}
 }
 
+- (void) checkImageWithDownloadPriority:(SJDownloadPriority) priority;
+{	
+	if (self.URL && (!self.imageURLString || self.imageURLString && !self.imageData)) {
+		[SJSlideSync requireUpdateForImageOfSlide:self priority:priority];
+	}
+}
+
 - (NSUInteger) sortingOrderValue;
 {
 	return self.sortingOrder? [self.sortingOrder unsignedIntegerValue] : 0;
