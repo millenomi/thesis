@@ -97,8 +97,7 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 {
 	if ((self = [super init])) {
 		self.operationQueue = [[NSOperationQueue new] autorelease];
-		self.liveUpdateQueue = [[NSOperationQueue new] autorelease];
-		
+		[self.operationQueue setMaxConcurrentOperationCount:2];
 		self.monitorsInternetReachability = YES;
 	}
 	
@@ -153,25 +152,38 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 	})];
 	
 	NSOperationQueue* opQueue = self.operationQueue;
-	
+	BOOL executesRightNow = NO;
 	switch (r) {
 		case kSJDownloadPriorityOpportunistic:
 			[op setQueuePriority:NSOperationQueuePriorityLow];
 			break;
 		case kSJDownloadPrioritySubresourceForImmediateDisplay:
-			opQueue = self.liveUpdateQueue;
-			[op setQueuePriority:NSOperationQueuePriorityHigh];
-			break;
-		case kSJDownloadPriorityResourceForImmediateDisplay:
-			opQueue = self.liveUpdateQueue;
-			[op setQueuePriority:NSOperationQueuePriorityVeryHigh];
+		case kSJDownloadPriorityResourceForImmediateDisplay:			
+		case kSJDownloadPriorityLiveUpdate:
+			executesRightNow = YES;
 			break;
 	}
-	
-	if (r != kSJDownloadPriorityOpportunistic)
-		NSLog(@" == %d == Enqueuing %@ in queue %@", r, [request.URL absoluteString], opQueue);
-	
-	[opQueue addOperation:op];
+		
+	if (executesRightNow) {
+		[opQueue setSuspended:YES];
+		queueHoldCount++;
+		
+		for (ILInMemoryDownloadOperation* op in [opQueue operations]) {
+			if ([op isExecuting]) {
+				[op cancel];
+				
+				ILInMemoryDownloadOperation* newOp = [[[ILInMemoryDownloadOperation alloc] initWithRequest:op.request] autorelease];
+				[newOp setURLConnectionCompletionBlock:[op URLConnectionCompletionBlock]];
+				NSLog(@"Dequeuing %@ and enqueuing it at end of queue as %@", op, newOp);
+
+				[opQueue addOperation:newOp];
+			}
+		}
+		
+		[NSThread detachNewThreadSelector:@selector(start) toTarget:op withObject:nil];
+	} else {
+		[opQueue addOperation:op];
+	}	
 	
 //	if (opQueue == self.operationQueue && r == kSJDownloadPriorityOpportunistic) {
 //		for (NSOperation* currentOp in [self.operationQueue operations]) {
@@ -188,6 +200,12 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 	req.error = op.error;
 	req.downloadedData = op.downloadedData;
 	[self.delegate downloader:self didFinishDowloadingRequest:req];
+	
+	if (req.reason != kSJDownloadPriorityOpportunistic) {
+		queueHoldCount--;
+		if (queueHoldCount == 0)
+			[self.operationQueue setSuspended:NO];
+	}
 }
 
 #pragma mark Reachability

@@ -7,7 +7,7 @@
 //
 
 #import "SJPresentation.h"
-
+#import "SJPresentationSync.h"
 
 @implementation SJPresentation
 
@@ -15,6 +15,13 @@
 @dynamic slides;
 @dynamic URLString;
 @dynamic knownCountOfSlides;
+
+- (void) checkIfCompleteWithDownloadPriority:(SJDownloadPriority) priority;
+{	
+	if (self.URL && (!self.knownCountOfSlides || self.knownCountOfSlidesValue != self.slides.count)) {
+		// [SJPresentationSync requireUpdateForContentsOfPresentation:self priority:priority];
+	}
+}
 
 - (NSURL*) URL;
 {

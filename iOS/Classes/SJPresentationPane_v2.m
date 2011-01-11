@@ -288,7 +288,15 @@ typedef enum {
 		
 		[self updateBackForwardButtonItems];
 		[tableView reloadData];
+		
+		if (!CGPointEqualToPoint(tableView.contentOffset, CGPointZero))
+			[self performSelector:@selector(scrollToTop) withObject:nil afterDelay:0.7];
 	}
+}
+
+- (void) scrollToTop;
+{
+	[tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 }
 
 @synthesize orderedPoints;

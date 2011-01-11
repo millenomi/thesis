@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ILManagedObject.h"
+#import "SJClient.h"
 
 @interface SJPresentation : ILManagedObject {
 
@@ -22,6 +23,8 @@
 @property(nonatomic) NSUInteger knownCountOfSlidesValue;
 
 + presentationWithURL:(NSURL*) url fromContext:(NSManagedObjectContext*) moc;
+
+- (void) checkIfCompleteWithDownloadPriority:(SJDownloadPriority) priority;
 
 @end
 

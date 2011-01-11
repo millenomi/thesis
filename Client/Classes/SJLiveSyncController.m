@@ -82,7 +82,7 @@
 {
 	NSLog(@"Did tick: %@", self);
 	SJEntityUpdate* update = [SJEntityUpdate updateWithSnapshotsClass:[SJLiveSchema class] URL:self.URL];
-	update.downloadPriority = kSJDownloadPriorityResourceForImmediateDisplay;
+	update.downloadPriority = kSJDownloadPriorityLiveUpdate;
 	[self.syncCoordinator processUpdate:update];
 }
 

@@ -26,6 +26,7 @@
 
 - (void) checkIfCompleteWithDownloadPriority:(SJDownloadPriority) priority;
 {	
+	[self.presentation checkIfCompleteWithDownloadPriority:priority];
 	if (self.URL && (!self.presentation || !self.imageURLString || self.imageURLString && !self.imageData)) {
 		[SJSlideSync requireUpdateForContentsOfSlide:self priority:priority];
 	}

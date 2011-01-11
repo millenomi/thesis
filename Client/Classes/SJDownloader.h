@@ -20,6 +20,7 @@ typedef enum {
 	
 	kSJDownloadPrioritySubresourceForImmediateDisplay,
 	kSJDownloadPriorityResourceForImmediateDisplay,
+	kSJDownloadPriorityLiveUpdate,
 } SJDownloadPriority;
 
 #define kSJDownloaderOptionDownloadReason @"SJDownloaderOptionDownloadReason"
@@ -29,7 +30,9 @@ typedef enum {
 @protocol SJDownloaderDelegate;
 
 
-@interface SJDownloader : NSObject {}
+@interface SJDownloader : NSObject {
+	int queueHoldCount;
+}
 
 + downloader;
 

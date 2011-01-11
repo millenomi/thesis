@@ -58,4 +58,14 @@
 	}
 }
 
++ (void) requireUpdateForContentsOfPresentation:(SJPresentation*) p priority:(SJDownloadPriority) priority;
+{
+	SJEntityUpdate* up;
+	
+	up = [SJEntityUpdate updateWithSnapshotsClass:[SJPresentationSchema class] URL:p.URL];
+	up.requireRefetch = YES;
+	up.downloadPriority = priority;
+	[p incompleteObjectNeedsFetchingSnapshotWithUpdate:up];	
+}
+
 @end
