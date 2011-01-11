@@ -32,6 +32,8 @@
 @property(nonatomic, retain) SJLiveSyncController* liveSyncController;
 @property(nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 
+- (IBAction) sendMoodForCurrentSlide;
+
 @end
 
 

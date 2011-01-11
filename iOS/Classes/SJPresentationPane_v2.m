@@ -479,6 +479,8 @@ typedef enum {
 			
 			[questionKindPicker dismissAnimated:YES];
 		};
+		
+		questionKindPicker.rotateWithStatusBarOrientation = YES;
 	}
 	
 	return questionKindPicker;
@@ -564,6 +566,8 @@ typedef enum {
 			
 			[moodPicker dismissAnimated:YES];
 		};
+		
+		moodPicker.rotateWithStatusBarOrientation = YES;
 	}
 	
 	return moodPicker;
