@@ -95,8 +95,6 @@
 		imageUpdate.userInfo = @"image";
 		imageUpdate.snapshotKind = kSJEntityUpdateSnapshotKindData;
 		
-		BOOL _debug_isInteresting = [[[imageUpdate URL] absoluteString] isEqual:@"http://infinitelabs-subject.appspot.com/presentations/at/4001/slides/1/image"] && imageUpdate.downloadPriority != kSJDownloadPrioritySubresourceForImmediateDisplay;
-
 		[self.syncCoordinator processUpdate:imageUpdate];
 	}
 }
