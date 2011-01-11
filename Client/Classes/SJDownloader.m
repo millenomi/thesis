@@ -173,7 +173,15 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 				[op cancel];
 				
 				ILInMemoryDownloadOperation* newOp = [[[ILInMemoryDownloadOperation alloc] initWithRequest:op.request] autorelease];
-				[newOp setURLConnectionCompletionBlock:[op URLConnectionCompletionBlock]];
+				
+				__block id blockOp = [op retain]; // avoids retain cycle.
+				[newOp setURLConnectionCompletionBlock:SJOnMainThread(^{
+					if (blockOp) {
+						[self didDownloadDataWithOperation:blockOp request:request];
+						[blockOp release]; blockOp = nil;
+					}
+				})];
+				
 				NSLog(@"Dequeuing %@ and enqueuing it at end of queue as %@", op, newOp);
 
 				[opQueue addOperation:newOp];
