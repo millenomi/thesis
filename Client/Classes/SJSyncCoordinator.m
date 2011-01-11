@@ -14,6 +14,7 @@
 #import "ILSensorSink.h"
 #import "ILSensorSession.h"
 
+
 @interface SJSyncCoordinator () <SJDownloaderDelegate>
 
 @property(nonatomic, retain) NSMutableDictionary* syncControllers;
@@ -47,6 +48,8 @@
 
 - (void) dealloc
 {
+	self.monitorsIncompleteObjectFetchNotifications = NO;
+	
 	[[self.syncControllers allValues] makeObjectsPerformSelector:@selector(setSyncCoordinator:) withObject:nil];
 	self.syncControllers = nil;
 	
@@ -56,6 +59,27 @@
 	self.watches = nil;
 	
 	[super dealloc];
+}
+
+#pragma mark Incomplete fetch triggering
+
+@synthesize monitorsIncompleteObjectFetchNotifications;
+- (void) setMonitorsIncompleteObjectFetchNotifications:(BOOL) m;
+{
+	if (m != monitorsIncompleteObjectFetchNotifications) {
+		monitorsIncompleteObjectFetchNotifications = m;
+		
+		if (m)
+			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didTriggerIncompleteObjectFetch:) name:kSJIncompleteObjectsRequiresFetchNotification object:nil];
+		else
+			[[NSNotificationCenter defaultCenter] removeObserver:self name:kSJIncompleteObjectsRequiresFetchNotification object:nil];
+	}
+}
+
+- (void) didTriggerIncompleteObjectFetch:(NSNotification*) n;
+{
+	SJEntityUpdate* up = [[n userInfo] objectForKey:kSJEntityUpdateKey];
+	[self processUpdate:up];
 }
 
 #pragma mark Watches
@@ -153,15 +177,15 @@
 	}
 	
 	NSURL* absURL = [update.URL absoluteURL];
-	BOOL isDownloading = [self.URLsBeingDownloaded containsObject:absURL];
 	
-	if (isDownloading) {
+	if (update.downloadPriority == kSJDownloadPriorityOpportunistic &&
+		[self.URLsBeingDownloaded containsObject:absURL]) {
 		ILLogDictInfo(@"Processing an update for an URL already being downloaded",
 					  update, @"update",
 					  ctl, @"syncController");
 	} else {
-		if ([ctl shouldDownloadSnapshotForUpdate:update]) {
-			ILLogDictInfo(@"Controller said OK to download update",
+		if (update.requireRefetch || [ctl shouldDownloadSnapshotForUpdate:update]) {
+			ILLogDictInfo(@"Controller said OK to download update or update requires refetch",
 						  update, @"update",
 						  ctl, @"syncController");
 			
@@ -267,7 +291,6 @@ CF_INLINE NSString* SJEntityUpdateSnapshotKindDescription(SJEntityUpdateSnapshot
 
 CF_INLINE NSString* SJDownloadPriorityDescription(SJDownloadPriority p) {
 	switch (p) {
-		ILCaseReturningNameOfConstant(kSJDownloadPriorityLiveUpdate)
 		ILCaseReturningNameOfConstant(kSJDownloadPriorityResourceForImmediateDisplay)
 		ILCaseReturningNameOfConstant(kSJDownloadPrioritySubresourceForImmediateDisplay)
 		ILCaseReturningNameOfConstant(kSJDownloadPriorityOpportunistic)
@@ -287,7 +310,7 @@ CF_INLINE NSString* SJDownloadPriorityDescription(SJDownloadPriority p) {
 	[super dealloc];
 }
 
-@synthesize snapshotsClass, URL, availableSnapshot, downloadPriority;
+@synthesize snapshotsClass, URL, availableSnapshot, downloadPriority, requireRefetch;
 
 + updateWithSnapshotsClass:(Class) c URL:(NSURL*) url;
 {
@@ -308,10 +331,6 @@ CF_INLINE NSString* SJDownloadPriorityDescription(SJDownloadPriority p) {
 {
 	SJEntityUpdate* related = [[self class] updateWithSnapshotsClass:c URL:url];
 	switch (self.downloadPriority) {
-		case kSJDownloadPriorityLiveUpdate:
-			related.downloadPriority = kSJDownloadPriorityResourceForImmediateDisplay;
-			break;
-			
 		case kSJDownloadPriorityResourceForImmediateDisplay:
 		case kSJDownloadPrioritySubresourceForImmediateDisplay:
 			related.downloadPriority = kSJDownloadPrioritySubresourceForImmediateDisplay;
@@ -352,6 +371,19 @@ CF_INLINE NSString* SJDownloadPriorityDescription(SJDownloadPriority p) {
 			SJDownloadPriorityDescription(self.downloadPriority),
 			self.referrerEntityUpdate,
 			self.userInfo];
+}
+
+@end
+
+@implementation NSObject (SJEntityFetchTriggering)
+
+- (void) incompleteObjectNeedsFetchingSnapshotWithUpdate:(SJEntityUpdate*) up;
+{
+	[[NSNotificationCenter defaultCenter] postNotificationName:kSJIncompleteObjectsRequiresFetchNotification
+														object:self
+													  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+																up, kSJEntityUpdateKey,
+																nil]];
 }
 
 @end

@@ -21,6 +21,8 @@ typedef NSInteger SJEntityUpdateSnapshotKind;
 
 @interface SJSyncCoordinator : NSObject {}
 
+@property(nonatomic, assign) BOOL monitorsIncompleteObjectFetchNotifications;
+
 - (void) setSyncController:(id <SJSyncController>) ctl forEntitiesWithSnapshotsClass:(Class) c;
 - (void) removeSyncControllerForEntitiesWithSnapshotsClass:(Class) c;
 
@@ -52,6 +54,7 @@ typedef NSInteger SJEntityUpdateSnapshotKind;
 @property(nonatomic, copy) id availableSnapshot;
 
 @property(nonatomic) SJDownloadPriority downloadPriority;
+@property(nonatomic) BOOL requireRefetch;
 
 @property(nonatomic, copy) id userInfo;
 @property(nonatomic) SJEntityUpdateSnapshotKind snapshotKind;
@@ -68,6 +71,18 @@ typedef NSInteger SJEntityUpdateSnapshotKind;
 - (BOOL) shouldRescheduleFailedDownloadForUpdate:(SJEntityUpdate*) update error:(NSError*) error;
 
 @property(nonatomic, assign) SJSyncCoordinator* syncCoordinator;
+
+@end
+
+
+// Model snapshot fetch triggering
+
+#define kSJIncompleteObjectsRequiresFetchNotification @"SJIncompleteObjectsRequiresFetchNotification"
+#define kSJEntityUpdateKey @"SJEntityUpdate"
+
+@interface NSObject (SJEntityFetchTriggering)
+
+- (void) incompleteObjectNeedsFetchingSnapshotWithUpdate:(SJEntityUpdate*) up;
 
 @end
 

@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
+			<integer value="14"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -125,6 +125,15 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
+							<object class="IBUIActivityIndicatorView" id="220455851">
+								<reference key="NSNextResponder" ref="122952551"/>
+								<int key="NSvFlags">-2147483347</int>
+								<string key="NSFrame">{{161, 231}, {37, 37}}</string>
+								<reference key="NSSuperview" ref="122952551"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIStyle">0</int>
+							</object>
 						</object>
 						<string key="NSFrame">{{-20, -20}, {345, 480}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
@@ -205,6 +214,14 @@
 					</object>
 					<int key="connectionID">17</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">slideImageLoadSpinner</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="220455851"/>
+					</object>
+					<int key="connectionID">19</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -268,12 +285,18 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="159277309"/>
+							<reference ref="220455851"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">15</int>
 						<reference key="object" ref="159277309"/>
+						<reference key="parent" ref="122952551"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">18</int>
+						<reference key="object" ref="220455851"/>
 						<reference key="parent" ref="122952551"/>
 					</object>
 				</object>
@@ -291,6 +314,7 @@
 					<string>14.IBViewBoundsToFrameTransform</string>
 					<string>15.IBPluginDependency</string>
 					<string>15.IBViewBoundsToFrameTransform</string>
+					<string>18.IBPluginDependency</string>
 					<string>4.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
 					<string>6.IBViewBoundsToFrameTransform</string>
@@ -300,7 +324,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>SJPresentationPane_v2</string>
 					<string>UIResponder</string>
-					<string>{{429, 130}, {320, 480}}</string>
+					<string>{{477, 110}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -311,6 +335,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABB6AAAw7MAAA</bytes>
 					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -335,7 +360,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">17</int>
+			<int key="maxID">19</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -350,6 +375,7 @@
 							<string>moodSendLabel</string>
 							<string>moodSendProgressView</string>
 							<string>moodSendSpinner</string>
+							<string>slideImageLoadSpinner</string>
 							<string>slideImageOverlay</string>
 							<string>slideImageView</string>
 							<string>tableView</string>
@@ -358,6 +384,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UILabel</string>
 							<string>UIView</string>
+							<string>UIActivityIndicatorView</string>
 							<string>UIActivityIndicatorView</string>
 							<string>UIView</string>
 							<string>UIImageView</string>
@@ -371,6 +398,7 @@
 							<string>moodSendLabel</string>
 							<string>moodSendProgressView</string>
 							<string>moodSendSpinner</string>
+							<string>slideImageLoadSpinner</string>
 							<string>slideImageOverlay</string>
 							<string>slideImageView</string>
 							<string>tableView</string>
@@ -387,6 +415,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">moodSendSpinner</string>
+								<string key="candidateClassName">UIActivityIndicatorView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">slideImageLoadSpinner</string>
 								<string key="candidateClassName">UIActivityIndicatorView</string>
 							</object>
 							<object class="IBToOneOutletInfo">

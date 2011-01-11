@@ -46,7 +46,8 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDefaultsDidChange:) name:NSUserDefaultsDidChangeNotification object:nil];
 	
 	[[ILSensorSink sharedSink] addTap:[[ILNSLoggerSensorTap new] autorelease]];
-	//[[ILSensorSink sharedSink] setEnabled:YES];
+	// [[ILSensorSink sharedSink] setEnabled:YES];
+	
 	
 	
 	NSString* baseURLString = [[[NSProcessInfo processInfo] environment] objectForKey:@"SJEndpointURL"];
@@ -55,7 +56,9 @@
 	
 	NSURL* baseURL = [NSURL URLWithString:baseURLString];
 	
-	self.syncCoordinator = [[SJSyncCoordinator alloc] init];
+	self.syncCoordinator = [[[SJSyncCoordinator alloc] init] autorelease];
+	self.syncCoordinator.monitorsIncompleteObjectFetchNotifications = YES;
+	self.syncCoordinator.downloader.monitorsInternetReachability = NO;
 	
 	SJSyncCoordinator* coord = self.syncCoordinator;
 	NSManagedObjectContext* moc = self.managedObjectContext;
@@ -68,6 +71,8 @@
 	
 	livePane.liveSyncController = self.liveSyncController;
 	livePane.managedObjectContext = moc;
+	
+	
 	
 	NSString* slideIdentifier = [[NSUserDefaults standardUserDefaults] objectForKey:@"SJLastDisplayedSlideURIIdentifier"];
 	NSURL* slideIdentifierURL = nil; 

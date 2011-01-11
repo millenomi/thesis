@@ -41,28 +41,6 @@
 		s.imageData = snapshot;
 		return;
 	}
-
-#if 0
-	if ([snapshot isKindOfClass:[SJPointSchema class]]) {
-		if (!obj)
-			obj = [SJPoint insertedInto:self.managedObjectContext];
-		
-		SJPoint* point = obj;
-		SJPointSchema* pointSchema = snapshot;
-		
-		point.URL = update.URL;
-		point.text = pointSchema.text;
-		point.indentationValue = pointSchema.indentationValue;
-		
-		if (pointSchema.slideURLString) {
-			SJSlide* slide = [SJSlide slideWithURL:[NSURL URLWithString:pointSchema.slideURLString relativeToURL:update.URL] fromContext:self.managedObjectContext];
-			if (slide)
-				point.slide = slide;
-		}
-		
-		return;
-	}
-#endif
 	
 	SJSlide* slide = obj;
 	if (!slide)
@@ -109,7 +87,7 @@
 		
 		i++;
 	}
-	
+		
 	if (!slide.imageData && schema.imageURLString) {
 		SJEntityUpdate* imageUpdate = 
 			[update relatedUpdateWithSnapshotsClass:[SJSlideSchema class] URL:[update relativeURLTo:schema.imageURLString] refers:YES];
@@ -117,7 +95,27 @@
 		imageUpdate.userInfo = @"image";
 		imageUpdate.snapshotKind = kSJEntityUpdateSnapshotKindData;
 		
+		BOOL _debug_isInteresting = [[[imageUpdate URL] absoluteString] isEqual:@"http://infinitelabs-subject.appspot.com/presentations/at/4001/slides/1/image"] && imageUpdate.downloadPriority != kSJDownloadPrioritySubresourceForImmediateDisplay;
+
 		[self.syncCoordinator processUpdate:imageUpdate];
+	}
+}
+
++ (void) requireUpdateForContentsOfSlide:(SJSlide*) s priority:(SJDownloadPriority) priority;
+{
+	SJEntityUpdate* up;
+	
+	up = [SJEntityUpdate updateWithSnapshotsClass:[SJSlideSchema class] URL:s.URL];
+	up.requireRefetch = YES;
+	up.downloadPriority = priority;
+	[s incompleteObjectNeedsFetchingSnapshotWithUpdate:up];
+	
+	if (s.imageURLString && !s.imageData) {
+		up = [up relatedUpdateWithSnapshotsClass:[SJSlideSchema class] URL:s.URL refers:YES];
+		up.requireRefetch = YES;
+		up.userInfo = @"image";
+		up.snapshotKind = kSJEntityUpdateSnapshotKindData;
+		[s incompleteObjectNeedsFetchingSnapshotWithUpdate:up];
 	}
 }
 

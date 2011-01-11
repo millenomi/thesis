@@ -286,6 +286,18 @@ CF_INLINE NSString* SJStringByUppercasingFirstLetter(NSString* x) {
 	return ([values objectForKey:prop] || [unspecifiedOptionalValues containsObject:prop]) || [super respondsToSelector:aSelector];
 }
 
+- (id) valueForUndefinedKey:(NSString *)key;
+{
+	if ([unspecifiedOptionalValues containsObject:key])
+		return nil;
+	
+	id x = [values objectForKey:key];
+	if (x)
+		return x;
+	else
+		return [super valueForUndefinedKey:key];
+}
+
 - (id) valueForCallingSelector;
 { /* used for its signature only */ return nil; }
 

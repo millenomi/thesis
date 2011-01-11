@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "SJClient.h"
 
+@class SJSlide;
+
 @interface SJSlideSync : SJCoreDataSyncController
+
++ (void) requireUpdateForContentsOfSlide:(SJSlide*) s priority:(SJDownloadPriority) priority;
 
 @end

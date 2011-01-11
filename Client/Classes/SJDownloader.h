@@ -13,21 +13,14 @@ enum {
 	kSJDownloaderErrorWillNotPerformOpportunisticDownloadsOnWWAN = 1,
 };
 
-enum {
+typedef enum {
 	// only attempted on non-WWAN networks.
 	// all executing ones will be cancelled if a user request arrives.
 	kSJDownloadPriorityOpportunistic = 0,
 	
-	// cancelled if running and a user request arrives.
 	kSJDownloadPrioritySubresourceForImmediateDisplay,
-	
-	// never cancelled. highest priority of all.
 	kSJDownloadPriorityResourceForImmediateDisplay,
-	
-	// has its own private queue
-	kSJDownloadPriorityLiveUpdate,
-};
-typedef NSUInteger SJDownloadPriority;
+} SJDownloadPriority;
 
 #define kSJDownloaderOptionDownloadReason @"SJDownloaderOptionDownloadReason"
 #define kSJDownloaderOptionUserInfo @"SJDownloaderOptionUserInfo"

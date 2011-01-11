@@ -144,9 +144,12 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 	op.maximumResourceSize = 1 * 1024 * 1024; // TODO configurable?
 	
 	
-	__block id blockOp = op; // avoids retain cycle.
+	__block id blockOp = [op retain]; // avoids retain cycle.
 	[op setURLConnectionCompletionBlock:SJOnMainThread(^{
-		[self didDownloadDataWithOperation:blockOp request:request];
+		if (blockOp) {
+			[self didDownloadDataWithOperation:blockOp request:request];
+			[blockOp release]; blockOp = nil;
+		}
 	})];
 	
 	NSOperationQueue* opQueue = self.operationQueue;
@@ -156,15 +159,17 @@ static SJRunnable SJOnMainThread(SJRunnable r) {
 			[op setQueuePriority:NSOperationQueuePriorityLow];
 			break;
 		case kSJDownloadPrioritySubresourceForImmediateDisplay:
-			[op setQueuePriority:NSOperationQueuePriorityNormal];
+			opQueue = self.liveUpdateQueue;
+			[op setQueuePriority:NSOperationQueuePriorityHigh];
 			break;
 		case kSJDownloadPriorityResourceForImmediateDisplay:
+			opQueue = self.liveUpdateQueue;
 			[op setQueuePriority:NSOperationQueuePriorityVeryHigh];
 			break;
-		case kSJDownloadPriorityLiveUpdate:
-			opQueue = self.liveUpdateQueue;
-			break;
 	}
+	
+	if (r != kSJDownloadPriorityOpportunistic)
+		NSLog(@" == %d == Enqueuing %@ in queue %@", r, [request.URL absoluteString], opQueue);
 	
 	[opQueue addOperation:op];
 	

@@ -10,6 +10,8 @@
 #import "ILManagedObject.h"
 #import "SJPoint.h"
 
+#import "SJClient.h"
+
 @class SJPresentation;
 
 @interface SJSlide : ILManagedObject {
@@ -29,6 +31,8 @@
 + slideWithURL:(NSURL*) url fromContext:(NSManagedObjectContext*) moc;
 
 - (SJPoint*) pointAtIndex:(NSUInteger) i;
+
+- (void) checkIfCompleteWithDownloadPriority:(SJDownloadPriority) priority;
 
 @end
 

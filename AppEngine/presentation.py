@@ -2,6 +2,8 @@ from google.appengine.ext.db import *
 from django.utils import simplejson as json
 from google.appengine.ext import webapp as w
 
+DELETE_SECRET = "cfcd225cd172ce170894c429c81f0e487073250c"
+
 class Presentation(Model):
 	title = StringProperty()
 	created_on = DateTimeProperty(auto_now_add = True)
@@ -113,7 +115,7 @@ class AllPresentationsJSONView(w.RequestHandler):
 		json.dump(presentations, self.response.out)
 
 class PresentationJSONView(w.RequestHandler):
-	url_scheme = '/presentations/(at|content_of)/([^/])*'
+	url_scheme = '/presentations/(at|content_of)/([^/]*)'
 
 	@classmethod
 	def url(self, pres, include_contents_of_slides = False):
@@ -137,6 +139,26 @@ class PresentationJSONView(w.RequestHandler):
 
 		self.response.headers['Content-Type'] = 'application/json'
 		json.dump(p.to_data(include_contents_of_slides = content), self.response.out)
+		
+	def delete(self, action, id):
+		if self.request.get('secret') != DELETE_SECRET:
+			self.error(403)
+			return
+		
+		p = Presentation.get_by_id(long(id))
+		
+		if p is None:
+			self.response.headers['Content-Type'] = 'text/plain'
+			self.response.out.write("Not found")
+			self.error(404)
+			return
+			
+		for s in p.slide_set:
+			for pt in s.point_set:
+				pt.delete()
+			s.delete()
+		p.delete()
+		
 		
 class SlideJSONView(w.RequestHandler):
 	url_scheme = '/presentations/at/(.*)/slides/(.*)'

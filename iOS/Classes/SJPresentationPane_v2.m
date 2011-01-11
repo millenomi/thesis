@@ -107,7 +107,9 @@ typedef enum {
 		self.orderedPoints = nil;
 		self.title = self.displayedSlide.presentation.title;
 		[tableView reloadData];
+		
 		[self updateBackForwardButtonItems];
+		[self updateSlideImageWithAnimation:kSJPresentationMoveAnimationKindSkip];
 	}
 }
 
@@ -139,6 +141,7 @@ typedef enum {
 			
 			@"slideImageOverlay",
 			@"slideImageView",
+			@"slideImageLoadSpinner",
 			nil];
 }
 
@@ -256,6 +259,8 @@ typedef enum {
 		
 		SJSlide* oldSlide = [[displayedSlide retain] autorelease];
 		ILRetain(displayedSlide, s);
+		
+		[displayedSlide checkIfCompleteWithDownloadPriority:kSJDownloadPriorityResourceForImmediateDisplay];
 		
 		self.title = displayedSlide.presentation.title;
 		SJPresentationMoveAnimationKind kind = kSJPresentationMoveAnimationKindNone;
@@ -376,7 +381,7 @@ typedef enum {
 	if (s.sortingOrderValue != 0) {
 		
 		SJSlide* backSlide = [SJSlide oneWithPredicate:
-							  [NSPredicate predicateWithFormat:@"sortingOrder == %d", s.sortingOrderValue - 1]
+							  [NSPredicate predicateWithFormat:@"presentation == %@ && sortingOrder == %d", s.presentation, s.sortingOrderValue - 1]
 										   fromContext:[self.displayedSlide managedObjectContext]];
 		
 		if (backSlide)
@@ -391,10 +396,9 @@ typedef enum {
 	
 	SJSlide* s = self.displayedSlide;
 	
-	if (!s.presentation || s.sortingOrderValue != s.presentation.knownCountOfSlidesValue - 1) {
-		
+	if (s.sortingOrderValue != s.presentation.knownCountOfSlidesValue - 1) {
 		SJSlide* forwardSlide = [SJSlide oneWithPredicate:
-							  [NSPredicate predicateWithFormat:@"sortingOrder == %d", s.sortingOrderValue + 1]
+							  [NSPredicate predicateWithFormat:@"presentation == %@ &&sortingOrder == %d", s.presentation, s.sortingOrderValue + 1]
 										   fromContext:[self.displayedSlide managedObjectContext]];
 		
 		if (forwardSlide)
@@ -677,8 +681,16 @@ typedef enum {
 
 - (void) updateSlideImageWithAnimation:(SJPresentationMoveAnimationKind) ani;
 {
-	if (self.displayedSlide)
-		slideImageView.image = [UIImage imageWithData:self.displayedSlide.imageData];
+	if (self.displayedSlide) {
+		NSData* d = self.displayedSlide.imageData;
+		if (d) {
+			[slideImageLoadSpinner stopAnimating];
+			slideImageView.image = [UIImage imageWithData:d];
+		} else {
+			[slideImageLoadSpinner startAnimating];
+			slideImageView.image = nil;
+		}
+	}
 }
 
 #pragma mark Live methods we don't use

@@ -22,6 +22,7 @@
 	
 	IBOutlet UIView* slideImageOverlay;
 	IBOutlet UIImageView* slideImageView;
+	IBOutlet UIActivityIndicatorView* slideImageLoadSpinner;
 	
 	UIInterfaceOrientation rotatedToOrientation;
 }

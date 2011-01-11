@@ -7,7 +7,7 @@
 //
 
 #import "SJSlide.h"
-
+#import "SJSlideSync.h"
 
 @implementation SJSlide
 
@@ -17,6 +17,19 @@
 @dynamic URLString;
 @dynamic imageURLString;
 @dynamic imageData;
+
+- (void) awakeFromFetch;
+{
+	[super awakeFromFetch];
+	[self checkIfCompleteWithDownloadPriority:kSJDownloadPriorityOpportunistic];
+}
+
+- (void) checkIfCompleteWithDownloadPriority:(SJDownloadPriority) priority;
+{	
+	if (self.URL && (!self.presentation || !self.imageURLString || self.imageURLString && !self.imageData)) {
+		[SJSlideSync requireUpdateForContentsOfSlide:self priority:priority];
+	}
+}
 
 - (NSUInteger) sortingOrderValue;
 {
