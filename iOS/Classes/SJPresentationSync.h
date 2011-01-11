@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "SJClient.h"
 
+@class SJPresentation;
+
 @interface SJPresentationSync : SJCoreDataSyncController
+
++ (void) requireUpdateForContentsOfPresentation:(SJPresentation*) p priority:(SJDownloadPriority) priority;
 
 @end

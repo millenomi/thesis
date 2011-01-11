@@ -14,5 +14,6 @@
 @interface SJSlideSync : SJCoreDataSyncController
 
 + (void) requireUpdateForContentsOfSlide:(SJSlide*) s priority:(SJDownloadPriority) priority;
++ (void) requireUpdateForImageOfSlide:(SJSlide*) s priority:(SJDownloadPriority) priority;
 
 @end

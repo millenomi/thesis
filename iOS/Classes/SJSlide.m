@@ -26,8 +26,16 @@
 
 - (void) checkIfCompleteWithDownloadPriority:(SJDownloadPriority) priority;
 {	
+	[self.presentation checkIfCompleteWithDownloadPriority:priority];
 	if (self.URL && (!self.presentation || !self.imageURLString || self.imageURLString && !self.imageData)) {
 		[SJSlideSync requireUpdateForContentsOfSlide:self priority:priority];
+	}
+}
+
+- (void) checkImageWithDownloadPriority:(SJDownloadPriority) priority;
+{	
+	if (self.URL && (!self.imageURLString || self.imageURLString && !self.imageData)) {
+		[SJSlideSync requireUpdateForImageOfSlide:self priority:priority];
 	}
 }
 

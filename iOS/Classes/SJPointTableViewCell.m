@@ -157,12 +157,12 @@
 	// hardcoded, but can be changed without modifying the NIB
 	const CGFloat fontSize = 14;
 	
-	return p.indentationValue == 0? [UIFont boldSystemFontOfSize:fontSize] : [UIFont systemFontOfSize:fontSize];
+	return p.indentationValue == 0 && p.sortingOrderValue == 0? [UIFont boldSystemFontOfSize:fontSize] : [UIFont systemFontOfSize:fontSize];
 }
 
 + (NSString*) displayTextForPoint:(SJPoint*) p;
 {
-	return (p.indentationValue == 0)? p.text : [NSString stringWithFormat:@"%C %@", 0x2022, p.text];
+	return (p.indentationValue == 0)? p.text : [NSString stringWithFormat:@"%@%C %@", [@"" stringByPaddingToLength:p.indentationValue withString:@"  " startingAtIndex:0], 0x2022, p.text];
 }
 
 #if 0

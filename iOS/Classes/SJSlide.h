@@ -33,6 +33,7 @@
 - (SJPoint*) pointAtIndex:(NSUInteger) i;
 
 - (void) checkIfCompleteWithDownloadPriority:(SJDownloadPriority) priority;
+- (void) checkImageWithDownloadPriority:(SJDownloadPriority) priority;
 
 @end
 
