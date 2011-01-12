@@ -34,6 +34,13 @@
 			remoteGlobalIDString = 1544377412759CB4003197B3;
 			remoteInfo = "Client (iOS library)";
 		};
+		155EC86C12DD7E3D0029F4C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15BC4F811274226E00550BF6 /* Client.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 15FCC8E112D1D73800D52E53 /* libClient-Mac.a */;
+			remoteInfo = "Client (Mac Library)";
+		};
 		15BC4FBA127423F600550BF6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15BC4F811274226E00550BF6 /* Client.xcodeproj */;
@@ -137,6 +144,7 @@
 			children = (
 				15BC4FBB127423F600550BF6 /* SJClient.framework */,
 				1544377912759CB5003197B3 /* libClient-iOS.a */,
+				155EC86D12DD7E3D0029F4C8 /* libClient-Mac.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -252,6 +260,13 @@
 			fileType = archive.ar;
 			path = "libClient-iOS.a";
 			remoteRef = 1544377812759CB5003197B3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		155EC86D12DD7E3D0029F4C8 /* libClient-Mac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libClient-Mac.a";
+			remoteRef = 155EC86C12DD7E3D0029F4C8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		15BC4FBB127423F600550BF6 /* SJClient.framework */ = {

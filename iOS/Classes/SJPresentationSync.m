@@ -59,9 +59,9 @@
 		SJSlide* s = [SJSlide slideWithURL:url fromContext:self.managedObjectContext];
 		s.presentation = pres;
 
-		SJEntityUpdate* up = [SJEntityUpdate updateWithSnapshotsClass:[SJSlideSchema class] URL:url];
-		up.availableSnapshot = slideInfo.contents;
-		[self.syncCoordinator processUpdate:up];
+//		SJEntityUpdate* up = [SJEntityUpdate updateWithSnapshotsClass:[SJSlideSchema class] URL:url];
+//		up.availableSnapshot = slideInfo.contents;
+//		[self.syncCoordinator processUpdate:up];
 	
 		i++;
 	}
