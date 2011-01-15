@@ -3,7 +3,24 @@ from django.utils import simplejson as json
 from google.appengine.ext import webapp as w
 from google.appengine.api import memcache
 
+
+LIVE_WRITE_SECRET = 'bWlsbGVub21pOmNXNUNRVjByZjk6aio/UipTKTR0'
+def continue_after_checking_https_and_secret(self):
+	if self.request.scheme != 'https' and not sitewide_settings.DEBUG:
+		self.error(403)
+		self.response.headers['X-IL-Error-Reason'] = 'this method is not allowed using unencrypted HTTP'
+		return False
+		
+	if 'Authorization' not in self.request.headers or self.request.headers['Authorization'] != "Basic %s" % LIVE_WRITE_SECRET:
+		self.error(401)
+		self.response.headers['WWW-Authenticate'] = 'Basic realm="Live presentation"'
+		return False
+	
+	return True
+
+
 import presentation as p
+import sitewide_settings
 
 class Live(Model):
 	slide = ReferenceProperty(p.Slide)
@@ -85,6 +102,9 @@ class LiveControl(w.RequestHandler):
 	
 	# TODO: ACL
 	def post(self):
+		if not continue_after_checking_https_and_secret(self):
+			return
+		
 		me = Live.get_current()
 		slide_no = self.request.get('slide', default_value = None)
 		pres_id = self.request.get('presentation', default_value = None)
@@ -115,7 +135,6 @@ class LiveControl(w.RequestHandler):
 	def get(self):
 		import question as qa
 		import time, datetime, logging
-		import sitewide_settings
 		
 		is_long_polling_request = (self.request.get('request.kind') == 'update')
 		
@@ -197,8 +216,19 @@ class ReportAMood(w.RequestHandler):
 		m.put()
 		
 		self.redirect(MoodView.url(m))
+
+class LecturersScreen(w.RequestHandler):
+	url_scheme = '/status'
+	def get(self):
+		import tools
+		if not continue_after_checking_https_and_secret(self):
+			return
+			
+		with open(tools.path('lecturer.html'), 'r') as f:
+			self.response.out.write(f.read())
 	
 def append_handlers(list):
 	list.append((MoodView.url_scheme, MoodView))
 	list.append((ReportAMood.url_scheme, ReportAMood))
 	list.append((LiveControl.url_scheme, LiveControl))
+	list.append((LecturersScreen.url_scheme, LecturersScreen))
