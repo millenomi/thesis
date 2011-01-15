@@ -36,15 +36,15 @@ typedef enum {
 
 
 @interface SJDownloader : NSObject {
-	int queueHoldCount;
+	NSMutableArray* pendingLowPriorityRequests;
+	NSMutableSet* runningLowPriorityRequests, * runningHighPriorityRequests;
+	NSMutableDictionary* downloadedDataByConnection, * requestsByConnection;
 }
 
 + downloader;
 
 - (void) beginDownloadingWithRequest:(SJDownloadRequest*) request;
 @property(nonatomic, assign) id <SJDownloaderDelegate> delegate;
-
-@property(nonatomic) BOOL monitorsInternetReachability;
 
 @end
 
