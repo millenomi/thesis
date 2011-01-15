@@ -77,6 +77,11 @@
 - (void) tryDequeuingAndRunningLowPriorityRequest;
 - (void) cleanUpAfter:(NSURLConnection *)c;
 
+@property(nonatomic) BOOL inABatch;
+- (void) beginBatchIfNeeded;
+- (void) endPossiblyBatchedRequest;
+- (void) endBatchImmediatelyIfNeeded;
+
 @end
 
 
@@ -93,9 +98,15 @@
 	
 	runningLowPriorityRequests = [NSMutableSet new];
 	runningHighPriorityRequests = [NSMutableSet new];
+	
 	downloadedDataByConnection = [NSMutableDictionary new];
 	requestsByConnection = [NSMutableDictionary new];
+	
 	pendingLowPriorityRequests = [NSMutableArray new];
+	
+	self.downloadBatchSize = 1;
+	self.downloadBatchWaitTimeout = 5.0;
+	
 	return self;
 }
 
@@ -119,7 +130,7 @@
 
 - (void) beginDownloadingWithRequest:(SJDownloadRequest*) request;
 {
-	BOOL startsNow = (request.reason != kSJDownloadPriorityOpportunistic);
+	BOOL isHighPriority = (request.reason != kSJDownloadPriorityOpportunistic);
 	
 	NSURLRequest* r = [NSURLRequest requestWithURL:request.URL];
 	
@@ -129,7 +140,9 @@
 	[downloadedDataByConnection setObject:[NSMutableData data] forKey:k];
 	[requestsByConnection setObject:request forKey:k];
 	
-	if (startsNow) {			
+	if (isHighPriority) {
+		[self endBatchImmediatelyIfNeeded];
+		
 		[runningHighPriorityRequests addObject:c];
 		[c start];
 		
@@ -138,7 +151,7 @@
 			[self cleanUpAfter:running];
 			[self beginDownloadingWithRequest:toReenqueue]; // reenqueues it for later.
 		}
-	} else {
+	} else {		
 		[pendingLowPriorityRequests addObject:c];
 		[self tryDequeuingAndRunningLowPriorityRequest];
 	}
@@ -168,6 +181,8 @@
 	if ([runningLowPriorityRequests count] >= kSJMaximumConcurrentOpportunistRequests)
 		return;
 	
+	[self beginBatchIfNeeded];
+	
 	NSURLConnection* c = [pendingLowPriorityRequests objectAtIndex:0];
 	[runningLowPriorityRequests addObject:c];
 	[c start];
@@ -191,6 +206,8 @@
 	
 	[self.delegate downloader:self didFinishDowloadingRequest:request];
 	[self cleanUpAfter:connection];
+	[self endPossiblyBatchedRequest];
+	
 	[self tryDequeuingAndRunningLowPriorityRequest];
 }
 
@@ -206,5 +223,89 @@
 }
 
 @synthesize delegate;
+
+#pragma mark Batching
+
+@synthesize downloadBatchSize;
+- (void) setDownloadBatchSize:(NSUInteger) i;
+{
+	if (i == 0)
+		i = 1;
+	
+	if (i != downloadBatchSize) {
+		
+		NSAssert([pendingLowPriorityRequests count] == 0 && [runningLowPriorityRequests count] == 0 && [runningHighPriorityRequests count] == 0, @"You cannot change the download batch size if downloads are running or pending.");
+		
+		downloadBatchSize = i;
+		
+	}
+}
+
+@synthesize downloadBatchWaitTimeout;
+- (void) setDownloadBatchWaitTimeout:(NSTimeInterval) i;
+{
+	NSParameterAssert(i > 0);
+	
+	if (i != downloadBatchWaitTimeout) {
+		
+		NSAssert([pendingLowPriorityRequests count] == 0 && [runningLowPriorityRequests count] == 0 && [runningHighPriorityRequests count] == 0, @"You cannot change the download batch size if downloads are running or pending.");
+		
+		downloadBatchWaitTimeout = i;
+		
+	}
+}
+
+@synthesize inABatch;
+
+- (void) beginBatchIfNeeded;
+{
+	if (self.inABatch)
+		return;
+	
+	if (self.downloadBatchSize == 1)
+		return;
+	
+	self.inABatch = YES;
+	NSLog(@"(beginning a new batch)");
+	[self.delegate downloaderWillBeginBatch:self];
+}
+
+- (void) endPossiblyBatchedRequest;
+{
+	if (!self.inABatch)
+		return;
+	
+	if (self.downloadBatchSize == 1)
+		return;
+
+	batchSize++;
+	if (batchSize >= self.downloadBatchSize) {
+		[self endBatchImmediatelyIfNeeded];
+	} else {
+		[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(batchDidTimeOut) object:nil];
+		[self performSelector:@selector(batchDidTimeOut) withObject:nil afterDelay:self.downloadBatchWaitTimeout];
+	}
+}
+
+- (void) endBatchImmediatelyIfNeeded;
+{
+	if (self.downloadBatchSize == 1)
+		return;
+
+	if (self.inABatch) {
+		[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(batchDidTimeOut) object:nil];
+		self.inABatch = NO;
+		
+		NSLog(@"(ending a batch at size %d)", (int) batchSize);
+		batchSize = 0;
+
+		[self.delegate downloaderDidEndBatch:self];
+	}
+}
+
+- (void) batchDidTimeOut;
+{
+	[self endBatchImmediatelyIfNeeded];
+}
 
 @end
