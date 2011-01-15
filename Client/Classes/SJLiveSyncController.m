@@ -68,7 +68,7 @@
 		syncCoordinator = sc;
 		
 		if (syncCoordinator && !self.updateTimer) {
-			self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(tick:) userInfo:nil repeats:YES];
+			self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:3.5 target:self selector:@selector(tick:) userInfo:nil repeats:YES];
 			[self performSelector:@selector(tick:) withObject:nil afterDelay:0.001];
 		} else if (!syncCoordinator) {
 			[self.updateTimer invalidate];
