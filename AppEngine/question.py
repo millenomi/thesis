@@ -2,6 +2,8 @@ import presentation as p
 from google.appengine.ext.db import *
 from django.utils import simplejson as json
 from google.appengine.ext import webapp as w
+
+import live
 	
 class Question(Model):
 	point = ReferenceProperty(p.Point)
@@ -19,12 +21,22 @@ class Question(Model):
 		if self.question_kind == Question.FREEFORM:
 			data['text'] = self.text
 			
+		data['answers'] = []
+		for a in Answer.gql("WHERE question = :1 ORDER BY timestamp", self):
+			data['answers'].append(a.to_data())
+			
 		return data
 
 class Answer(Model):
 	text = TextProperty()
-	sorting_order = IntegerProperty()
 	question = ReferenceProperty(Question)
+	timestamp = DateTimeProperty(auto_now_add = True)
+	
+	def to_data(self):
+		return {
+			'text': self.text,
+			'URL': AnswerView.url(self),
+		}
 
 class QuestionView(w.RequestHandler):
 	url_scheme = '/questions/id/(.*)'
@@ -42,6 +54,7 @@ class QuestionView(w.RequestHandler):
 			self.error(404)
 			return
 		
+		self.response.headers['Content-Type'] = 'application/json'
 		data = q.to_data()
 		data["pointURL"] = p.PointJSONView.url(q.point)
 		json.dump(data, self.response.out)
@@ -89,6 +102,77 @@ class PoseAQuestion(w.RequestHandler):
 		
 		self.redirect(QuestionView.url(q))
 		
+class AnswerView(w.RequestHandler):
+	url_scheme = '/answers/(.*)'
+	
+	@classmethod
+	def url(self, answer):
+		return '/answers/%s' % str(answer.key())
+		
+	def get(self, answer_id):
+		a = Answer.get(Key(answer_id))
+		if a is None:
+			self.error(404)
+			return
+		
+		self.response.headers['Content-Type'] = 'application/json'
+		data = a.to_data()
+		data['questionURL'] = QuestionView.url(a.question)
+		json.dump(data, self.response.out)
+		
+	def delete(self, answer_id):
+		if not live.continue_after_checking_https_and_secret(self):
+			return
+		
+		a = Answer.get(Key(answer_id))
+		if a is None:
+			self.error(404)
+			return
+		
+		a.delete()
+		
+	def post(self, answer_id):
+		if not live.continue_after_checking_https_and_secret(self):
+			return
+
+		if self.request.get('delete') == 'true':
+			self.delete(answer_id)
+		
+class AnswerQuestion(w.RequestHandler):
+	url_scheme = '/questions/id/([^/]+)/new_answer'
+	
+	@classmethod
+	def url(self, question):
+		return '/questions/id/%s/new_answer' % str(question.key())
+		
+	def post(self, question_id):
+		if not live.continue_after_checking_https_and_secret(self):
+			return
+			
+		q = Question.get(Key(question_id))
+		if q is None:
+			self.error(404)
+			return
+		
+		if q.question_kind != Question.FREEFORM:
+			self.error(400)
+			self.response.headers['X-IL-Error-Reason'] = 'Only freeform questions can have answers'
+			return
+		
+		a = Answer(question = q)
+		text = self.request.get('text')
+		if text == '':
+			self.error(400)
+			self.response.headers['X-IL-Error-Reason'] = 'You must specify text for an answer'
+			return
+			
+		a.text = text
+		
+		a.put()
+		self.redirect(AnswerView.url(a))
+		
 def append_handlers(list):
+	list.append((AnswerQuestion.url_scheme, AnswerQuestion))
+	list.append((AnswerView.url_scheme, AnswerView))
 	list.append((QuestionView.url_scheme, QuestionView))
 	list.append((PoseAQuestion.url_scheme, PoseAQuestion))
