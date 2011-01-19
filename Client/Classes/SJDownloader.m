@@ -10,6 +10,8 @@
 #import "ILInMemoryDownloadOperation.h"
 #import "ILHostReachability.h"
 
+#import "Foundation/Basics/ILShorthand.h"
+
 #import <objc/runtime.h>
 
 // -------------------------------------------
@@ -67,259 +69,243 @@
 
 // -------------------------------------------
 
+#define SJKeyFor(c) \
+	[NSValue valueWithNonretainedObject:c]
 
+@interface SJDownloader ()
 
-@interface ILURLConnectionOperation (SJConveniences)
-@property(copy, nonatomic) SJDownloadRequest* subject_originalDownloadRequest;
-@end
+- (void) tryDequeuingAndRunningLowPriorityRequest;
+- (void) cleanUpAfter:(NSURLConnection *)c;
 
-@implementation ILURLConnectionOperation (SJConveniences)
-
-char kSJOriginalDownloadRequestAssociatedObjectKeyValue = 0;
-void* const kSJOriginalDownloadRequestAssociatedObjectKey = &kSJOriginalDownloadRequestAssociatedObjectKeyValue;
-
-- (SJDownloadRequest*) subject_originalDownloadRequest;
-{
-	return objc_getAssociatedObject(self, kSJOriginalDownloadRequestAssociatedObjectKey);
-}
-
-- (void) setSubject_originalDownloadRequest:(SJDownloadRequest*) req;
-{
-	objc_setAssociatedObject(self, kSJOriginalDownloadRequestAssociatedObjectKey, req, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-@end
-
-// -------------------------------------------
-// -------------------------------------------
-
-#pragma mark The Downloader proper
-
-typedef void (^SJRunnable)(void);
-static SJRunnable SJOnMainThread(SJRunnable r) {
-	return [[^{
-		[[NSOperationQueue mainQueue] addOperationWithBlock:r];
-	} copy] autorelease];
-};
-
-@interface SJDownloader () <ILHostReachabilityDelegate>
-
-@property(nonatomic, retain) NSOperationQueue* operationQueue, * liveUpdateQueue;
-@property(nonatomic, retain) ILHostReachability* reach;
-
-- (void) didDownloadDataWithOperation:(ILInMemoryDownloadOperation *)op request:(SJDownloadRequest*) req;
-
-- (void) beginHoldingQueue;
-- (void) endHoldingQueue;
+@property(nonatomic) BOOL inABatch;
+- (void) beginBatchIfNeeded;
+- (void) endPossiblyBatchedRequest;
+- (void) endBatchImmediatelyIfNeeded;
 
 @end
 
 
 @implementation SJDownloader
 
-+ (id) downloader;
++ downloader;
 {
 	return [[self new] autorelease];
 }
 
 - (id) init;
 {
-	if ((self = [super init])) {
-		self.operationQueue = [[NSOperationQueue new] autorelease];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillBeginUsingNetworkForImmediateUse:) name:kSJWillBeginUsingNetworkForImmediateDisplayNotification object:nil];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEndUsingNetworkForImmediateUse:) name:kSJDidEndUsingNetworkForImmediateDisplayNotification object:nil];
-		
-		self.monitorsInternetReachability = YES;
-	}
+	ILInit();
+	
+	runningLowPriorityRequests = [NSMutableSet new];
+	runningHighPriorityRequests = [NSMutableSet new];
+	
+	downloadedDataByConnection = [NSMutableDictionary new];
+	requestsByConnection = [NSMutableDictionary new];
+	
+	pendingLowPriorityRequests = [NSMutableArray new];
+	
+	self.downloadBatchSize = 1;
+	self.downloadBatchWaitTimeout = 5.0;
 	
 	return self;
 }
 
 - (void) dealloc
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[runningLowPriorityRequests makeObjectsPerformSelector:@selector(cancel)];
+	[runningHighPriorityRequests makeObjectsPerformSelector:@selector(cancel)];
 	
-	[self.operationQueue cancelAllOperations];
-	self.operationQueue = nil;
-	[self.liveUpdateQueue cancelAllOperations];
-	self.liveUpdateQueue = nil;
+	[runningLowPriorityRequests release];
+	[runningHighPriorityRequests release];
 	
-	self.reach.delegate = nil;
-	self.reach = nil;
+	[downloadedDataByConnection release];
+	[requestsByConnection release];
+	
+	[pendingLowPriorityRequests release];
 	
 	[super dealloc];
 }
 
 
-#pragma mark Downloading stuff
-
-@synthesize operationQueue, liveUpdateQueue, reach;
 
 - (void) beginDownloadingWithRequest:(SJDownloadRequest*) request;
-{	
-	request = [[request copy] autorelease];
+{
+	BOOL isHighPriority = (request.reason != kSJDownloadPriorityOpportunistic);
 	
-	SJDownloadPriority r = request.reason;
+	NSURLRequest* r = [NSURLRequest requestWithURL:request.URL];
 	
-	if (r == kSJDownloadPriorityOpportunistic && self.reach.reachabilityKnown && self.reach.requiresRoutingOnWWAN) {
-		request.error = [NSError errorWithDomain:kSJDownloaderErrorDomain
-											code:kSJDownloaderErrorWillNotPerformOpportunisticDownloadsOnWWAN
-										userInfo:nil];
+	NSURLConnection* c = [[[NSURLConnection alloc] initWithRequest:r delegate:self startImmediately:NO] autorelease];
 
-		[self.delegate downloader:self didFinishDowloadingRequest:request];
-		return;
-	}
-
-	NSURLRequest* req = [NSURLRequest requestWithURL:request.URL];
+	id k = SJKeyFor(c);
+	[downloadedDataByConnection setObject:[NSMutableData data] forKey:k];
+	[requestsByConnection setObject:request forKey:k];
 	
-	ILInMemoryDownloadOperation* op = [[[ILInMemoryDownloadOperation alloc] initWithRequest:req] autorelease];
-	op.maximumResourceSize = 1 * 1024 * 1024; // TODO configurable?
-	
-	
-	__block id blockOp = [op retain]; // avoids retain cycle.
-	[op setURLConnectionCompletionBlock:^{
+	if (isHighPriority) {
+		[self endBatchImmediatelyIfNeeded];
 		
-		[NSThread sleepForTimeInterval:2.0];
+		[runningHighPriorityRequests addObject:c];
+		[c start];
 		
-		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
-			if (blockOp) {
-				[self didDownloadDataWithOperation:blockOp request:request];
-				[blockOp release]; blockOp = nil;
-			}
-		}];
-	}];
-	
-	NSOperationQueue* opQueue = self.operationQueue;
-	BOOL executesRightNow = NO, suspendsOpportunistDownloads = NO;
-	switch (r) {
-		case kSJDownloadPriorityOpportunistic:
-			[op setQueuePriority:NSOperationQueuePriorityLow];
-			break;
-
-		case kSJDownloadResourceWillProbablyDisplayInImmediateFuture:
-		case kSJDownloadPrioritySubresourceForImmediateDisplay:
-		case kSJDownloadPriorityResourceForImmediateDisplay:			
-			executesRightNow = YES;
-			suspendsOpportunistDownloads = YES;
-			break;
-			
-		case kSJDownloadPriorityLiveUpdate:
-			executesRightNow = YES;
-			suspendsOpportunistDownloads = NO;
-			break;
-	}
-		
-	if (executesRightNow) {
-		NSLog(@"Running immediate download for %@", request.URL);
-		if (suspendsOpportunistDownloads) {
-			NSLog(@"Suspending queue for this download");
-			[self beginHoldingQueue];
+		for (NSURLConnection* running in [[runningLowPriorityRequests copy] autorelease]) {
+			SJDownloadRequest* toReenqueue = [[[requestsByConnection objectForKey:SJKeyFor(running)] retain] autorelease];
+			[self cleanUpAfter:running];
+			[self beginDownloadingWithRequest:toReenqueue]; // reenqueues it for later.
 		}
-		
-		[NSThread detachNewThreadSelector:@selector(start) toTarget:op withObject:nil];
-	} else {
-		NSLog(@"Enqueuing opportunity download for %@", request.URL);
-		[op setSubject_originalDownloadRequest:request];
-		[opQueue addOperation:op];
+	} else {		
+		[pendingLowPriorityRequests addObject:c];
+		[self tryDequeuingAndRunningLowPriorityRequest];
 	}
 }
 
-- (void) beginHoldingQueue;
+- (void) cleanUpAfter:(NSURLConnection*) c;
 {
-	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(resumeOpportunistDownloads) object:nil];
-	queueHoldCount++;
+	[c cancel];
 	
-	[self.operationQueue setSuspended:YES];
+	id k = SJKeyFor(c);
+	[downloadedDataByConnection removeObjectForKey:k];
+	[requestsByConnection removeObjectForKey:k];
+
+	[runningLowPriorityRequests removeObject:c];
+	[runningHighPriorityRequests removeObject:c];
+}
+
+#define kSJMaximumConcurrentOpportunistRequests (3)
+- (void) tryDequeuingAndRunningLowPriorityRequest;
+{
+	if ([pendingLowPriorityRequests count] == 0)
+		return;
 	
-	for (ILURLConnectionOperation* op in [self.operationQueue operations]) {
-		[op cancel];
-	}
+	if ([runningHighPriorityRequests count] != 0)
+		return;
+	
+	if ([runningLowPriorityRequests count] >= kSJMaximumConcurrentOpportunistRequests)
+		return;
+	
+	[self beginBatchIfNeeded];
+	
+	NSURLConnection* c = [pendingLowPriorityRequests objectAtIndex:0];
+	[runningLowPriorityRequests addObject:c];
+	[c start];
+	[pendingLowPriorityRequests removeObjectAtIndex:0];
 }
 
-- (void) endHoldingQueue;
+- (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
 {
-	if (queueHoldCount > 0) {
-		queueHoldCount--;
-		if (queueHoldCount == 0)
-			[self performSelector:@selector(resumeOpportunistDownloads) withObject:nil afterDelay:2.0];
-	}
+	NSMutableData* d = [downloadedDataByConnection objectForKey:SJKeyFor(connection)];
+	[d appendData:data];
 }
 
-- (void) applicationWillBeginUsingNetworkForImmediateUse:(NSNotification*) n;
+- (void) connectionDidFinishLoading:(NSURLConnection *)connection;
 {
-	[self beginHoldingQueue];
+	id k = SJKeyFor(connection);
+	
+	SJDownloadRequest* request = [requestsByConnection objectForKey:k];
+
+	NSMutableData* d = [downloadedDataByConnection objectForKey:k];
+	request.downloadedData = d;
+	
+	[self.delegate downloader:self didFinishDowloadingRequest:request];
+	[self cleanUpAfter:connection];
+	[self endPossiblyBatchedRequest];
+	
+	[self tryDequeuingAndRunningLowPriorityRequest];
 }
 
-- (void) applicationDidEndUsingNetworkForImmediateUse:(NSNotification*) n;
+- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
 {
-	[self endHoldingQueue];
+	SJDownloadRequest* request = [requestsByConnection objectForKey:SJKeyFor(connection)];
+	
+	request.error = error;
+	
+	[self.delegate downloader:self didFinishDowloadingRequest:request];
+	[self cleanUpAfter:connection];	
+	[self tryDequeuingAndRunningLowPriorityRequest];
 }
 
 @synthesize delegate;
 
-- (void) didDownloadDataWithOperation:(ILInMemoryDownloadOperation *)op request:(SJDownloadRequest*) req;
+#pragma mark Batching
+
+@synthesize downloadBatchSize;
+- (void) setDownloadBatchSize:(NSUInteger) i;
 {
-	NSLog(@"Did finish downloading %@ (was opportunity? = %d)", req.URL, req.reason == kSJDownloadPriorityOpportunistic);
+	if (i == 0)
+		i = 1;
 	
-	if ([[op.error domain] isEqual:NSCocoaErrorDomain] && [op.error code] == NSUserCancelledError && [op subject_originalDownloadRequest]) {
-		NSLog(@"Was cancelled, re-enqueuing");
-		[self beginDownloadingWithRequest:[op subject_originalDownloadRequest]]; // reenqueues it for later.
-	} else {
-		req.error = op.error;
-		req.downloadedData = op.downloadedData;
-		[self.delegate downloader:self didFinishDowloadingRequest:req];
+	if (i != downloadBatchSize) {
+		
+		NSAssert([pendingLowPriorityRequests count] == 0 && [runningLowPriorityRequests count] == 0 && [runningHighPriorityRequests count] == 0, @"You cannot change the download batch size if downloads are running or pending.");
+		
+		downloadBatchSize = i;
+		
 	}
+}
+
+@synthesize downloadBatchWaitTimeout;
+- (void) setDownloadBatchWaitTimeout:(NSTimeInterval) i;
+{
+	NSParameterAssert(i > 0);
 	
-	if (req.reason == kSJDownloadPriorityResourceForImmediateDisplay || req.reason == kSJDownloadPrioritySubresourceForImmediateDisplay) {
-		NSLog(@"No more suspend-queue downloads pending");
-		[self endHoldingQueue];
-	}
-}
-
-- (void) resumeOpportunistDownloads;
-{
-	if (queueHoldCount == 0) {
-		NSLog(@"Resuming queue");
-		[self.operationQueue setSuspended:NO];
-	}
-}
-
-#pragma mark Reachability
-
-@synthesize monitorsInternetReachability;
-- (void) setMonitorsInternetReachability:(BOOL) m;
-{
-	if (m != monitorsInternetReachability) {
-		monitorsInternetReachability = m;
+	if (i != downloadBatchWaitTimeout) {
 		
-		self.reach.delegate = nil;
-		[self.reach stop];
+		NSAssert([pendingLowPriorityRequests count] == 0 && [runningLowPriorityRequests count] == 0 && [runningHighPriorityRequests count] == 0, @"You cannot change the download batch size if downloads are running or pending.");
 		
-		if (monitorsInternetReachability) {			
-			self.reach = [[[ILHostReachability alloc] initWithHostAddressString:@"infinite-labs.net"] autorelease];
-			self.reach.delegate = self;
-		} else {
-			[self.operationQueue setSuspended:NO];
-			[self.liveUpdateQueue setSuspended:NO];			
-		}
+		downloadBatchWaitTimeout = i;
+		
 	}
 }
 
-- (void) hostReachabilityDidChange:(ILHostReachability*) r;
+@synthesize inABatch;
+
+- (void) beginBatchIfNeeded;
 {
-	if (!r.reachabilityKnown)
+	if (self.inABatch)
 		return;
 	
-	[self.operationQueue setSuspended:!r.reachable];
-	[self.liveUpdateQueue setSuspended:!r.reachable];
+	if (self.downloadBatchSize == 1)
+		return;
 	
-	if (r.reachable && r.requiresRoutingOnWWAN) {
-		for (NSOperation* currentOp in [self.operationQueue operations]) {
-			if ([currentOp queuePriority] < NSOperationQueuePriorityNormal)
-				[currentOp cancel];
-		}
+	self.inABatch = YES;
+	NSLog(@"(beginning a new batch)");
+	[self.delegate downloaderWillBeginBatch:self];
+}
+
+- (void) endPossiblyBatchedRequest;
+{
+	if (!self.inABatch)
+		return;
+	
+	if (self.downloadBatchSize == 1)
+		return;
+
+	batchSize++;
+	if (batchSize >= self.downloadBatchSize) {
+		[self endBatchImmediatelyIfNeeded];
+	} else {
+		[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(batchDidTimeOut) object:nil];
+		[self performSelector:@selector(batchDidTimeOut) withObject:nil afterDelay:self.downloadBatchWaitTimeout];
 	}
+}
+
+- (void) endBatchImmediatelyIfNeeded;
+{
+	if (self.downloadBatchSize == 1)
+		return;
+
+	if (self.inABatch) {
+		[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(batchDidTimeOut) object:nil];
+		self.inABatch = NO;
+		
+		NSLog(@"(ending a batch at size %d)", (int) batchSize);
+		batchSize = 0;
+
+		[self.delegate downloaderDidEndBatch:self];
+	}
+}
+
+- (void) batchDidTimeOut;
+{
+	[self endBatchImmediatelyIfNeeded];
 }
 
 @end
