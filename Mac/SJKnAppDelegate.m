@@ -10,6 +10,7 @@
 
 #import <ScriptingBridge/ScriptingBridge.h>
 #import <SJClient/SJClient.h>
+#import <SJClient/JSON.h>
 
 #import "Key.h"
 
@@ -23,6 +24,8 @@
 
 @property NSTimer* timer;
 @property SJEndpoint* endpoint;
+
+- (void) addPointsFromString:(NSString *)string toArray:(NSMutableArray *)points;
 
 @end
 
@@ -39,7 +42,10 @@
 
 	self.timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(pollForCurrentKeynoteSlide:) userInfo:nil repeats:YES];
 	
-	self.endpoint = [[SJEndpoint alloc] initWithURL:[NSURL URLWithString:@"http://infinitelabs-subject.appspot.com"]];
+	NSString* URLString = [[[NSProcessInfo processInfo] environment] objectForKey:@"SJEndpointURL"];
+	if (!URLString)
+		URLString = @"http://infinitelabs-subject.appspot.com";
+	self.endpoint = [[SJEndpoint alloc] initWithURL:[NSURL URLWithString:URLString]];
 	
 }
 
@@ -115,6 +121,86 @@
 				
 			}] start];
 		}
+	}
+}
+
+- (void) addPointsFromString:(NSString*) string toArray:(NSMutableArray*) points;
+{
+	string = [[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByReplacingOccurrencesOfString:@"\x00b" withString:@"\n"];
+	
+	// TODO localized variants of 'Doppio clic...'
+	
+	if (string && ![string isEqual:@""] && ![string isEqual:@"Doppio clic per mod"]) {
+		for (NSString* para in [string componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]]) {
+			para = [para stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+			if ([para isEqual:@""] || [para isEqual:@"~~~"])
+				continue;
+			
+			[points addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+							   para, @"text",
+							   [NSNumber numberWithInt:0], @"indentation",
+							   nil]];
+		}
+	}
+	
+}
+
+- (IBAction) copyJSONFromFrontmostPresentation:(id) sender;
+{
+	NSRunningApplication* keynoteRunningApp = nil;
+	for (NSRunningApplication* app in [[NSWorkspace sharedWorkspace] runningApplications]) {
+		if ([app.bundleIdentifier isEqual:@"com.apple.iWork.Keynote"] && app.finishedLaunching) {
+			keynoteRunningApp = app;
+			break;
+		}
+	}
+	
+	if (!keynoteRunningApp) {
+		SJLog(kSJLogImportant, @"Not running");
+		return;
+	}
+	
+	KeyApplication* keynoteApp = [SBApplication applicationWithProcessIdentifier:keynoteRunningApp.processIdentifier];
+	
+	if ([[keynoteApp slideshows] count] == 0) {
+		SJLog(kSJLogImportant, @"No documents open");
+		return;
+	}
+	
+	KeySlideshow* presentation = [[keynoteApp slideshows] objectAtIndex:0];
+	
+	NSMutableDictionary* presentationInfo = [NSMutableDictionary dictionary];
+	[presentationInfo setObject:presentation.name ?: @"Untitled" forKey:@"title"];
+	
+	NSMutableArray* slidesInfo = [NSMutableArray array];
+	[presentationInfo setObject:slidesInfo forKey:@"slides"];
+	
+	for (KeySlide* s in [presentation slides]) {
+		
+		NSMutableDictionary* slideInfo = [NSMutableDictionary dictionary];
+		
+		NSMutableArray* points = [NSMutableArray array];
+		[slideInfo setObject:points forKey:@"points"];
+		
+		if (![s.notes hasPrefix:@"~~~"]) {
+			[self addPointsFromString:s.title toArray:points];
+			[self addPointsFromString:s.body toArray:points];
+		}
+		
+		[self addPointsFromString:s.notes toArray:points];
+		
+		[slidesInfo addObject:slideInfo];
+	}
+	
+	SBJSON* jsonSerializer = [[SBJSON alloc] init];
+	jsonSerializer.humanReadable = YES;
+	jsonSerializer.sortKeys = YES;
+	
+	NSString* JSON = [jsonSerializer stringWithObject:presentationInfo error:NULL];
+	if (JSON) {
+		NSPasteboard* pb = [NSPasteboard generalPasteboard];
+		[pb clearContents];
+		[pb writeObjects:[NSArray arrayWithObject:JSON]];
 	}
 }
 
