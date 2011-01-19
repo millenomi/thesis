@@ -27,12 +27,12 @@
 		150044161280702400E4BF1D /* SJQuestionSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 150044141280702400E4BF1D /* SJQuestionSchema.m */; };
 		150044171280702400E4BF1D /* SJQuestionSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 150044131280702400E4BF1D /* SJQuestionSchema.h */; };
 		150044181280702400E4BF1D /* SJQuestionSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 150044141280702400E4BF1D /* SJQuestionSchema.m */; };
-		1544376412759C90003197B3 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544375D12759C90003197B3 /* JSON.h */; };
-		1544376512759C90003197B3 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544375E12759C90003197B3 /* NSObject+SBJSON.h */; };
+		1544376412759C90003197B3 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544375D12759C90003197B3 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1544376512759C90003197B3 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544375E12759C90003197B3 /* NSObject+SBJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1544376612759C90003197B3 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1544375F12759C90003197B3 /* NSObject+SBJSON.m */; };
-		1544376712759C90003197B3 /* NSString+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544376012759C90003197B3 /* NSString+SBJSON.h */; };
+		1544376712759C90003197B3 /* NSString+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544376012759C90003197B3 /* NSString+SBJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1544376812759C90003197B3 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1544376112759C90003197B3 /* NSString+SBJSON.m */; };
-		1544376912759C90003197B3 /* SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544376212759C90003197B3 /* SBJSON.h */; };
+		1544376912759C90003197B3 /* SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544376212759C90003197B3 /* SBJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1544376A12759C90003197B3 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1544376312759C90003197B3 /* SBJSON.m */; };
 		1544377C12759CC2003197B3 /* SJSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F3D1274216D00550BF6 /* SJSchema.m */; };
 		1544377D12759CC2003197B3 /* SJLiveSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC4F3F1274216D00550BF6 /* SJLiveSchema.m */; };

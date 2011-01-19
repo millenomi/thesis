@@ -17,4 +17,6 @@
 @property(copy) NSString* presentationID;
 @property(copy) NSNumber* slideNumber;
 
+- (IBAction) copyJSONFromFrontmostPresentation:(id) sender;
+
 @end
