@@ -386,5 +386,19 @@ CF_INLINE NSString* SJDownloadPriorityDescription(SJDownloadPriority p) {
 																nil]];
 }
 
+#pragma mark Batching
+
+// TODO
+
+- (void) downloaderWillBeginBatch:(SJDownloader*) d;
+{
+	
+}
+
+- (void) downloaderDidEndBatch:(SJDownloader*) d;
+{
+	
+}
+
 @end
 

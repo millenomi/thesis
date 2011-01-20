@@ -58,7 +58,7 @@
 	
 	self.syncCoordinator = [[[SJSyncCoordinator alloc] init] autorelease];
 	self.syncCoordinator.monitorsIncompleteObjectFetchNotifications = YES;
-	self.syncCoordinator.downloader.monitorsInternetReachability = NO;
+	// self.syncCoordinator.downloader.monitorsInternetReachability = NO;
 	
 	SJSyncCoordinator* coord = self.syncCoordinator;
 	NSManagedObjectContext* moc = self.managedObjectContext;

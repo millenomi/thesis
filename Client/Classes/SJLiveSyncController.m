@@ -60,6 +60,8 @@
 
 #pragma mark The actual sync stuff
 
+#define kSJLiveSyncControllerCheckInterval (2.0)
+
 @synthesize syncCoordinator;
 - (void) setSyncCoordinator:(SJSyncCoordinator *) sc;
 {
@@ -68,7 +70,7 @@
 		syncCoordinator = sc;
 		
 		if (syncCoordinator && !self.updateTimer) {
-			self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(tick:) userInfo:nil repeats:YES];
+			self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:kSJLiveSyncControllerCheckInterval target:self selector:@selector(tick:) userInfo:nil repeats:YES];
 			[self performSelector:@selector(tick:) withObject:nil afterDelay:0.001];
 		} else if (!syncCoordinator) {
 			[self.updateTimer invalidate];
