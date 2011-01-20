@@ -33,6 +33,7 @@
 @property(nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 
 - (IBAction) sendMoodForCurrentSlide;
+- (IBAction) beginPosingQuestionForCurrentSlide;
 
 @end
 

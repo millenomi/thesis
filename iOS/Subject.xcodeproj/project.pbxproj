@@ -17,6 +17,8 @@
 		156F246B12735605000BC614 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156F246A12735605000BC614 /* QuartzCore.framework */; };
 		156F27D612703486005C6F71 /* SJLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F27D512703486005C6F71 /* SJLive.m */; };
 		156F28CA1270DF2B005C6F71 /* ILManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 156F28C91270DF2B005C6F71 /* ILManagedObject.m */; };
+		1587345F12E83B9500ED8281 /* FullScreenQuestionIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1587345D12E83B9400ED8281 /* FullScreenQuestionIcon.png */; };
+		1587346012E83B9500ED8281 /* FullScreenQuestionIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1587345E12E83B9500ED8281 /* FullScreenQuestionIcon@2x.png */; };
 		158B8A3412C09E5C007CB814 /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8A3212C09E5C007CB814 /* LoggerClient.m */; };
 		158B8A3712C09E6B007CB814 /* ILNSLoggerSensorTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 158B8A3612C09E6B007CB814 /* ILNSLoggerSensorTap.m */; };
 		158B8A3E12C09F45007CB814 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 158B8A3D12C09F45007CB814 /* CFNetwork.framework */; };
@@ -194,6 +196,8 @@
 		156F27D512703486005C6F71 /* SJLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLive.m; sourceTree = "<group>"; };
 		156F28C81270DF2B005C6F71 /* ILManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILManagedObject.h; sourceTree = "<group>"; };
 		156F28C91270DF2B005C6F71 /* ILManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILManagedObject.m; sourceTree = "<group>"; };
+		1587345D12E83B9400ED8281 /* FullScreenQuestionIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FullScreenQuestionIcon.png; path = ../Art/FullScreenQuestionIcon.png; sourceTree = SOURCE_ROOT; };
+		1587345E12E83B9500ED8281 /* FullScreenQuestionIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "FullScreenQuestionIcon@2x.png"; path = "../Art/FullScreenQuestionIcon@2x.png"; sourceTree = SOURCE_ROOT; };
 		158B8A3112C09E5C007CB814 /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
 		158B8A3212C09E5C007CB814 /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
 		158B8A3312C09E5C007CB814 /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerClient.h; sourceTree = "<group>"; };
@@ -539,6 +543,8 @@
 				15FED31C12D8C7B7007229B2 /* ThoughtfulEmoticon-Small@2x.png */,
 				15FED31D12D8C7B7007229B2 /* WhyAmIHereEmoticon-Small.png */,
 				15FED31E12D8C7B7007229B2 /* WhyAmIHereEmoticon-Small@2x.png */,
+				1587345D12E83B9400ED8281 /* FullScreenQuestionIcon.png */,
+				1587345E12E83B9500ED8281 /* FullScreenQuestionIcon@2x.png */,
 				15C6EF4112A6972A0030C085 /* Settings.bundle */,
 			);
 			name = Resources;
@@ -735,6 +741,8 @@
 				15FED32812D8C7B7007229B2 /* ThoughtfulEmoticon-Small@2x.png in Resources */,
 				15FED32912D8C7B7007229B2 /* WhyAmIHereEmoticon-Small.png in Resources */,
 				15FED32A12D8C7B7007229B2 /* WhyAmIHereEmoticon-Small@2x.png in Resources */,
+				1587345F12E83B9500ED8281 /* FullScreenQuestionIcon.png in Resources */,
+				1587346012E83B9500ED8281 /* FullScreenQuestionIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

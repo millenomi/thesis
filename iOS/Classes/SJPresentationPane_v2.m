@@ -549,6 +549,12 @@ typedef enum {
 	return questionKindPicker;
 }
 
+- (void) beginPosingQuestionForCurrentSlide;
+{
+	if ([[self.displayedSlide points] count] > 0)
+		[self beginPosingQuestionForPoint:[self.displayedSlide pointAtIndex:0]];
+}
+
 - (void) beginPosingQuestionForPoint:(SJPoint*) point;
 {
 	self.questionKindPicker.didPickQuestionKind = ^(NSString* kind) {
@@ -711,6 +717,9 @@ typedef enum {
 {
 	[self mayHaveUpdated:nil];
 	rotatedToOrientation = to;
+	
+	[self.moodPicker cancel];
+	[self.questionKindPicker cancel];
 	
 	if (UIInterfaceOrientationIsLandscape(to)) {
 		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
