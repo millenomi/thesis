@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<title></title>
+		<link rel="stylesheet" href="/common/subject/styles/all_presentations.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	</head>
+	<body>
+		<h1>All Presentations</h1>
+		<ul id="all-presentations">
+		{% for i in items %}
+			<li>
+				{% if i.image_url %}
+					<a href="{{ i.display_url }}">
+						<img src="{{ i.image_url }}">
+					</a>
+				{% endif %}
+				<p class="presentation-title">
+					<a href="{{ i.display_url }}">
+						{{ i.presentation.title|escape }}
+					</a>
+				</p>
+			</li>
+		{% else %}
+			<li><em>No presentations uploaded.</em></li>
+		{% endfor %}
+		</ul>
+	</body>
+</html>
+

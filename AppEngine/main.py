@@ -16,7 +16,6 @@
 #
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
-import presentation, live, question
 import sitewide_settings
 
 class MainHandler(webapp.RequestHandler):
@@ -32,10 +31,12 @@ def main():
 	handlers = [('/', MainHandler)]
 	
 	if sitewide_settings.OPEN_FOR_BUSINESS:
+		import presentation, live, question, web.all_presentations
 		question.append_handlers(handlers)
 		presentation.append_handlers(handlers)
 		live.append_handlers(handlers)
-	
+		web.all_presentations.append_handlers(handlers)
+		
 	application = webapp.WSGIApplication(handlers,
                                          debug = sitewide_settings.DEBUG)
 	util.run_wsgi_app(application)

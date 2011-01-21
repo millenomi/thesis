@@ -43,6 +43,8 @@ class Mood(Model):
 	THOUGHTFUL = "thoughtful"
 
 	AVAILABLE_KINDS = [WHY_AM_I_HERE, CONFUSED, BORED, INTERESTED, ENGAGED, THOUGHTFUL]
+	POSITIVE_MOODS = [INTERESTED, ENGAGED, THOUGHTFUL]
+	NEGATIVE_MOODS = [WHY_AM_I_HERE, CONFUSED, BORED]
 
 	def to_data(self):
 		data = {"kind": self.mood_kind, "slideURL": p.SlideJSONView.url(self.slide) }

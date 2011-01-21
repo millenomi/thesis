@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<title></title>
+		<link rel="stylesheet" href="/common/subject/styles/all_presentations.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	</head>
+	<body id="attention">
+		<h1>“{{ presentation.title|escape }}” — Attention measures</h1>
+		<ul>
+			{% for e in entries %}
+			<li>
+				<div class="slide-entry">
+					<div class="bar">
+						{% set p = accumulator.clear() %}
+						
+						{% for size in e.sizes_of_questions_in_canonical_order %}
+							<div class="bar-segment question-kind-{{ canonical_question_kind_order[loop.index0]|escape }}" style="bottom: {{ accumulator.count }}px; height: {{ size }}px; line-height: {{ size }}px">{{ e.number_of_questions_by_kind[canonical_question_kind_order[loop.index0]] }}</div>
+							{% set p = accumulator.add(size) %}
+						{% endfor %}
+						
+						{% if e.size_of_negative_moods > 0 %}
+							<div class="bar-segment moods-negative" style="bottom: {{ accumulator.count }}px; height: {{ e.size_of_negative_moods }}px; line-height: {{ e.size_of_negative_moods }}px">{{ e.number_of_negative_moods }}</div>
+							{% set p = accumulator.add(e.size_of_negative_moods) %}
+						{% endif %}
+
+						{% if e.size_of_positive_moods > 0 %}
+							<div class="bar-segment moods-positive" style="bottom: {{ accumulator.count }}px; height: {{ e.size_of_positive_moods }}px; line-height: {{ e.size_of_positive_moods }}px">{{ e.number_of_positive_moods }}</div>
+							{% set p = accumulator.add(e.size_of_positive_moods) %}
+						{% endif %}
+					</div>
+					<img class="slide-image" src="{{ e.slide_image_url }}">
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+	</body>
+</html>
+
