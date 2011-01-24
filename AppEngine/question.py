@@ -23,11 +23,11 @@ class Question(Model):
 
 class Answer(Model):
 	text = TextProperty()
-	sorting_order = IntegerProperty()
+	created_on = DateTimeProperty(auto_now_add = True)
 	question = ReferenceProperty(Question)
 
 class QuestionView(w.RequestHandler):
-	url_scheme = '/questions/id/(.*)'
+	url_scheme = '/questions/id/([^/]+)'
 	
 	@classmethod
 	def url(self, question):
@@ -45,6 +45,40 @@ class QuestionView(w.RequestHandler):
 		data = q.to_data()
 		data["pointURL"] = p.PointJSONView.url(q.point)
 		json.dump(data, self.response.out)
+		
+class AnswerAQuestion(w.RequestHandler):
+	url_scheme = '/questions/id/([^/]+)/new_answer'
+	
+	@classmethod
+	def url(self, question):
+		if isinstance(question, Question):
+			question = question.key()
+			
+		return "/questions/id/%s/new_answer" % (str(question),)
+	
+	def end_with_error(http_status, return_url, reason):
+		if return_url == '':
+			self.error(http_status)
+			self.response.headers['X-IL-Error-Reason'] = reason
+		else:
+			self.redirect(return_url)
+	
+	def post(self, ident):
+		return_url = self.request.get('return_url')
+
+		q = Question.get(Key(ident))
+		if q is None:
+			return self.end_with_error(404, return_url, 'not found')
+		
+		text = self.request.get('text')
+		if text == '':
+			return self.end_with_error(400, return_url, 'answers must contain text')
+		
+		a = Answer(question = q, text = text)
+		a.put()
+		
+		if return_url != '':
+			self.redirect(return_url)
 
 class PoseAQuestion(w.RequestHandler):
 	url_scheme = '/presentations/at/(.*)/slides/(.*)/points/(.*)/new_question'
@@ -84,7 +118,6 @@ class PoseAQuestion(w.RequestHandler):
 		import live
 		l = live.Live.get_current()
 		l.questions.append(q.key())
-		self.response.headers['X-IL-Debug-LiveQuestionsContent'] = str(l.questions)
 		l.put()
 		
 		self.redirect(QuestionView.url(q))
@@ -92,3 +125,5 @@ class PoseAQuestion(w.RequestHandler):
 def append_handlers(list):
 	list.append((QuestionView.url_scheme, QuestionView))
 	list.append((PoseAQuestion.url_scheme, PoseAQuestion))
+	list.append((AnswerAQuestion.url_scheme, AnswerAQuestion))
+	

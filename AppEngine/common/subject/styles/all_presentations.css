@@ -1,0 +1,126 @@
+/* @override http://localhost:8083/common/subject/styles/all_presentations.css */
+
+@import "common.css";
+
+ul#all-presentations {
+	list-style: none;
+	padding: 0; margin: 0;
+}
+
+ul#all-presentations li {
+	border: 1px solid #ccc;
+	padding: 15px;
+	padding-top: 30px;
+	margin-right: 10px;
+	width: 200px;
+	min-height: 220px;
+	overflow: hidden;
+	float: left;
+}
+
+ul#all-presentations li img {
+	max-width: 100%;
+	-webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* ------------------- */
+
+#attention ul {
+	list-style: none;
+	padding: 0; margin: 0;
+}
+
+#attention .slide-entry {
+	width: 100px;
+	float: left;
+	margin-left: 10px;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+}
+
+#attention .slide-entry .bar {
+	height: 300px;
+	width: 35px;
+	margin: 0 auto;
+	border: 1px solid #eee;
+	position: relative;
+}
+
+#attention .slide-entry .bar .bar-segment {
+	position: absolute;
+	right: 0; left: 0;
+	overflow: hidden;
+	color: rgba(0,0,0,0.2);
+	text-align: center;
+	
+	-webkit-transition: color 0.2s ease-out, background-image 0.2s ease-out, -webkit-box-shadow 0.2s ease-out, text-shadow 0.2s ease-out;
+}
+
+#attention .slide-entry .bar .bar-segment:hover {
+	background-image: none !important;
+}
+
+#attention .slide-entry .bar .bar-segment.question-kind-freeform {
+	background-image: url(/common/art/freeform.png);
+	background-color: #eee;
+	background-size: 35px;
+}
+
+#attention .slide-entry .bar .bar-segment.question-kind-freeform:hover {
+	text-shadow: 0px 0px 2px rgba(0,0,0,0.9);
+	color: black;
+}
+
+#attention .slide-entry .bar .bar-segment.question-kind-didNotUnderstand {
+	background-image: url(/common/art/didNotUnderstand.png);
+	background-size: 35px;
+	background-color: #c10a0a;
+}
+
+#attention .slide-entry .bar .bar-segment.question-kind-didNotUnderstand:hover {
+	text-shadow: 0px 0px 2px black;
+	color: yellow;
+}
+
+#attention .slide-entry .bar .bar-segment.question-kind-goInDepth {
+	background-image: url(/common/art/goInDepth.png);
+	background-size: 35px;
+	background-color: #63afed;
+}
+
+#attention .slide-entry .bar .bar-segment.question-kind-goInDepth:hover {
+	text-shadow: 0px 0px 2px black;
+	color: white;
+}
+
+#attention .slide-entry .bar .bar-segment.moods-positive {
+	background-image: url(/common/art/engaged.png);
+	background-size: 15px;
+	background-color: #43e343;
+}
+
+#attention .slide-entry .bar .bar-segment.moods-positive:hover {
+	text-shadow: 0px 0px 2px yellow;
+	color: white;
+}
+
+#attention .slide-entry .bar .bar-segment.moods-negative {
+	background-image: url(/common/art/confused.png);
+	background-size: 15px;
+	background-color: #43e343;
+	background-color: red;
+}
+
+#attention .slide-entry .bar .bar-segment.moods-negative:hover {
+	text-shadow: 0px 0px 2px yellow;
+	color: yellow;
+}
+
+#attention .slide-entry .slide-image {
+	max-width: 100%;
+	-webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+#attention .slide-entry .bar-segment:hover {
+	-webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.8);
+}
