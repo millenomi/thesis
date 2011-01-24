@@ -179,6 +179,7 @@ if (!ILabs.Subject.ModelContext) {
 	ILabs.Subject.ModelContext = function() {
 		return {
 			_knownModelItems: Hash(),
+			each: function(callback) { this._knownModelItems.each(callback); },
 			
 			getBy: function(factory, options) {
 				if (!options)
@@ -228,6 +229,10 @@ if (!ILabs.Subject.ModelItem) {
 		var context = options.context;
 		var needsInsertion = false;
 		
+		var kind = options.kind;
+		if (!kind)
+			throw "You must set the kind string of this model item";
+		
 		if (!context) {
 			context = ILabs.Subject.ModelContext();
 			needsInsertion = true;
@@ -238,6 +243,9 @@ if (!ILabs.Subject.ModelItem) {
 			_onLoadHandlers: null,
 			_hasLoaded: false,
 			
+			_modelItemKind: kind,
+			modelItemKind: function() { return this._modelItemKind; },
+			
 			URL: function() { return url; },
 			context: function() { return context; },
 			
@@ -247,6 +255,8 @@ if (!ILabs.Subject.ModelItem) {
 				this.setValuesWithRemoteData(knownData);
 				ILabs.Subject.raise(ILabs.Subject.ModelItem.Loaded, this);
 			},
+			
+			hasLoaded: function() { return this._hasLoaded; },
 			
 			loadSelf: function(callback, options) {
 				var shouldReload = options && options['reload'];
@@ -351,6 +361,7 @@ if (!ILabs.Subject.ModelItem) {
 
 if (!ILabs.Subject.Point) {
 	ILabs.Subject.Point = function(options) {
+		options.kind = 'ILabs.Subject.Point';
 		var self = ILabs.Subject.ModelItem(options);
 		
 		self.setValuesWithRemoteData = function(data) {
@@ -370,6 +381,7 @@ if (!ILabs.Subject.Point) {
 
 if (!ILabs.Subject.Slide) {
 	ILabs.Subject.Slide = function(options) {
+		options.kind = 'ILabs.Subject.Slide';
 		var self = ILabs.Subject.ModelItem(options);
 		
 		self.setValuesWithRemoteData = function(data) {
@@ -427,6 +439,7 @@ if (!ILabs.Subject.Slide) {
 
 if (!ILabs.Subject.Presentation) {
 	ILabs.Subject.Presentation = function(options) {
+		options.kind = 'ILabs.Subject.Presentation';
 		var self = ILabs.Subject.ModelItem(options);
 		
 		// TODO remove this nonsense.
@@ -444,15 +457,42 @@ if (!ILabs.Subject.Presentation) {
 
 if (!ILabs.Subject.Question) {
 	ILabs.Subject.Question = function(options) {
+		options.kind = 'ILabs.Subject.Question';
 		var self = ILabs.Subject.ModelItem(options);
 		
 		self.setValuesWithRemoteData = function(data) {
 			self._kind = data.kind;
 			self._text = data.text;
 			self._point = this.getBy(ILabs.Subject.Point, data.pointURL);
+			
+			var optionsArray = [];
+			for (var i = 0; i < data.answers.length; i++) {
+				optionsArray.push({ knownData: data.answers[i], URL: data.answers[i].URL });
+			}
+			self._answers = this.getByArrayOf(ILabs.Subject.Answer, optionsArray);
 		};
 		
-		self.addAsyncAccessors('kind', 'text', 'point');
+		self.addAsyncAccessors('kind', 'text', 'point', 'answers');
+		
+		return self;
+	};
+	
+	ILabs.Subject.Question.FreeformKind = 'freeform';
+	ILabs.Subject.Question.DidNotUnderstandKind = 'didNotUnderstand';
+	ILabs.Subject.Question.GoInDepthKind = 'goInDepth';
+}
+
+if (!ILabs.Subject.Answer) {
+	ILabs.Subject.Answer = function(options) {
+		options.kind = 'ILabs.Subject.Answer';
+		var self = ILabs.Subject.ModelItem(options);
+		
+		self.setValuesWithRemoteData = function(data) {
+			self._text = data.text;
+			self._question = this.getBy(ILabs.Subject.Point, data.questionURL);
+		};
+		
+		self.addAsyncAccessors('text', 'question');
 		
 		return self;
 	};
@@ -460,6 +500,7 @@ if (!ILabs.Subject.Question) {
 
 if (!ILabs.Subject.Mood) {
 	ILabs.Subject.Mood = function(options) {
+		options.kind = 'ILabs.Subject.Mood';
 		var self = ILabs.Subject.ModelItem(options);
 		
 		self.setValuesWithRemoteData = function(data) {
@@ -479,6 +520,7 @@ if (!ILabs.Subject.Live) {
 			options = {};
 		
 		options.URL = '/live';
+		options.kind = 'ILabs.Subject.Live';
 		var self = ILabs.Subject.ModelItem(options);
 		
 		self.delegate = function() { return this._delegate; };

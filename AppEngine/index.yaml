@@ -15,11 +15,6 @@ indexes:
   - name: question
   - name: created_on
 
-- kind: Answer
-  properties:
-  - name: question
-  - name: timestamp
-
 - kind: Point
   properties:
   - name: slide
