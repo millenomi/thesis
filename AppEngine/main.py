@@ -20,22 +20,24 @@ import sitewide_settings
 
 class MainHandler(webapp.RequestHandler):
 	def get(self):
-		if sitewide_settings.OPEN_FOR_BUSINESS:
-			greeting = 'open'
-		else:
-			greeting = 'closed'
-		self.response.out.write("Hello, we're %s!" % (greeting,))
+		# if sitewide_settings.OPEN_FOR_BUSINESS:
+		# 			greeting = 'open'
+		# 		else:
+		# 			greeting = 'closed'
+		# 		self.response.out.write("Hello, we're %s!" % (greeting,))
+		import web.all_presentations
+		self.redirect(web.all_presentations.AllPresentationsPage.url())
 
 
 def main():
 	handlers = [('/', MainHandler)]
 	
 	if sitewide_settings.OPEN_FOR_BUSINESS:
-		import presentation, live, question, web.all_presentations
+		import presentation, live, question, web
 		question.append_handlers(handlers)
 		presentation.append_handlers(handlers)
 		live.append_handlers(handlers)
-		web.all_presentations.append_handlers(handlers)
+		web.append_handlers(handlers)
 		
 	application = webapp.WSGIApplication(handlers,
                                          debug = sitewide_settings.DEBUG)

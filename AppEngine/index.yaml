@@ -13,7 +13,7 @@ indexes:
 - kind: Answer
   properties:
   - name: question
-  - name: timestamp
+  - name: created_on
 
 - kind: Point
   properties:

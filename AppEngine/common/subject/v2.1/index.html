@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		
+		<script src="/common/js/jquery-1.4.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/common/js/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/common/js/underscore.strings-min.js" type="text/javascript" charset="utf-8"></script>
+
+		<script src="/common/subject/Live_v2.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/common/subject/v2.1/js/Lecturers.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script>
+			window.live = ILabs.Subject.Live();
+			window.lecturersScreen = new ILabs.Subject.Lecturers.LecturersScreen(live);
+			live.start();
+			
+			jQuery('body').append(lecturersScreen.jQ());
+		</script>
+		
+	</body>
+</html>

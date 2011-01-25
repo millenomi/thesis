@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<title></title>
+		<link rel="stylesheet" href="/common/subject/styles/answers.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	</head>
+	<body>
+		{% include 'presentation_bar.html' %}
+		
+		<h1>Questions & Answers</h1>
+		
+		{% for entry in ordered_entries %}
+			<div class="slide {% if entry.question_entries is empty %} no-questions {% endif %}">
+				<img class="slide-image" src="{{ entry.image_url|escape }}">
+			
+				<div class="slide-info">					
+					{% for q in entry.question_entries %}
+					<div class="freeform question" id="{{ q.key }}">
+						<h2 class="question-text">{{ q.question.text|escape }}</h2>
+						<p class="question-point-text">• {{ q.question.point.text|escape }}</p>
+						{% for a in q.answers %}
+							<div class="answer">
+								<h3 class="answer-tag">Answer:</h3>
+								<div class="answer-text">
+									{% for line in a.text.split("\n") %}
+										<p>{{ line|escape }}</p>
+									{% endfor %}
+								</div>
+							</div>
+						{% endfor %}
+				
+						<div class="insert-answer">
+							<form action="{{ q.new_answer_url }}" method="post">
+								<input type="hidden" name="return_url" value="{{ q.return_url }}">
+								<textarea name="text" placeholder="Answer this question"></textarea>
+								<div class="insert-answer-submit"><input type="submit" value="Answer"></div>
+							</form>
+						</div>
+					</div>
+					{% else %}
+					<div class="no-questions"><em>no freeform questions for this slide</em></div>
+					{% endfor %}
+				</div>
+			</div>
+		{% endfor %}
+
+		<script src="/common/js/jquery-1.4.3.min.js" type="text/javascript" charset="utf-8"></script>		
+		<script src="/common/subject/answers.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>
+

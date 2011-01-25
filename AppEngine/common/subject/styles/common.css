@@ -1,0 +1,49 @@
+
+body {
+	font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	font-size: 12pt;
+	padding: 10px;
+	
+	padding-top: 20px;
+}
+
+h1 {
+	font-weight: normal;
+}
+
+/* Presentation bar */
+
+#presentation-bar, #presentation-bar a {
+	color: white;
+	background-color: black;
+}
+
+#presentation-bar {
+	padding: 5px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 20px;
+	overflow: hidden;
+	
+	font-size: 8pt;
+}
+
+#presentation-bar * {
+	padding: 0; margin: 0;
+}
+
+#presentation-bar li {
+	display: inline;
+	float: left;
+	margin: 5px;
+}
+
+#presentation-bar li.this-presentation-subsection {
+	float: right;
+}
+
+#presentation-bar li.this-presentation {
+	font-weight: bold;
+}
