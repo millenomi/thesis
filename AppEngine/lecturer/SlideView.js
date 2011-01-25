@@ -112,10 +112,6 @@ if (!ILabs.Subject.SlideView) {
 						
 						q.point().text(function(t) { $q.find('.point').text(t); });
 						
-						var answerView = ILabs.Subject.AnswerView(q);
-						if (answerView && answerView.$)
-							$q.append(answerView.$);
-						
 						var $longOnes = $el.find('.question.freeform:last');
 						if ($longOnes.length != 0)
 							$longOnes.after($q);
