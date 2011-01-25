@@ -7,8 +7,16 @@
 	<body id="attention">
 		{% include 'presentation_bar.html' %}
 		
+		<div class="graph-key">
+			<div class="moods-positive">Positive moods</div>
+			<div class="moods-negative">Negative moods</div>
+			<div class="question-didNotUnderstand">"Did not understand"</div>
+			<div class="question-goInDepth">"Go in depth?"</div>
+			<div class="question-freeform">Other questions</div>
+		</div>
+		
 		<h1>Attention measures</h1>
-		<ul>
+		<ul id="graphs">
 			{% for e in entries %}
 			<li>
 				<div class="slide-entry">
