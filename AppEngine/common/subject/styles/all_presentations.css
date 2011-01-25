@@ -1,18 +1,6 @@
 /* @override http://localhost:8083/common/subject/styles/all_presentations.css */
 
-<<<<<<< HEAD
-body {
-	font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
-	font-size: 12pt;
-	padding: 10px;
-}
-
-h1 {
-	font-weight: normal;
-}
-=======
 @import "common.css";
->>>>>>> master
 
 ul#all-presentations {
 	list-style: none;

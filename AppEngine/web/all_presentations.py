@@ -4,23 +4,14 @@ from google.appengine.ext import webapp as w
 
 import presentation as p, os
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 from jinja2 import Environment, FileSystemLoader
 env = Environment(loader = FileSystemLoader(os.path.dirname(__file__)))
 
 class AllPresentationsPageListItem:
 	def __init__(self, pres):
-<<<<<<< HEAD
-		self.presentation = pres
-		self.display_url = PresentationPage.url(pres)
-=======
 		import answers
 		self.presentation = pres
 		self.display_url = answers.QuestionAnswerView.url(pres)
->>>>>>> master
 		
 		slide = p.Slide.gql("where presentation = :1 and sorting_order = 0 limit 1", pres).get()
 		if slide is not None:
@@ -28,14 +19,11 @@ class AllPresentationsPageListItem:
 
 class AllPresentationsPage(w.RequestHandler):
 	url_scheme = '/presentations/all/show'
-<<<<<<< HEAD
-=======
 	
 	@classmethod
 	def url(self):
 		return self.url_scheme
 	
->>>>>>> master
 	def get(self):
 		all_presentations = p.Presentation.gql("ORDER BY created_on DESC")
 		t = env.get_template('all_presentations.html')
@@ -125,12 +113,8 @@ class PresentationAttentionEntry:
 		self.size_of_negative_moods = max > 0 and height / max * self.number_of_negative_moods or 0
 		x = []
 		for key in CANONICAL_QUESTION_KIND_ORDER:
-<<<<<<< HEAD
-			x.append(max > 0 and height / max * self.number_of_questions_by_kind[key] or 0)
-=======
 			if key in self.number_of_questions_by_kind:
 				x.append(max > 0 and height / max * self.number_of_questions_by_kind[key] or 0)
->>>>>>> master
 		self.sizes_of_questions_in_canonical_order = x
 
 class PresentationAttentionMeasuresPage(w.RequestHandler):
@@ -164,13 +148,3 @@ class PresentationAttentionMeasuresPage(w.RequestHandler):
 			'presentation': presentation,
 			'accumulator': Accumulator()
 		}))
-<<<<<<< HEAD
-		
-
-def append_handlers(list):
-	list.append((AllPresentationsPage.url_scheme, AllPresentationsPage))
-	list.append((PresentationPage.url_scheme, PresentationPage))
-	list.append((PresentationAttentionMeasuresPage.url_scheme, PresentationAttentionMeasuresPage))
-=======
-		
->>>>>>> master
