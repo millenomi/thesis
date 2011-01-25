@@ -542,9 +542,17 @@ typedef enum {
 			
 			[questionKindPicker dismissAnimated:YES];
 		};
+		
+		questionKindPicker.rotateWithStatusBarOrientation = YES;
 	}
 	
 	return questionKindPicker;
+}
+
+- (void) beginPosingQuestionForCurrentSlide;
+{
+	if ([[self.displayedSlide points] count] > 0)
+		[self beginPosingQuestionForPoint:[self.displayedSlide pointAtIndex:0]];
 }
 
 - (void) beginPosingQuestionForPoint:(SJPoint*) point;
@@ -627,6 +635,8 @@ typedef enum {
 			
 			[moodPicker dismissAnimated:YES];
 		};
+		
+		moodPicker.rotateWithStatusBarOrientation = YES;
 	}
 	
 	return moodPicker;
@@ -707,6 +717,9 @@ typedef enum {
 {
 	[self mayHaveUpdated:nil];
 	rotatedToOrientation = to;
+	
+	[self.moodPicker cancel];
+	[self.questionKindPicker cancel];
 	
 	if (UIInterfaceOrientationIsLandscape(to)) {
 		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
